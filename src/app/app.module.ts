@@ -151,6 +151,12 @@ import { PointsDialogComponent } from './admin/user-management/points-dialog/poi
 import { GuideUploadDialogComponent } from './frontend/guide-upload-dialog/guide-upload-dialog.component';
 import { PrivacyPolicyComponent } from './frontend/privacy-policy/privacy-policy.component';
 import { ServiceTermComponent } from './frontend/service-term/service-term.component';
+import { AdminHashtagComponent } from './admin/hashtag/hashtag.component';
+import { AdminHashtagDialogComponent } from './admin/hashtag-dialog/hashtag-dialog.component';
+import { AdminTryEndComponent } from './admin/try-end/try-end.component';
+import { AdminDeliveryComponent } from './admin/delivery/delivery.component';
+import { AdminHotFimerComponent } from './admin/hot-fimer/hot-fimer.component';
+import { AdminReviewEditComponent } from './admin/review-edit/review-edit.component';
 
 //softone dev
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-slider.component';
@@ -338,6 +344,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         GuideUploadDialogComponent,
         PrivacyPolicyComponent,
         ServiceTermComponent,
+        AdminHashtagComponent,
+        AdminHashtagDialogComponent,
+        AdminTryEndComponent,
+        AdminDeliveryComponent,
+        AdminHotFimerComponent,
+        AdminReviewEditComponent,
 
 
         //soft0ne dev
@@ -517,7 +529,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         UsersLikeDialogComponent,
         PointsDialogComponent,
         GuideUploadDialogComponent,
-        AdminResourceDialogImageCropSoftOneComponent
+        AdminResourceDialogImageCropSoftOneComponent,
+        AdminHashtagDialogComponent
     ],
     bootstrap: [AppComponent]
 })

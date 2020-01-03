@@ -31,6 +31,11 @@ import { AdminLoginComponent } from './admin/auth/admin-auth.component';
 import { AdminForgotPasswordComponent } from './admin/auth/fogot/admin-auth-forgot.component';
 import { AdminProfileComponent } from './admin/profile/profile.component';
 import { AdminUpdatePasswordComponent } from './admin/profile/update-password.component';
+import { AdminHashtagComponent } from './admin/hashtag/hashtag.component'
+import { AdminTryEndComponent } from './admin/try-end/try-end.component';
+import { AdminDeliveryComponent } from './admin/delivery/delivery.component';
+import { AdminHotFimerComponent } from './admin/hot-fimer/hot-fimer.component';
+import { AdminReviewEditComponent } from './admin/review-edit/review-edit.component';
 //-----------------------------------softone dev-------------------------------------------------------
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-slider.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
@@ -41,8 +46,6 @@ import { AdminFistarAddComponent} from "./admin/softone/fistar/fistar-add/fistar
 import { AdminFistarSNS } from './admin/softone/fistar/sns-channel/sns.component';
 import { AdminFistarCampaignHistoryComponent } from './admin/softone/fistar/campaign-history/campaign-history.component';
 import { AdminFistarCampaignRecommendComponent } from './admin/softone/fistar/campaign-recommend/recommend.component';
-
-
 import { AdminPartnerComponent } from './admin/softone/partner/partner.component';
 import { AdminPartnerAddComponent} from './admin/softone/partner/add/partner-add.component';
 import { AdminPartnerManagerComponent } from './admin/softone/partner/manager/manager.component';
@@ -78,10 +81,8 @@ import { AdminRequestPartnerBasicComponent } from './admin/softone/request/partn
 import { AdminCampaignListPaymentComponent } from './admin/softone/campaign/list-payment/list-payment.component';
 import { AdminCampaignTabComponent } from './admin/softone/campaign/tab.component';
 import { AdminPartnerRecommendComponent } from './admin/softone/partner/Recommend/recommend.component';
-
 import { AdminFistarRecommendComponent } from './admin/softone/fistar/Recommend/recommend.component';
 import { AddAccountComponent } from './admin/softone/system/account/add-account/add-account.component';
-
 import { CampaignAddComponent } from './admin/softone/campaign/campaign-add/campaign-add.component';
 import { AdminCampaignInformationAddComponent } from './admin/softone/campaign/review/information-add/information-add.component';
 import { AdminImagesAIComponent } from './admin/softone/images-ai/images-ai.component';
@@ -204,6 +205,25 @@ const appRoutes: Routes = [
                                 component: AdminTryEventDetailsComponent
                             }
                         ]
+                    },
+                    {
+                        path: 'winner',
+                        children: [
+                            {
+                                path: '',
+                                component: AdminTryEndComponent
+                                }
+                        ]
+                    },
+                    {
+                        path: 'delivery',
+                        children: [
+                            {
+                                path: '',
+                                component: AdminDeliveryComponent
+
+                            }
+                        ]
                     }
                 ]
             },
@@ -237,7 +257,10 @@ const appRoutes: Routes = [
             { path: 'reviews/try/:tryId', component: AdminReviewComponent },
             { path: 'reviews/fimer', component: AdminReviewFimerComponent },
             { path: 'profile', component: AdminProfileComponent },
-            { path: 'update-password', component: AdminUpdatePasswordComponent }
+            { path: 'update-password', component: AdminUpdatePasswordComponent },
+            { path: 'hashtags', component: AdminHashtagComponent},
+            { path: 'hot-fimer', component: AdminHotFimerComponent},
+            { path: 'reviews/edit/:id', component: AdminReviewEditComponent},
         ]
     },
     // otherwise redirect to home

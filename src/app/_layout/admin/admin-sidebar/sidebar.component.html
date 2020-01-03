@@ -28,6 +28,12 @@
                 <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
                     <a [routerLink]="['/admin/try/event']"><span>{{ 'Try Events' | translate }}</span></a>
                 </li>
+                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                    <a [routerLink]="['/admin/try/winner']"><span>{{ 'Try Winner' | translate }}</span></a>
+                </li>
+                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                    <a [routerLink]="['/admin/try/delivery']"><span>{{ 'Delivery' | translate }}</span></a>
+                </li>
             </ul>
         </div>
         <div class="nested-menu">
@@ -86,6 +92,12 @@
         </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/user-management']">
             <mat-icon class="sidenav-icon">people</mat-icon> <span>{{ 'USERS' | translate }}</span>
+        </a>
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/hot-fimer']">
+            <mat-icon class="sidenav-icon">people_alt</mat-icon> <span>{{ 'HOT FIMERS' | translate }}</span>
+        </a>
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/hashtags']">
+            <mat-icon class="sidenav-icon">#</mat-icon> <span>{{ 'HASHTAGS' | translate }}</span>
         </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/settings']">
             <mat-icon class="sidenav-icon">settings</mat-icon>

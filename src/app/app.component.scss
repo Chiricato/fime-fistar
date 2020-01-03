@@ -7,6 +7,9 @@
   * {
     outline: none !important;
   }
+  .display-none{
+    display:none!important
+  }
 
   button {
     outline: none !important;
@@ -409,7 +412,25 @@
         .try-me {
           .carousel {
             .slide {
+              .carousel-control-prev {
+                top: unset;
+                padding: 10px 10px;
+                background-color: #e1e1e1;
+                bottom: 490px;
+                left: -5px;
+                // right: 60px;
+              }
+  
+              .carousel-control-next {
+                top: unset;
+                padding: 10px 10px;
+                background-color: #e1e1e1;
+                bottom: 490px;
+                left: unset;
+                right: -5px;
+              }
               .carousel-indicators {
+                display: none;
                 bottom: -35px;
               }
             }
@@ -456,7 +477,25 @@
         .try-me {
           .carousel {
             .slide {
+              .carousel-control-prev {
+                top: unset;
+                padding: 10px 10px;
+                background-color: #e1e1e1;
+                bottom: 515px;
+                left: -5px;
+                // right: 60px;
+              }
+
+              .carousel-control-next {
+                top: unset;
+                padding: 10px 10px;
+                background-color: #e1e1e1;
+                bottom: 515px;
+                left: unset;
+                right: -5px;
+              }
               .carousel-indicators {
+                display: none;
                 bottom: -35px;
               }
             }
@@ -510,6 +549,9 @@
     .tip-detail .try-free .carousel-control-next {
       right: 10px;
     }
+    .mat-checkbox-layout {
+      white-space: unset !important;
+    }
   }
 
   @media (min-width: 1220px) {
@@ -539,5 +581,10 @@
 }
 .rotate270 {
   transform: rotate(270deg);
+}
+@media (min-width: 576px){
+  .container {
+      max-width: 100%;
+  }
 }
 
