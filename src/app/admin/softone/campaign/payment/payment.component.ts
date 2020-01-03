@@ -61,7 +61,7 @@ export class AdminCampaignPaymentComponent implements OnInit {
         private router: Router,
         public activeRoute: ActivatedRoute,
         private campaginService: HttpClientAdminService,
-        public commonService: CommonService,
+        private commonService: CommonService,
         private toa: ToastrService,
     ) {
 

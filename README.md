@@ -43,3 +43,17 @@ Moved to [/angular/universal/blob/master/docs/gotchas.md](https://github.com/ang
 
 # License
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](/LICENSE)
+
+
+---
+# NEW UPDATE FROM FISTAR
+---
+Additional updates compared to the source fime:
+* edit file `app/app.module.ts:155-238|485-486|489|491|519-520|`
+* edit file `src/app/_layout/admin/admin-sidebar/sidebar.component.html:144-205`
+* edit file `src/app/app.admin.route.ts:86-90|139-140|166|173-174`
+* add new folder `app/admin/softone`
+
+---
+> Please create issue if you have any problems.
+

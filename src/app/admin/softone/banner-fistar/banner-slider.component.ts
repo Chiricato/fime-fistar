@@ -12,9 +12,9 @@ import {ViewChild} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material'
 @Component({
     selector: 'admin-banner-fistar',
-    templateUrl: './banner-fistar.component.html',
+    templateUrl: './banner.component.html',
     styleUrls: [
-        './banner-fistar.component.scss'
+        './banner.component.scss'
     ]
 })
 export class AdminBannerFistarComponent implements OnInit {
@@ -49,10 +49,12 @@ export class AdminBannerFistarComponent implements OnInit {
 
     closeMyMenu() {
         this.trigger.closeMenu();
+        console.log('close')
       }  
     getBanners() {
         this.bannerService.getBanners(this.filter).subscribe((res:any) => {
             this.banners = res;
+            console.log(this.banners);
         });
 
     }
@@ -67,7 +69,9 @@ export class AdminBannerFistarComponent implements OnInit {
     }
 
     deleteMany(){
+        console.log(this.selected)
         let deleteItems =[...this.selected];
+        console.log(deleteItems, 'delete');
         this.selected = []
         if(deleteItems.length > 0){
             deleteItems.map((item)=>{
@@ -88,6 +92,7 @@ export class AdminBannerFistarComponent implements OnInit {
 
     setPage(page) {
         this.filter.page = page.offset + 1
+        console.log(this.filter)
         this.getBanners()
     }
 
