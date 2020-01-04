@@ -39,8 +39,8 @@
                         <mat-form-field class="full-width">
                             <mat-select (selectionChange)="getBrandDetails($event.value)" [(value)]="dataBlind.brandID">
                                 <mat-option value="">All</mat-option>
-                                <mat-option *ngFor="let item of dataBlind.brands" [value]="item['cd_id']">
-                                    {{item['cd_label']}}</mat-option>
+                                <mat-option *ngFor="let item of brandsGet" [value]="item['CODE']">
+                                    {{item['CODE_NM']}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

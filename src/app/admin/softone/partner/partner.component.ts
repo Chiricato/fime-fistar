@@ -161,6 +161,12 @@ export class AdminPartnerComponent implements OnInit {
         this.partnerService.search(dataSearch).subscribe((res: any) => {
             console.log(res);
             this.partners = res;
+            for (let index = 0; index < this.partners.data.length; index++) {
+                let brand = this.brands.filter(label =>label.CODE == this.partners.data[index]['pc_brand'])
+                let dataBrand="";
+                dataBrand=brand.length > 0 ? brand[0].CODE_NM : ""
+                this.partners.data[index]['pc_brand'] = dataBrand
+            }
             this.page = {
                 ...this.page,
                 current_page: page
