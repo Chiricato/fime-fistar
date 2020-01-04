@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../service/common.service';
 import * as moment from "moment";
 import { CampaignService } from '../../service/campaign/campaign.service';
-
+import { CampaignService as  CampaignServiceSoftone} from '../../../softone/service/campaign/campaign.service';
 @Component({
     selector: 'app-admin-campaign',
     templateUrl: './campaign.component.html',
@@ -68,6 +68,7 @@ export class AdminCampaignComponent implements OnInit {
         }
     };
     brands:any=[];
+    brandsGet:any=[];
 
     dataPost = {
         arrayDelete: []
@@ -84,6 +85,7 @@ export class AdminCampaignComponent implements OnInit {
     constructor(
         private campaignService: HttpClientAdminService,
         private campaignServiceGet:CampaignService,
+        private campaignServiceSoftone:CampaignServiceSoftone,
         private activerou: ActivatedRoute,
         private router: Router,
         private csvService: CSVService,
@@ -130,10 +132,12 @@ export class AdminCampaignComponent implements OnInit {
     }
 
     getBrand() {
-        this.campaignService.getData(`api/admin/codes?cdg_id=15`).subscribe(
+        // this.campaignService.getData(`api/admin/codes?cdg_id=15`).subscribe(
+            this.campaignServiceSoftone.getBrand().subscribe(
             res => {
                     console.log(res)
-                this.dataBlind.brands = res['data'];
+                // this.dataBlind.brands = res['data'];
+                this.brandsGet = res;
             });
     }
     getBrandGet() {
