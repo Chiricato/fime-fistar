@@ -74,6 +74,7 @@ export class PartnerService {
   }
 
   deleteCampaign(ids:any){
+    console.log(ids, '77')
     let idlist = new FormData();
     ids.forEach(i=>{
       idlist.append('cp_ids[]', i);

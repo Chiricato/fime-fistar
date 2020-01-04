@@ -250,12 +250,14 @@ export class CampaignAddComponent implements OnInit {
   }
 
   getImageMain(evt) {
+    console.log('getImagemain', evt);
     this.image_main_image = evt.file
 
     this.image_main_image_type = evt.type
     this.form.get('cp_main_image').setValue(this.image_main_image);
   }
   getImages(evt) {
+    console.log('getImages', evt);
     this.dataBlind.multiImg = [];
     Array.from(evt).forEach((item) => {
       this.dataBlind.multiImg.push(item);
@@ -264,6 +266,7 @@ export class CampaignAddComponent implements OnInit {
   }
 
   getImageDescription(evt) {
+    console.log('getImageDescription', evt);
     this.image_description = evt.file
     this.form.get('cp_image').setValue(this.image_description);
   }
@@ -273,6 +276,7 @@ export class CampaignAddComponent implements OnInit {
     //  console.log(this.imagesAdd);return;
     let arr: any = [];
     console.log(this.image_description,'dddd');
+    console.log(this.image_main_image,'276');
     this.isErrPeriod = false;
     this.isErrDeliveryDate = false;
     this.isSubmitted = true;
