@@ -107,7 +107,7 @@
                 <td>{{item.unc}}</td>
                 <td>{{item.uncContents}}</td>
                 <td class="text-uppercase">{{item.lang}}</td>
-                <td>{{ item.state == 1 ? 'Enable' : 'Disabled'}}</td>
+                <td>{{showStatus(item)}}</td>
                 <td class="border-right ">
                     <div class="btn-group">
                         <button class='control edit' (click)="openModal(unit_code,'editUIC',item)"><i

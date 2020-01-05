@@ -253,7 +253,8 @@ export class AdminSystemLanguageComponent implements OnInit {
                 rowspan: 1,
                 index: 0,
                 contents: [],
-                unc_id: ''
+                unc_id: '',
+                uic_state: 0
             }
             newItem.uic_id = item.uic_id;
             newItem.unc_id = item.unc_id
@@ -264,6 +265,7 @@ export class AdminSystemLanguageComponent implements OnInit {
             newItem.lang = this.convertLang(item.lang);
             newItem.arrLang = [' '];
             newItem.contents = item.contents['0'];
+            newItem.uic_state = item.uic_state;
 
             for (let j = 0; j < groupArray.length; j++) {
                 if (j == i) {
@@ -284,7 +286,8 @@ export class AdminSystemLanguageComponent implements OnInit {
                 rowspan: 1,
                 index: 0,
                 contents: [],
-                unc_id: ''
+                unc_id: '',
+                uic_state: 0
             }
 
         });
@@ -311,6 +314,8 @@ export class AdminSystemLanguageComponent implements OnInit {
             this.languageService.createCode(link, body).subscribe(res => {
                 this.toast.success('Success');
                 this.modalRef.hide();
+                this.resetForm();
+                this.getData(1);
             }, err => {
                 this.toast.error(err.error.message);
             });
@@ -330,6 +335,14 @@ export class AdminSystemLanguageComponent implements OnInit {
             this.toast.error(err.error.message);
 
         })
+    }
+
+    showStatus(item){
+        if(item.state == null){
+            return item.uic_state ? 'Enable': "Disable"
+        }else{
+            return item.state ? 'Enable': "Disable"
+        }
     }
 
     saveUnitCode() {
