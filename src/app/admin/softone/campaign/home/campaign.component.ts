@@ -90,7 +90,7 @@ export class AdminCampaignComponent implements OnInit {
         private router: Router,
         private csvService: CSVService,
         private toa: ToastrService,
-        private commonService: CommonService
+        public commonService: CommonService
     ) {
 
     }
@@ -234,7 +234,7 @@ export class AdminCampaignComponent implements OnInit {
         return arr;
     }
 
-    handleChangeEndDate() {
+    handleChangeEndDate(evt) {
         let startDate = '';
         let endDate = '';
 
@@ -434,6 +434,10 @@ export class AdminCampaignComponent implements OnInit {
                 );
             }
         }
+    }
+
+    navigate(evt){
+
     }
 
     dowloadCSV() {

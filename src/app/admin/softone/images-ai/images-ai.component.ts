@@ -68,7 +68,7 @@ export class AdminImagesAIComponent implements OnInit {
     private router: Router,
     private toast: ToastrService,
     private imageAIService: ImageAIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private modalService: BsModalService,
     private csvService: SoCSVService,
     private ProgressbarModule: ProgressbarModule,
@@ -90,7 +90,7 @@ export class AdminImagesAIComponent implements OnInit {
 
 
 
-  handleChangeEndDate() {
+  handleChangeEndDate(evt) {
     let startDate = '';
     let endDate = '';
     this.activeClick = true;

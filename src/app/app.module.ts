@@ -159,7 +159,7 @@ import { AdminHotFimerComponent } from './admin/hot-fimer/hot-fimer.component';
 import { AdminReviewEditComponent } from './admin/review-edit/review-edit.component';
 
 //softone dev
-import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-slider.component';
+import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
 import { AdminFistarComponent } from './admin/softone/fistar/fistar.component';
 import { AdminFistarAddComponent} from "./admin/softone/fistar/fistar-add/fistar-add.component";

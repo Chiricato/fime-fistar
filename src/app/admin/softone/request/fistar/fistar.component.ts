@@ -40,7 +40,7 @@ export class AdminRequestFistarComponent implements OnInit {
         private router: Router,
         private toast: ToastrService,
         private requestFistar: RequestFistarService,
-        private commonService: CommonService,
+        public commonService: CommonService,
     ) {
 
     }

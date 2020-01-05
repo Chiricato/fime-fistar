@@ -69,7 +69,7 @@ export class AdminFistarComponent implements OnInit {
         private toast: ToastrService,
         private fistarService: FistarService,
         private modalService: BsModalService,
-        private commonService: CommonService,
+        public commonService: CommonService,
         private csvService: SoCSVService
     ) {
 

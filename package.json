@@ -14,6 +14,7 @@
     "start": "ng serve",
     "build": "ng build",
     "lint": "ng lint fime-web",
+    "build:prod": "ng build --prod",
     "build:client-and-server-bundles": "ng build --prod && ng run fime-web:server:production",
     "build:prerender": "npm run build:client-and-server-bundles && npm run compile:server && npm run generate:prerender",
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",

@@ -38,7 +38,7 @@ export class AdminSystemSettingComponent implements OnInit {
         private router: Router,
         private toast: ToastrService,
         private settingService: SettingServiceSoftone,
-        private commonService: CommonService,
+        public commonService: CommonService,
         private modalService: BsModalService,
         @Inject(PLATFORM_ID) private platformId: Object
     ) { }

@@ -74,7 +74,7 @@ export class CampaignAddComponent implements OnInit {
     private campaignServiceGet: CampaignService,
     private formbuilder: FormBuilder,
     private toa: ToastrService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private modalService: BsModalService,
 
   ) { }

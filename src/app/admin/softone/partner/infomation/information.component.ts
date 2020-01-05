@@ -48,7 +48,7 @@ export class AdminFartnerInformationComponent implements OnInit {
         private partnerService: PartnerService,
         private activeRoute: ActivatedRoute,
         private requestPartner: RequestPartnerService,
-        private commonService: CommonService,
+        public commonService: CommonService,
         private snsService: SnsService,
     ) {
     }
@@ -98,6 +98,12 @@ export class AdminFartnerInformationComponent implements OnInit {
                 })
             }
         })
+    }
+
+
+    invalidCheck(x){
+        if(x == 'invalid') return true;
+        return false
     }
 
     getPartner() {

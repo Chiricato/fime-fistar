@@ -108,6 +108,11 @@ export class AdminCampaignReviewDetailComponent implements OnInit {
     }
 
 
+    getTryId(obj){
+        if (obj.hasOwnProperty('cp_try_id')) return obj.cp_try_id;
+        else return '';    
+    }
+
     getItem() {
         let obj = {};
         for (let i = 0; i < this.data.list.length; i++) {

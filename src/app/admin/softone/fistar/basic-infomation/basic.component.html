@@ -75,7 +75,7 @@
                                                 <div *ngIf="form.controls.email.dirty && form.controls.email.value == ''" class="text-danger">
                                                     Email is required
                                                 </div>
-                                                <div *ngIf="!form.controls.email.invalid && activeForm &&error.error && error.error.errors.email" class="text-danger">
+                                                <div *ngIf="!form.controls.email.invalid && activeForm && error.error && error.error.errors.email" class="text-danger">
                                                         {{error.error.errors.email[0]}}
                                                     </div>
                                 </div>

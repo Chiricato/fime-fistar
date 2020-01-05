@@ -23,6 +23,8 @@ export class AdminFistarBasicComponent implements OnInit {
     public fistar: any = [];
     public id: string;
     public form: any;
+    public activeForm: boolean = false;
+    public error: any = {};
     constructor(
         private api: Restangular,
         private router: Router,

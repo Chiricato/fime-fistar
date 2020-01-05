@@ -64,7 +64,7 @@ export class AdminCampaignReviewComponent implements OnInit {
         public activeRoute: ActivatedRoute,
         private campaginService: HttpClientAdminService,
         private toa: ToastrService,
-        private commonService: CommonService,
+        public commonService: CommonService,
         private campaignRVService: CampaignService
     ) {
 

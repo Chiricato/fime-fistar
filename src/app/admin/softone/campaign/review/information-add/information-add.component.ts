@@ -59,7 +59,7 @@ export class AdminCampaignInformationAddComponent implements OnInit {
         private campaginService: HttpClientAdminService,
         private formbuilder: FormBuilder,
         private toa: ToastrService,
-        private commonService: CommonService,
+        public commonService: CommonService,
 
     ) {
 

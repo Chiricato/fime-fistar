@@ -302,7 +302,7 @@
             </i> <span> {{ "cancel" | translate }}</span>
         </button>
         <button class="btn btn-primary mr-1" (click)="updateChannels()"
-            [disabled]="!formFime.valid || !formFacebook.valid || !formYoutube.valid || !formIstagram.valid ||  numberNegative || checkSNSData('Facebook') || checkSNSData('Youtube') || checkSNSData('Istagram')">
+            [disabled]="!formFime.valid || !formFacebook.valid || !formYoutube.valid || !formIstagram.valid || checkSNSData('Facebook') || checkSNSData('Youtube') || checkSNSData('Istagram')">
             <i class="material-icons align-text-bottom">
                 save
             </i> <span> {{ "save" | translate }}</span>

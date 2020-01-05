@@ -34,7 +34,7 @@ export class AdminPartnerRecommendComponent implements OnInit {
         private toast: ToastrService,
         private partnerService: PartnerService,
         private activeRoute: ActivatedRoute,
-        private commonService: CommonService,
+        public commonService: CommonService,
     ) {
 
     }

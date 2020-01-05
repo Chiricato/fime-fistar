@@ -38,7 +38,7 @@ export class AdminBannerFistarComponent implements OnInit {
         private router: Router,
         private toast: ToastrService,
         private bannerService: BannerService,
-        private commonService: CommonService,
+        public commonService: CommonService,
         @Inject(PLATFORM_ID) private platformId: Object
     ) { }
 

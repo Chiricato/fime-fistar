@@ -44,7 +44,7 @@ export class AdminFistarInformationComponent implements OnInit {
         private requestFistar: RequestFistarService,
         private activeRoute: ActivatedRoute,
         private fistarService: FistarService,
-        private commonService: CommonService,
+        public commonService: CommonService,
         ) {
     }
 

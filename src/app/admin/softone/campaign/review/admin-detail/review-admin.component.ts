@@ -37,7 +37,7 @@ export class AdminCampaignReviewDmncComponent implements OnInit {
         public activeRoute: ActivatedRoute,
         private formbuilder: FormBuilder,
         private toa: ToastrService,
-        private commonService: CommonService,
+        public commonService: CommonService,
         private campaignService: CampaignService
 
     ) {

@@ -48,7 +48,12 @@ export class AdminCampaignEditComponent implements OnInit {
   isInputCustomerText = false;
   cpOutputText = 1;
   colors;
-  campaign = {};
+  campaign:any = {
+    cp_try_id: '',
+    cp_main_image_type: 0,
+    cp_main_image: '',
+    cp_image: ''
+  };
   image_description: File;
   image_main_image: File;
   image_main_image_type: any;
@@ -62,6 +67,8 @@ export class AdminCampaignEditComponent implements OnInit {
   active = false;
   cpDate: any = {};
   dataImage: any = [];
+  isSubmitted: any = false;
+  invalidImages: any = false;
 
   constructor(
     private router: Router,
@@ -70,7 +77,7 @@ export class AdminCampaignEditComponent implements OnInit {
     private campaignServiceGet: CampaignService,
     private formbuilder: FormBuilder,
     private toa: ToastrService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private modalService: BsModalService,
   ) { }
 

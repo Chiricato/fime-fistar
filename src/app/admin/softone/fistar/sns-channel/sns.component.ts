@@ -40,6 +40,7 @@ export class AdminFistarSNS implements OnInit {
     public yearCurren: number;
     public Math;
     public active: boolean = false;
+    public numberNegative: any = false;
     modalRef: BsModalRef;
     constructor(
         private api: Restangular,
@@ -49,7 +50,7 @@ export class AdminFistarSNS implements OnInit {
         private activeRoute: ActivatedRoute,
         private fistarService: FistarService,
         private modalService: BsModalService,
-        private commonService: CommonService,
+        public commonService: CommonService,
     ) {
         this.Math = Math;
     }

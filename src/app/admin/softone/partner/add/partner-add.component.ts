@@ -57,7 +57,7 @@ export class AdminPartnerAddComponent implements OnInit {
         private partnerService: PartnerService,
         private activeRoute: ActivatedRoute,
         private requestPartner: RequestPartnerService,
-        private commonService: CommonService,
+        public commonService: CommonService,
     ) {
     }
 

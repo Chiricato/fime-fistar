@@ -53,7 +53,7 @@ export class AdminBannerFistarDetailsComponent implements OnInit {
         public activeRoute: ActivatedRoute,
         private toast: ToastrService,
         private bannerService: BannerService,
-        private commonService: CommonService
+        public commonService: CommonService
     ) {
 
     }

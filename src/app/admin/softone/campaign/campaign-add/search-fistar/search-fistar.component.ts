@@ -47,7 +47,7 @@ export class AdminCampaignSearchFistarComponent implements OnInit {
         private router: Router,
         private toast: ToastrService,
         private bannerService: BannerService,
-        private commonService: CommonService,
+        public commonService: CommonService,
         private modalService: BsModalService,
         @Inject(PLATFORM_ID) private platformId: Object
     ) { }
