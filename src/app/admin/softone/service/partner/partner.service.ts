@@ -79,7 +79,8 @@ export class PartnerService {
     ids.forEach(i=>{
       idlist.append('cp_ids[]', i);
     })
-    return this.http.post(this.env.host_fistar+'/api/admin/delete-many/campaign',{idlist});
+    console.log(idlist, '82')
+    return this.http.post(this.env.host_fistar+'/api/admin/delete-many/campaign',{cp_ids: ids});
   //   return this.http.get(this.env.host_fistar+'/api/admin/partners/statitics/campaign/'+id+'?cp_status='+cp_status)
   }
   search(data){
