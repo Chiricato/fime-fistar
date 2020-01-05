@@ -225,11 +225,17 @@ export class AdminSystemLanguageComponent implements OnInit {
     }
 
     convertLang(data) {
-        let arr = data.split(',');
-        let lang_en = arr.indexOf('1') > -1 ? 'EN' : '';
-        let lang_vi = arr.indexOf('2') > -1 ? 'VI' : '';
-        let lang_ko = arr.indexOf('3') > -1 ? 'KO' : '';
-        let lang = lang_en + (lang_en != '' ? ' ' : '') + lang_vi + (lang_vi != '' ? ' ' : '') + lang_ko;
+        let lang;
+        if(data && data.length>0){
+            let arr = data.split(',');
+            let lang_en = arr.indexOf('1') > -1 ? 'EN' : '';
+            let lang_vi = arr.indexOf('2') > -1 ? 'VI' : '';
+            let lang_ko = arr.indexOf('3') > -1 ? 'KO' : '';
+            lang = lang_en + (lang_en != '' ? ' ' : '') + lang_vi + (lang_vi != '' ? ' ' : '') + lang_ko;
+        }
+        else{
+            lang = '';
+        }        
         return lang;
     }
 
@@ -376,19 +382,35 @@ export class AdminSystemLanguageComponent implements OnInit {
         return body;
     }
 
-    delete(id) {
-        let body = {
-            unc_ids: [id]
+    delete(id, cid) {
+        if(id){
+            let body = {
+                unc_ids: [id]
+            }
+            let r = window.confirm('Do you delete it?');
+            if (r) {
+                this.languageService.deleteCode(body).subscribe(res => {
+                    this.toast.success('Success');
+                    this.resetForm();
+                }, err => {
+                    this.toast.error('Error');
+                });
+            }
+        }else{
+            let body = {
+                uic_ids: [cid]
+            }
+            let r = window.confirm('Do you delete it?');
+            if (r) {
+                this.languageService.deleteUICode(body).subscribe(res => {
+                    this.toast.success('Success');
+                    this.resetForm();
+                }, err => {
+                    this.toast.error('Error');
+                });
+            }
         }
-        let r = window.confirm('Do you delete it?');
-        if (r) {
-            this.languageService.deleteCode(body).subscribe(res => {
-                this.toast.success('Success');
-                this.resetForm();
-            }, err => {
-                this.toast.error('Error');
-            });
-        }
+        
     }
 
 

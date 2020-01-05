@@ -37,6 +37,10 @@ export class LanguageService {
   {
     return this.http.post(`${this.env.host_fistar}/api/admin/delete-many/unitcode`,body,httpOptions);
   }
+  deleteUICode(body)
+  {
+    return this.http.post(`${this.env.host_fistar}/api/admin/delete-many/uicode`,body,httpOptions);
+  }
   searchLanguage(path, page)
   {
     return this.http.get(`${this.env.host_fistar}/${path}&page=${page}`);

@@ -202,6 +202,7 @@ export class AdminPartnerCampaignHistoryComponent implements OnInit {
         this.partnerService.deleteCampaign(ids).subscribe((res:any) => {
             console.log(res);
             this.getPartner();
+            this.selected = [];
         })
     }
    
