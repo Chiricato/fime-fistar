@@ -1,6 +1,6 @@
 export const environment = {
   host_fistar:'https://api-fistar.fime.vn',
-  analysis_module_url: 'http://fistar.fime.vn:5003',
+  analysis_module_url: 'https://module-ai.fime.vn',
   host: 'https://api-np.fime.vn/api',
   rootHost: 'https://api-np.fime.vn/',
   rootHostFistar: 'https://api-fistar.fime.vn',
