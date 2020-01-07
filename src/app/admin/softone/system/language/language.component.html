@@ -194,10 +194,11 @@
             <div class="form-group lang">
                 <label>Unit Code Contents:</label>
                 <ng-container>
-                    <ng-container *ngFor="let item of dataLang">
+                    <ng-container *ngFor="let item of dataLang; let i = index">
                         <p><span>{{item.lang_code}}</span> : {{subLang[item.lang_code]}}</p>
-                        <textarea maxlength="255" class="form-control" data-lang="{{item.lang_id}}" cols="30" rows="10"
+                        <textarea  class="form-control" data-lang="{{item.lang_id}}" cols="30" rows="10"
                             [id]="item.lang_id + '_lang'">{{item.unc_content}}</textarea>
+                            <p class="validate-errror">{{errorKeyword['contents.' + i + '.unc_content']}}</p>
                     </ng-container>
                 </ng-container>
 

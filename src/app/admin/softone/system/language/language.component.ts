@@ -44,6 +44,7 @@ export class AdminSystemLanguageComponent implements OnInit {
     }
     uiCodes = [];
     unitCodes = [];
+    errorKeyword = [];
     idUi: any;
     unitCodeForm = {
         uiCode: '',
@@ -99,6 +100,7 @@ export class AdminSystemLanguageComponent implements OnInit {
     getListLangSelectSearch() {
         this.languageService.getUICode(`/api/languages`).subscribe(res => {
             this.dataLang = res;
+            console.log(res)
             let item = [];
             for (let i = 0; i < this.dataLang.length; i++) {
                 item[i] = this.dataLang[i] + ' ' + (this.dataLang[i++] > this.dataLang.length) ? this.dataLang[i] : this.dataLang[i++];
@@ -308,6 +310,7 @@ export class AdminSystemLanguageComponent implements OnInit {
                 this.getData(1);
             }, err => {
                 this.toast.error(err.error.message);
+                console.log(err)
 
             })
         } else {
@@ -333,7 +336,7 @@ export class AdminSystemLanguageComponent implements OnInit {
             this.getData(1);
         }, err => {
             this.toast.error(err.error.message);
-
+            console.log(err)
         })
     }
 
@@ -360,6 +363,21 @@ export class AdminSystemLanguageComponent implements OnInit {
 
             }, err => {
                 this.toast.error(err.error.message);
+                
+                this.errorKeyword=err.error.errors
+                
+                this.errorKeyword
+                let data = Object.keys(this.errorKeyword).map((key, index) => {
+                        console.log(this.errorKeyword[key])
+                        this.errorKeyword[key] = this.errorKeyword[key].map((value) => {
+                        return value.replace(key, 'content')
+                    })
+                })
+               
+                
+                
+
+
             });
         } else {
             let link = '/api/admin/unit-code-contents';
@@ -370,6 +388,17 @@ export class AdminSystemLanguageComponent implements OnInit {
                 this.getData(1);
             }, err => {
                 this.toast.error('Errors');
+                
+                this.errorKeyword=err.error.errors
+               
+                this.errorKeyword
+                let data = Object.keys(this.errorKeyword).map((key, index) => {
+                        console.log(this.errorKeyword[key])
+                        this.errorKeyword[key] = this.errorKeyword[key].map((value) => {
+                        return value.replace(key, 'content')
+                    })
+                })
+                
 
             })
         }
