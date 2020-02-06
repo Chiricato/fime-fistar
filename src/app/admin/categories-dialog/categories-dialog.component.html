@@ -1,0 +1,62 @@
+<div class="category-dialog">
+    <div class="row">
+        <div class="col-12">
+            <div class="admin-heading" *ngIf="!category.code_group">Add Categories</div>
+            <div class="admin-heading" *ngIf="category.code_group">Edit Category</div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate class="review-form">
+        <div class="category-container">
+            <div class="category-content">
+                <div class="form-group">
+                    <label>
+                        <span>Category Name</span>
+                        <input type="text" placeholder="Enter category name" class="form-control"
+                               [(ngModel)]="category.code_group_eng_nm"
+                               formControlName="code_group_eng_nm"/>
+                    </label>
+                    <div *ngIf="
+                            form.controls.code_group_eng_nm.invalid &&
+                            (form.controls.code_group_eng_nm.dirty ||
+                                form.controls.code_group_eng_nm.touched)
+                        "
+                         class="text-danger">
+                        <div *ngIf="form.controls.code_group_eng_nm.errors.required">
+                            Please enter category name
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-3">
+                        <label>Catalog</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group  [(ngModel)]="category.code_group" formControlName="code_group">
+                                    <mat-radio-button value="407">Beauty</mat-radio-button>
+                                    <mat-radio-button value="404">Fashion</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="output_text_type == '2'">
+                            <input type="text" class="form-control" placeholder="Enter output text" [(ngModel)]="try.goods_txt" name="url" formControlName="goods_txt"/>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-default mr-1" (click)="close()" >
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -26,51 +26,68 @@
                         </div>
                     </div>
                 </div>
+                        <!-- <div class="form-group">
+                            <div>
+                                <mat-radio-group  [(ngModel)]="category.code_group" formControlName="code_group">
+                                    <mat-radio-button value="407">Beauty</mat-radio-button>
+                                    <mat-radio-button value="412">Fashion</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="output_text_type == '2'">
+                            <input type="text" class="form-control" placeholder="Enter output text" [(ngModel)]="try.goods_txt" name="url" formControlName="goods_txt"/>
+                        </div> -->
+                        <div class="form-group">
+                            <div>
+                                <span class="pointer">Category: </span>
+                                <mat-form-field class="full-width">
+                                    <mat-select [(ngModel)]="category.code_group" formControlName="code_group">
+                                        <mat-option *ngFor="let item of categories" value="{{item.code_group}}">{{item.code_group_eng_nm}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
                 <div class="form-group img pointer">
                     <div class="active">
-                        <label for="activeIcon">
+                        <label >
                             <span class="pointer">Active Icon: </span>
-                            <input class="select-img" type="file" (change)="fileChangeEvent($event, 1)"
-                                   accept=".png, .jpg, .jpeg, .gif" id="activeIcon">
+                            <input id="file-input" class="select-img" type="file" (change)="fileChangeEvent($event, 1)"
+                                   accept=".png, .jpg, .jpeg, .gif">
 
                             <div class="icon" *ngIf="activeImages != ''; else activeImagesTemp">
                                 <img [src]="env.rootHost + activeImages">
                             </div>
-                            <ng-template #activeImagesTemp>
+                            <ng-template  class="pointer" #activeImagesTemp>
                                 <div class="icon">
-                                    <div class="btn btn-outline-primary" style="padding: 5px">
-                                        <i class="material-icons align-text-bottom">
+                                    <label  for="file-input" class="select-file">
+                                        <i class="material-icons align-text-bottom select-icon">
                                             cloud_upload
-                                        </i> <span> Select</span>
-                                    </div>
+                                        </i> <span class="select-text" >Select</span>
+                                    </label>
                                 </div>
                             </ng-template>
                         </label>
-                        <div *ngIf="activeImages == '' && isSubmitted">
-                            <span class="error-text">Please choose an image</span>
-                        </div>
+
                     </div>
                     <div class="inactive">
-                        <label for="inActiveIcon">
+                        <label>
                             <span class="pointer">Inactive Icon: </span>
-                            <input class="select-img" type="file" (change)="fileChangeEvent($event, 0)"
-                                   accept=".png, .jpg, .jpeg, .gif" id="inActiveIcon">
+                            <input id="file-input1" class="select-img" type="file" (change)="fileChangeEvent($event, 0)"
+                                   accept=".png, .jpg, .jpeg, .gif">
                             <div class="icon" *ngIf="inactiveImages != ''; else inactiveImagesTemp">
                                 <img [src]="env.rootHost + inactiveImages">
                             </div>
-                            <ng-template #inactiveImagesTemp>
+                            <ng-template  class="pointer" #inactiveImagesTemp>
                                 <div class="icon">
-                                    <div class="btn btn-outline-primary" style="padding: 5px">
-                                        <i class="material-icons align-text-bottom">
+                                    <label  for="file-input1" class="select-file">
+                                        <i class="material-icons align-text-bottom select-icon">
                                             cloud_upload
-                                        </i> <span> Select</span>
-                                    </div>
+                                        </i> <span class="select-text" >Select</span>
+                                    </label>
                                 </div>
                             </ng-template>
                         </label>
-                        <div *ngIf="inactiveImages == '' && isSubmitted">
-                            <span class="error-text">Please choose an image</span>
-                        </div>
                     </div>
                 </div>
             </div>

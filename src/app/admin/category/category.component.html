@@ -11,6 +11,43 @@
             </button>
         </div>
     </div>
+    <mat-card class="search-control">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between">
+                <div class="col-2">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Catalog name " [(ngModel)]="filter.name">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <div>
+                            <mat-form-field class="full-width">
+                                <mat-select [(ngModel)]="filter.category_id">
+                                    <mat-option value="null">All</mat-option>
+                                    <mat-option value="407">Beauty</mat-option>
+                                    <mat-option value="412">Fashion</mat-option>
+                                    <mat-option value="413">Tips</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
+                        search
+                    </i> <span>Search</span></button>
+                    <button class="btn btn-default" (click)="onReset()"><i class="material-icons align-text-bottom">
+                        replay
+                    </i> <span>Reset</span></button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
 
     <ngx-datatable #myTable class="material" [rows]="categories" [columnMode]="'force'" [headerHeight]="50"
                    [footerHeight]="50" [rowHeight]="'auto'" [count]="categories.length" [limit]="10">
@@ -25,7 +62,14 @@
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Name" prop="code_nm"></ngx-datatable-column>
-        <ngx-datatable-column name="Name" prop="code_nm"></ngx-datatable-column>
+        <!-- <ngx-datatable-column name="Name" prop="code_nm"></ngx-datatable-column> -->
+        <ngx-datatable-column name="Category" prop="code_group">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.code_group == 407">Beauty</span>
+                <span *ngIf="row.code_group == 412">Fashion</span>
+                <span *ngIf="row.code_group == 413">Tips</span>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column [width]="150" name="Action" [sortable]="false" [canAutoResize]="false" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <mat-chip-list class="action">

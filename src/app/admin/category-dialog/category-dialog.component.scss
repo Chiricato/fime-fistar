@@ -50,8 +50,16 @@
     background-color: #20a8d8 !important;
     border-color: #20a8d8 !important;;
   }
-
-  .error-text {
-    color: red;
-  }
+}
+.select-file {
+  border: 1px solid #20a8d8;
+  padding: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.select-icon{
+  color: #20a8d8;
+}
+.select-text{
+  color: #20a8d8;
 }

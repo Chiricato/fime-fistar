@@ -1,0 +1,657 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading" *ngIf="!tipId">
+                Create Tip
+            </div>
+            <div class="admin-heading" *ngIf="tipId">
+                Edit Tip
+            </div>
+            <div>
+                <button class="btn btn-default" (click)="goBack()"><i class="material-icons align-text-bottom">
+                    arrow_back
+                </i> <span>Back</span></button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate>
+        <div class="row">
+            <div class="col-md-11">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Tips Title <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter name"
+                                   [(ngModel)]="tip.subject"
+                                   formControlName="name" name="name"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Display</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="tip.display_yn" formControlName="display_yn">
+                                    <mat-radio-button value="Y">Yes</mat-radio-button>
+                                    <mat-radio-button value="N">No</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>알림YN</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="tip.push_send_yn" formControlName="push_send_yn">
+                                    <mat-radio-button value="Y">Yes</mat-radio-button>
+                                    <mat-radio-button value="N">No</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Cover image 1</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>
+                                <input class="select-img" id="file-input1" type="file" (change)="fileChangeEvent($event, 1)"
+                                       accept=".png, .jpg, .jpeg, .gif">
+    
+                                <div class="icon" *ngIf="cover_image1 && tipId">
+                                    <img [src]="env.rootHost + tip.img_url + '/' + cover_image1" [width]="150" [height]="100">
+                                </div>
+                                <div class="icon" *ngIf="cover_image1 && !tipId">
+                                    <img [src]="env.rootHost + '/data/images/tips' + '/' + cover_image1" [width]="150" [height]="100">
+                                </div>
+                                <div  class="pointer">
+                                    <div class="icon">
+                                        <label  for="file-input1" class="select-file">
+                                            <i class="material-icons align-text-bottom select-icon">
+                                                cloud_upload
+                                            </i> <span class="select-text" >Select</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Cover image 2</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input class="select-img" id="file-input2" type="file" (change)="fileChangeEvent($event, 2)"
+                                   accept=".png, .jpg, .jpeg, .gif">
+                            <div class="icon" *ngIf="cover_image2 && tipId" >
+                                <img [src]="env.rootHost + tip.img_url + '/' + cover_image2" [width]="150" [height]="100">
+                            </div>
+                            <div class="icon" *ngIf="cover_image2 && !tipId">
+                                    <img [src]="env.rootHost + '/data/images/tips' + '/' + cover_image2" [width]="150" [height]="100">
+                                </div>
+                            <div  class="pointer">
+                                <div class="icon">
+                                    <label  for="file-input2" class="select-file">
+                                        <i class="material-icons align-text-bottom select-icon">
+                                            cloud_upload
+                                        </i> <span class="select-text" >Select</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Cover image 3</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input class="select-img" id="file-input3" type="file" (change)="fileChangeEvent($event, 3)"
+                                   accept=".png, .jpg, .jpeg, .gif">
+                            <div class="icon" *ngIf="cover_image3 && tipId">
+                                <img [src]="env.rootHost + tip.img_url + '/' + cover_image3" [width]="150" [height]="100">
+                            </div>
+                            <div class="icon" *ngIf="cover_image3 && !tipId">
+                                <img [src]="env.rootHost + '/data/images/tips' + '/' + cover_image3" [width]="150" [height]="100">
+                            </div>
+                            <div  class="pointer">
+                                <div class="icon">
+                                    <label  for="file-input3" class="select-file">
+                                        <i class="material-icons align-text-bottom select-icon">
+                                            cloud_upload
+                                        </i> <span class="select-text" >Select</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Cover image 4</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input style="display: none;" id="file-input4" class="select-img" type="file" (change)="fileChangeEvent($event, 4)"
+                                   accept=".png, .jpg, .jpeg, .gif">
+                            <div class="icon" *ngIf="cover_image4 && tipId">
+                                <img [src]="env.rootHost + tip.img_url + '/' + cover_image4" [width]="150" [height]="100">
+                            </div>
+                            <div class="icon" *ngIf="cover_image4 && !tipId">
+                                <img [src]="env.rootHost + '/data/images/tips' + '/' + cover_image4" [width]="150" [height]="100">
+                            </div>
+                            <div  class="pointer" >
+                                <div class="icon">
+                                    <label  for="file-input4" class="select-file">
+                                        <i class="material-icons align-text-bottom select-icon">
+                                            cloud_upload
+                                        </i> <span class="select-text" >Select</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Brand <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ng-select [items]="brands" [(ngModel)]="tip.code_brand" bindValue="code" bindLabel="code_nm"
+                                       formControlName="code_brand" name="code_brand" [virtualScroll]="true">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.code_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Catalog <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ng-select [items]="tips_category" [(ngModel)]="tip.tips_cl_code" bindValue="code" bindLabel="code_nm"
+                                        formControlName="tips_cl_code" name="tips_cl_code" [virtualScroll]="true">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.code_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Try Free Mapping</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary float-right" (click)="openFormTry()">
+                                    <i class="material-icons align-text-bottom">
+                                        add
+                                    </i> <span>Add</span>
+                                </button>
+                            </div>
+                            <div class="col-md-12" id="myFormTry" class="modal">
+                                <div class="row modal-content">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary float-right" (click)="AddTriesMulti()">
+                                            <i class="material-icons align-text-bottom">
+                                                add
+                                            </i> <span>Add</span>
+                                        </button>
+                                    </div>
+                                    <ngx-datatable #myTable class="material col-md-12" [rows]="try" [columnMode]="'force'" [headerHeight]="50"
+                                                [footerHeight]="50"
+                                                [rowHeight]="'auto'" [count]="totalTry" [limit]="pageSize"
+                                                [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'
+                                                [selected]="selected"
+                                                [offset]="pageIndexTry-1"
+                                                [externalPaging]="true" (page)='setPageTry($event)' [externalSorting]="true" (sort)="onSortTry($event)">
+                                        <ngx-datatable-column [frozenLeft]="true" [width]="50" [sortable]="false" [canAutoResize]="false"
+                                                [draggable]="false"
+                                                [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true" [cellClass]="'text-center d-flex justify-content-center'"
+                                                [headerClass]="'text-center d-flex justify-content-center'">
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="ID" prop="cntnts_no" [width]="80" [canAutoResize]="false" [resizeable]="false" >
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span> {{row.cntnts_no}}</span>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Image" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
+                                            <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
+                                                <img class="img"
+                                                     [src]="row.file.stre_file_nm ? env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm : env.rootHost + row.file.file_cours"
+                                                     *ngIf="row.resource_type == 1 && row.file.file_cours" target="_blank"/>
+                                                <img class="img" [src]="'/assets/images/noimage.jpg'"
+                                                     alt="Review image" *ngIf="row.resource_type == 1 && !row.file.file_cours">
+                                                <a class="link" href="{{row.file.file_cours}}" *ngIf="row.resource_type == 2" target="_blank">Link</a>
+                                                <video *ngIf="row.resource_type == 3" width="160" height="120" controls muted>
+                                                    <source [src]="env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm">
+                                                </video>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Title" prop="cntnts_nm" [width]="210" [canAutoResize]="false" [resizeable]="false">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span> {{row.cntnts_nm}}</span >
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Event period" [width]="150" [canAutoResize]="false" [resizeable]="false">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span> {{row.event_bgnde}} ~ {{row.event_endde}} </span>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Status" prop="count_down_type" [width]="140" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                    </ngx-datatable> 
+                                    <button type="button" class="btn cancel" (click)="closeFormTry()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <ngx-datatable #myTable class="material col-md-12" [rows]="tries_mapping" [columnMode]="'force'" [headerHeight]="50"
+                                        [footerHeight]="50"
+                                        [rowHeight]="'auto'" [count]="totalTryMapping" (page)='setPageTry($event)' [externalSorting]="true" (sort)="setPageTry($event)">
+                                
+                                <ngx-datatable-column name="ID" prop="cntnts_no" [width]="70" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                <ngx-datatable-column name="Image" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
+                                    <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
+                                        <img class="img"
+                                             [src]="row.stre_file_nm ? env.rootHost + row.file_cours + '/' + row.stre_file_nm : env.rootHost + row.file_cours"
+                                             *ngIf="row.file_cours" target="_blank"/>
+                                        <img class="img" [src]="'/assets/images/noimage.jpg'"
+                                             alt="Try image" *ngIf="!row.file_cours">
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Title" prop="sj" [width]="210" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <span> {{row.sj}}</span >
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Event period" [width]="150" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <span> {{row.event_bgnde}} ~ {{row.event_endde}} </span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column [width]="150" name="Action" [sortable]="false" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <mat-chip-list class="action">
+                                            <button class="btn btn-dark" (click)="onDelete([row])" title="Delete">
+                                                Del
+                                            </button>
+                                        </mat-chip-list>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Tips Desc Head</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter Tips Desc Head"
+                                   [(ngModel)]="tip.tips_desc_head"
+                                   formControlName="tips_desc_head" name="tips_desc_head"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Tips Desc Body</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="tip.tips_desc_body"
+                                      formControlName="tips_desc_body" name="tips_desc_body"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Upload photos or videos</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="tip.cont1_type" formControlName="cont1_type">
+                                    <mat-radio-button value="P">Photo</mat-radio-button>
+                                    <mat-radio-button value="S">Video</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Photo</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input class="select-img" id="file-input5" type="file" (change)="fileChangeEvent($event, 5)"
+                                           accept=".png, .jpg, .jpeg, .gif">
+                                    <div class="icon" *ngIf="photo_content1 && tipId">
+                                        <img [src]="env.rootHost + tip.img_url + '/' + photo_content1" [width]="150" [height]="100">
+                                    </div>
+                                    <div class="icon" *ngIf="photo_content1 && !tipId">
+                                        <img [src]="env.rootHost + '/data/images/tips' + '/' + photo_content1" [width]="150" [height]="100">
+                                    </div>
+                                    <div  class="pointer">
+                                        <div class="icon">
+                                            <label  for="file-input5" class="select-file">
+                                                <i class="material-icons align-text-bottom select-icon">
+                                                    cloud_upload
+                                                </i> <span class="select-text" >Select</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="tip.cont1_type == 'S'">
+                            <div class="col-md-3">
+                                <label>Video</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Url"
+                                        [(ngModel)]="tip.cont1_link_url"
+                                        formControlName="cont1_link_url" name="cont1_link_url"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Caption text</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                                      <input type="text" class="form-control" placeholder="Enter Caption text"
+                                   [(ngModel)]="tip.caption_text"
+                                   formControlName="caption_text" name="caption_text"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Source Site Name</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Source Site Name"
+                                   [(ngModel)]="tip.source_site_name"
+                                   formControlName="source_site_name" name="source_site_name"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Source Site Url</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Source Site Url"
+                                [(ngModel)]="tip.source_site_url"
+                                formControlName="source_site_url" name="source_site_url"/>          
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>cont1_head</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter cont1_head"
+                                   [(ngModel)]="tip.cont1_head"
+                                   formControlName="cont1_head" name="cont1_head"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>cont1_body  <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="tip.cont1_body"
+                                      formControlName="cont1_body" name="cont1_body"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>cont2_head</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter cont1_head"
+                                   [(ngModel)]="tip.cont2_head"
+                                   formControlName="cont2_head" name="cont2_head"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Upload photos or videos 2</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="tip.cont2_type" formControlName="cont2_type">
+                                    <mat-radio-button value="P">Photo</mat-radio-button>
+                                    <mat-radio-button value="S">Video</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Photo</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input class="select-img" id="file-input6" type="file" (change)="fileChangeEvent($event, 6)"
+                                           accept=".png, .jpg, .jpeg, .gif">
+                                    <div class="icon" *ngIf="photo_content2 && tipId">
+                                        <img [src]="env.rootHost + tip.img_url + '/' + photo_content2" [width]="150" [height]="100">
+                                    </div>
+                                    <div class="icon" *ngIf="photo_content2 && !tipId">
+                                        <img [src]="env.rootHost + '/data/images/tips' + '/' + photo_content2" [width]="150" [height]="100">
+                                    </div>
+                                    <div  class="pointer">
+                                        <div class="icon">
+                                            <label  for="file-input6" class="select-file">
+                                                <i class="material-icons align-text-bottom select-icon">
+                                                    cloud_upload
+                                                </i> <span class="select-text" >Select</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="tip.cont2_type == 'S'">
+                            <div class="col-md-3">
+                                <label>Video</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Url"
+                                        [(ngModel)]="tip.cont2_link_url"
+                                        formControlName="cont2_link_url" name="cont2_link_url"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Caption text</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter cont1_head"
+                                   [(ngModel)]="tip.caption_text2"
+                                   formControlName="caption_text2" name="caption_text2"/>
+                                      
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Source Site Name</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Source Site Name"
+                                   [(ngModel)]="tip.source_site_name2"
+                                   formControlName="source_site_name2" name="source_site_name2"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Source Site Url</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Source Site Url"
+                                [(ngModel)]="tip.source_site_url2"
+                                formControlName="source_site_url2" name="source_site_url2"/>          
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>cont2_body  <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="tip.cont2_body"
+                                      formControlName="cont2_body" name="cont2_body"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Reviews Mapping</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary float-right" (click)="openForm()">
+                                    <i class="material-icons align-text-bottom">
+                                        add
+                                    </i> <span>Add</span>
+                                </button>
+                            </div>
+                            <div class="col-md-12" id="myForm" class="modal">
+                                <div class="row modal-content">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary float-right" (click)="AddReviewsMulti()">
+                                            <i class="material-icons align-text-bottom">
+                                                add
+                                            </i> <span>Add</span>
+                                        </button>
+                                    </div>
+                                    <ngx-datatable #myTable class="material col-md-12" [rows]="reviews" [columnMode]="'force'" [headerHeight]="50"
+                                                [footerHeight]="50"
+                                                [rowHeight]="'auto'" [count]="totalReviews" [limit]="pageSize"
+                                                [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'
+                                                [selected]="selected"
+                                                [offset]="pageIndex-1"
+                                                [externalPaging]="true" (page)='setPage($event)' [externalSorting]="true" (sort)="onSort($event)">
+                                        <ngx-datatable-column [frozenLeft]="true" [width]="50" [sortable]="false" [canAutoResize]="false"
+                                                [draggable]="false"
+                                                [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true" [cellClass]="'text-center d-flex justify-content-center'"
+                                                [headerClass]="'text-center d-flex justify-content-center'">
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="ID" prop="review_no" [width]="80" [canAutoResize]="false" [resizeable]="false" >
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span (click)="addReviews(row)"> {{row.review_no}}</span>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Author" prop="reg_name"[width]="100" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                        <ngx-datatable-column name="Title" prop="goods_nm" [width]="210" [canAutoResize]="false" [resizeable]="false">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span> {{row.goods_nm}}</span >
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Content" prop="review_short" [width]="210" [canAutoResize]="false" [resizeable]="false">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span> {{row.review_short}}</span>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Write" prop="writng_dt" [width]="140" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                    </ngx-datatable> 
+                                    <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <ngx-datatable #myTable class="material col-md-12" [rows]="reviews_mapping" [columnMode]="'force'" [headerHeight]="50"
+                                        [footerHeight]="50"
+                                        [rowHeight]="'auto'" [count]="totalReviewsMapping"  (page)='setPage($event)' [externalSorting]="true" (sort)="onSort($event)">
+                                
+                                <ngx-datatable-column name="ID" prop="review_no" [width]="70" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                <ngx-datatable-column name="Author" prop="reg_name" [width]="100" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                <ngx-datatable-column name="Title" prop="goods_nm" [width]="190" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <span> {{row.goods_nm}}</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Content" prop="review_short" [width]="190" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <span> {{row.review_short}}</span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Write" prop="writng_dt" [width]="100" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                <ngx-datatable-column [width]="80" name="Action" [sortable]="false" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <mat-chip-list class="action">
+                                            <button class="btn btn-dark" (click)="onDeleteReview([row])" title="Delete">
+                                                Del
+                                            </button>
+                                        </mat-chip-list>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions d-flex justify-content-end col-md-8">
+            <button class="btn btn-default mr-1" (click)="goBack()">
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1"
+                    (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>

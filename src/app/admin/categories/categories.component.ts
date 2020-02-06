@@ -6,28 +6,21 @@ import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { AdminCategoryDialogComponent } from '../category-dialog/category-dialog.component';
+import { AdminCategoriesDialogComponent } from '../categories-dialog/categories-dialog.component';
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'app-admin-category',
-    templateUrl: './category.component.html',
-    styleUrls: ['./category.component.scss']
+    selector: 'app-admin-categories',
+    templateUrl: './categories.component.html',
+    styleUrls: ['./categories.component.scss']
 })
-export class AdminCategoryComponent implements OnInit {
+export class AdminCategoriesComponent implements OnInit {
     public message: string;
     public categories = [];
     public mappingCategories: any;
     public env: any;
     public modalRef: BsModalRef;
-    public filter = {
-        name: null,
-        category_id: 'null'
-    };
-    public pageSize = 10;
-    public pageLimitOptions = [];
-    public total: any;
-    public pageIndex = 1;
+
     constructor(
         private api: Restangular,
         private toast: ToastrService,
@@ -37,37 +30,25 @@ export class AdminCategoryComponent implements OnInit {
     ngOnInit() {
         this.env = environment;
         this.getCategories();
-        this.pageSize = 10;
-        this.pageLimitOptions = [
-            {value: 5},
-            {value: 10},
-            {value: 20},
-            {value: 25},
-            {value: 50}
-        ];
-    }
-
-    changePageLimit(limit: any): void {
-        this.pageSize = limit;
-        this.getCategories();
-    }
-    setPage(pageInfo) {
-        this.pageIndex = pageInfo.offset + 1;
-        this.getCategories();
     }
 
     getCategories() {
         this.api
-            .all('categories')
-            .customGET('',{name: this.filter.name, category_id: this.filter.category_id})
+            .all('getAllCategories')
+            .customGET('')
             .subscribe(res => {
-                this.categories = res.result;
+                if(res.result)
+                {
+                    this.categories = res.result;
+                }
             });
+            
     }
 
     onDelete(row) {
+        console.log(row.code_group);
         this.api
-            .one('del-categories', row.code)
+            .one('delete-categories', row.code_group)
             .customDELETE('')
             .subscribe(res => {
                 if (res.result) {
@@ -82,7 +63,7 @@ export class AdminCategoryComponent implements OnInit {
             category: {}
         };
         this.modalRef = this.modalService.show(
-            AdminCategoryDialogComponent,
+            AdminCategoriesDialogComponent,
             { initialState }
         );
 
@@ -96,24 +77,12 @@ export class AdminCategoryComponent implements OnInit {
             category: _.cloneDeep(category)
         };
         this.modalRef = this.modalService.show(
-            AdminCategoryDialogComponent,
+            AdminCategoriesDialogComponent,
             { initialState }
         );
 
         this.modalRef.content.onClose.subscribe(result => {
             this.getCategories();
         });
-    }
-    onReset() {
-        this.filter = {
-            name: null,
-            category_id: 'null'
-        };
-        // this.pageIndex = 1;
-        this.getCategories();
-    }
-    onSearch() {
-        // this.pageIndex = 1;
-        this.getCategories();
     }
 }

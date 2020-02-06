@@ -31,7 +31,7 @@ export class AdminCategoryDialogComponent implements OnInit {
     public type = 0;
     public activeImages = '';
     public inactiveImages = '';
-    public isSubmitted = false;
+    public categories: any;
 
     constructor(
         private api: Restangular,
@@ -46,9 +46,10 @@ export class AdminCategoryDialogComponent implements OnInit {
         this.onClose = new Subject();
 
         this.env = environment;
-
+        this.getCategories();
         this.form = new FormGroup({
-            name: new FormControl(this.category.name, [Validators.required])
+            name: new FormControl(this.category.name, [Validators.required]),
+            code_group: new FormControl(this.category.code_group)
         });
         this.uploader.onAfterAddingFile = (file) => {
             file.withCredentials = false;
@@ -63,10 +64,6 @@ export class AdminCategoryDialogComponent implements OnInit {
     }
 
     onSave() {
-        this.isSubmitted = true;
-        if (this.activeImages === '' || this.inactiveImages === '' || this.form.invalid) {
-            return 0;
-        }
         if (this.inactiveImages !== '') {
             this.category.additional_inactive = this.inactiveImages;
         }
@@ -127,5 +124,18 @@ export class AdminCategoryDialogComponent implements OnInit {
                 this.inactiveImages = res.result.url + '/' + res.result.name;
             }
         });
+    }
+
+    getCategories() {
+        this.api
+            .all('getAllCategories')
+            .customGET('')
+            .subscribe(res => {
+                if(res.result)
+                {
+                    this.categories = res.result;
+                    console.log(this.categories);
+                }
+            });
     }
 }

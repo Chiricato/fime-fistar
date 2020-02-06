@@ -30,7 +30,7 @@
 
             <div class="col-2">
                 <div class="form-group">
-                    <label>Category</label>
+                    <label>Catalog </label>
                     <div>
                         <mat-form-field class="full-width">
                             <mat-select [(ngModel)]="filter.category_id">
@@ -170,27 +170,33 @@
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Author" prop="reg_name"></ngx-datatable-column>
-        <ngx-datatable-column name="Category" prop="code_nm" [width]="100" [canAutoResize]="false" [resizeable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'"
+        <ngx-datatable-column name="Catalog" prop="code_nm" [width]="90" [canAutoResize]="false" [resizeable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'"
         ></ngx-datatable-column>
-        <ngx-datatable-column name="Comments" prop="comment_number" [headerClass]="'text-center'" [cellClass]="'text-center'" [width]="100" [canAutoResize]="false"
+        <ngx-datatable-column name="Comments" prop="comment_number" [headerClass]="'text-center'" [cellClass]="'text-center'" [width]="90" [canAutoResize]="false"
                               [resizeable]="false"></ngx-datatable-column>
-        <ngx-datatable-column name="Likes" prop="like_number" [headerClass]="'text-center'" [cellClass]="'text-center'" [width]="80" [canAutoResize]="false" [resizeable]="false"
+        <ngx-datatable-column name="Likes" prop="like_number" [headerClass]="'text-center'" [cellClass]="'text-center'" [width]="70" [canAutoResize]="false" [resizeable]="false"
                               [sortable]="false"></ngx-datatable-column>
 
-        <ngx-datatable-column name="Popular" prop="conts_seq" [headerClass]="'text-center'" [cellClass]="'text-center'" [width]="80" [canAutoResize]="false" [resizeable]="false"
+        <ngx-datatable-column name="Popular" prop="conts_seq" [headerClass]="'text-center'" [cellClass]="'text-center'" [width]="70" [canAutoResize]="false" [resizeable]="false"
                               [sortable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>{{row.conts_seq ? "Yes" : "No" }}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Status" prop="expsr_at" [width]="100" [canAutoResize]="false" [resizeable]="false">
+        <ngx-datatable-column name="Status" prop="expsr_at" [width]="110" [canAutoResize]="false" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.expsr_at == 'Y'">Enable</span>
                 <span *ngIf="row.expsr_at == 'N'">Disabled</span>
                 <span *ngIf="row.expsr_at == 'P'">Pendding</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Views" prop="view_cnt" [resizeable]="false" [width]="80"></ngx-datatable-column>
+        <ngx-datatable-column name="Category" prop="reviews_code_group" [canAutoResize]="false" [resizeable]="false" [width]="90">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.reviews_code_group == 407">Beauty</span>
+                <span *ngIf="row.reviews_code_group == 412">Fashion</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Views" prop="view_cnt" [resizeable]="false" [width]="70"></ngx-datatable-column>
         <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <button mat-icon-button [matMenuTriggerFor]="userActions">

@@ -157,6 +157,10 @@ import { AdminTryEndComponent } from './admin/try-end/try-end.component';
 import { AdminDeliveryComponent } from './admin/delivery/delivery.component';
 import { AdminHotFimerComponent } from './admin/hot-fimer/hot-fimer.component';
 import { AdminReviewEditComponent } from './admin/review-edit/review-edit.component';
+import {AdminCategoriesComponent} from './admin/categories/categories.component';
+import {AdminCategoriesDialogComponent} from './admin/categories-dialog/categories-dialog.component';
+import {AdminTipsComponent} from './admin/tips/tips.component';
+import {AdminTipDetailsComponent} from './admin/tip-details/tip-details.component';
 
 //softone dev
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
@@ -350,6 +354,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminDeliveryComponent,
         AdminHotFimerComponent,
         AdminReviewEditComponent,
+        AdminCategoriesComponent,
+        AdminCategoriesDialogComponent,
+        AdminTipsComponent,
+        AdminTipDetailsComponent,
 
 
         //soft0ne dev
@@ -520,6 +528,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     entryComponents: [
         AdminCategoryDialogComponent,
+        AdminCategoriesDialogComponent,
         AdminBrandDialogComponent,
         AdminDeliveryDialogComponent,
         DeliveryDialogComponent,

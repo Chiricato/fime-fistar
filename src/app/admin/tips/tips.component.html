@@ -1,0 +1,179 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col">
+            <div class="admin-heading">
+                Tips
+            </div>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary float-right" routerLink="/admin/tips/add">
+                <i class="material-icons align-text-bottom">
+                    add
+                </i> <span>Add</span>
+            </button>
+        </div>
+    </div>
+    <mat-card class="search-control">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Tips title</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.name">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label>Display</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select [(ngModel)]="filter.display_yn">
+                                <mat-option value="null">All</mat-option>
+                                <mat-option value="Y">Y</mat-option>
+                                <mat-option value="N">N</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Main exposure</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select [(ngModel)]="filter.main_open_yn">
+                                <mat-option value="null">All</mat-option>
+                                <mat-option value="Y">Y</mat-option>
+                                <mat-option value="N">N</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Registration date</label>
+                    <div>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="from" placeholder="From" [(ngModel)]="filter.from"
+                                   [max]="filter.to">
+                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                            <mat-datepicker #from></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="to" placeholder="To" [(ngModel)]="filter.to"
+                                   [min]="filter.from">
+                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                            <mat-datepicker #to></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="pull-right">
+                    <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
+                        search
+                    </i> <span>Search</span></button>
+                    <button class="btn btn-default mr-1" (click)="onReset()"><i class="material-icons align-text-bottom">
+                        replay
+                    </i> <span>Reset</span></button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <div class="multi-action" *ngIf="selected.length > 0">
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-default mr-1" [swal]="deleteSwal" *ngIf="showDelete" (confirm)="onDeleteMulti()">
+                <i class="material-icons align-text-bottom">
+                    delete
+                </i> <span>Delete</span>
+            </button>
+        </div>
+    </div>
+
+    <ngx-datatable #myTable class="material" [rows]="tips" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50"
+                   [count]="total" [offset]="pageIndex-1" [limit]="pageSize" [externalPaging]="true"
+                   (page)='setPage($event)'
+                   [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'
+                   [selected]="selected"
+                   [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
+        <ngx-datatable-column [frozenLeft]="true" [width]="50" [sortable]="false" [canAutoResize]="false"
+                              [draggable]="false"
+                              [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true" [cellClass]="'text-center d-flex justify-content-center'"
+                              [headerClass]="'text-center d-flex justify-content-center'">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="ID" prop="ti_id" [canAutoResize]="false" [resizeable]="false" [width]="70" ></ngx-datatable-column>
+        <ngx-datatable-column name="Cover Images"  [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
+            <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
+                <img class="img"
+                     [src]="env.rootHost + row.img_url + '/' + row.cover_img1 " target="_blank"/>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Tips Title" prop="subject" [resizeable]="false" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column name="Display"  prop="display_yn" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.display_yn == 'Y'">Yes</span>
+                <span *ngIf="row.display_yn == 'N'">No</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Main exposure" prop="main_open_yn"  [resizeable]="false" [width]="70"  >
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.main_open_yn == 'Y'">Yes</span>
+                <span *ngIf="row.main_open_yn == 'N'">No</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Catalog" prop="code_nm" [canAutoResize]="false" [resizeable]="false" [width]="100" ></ngx-datatable-column>
+        <ngx-datatable-column name="Views" prop="views" [resizeable]="false" [width]="70">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.views">{{row.views}}</span>
+                <span *ngIf="row.views == null">0</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Regist date" prop="created_at" [resizeable]="false" [width]="80">
+      
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <button mat-icon-button [matMenuTriggerFor]="userActions">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #userActions="matMenu">
+                    <button mat-menu-item (click)="openTipsDetail(env.webUrl + '/tips/' + row.ti_id)" class="datatable-action-button">
+                        <mat-icon>open_in_new</mat-icon>
+                        <span>View</span>
+                    </button>
+                    <button mat-menu-item [routerLink]="['/admin/tips/edit/', row.ti_id]" class="datatable-action-button">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item [swal]="disableSwal"
+                            *ngIf="row.display_yn !== 'N'" (confirm)="onToggle([row], false)" class="datatable-action-button">
+                        <mat-icon>visibility_off</mat-icon>
+                        <span>Disable</span>
+                    </button>
+                    <button mat-menu-item [swal]="enableSwal"
+                            *ngIf="row.display_yn !== 'Y'" (confirm)="onToggle([row], true)" class="datatable-action-button">
+                        <mat-icon>visibility</mat-icon>
+                        <span>Enable</span>
+                    </button>
+                    <button mat-menu-item [swal]="deleteSwal" (confirm)="onDelete([row])" class="datatable-action-button">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </mat-menu>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+
+<swal #enableSwal text="Are you sure to enable tip?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #disableSwal text="Are you sure to disable tip?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #deleteSwal text="Are you sure to delete tip?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>

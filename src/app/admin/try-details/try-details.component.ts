@@ -48,6 +48,9 @@ export class AdminTryDetailsComponent implements OnInit {
     public invalidImages = false;
     public isSubmitted = false;
     public output_text_type = '1';
+    public output_category = '407';
+    public fashion: any;
+    public beauty: any;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -101,8 +104,10 @@ export class AdminTryDetailsComponent implements OnInit {
             price: new FormControl(this.try.goods_pc, []),
             goods_txt: new FormControl(this.try.goods_txt, []),
             output_text_type: new FormControl(this.output_text_type, []),
+            output_category: new FormControl(this.output_category, []),
             sale_price: new FormControl(this.try.event_pc, []),
-            resource_type: new FormControl(this.try.resource_type, [])
+            resource_type: new FormControl(this.try.resource_type, []),
+            goods_code_group: new FormControl(this.try.goods_code_group, [])
         });
 
         if (this.tryId) {
@@ -111,6 +116,9 @@ export class AdminTryDetailsComponent implements OnInit {
         this.getColors();
         this.getBrands();
         this.getCategories();
+        this.getFashion();
+        this.getBeauty();
+        this.try.goods_code_group = this.try.goods_code_group ? this.try.goods_code_group : "407";
     }
 
     getTry() {
@@ -138,7 +146,6 @@ export class AdminTryDetailsComponent implements OnInit {
                 this.try.dlvy_endde = moment.utc(this.try.dlvy_endde).toDate();
                 this.output_text_type = this.try.goods_txt ? '2' : '1';
                 this.try.is_disabled = this.try.expsr_at !== 'Y';
-
                 // this.try.try_event_type = (this.try.try_event_type != null && this.tryEventTypes.indexOf(this.try.try_event_type) !== -1) ? this.try.try_event_type : this.tryEventTypes[0].value;
                 // this.try.try_event_start_date = this.try.try_event_start_date != null ? moment.utc(this.try.try_event_start_date).toDate() : this.try.start_date;
                 // this.try.try_event_end_date = this.try.try_event_end_date != null ? moment.utc(this.try.try_event_end_date).toDate() : this.try.end_date;
@@ -154,6 +161,19 @@ export class AdminTryDetailsComponent implements OnInit {
     getCategories() {
         this.api.all('categories').customGET('').subscribe(res => {
             this.categories = res.result;
+            console.log(this.categories);
+        });
+    }
+    getFashion() {
+        this.api.all('getFashion').customGET('').subscribe(res => {
+            this.fashion = res.result;
+            console.log(this.fashion);
+        });
+    }
+    getBeauty() {
+        this.api.all('getBeauty').customGET('').subscribe(res => {
+            this.beauty = res.result;
+            console.log(this.fashion);
         });
     }
 
@@ -234,4 +254,5 @@ export class AdminTryDetailsComponent implements OnInit {
     goBack(): void {
         this.router.navigate(['/admin/try']);
     }
+
 }

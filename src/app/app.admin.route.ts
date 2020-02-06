@@ -36,6 +36,9 @@ import { AdminTryEndComponent } from './admin/try-end/try-end.component';
 import { AdminDeliveryComponent } from './admin/delivery/delivery.component';
 import { AdminHotFimerComponent } from './admin/hot-fimer/hot-fimer.component';
 import { AdminReviewEditComponent } from './admin/review-edit/review-edit.component';
+import {AdminCategoriesComponent} from './admin/categories/categories.component';
+import {AdminTipsComponent} from './admin/tips/tips.component';
+import {AdminTipDetailsComponent} from './admin/tip-details/tip-details.component';
 //-----------------------------------softone dev-------------------------------------------------------
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
@@ -261,6 +264,10 @@ const appRoutes: Routes = [
             { path: 'hashtags', component: AdminHashtagComponent},
             { path: 'hot-fimer', component: AdminHotFimerComponent},
             { path: 'reviews/edit/:id', component: AdminReviewEditComponent},
+            { path: 'category', component: AdminCategoriesComponent},
+            { path: 'tips', component: AdminTipsComponent},
+            { path: 'tips/edit/:id', component: AdminTipDetailsComponent},
+            { path: 'tips/add', component: AdminTipDetailsComponent}
         ]
     },
     // otherwise redirect to home
