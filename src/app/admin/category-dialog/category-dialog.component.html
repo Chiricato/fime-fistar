@@ -37,7 +37,7 @@
                         <div class="form-group" *ngIf="output_text_type == '2'">
                             <input type="text" class="form-control" placeholder="Enter output text" [(ngModel)]="try.goods_txt" name="url" formControlName="goods_txt"/>
                         </div> -->
-                        <div class="form-group">
+                        <div class="form-group" *ngIf="!category.code">
                             <div>
                                 <span class="pointer">Category: </span>
                                 <mat-form-field class="full-width">

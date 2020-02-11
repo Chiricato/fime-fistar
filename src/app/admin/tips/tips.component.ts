@@ -46,6 +46,11 @@ export class AdminTipsComponent implements OnInit {
         this.env = environment;
         this.pageIndex = 1;
         this.pageSize = 10;
+        if (typeof (Storage) !== 'undefined') {
+            if(sessionStorage.getItem('currentPage')){
+                this.pageIndex = parseInt(sessionStorage.getItem('currentPage'),10);
+            }
+        }
         this.getTips();
     }
 
@@ -71,6 +76,10 @@ export class AdminTipsComponent implements OnInit {
     setPage(pageInfo) {
         this.pageIndex = pageInfo.offset + 1;
         this.getTips();
+        if (typeof (Storage) !== 'undefined') {
+            sessionStorage.setItem('currentPage', pageInfo.offset + 1);
+            sessionStorage.getItem('currentPage');
+        }
     }
 
     onSort(event) {

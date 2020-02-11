@@ -174,7 +174,6 @@ export class AdminTipDetailsComponent implements OnInit {
                     this.photo_content2 = this.tip.cont2_photo;
                     this.list_id_reviews_mapping = this.tip.tipsReviews;
                     this.list_id_tries_mapping = this.tip.tipsTries;
-                    console.log(this.list_id_reviews_mapping);
             });
     }
     getReviewMapping() {
@@ -209,9 +208,7 @@ export class AdminTipDetailsComponent implements OnInit {
                 this.review_detail = res.result;
                 this.reviews_mapping.push(this.review_detail);
                 this.review_id_mapping.push(this.review_detail.review_no);
-                console.log(this.review_id_mapping);
                 this.list_id_reviews_mapping.push(this.review_detail.review_no);
-                // this.form.content_id = this.review_id_mapping;
                 this.totalReviewsMapping = this.reviews_mapping.length;
             }
         });
@@ -225,7 +222,6 @@ export class AdminTipDetailsComponent implements OnInit {
                 this.tries_mapping.push(this.tries_list);
                 this.try_id_mapping.push(this.tries_list.cntnts_no);
                 this.list_id_tries_mapping.push(this.tries_list.cntnts_no);
-                console.log(this.list_id_tries_mapping);
                 this.totalTryMapping = this.tries_mapping.length;
             }
         });
@@ -247,20 +243,12 @@ export class AdminTipDetailsComponent implements OnInit {
     }
 
     onDelete(rows){
-        console.log(this.tries_mapping);
-        console.log(this.list_id_tries_mapping);
         this.tries_mapping.splice(rows,1);
         this.list_id_reviews_mapping.splice(rows.content_id,1);
-        console.log(this.tries_mapping);
-        console.log(this.list_id_reviews_mapping);
     }
     onDeleteReview(rows){
-        console.log(this.reviews_mapping);
-        console.log(this.list_id_reviews_mapping);
         this.reviews_mapping.splice(rows,1);
         this.list_id_reviews_mapping.splice(rows.content_id,1);
-        console.log(this.reviews_mapping);
-        console.log(this.list_id_reviews_mapping);
     }
 
     onSave() {
