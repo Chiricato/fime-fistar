@@ -82,7 +82,12 @@ export class AdminSystemLanguageComponent implements OnInit {
 
     ngOnInit() {
         this.env = environment;
-        this.getData(1);
+        if (typeof (Storage) !== 'undefined') {
+            if (sessionStorage.getItem('crrPage')) {
+                this.pager['currentPage'] = parseInt(sessionStorage.getItem('crrPage'), 10);
+            }
+        }
+        this.getData(this.pager['currentPage']);
         this.getListLangSelectSearch();
         this.initForm();
     }
@@ -359,7 +364,7 @@ export class AdminSystemLanguageComponent implements OnInit {
                 this.toast.success('Success');
                 this.modalRef.hide();
                 this.resetForm();
-                this.getData(1);
+                this.getData(this.pager['currentPage']);
 
             }, err => {
                 this.toast.error(err.error.message);
@@ -506,10 +511,13 @@ export class AdminSystemLanguageComponent implements OnInit {
         if (page < Number(this.pager['totalPages']) + 1) {
             if (this.isSearch) {
                 this.search(page, 'pagination');
-            }
-            else {
+            } else {
                 this.getData(page);
             }
+        }
+        if (typeof (Storage) !== 'undefined') {
+            sessionStorage.setItem('crrPage', page);
+            sessionStorage.getItem('crrPage');
         }
     }
 }
