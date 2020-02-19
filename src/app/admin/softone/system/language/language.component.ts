@@ -175,6 +175,7 @@ export class AdminSystemLanguageComponent implements OnInit {
             this.total_item = res['total'];
             this.pager = this.pagerService.getPager(this.total_item, page, 10);
             this.convertData(res['data']);
+            console.log(this.pager);
         });
     }
 
@@ -363,7 +364,7 @@ export class AdminSystemLanguageComponent implements OnInit {
             this.languageService.update(this.idEditUnitCode, body).subscribe(res => {
                 this.toast.success('Success');
                 this.modalRef.hide();
-                this.resetForm();
+                // this.resetForm();
                 this.getData(this.pager['currentPage']);
 
             }, err => {
@@ -389,7 +390,7 @@ export class AdminSystemLanguageComponent implements OnInit {
             this.languageService.createCode(link, body).subscribe(res => {
                 this.toast.success('Success');
                 this.modalRef.hide();
-                this.resetForm();
+                // this.resetForm();
                 this.getData(1);
             }, err => {
                 this.toast.error('Errors');
