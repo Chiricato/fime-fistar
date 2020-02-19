@@ -212,7 +212,7 @@ export class AdminCampaignComponent implements OnInit {
                     { title: dataBrand },
                     { title: data[index]['cp_period_start'], title_second: data[index]['cp_period_end'] },
                     {
-                        title: data[index]['fime'] + '/' + data[index]['cp_total_influencer'],
+                        title: (data[index]['cp_total_free'] - data[index]['cp_total_influencer']) + '/' + data[index]['cp_total_influencer'],
                         social: true, channel: this.getDistinct_channel(data[index]['distinct_channel'])
                     },
                     { title: data[index]['cp_type'] === 1 ? 'Paid' : 'Free' },
