@@ -1,8 +1,8 @@
 <div class="category-dialog">
     <div class="row">
         <div class="col-12">
-            <div class="admin-heading" *ngIf="!category.code">Add Category</div>
-            <div class="admin-heading" *ngIf="category.code">Edit Category</div>
+            <div class="admin-heading" *ngIf="!category.code">Add Catalog</div>
+            <div class="admin-heading" *ngIf="category.code">Edit Catalog</div>
         </div>
     </div>
     <form [formGroup]="form" novalidate class="review-form">
@@ -10,8 +10,8 @@
             <div class="category-content">
                 <div class="form-group">
                     <label>
-                        <span>Category Name</span>
-                        <input type="text" placeholder="Enter category name" class="form-control"
+                        <span>Catalog Name</span>
+                        <input type="text" placeholder="Enter Catalog name" class="form-control"
                                [(ngModel)]="category.code_nm"
                                formControlName="name"/>
                     </label>
@@ -22,7 +22,7 @@
                         "
                          class="text-danger">
                         <div *ngIf="form.controls.name.errors.required">
-                            Please enter category name
+                            Please enter Catalog name
                         </div>
                     </div>
                 </div>
