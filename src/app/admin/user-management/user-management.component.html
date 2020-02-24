@@ -32,7 +32,7 @@
 
         <mat-card class="filter-group">
             <label class="example-margin">Search</label>
-            <mat-card-content>
+            <mat-card-content class="row">
                 <mat-form-field class="px-3">
                     <mat-select [(ngModel)]="filterSelected">
                         <mat-option *ngFor="let option of filterOptions"
@@ -47,13 +47,19 @@
                     <mat-checkbox class="px-3" [(ngModel)]="activedCheckbox" color="primary">Actived</mat-checkbox>
                     <mat-checkbox class="px-3" [(ngModel)]="deletedCheckbox" color="primary">Deleted</mat-checkbox>
                     <mat-checkbox class="px-3" [(ngModel)]="allowComment" color="primary">Comment</mat-checkbox>
-                    <mat-checkbox class="px-3" [(ngModel)]="allowReview" color="primary">Review</mat-checkbox>
+                    <mat-checkbox class="px-4" [(ngModel)]="allowReview" color="primary">Review</mat-checkbox>
                 </div>
 
-                <button class="btn btn-primary mr-1 float-right" (click)="search()"><i class="material-icons align-text-bottom">
+                <button class="btn btn-primary mr-2" (click)="search()"><i class="material-icons align-text-bottom">
                     search
                 </i> <span>Search</span></button>
             </mat-card-content>
+            <div class="row">
+                <div class="col-10"></div>
+                <button class="btn btn-default ml-2 col-1" (click)="onDownload()"><i class="material-icons align-text-bottom">
+                    save_alt
+                </i> <span>Excel</span></button>
+            </div>
         </mat-card>
 
         <ngx-datatable

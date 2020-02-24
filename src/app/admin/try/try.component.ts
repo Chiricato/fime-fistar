@@ -37,6 +37,7 @@ export class AdminTryComponent implements OnInit {
     public showDelete = false;
     public showDeactivate = false;
     public showActive = false;
+    public pageLimitOptions = [];
     public category_type: any;
     constructor(
         private api: Restangular,
@@ -55,6 +56,14 @@ export class AdminTryComponent implements OnInit {
         this.getTries();
         this.getBrands();
         this.getCategories();
+        this.pageLimitOptions = [
+            {value: 5},
+            {value: 10},
+            {value: 20},
+            {value: 25},
+            {value: 50}
+        ];
+
     }
 
     getBrands() {
@@ -211,4 +220,10 @@ export class AdminTryComponent implements OnInit {
             }
         });
     }
+
+    changePageLimit(limit: any): void {
+        this.pageSize = limit;
+        this.getTries();
+    }
+
 }

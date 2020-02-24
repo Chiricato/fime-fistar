@@ -173,4 +173,18 @@ export class UserManagementComponent implements OnInit {
         this.getUsers();
         return false;
     }
+
+    onDownload() {
+
+        this.api.all('admin/export').customGET('user', {
+            'searchType': this.filterSelected,
+            'searchValue': this.filtervalue ? this.filtervalue : '',
+            'pageSize': this.pageSize,
+            'page': this.page.pageNumber + 1
+        }).subscribe(res => {
+            if (res.result) {
+                window.open(this.env.rootHost + res.result.path, '_blank');
+            }
+        });
+    }
 }
