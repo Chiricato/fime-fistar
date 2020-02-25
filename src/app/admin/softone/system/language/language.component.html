@@ -12,23 +12,23 @@
                 <div class="col-4">
                     <div class="form-group">
                         <label class="font-weight-bold">Code</label>
-                        <div>
+                        <div class="radio-button">
                             <!-- <select class="select-c" formControlName="filter">
                                 <option value="uicode">Uicode</option>
                                 <option value="unit_code">Unit code</option>
                                 <option value="unit_code_content">Unit Code Content</option>
                             </select> -->
-                            <mat-radio-group formControlName="filter">
-                                <mat-radio-button class="ml-2" value="uicode">Uicode</mat-radio-button>
-                                <mat-radio-button class="ml-2" value="unit_code">Unit</mat-radio-button>
+                            <mat-radio-group formControlName="filter" >
+                                <mat-radio-button class="" value="uicode">Unicode</mat-radio-button>
+                                <mat-radio-button class="ml-2" value="unit_code">Unite code</mat-radio-button>
                                 <mat-radio-button class="ml-2" value="unit_code_content">Unit Code Content</mat-radio-button>
                             </mat-radio-group>
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <div class="form-group">
-                        <div class="none-label" style="margin-top: 30px">
+                        <div class="none-label" style="margin-top: 28px">
                             <input class="input-c" formControlName="keyword">
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="col-2">
+                <div class="col-mg-2">
                     <div class="form-group">
                         <label class="font-weight-bold">State</label>
                         <div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="col-1" style="margin-top: 30px;">
+                <div class="col-mg-2 ml-5" style="margin-top: 30px;">
                     <div class="pull-right">
                         <button class="btn btn-primary mr-1" (click)="search(1)"><i
                                 class="material-icons align-text-bottom">

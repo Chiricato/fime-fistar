@@ -180,7 +180,8 @@ export class UserManagementComponent implements OnInit {
             'searchType': this.filterSelected,
             'searchValue': this.filtervalue ? this.filtervalue : '',
             'pageSize': this.pageSize,
-            'page': this.page.pageNumber + 1
+            'page': this.page.pageNumber + 1,
+            'role': this.userType
         }).subscribe(res => {
             if (res.result) {
                 window.open(this.env.rootHost + res.result.path, '_blank');

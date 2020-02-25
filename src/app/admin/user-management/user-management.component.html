@@ -33,7 +33,7 @@
         <mat-card class="filter-group">
             <label class="example-margin">Search</label>
             <mat-card-content class="row">
-                <mat-form-field class="px-3">
+                <mat-form-field class="col-2">
                     <mat-select [(ngModel)]="filterSelected">
                         <mat-option *ngFor="let option of filterOptions"
                                     [value]="option.id">{{ option.name }}</mat-option>
