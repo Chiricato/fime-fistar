@@ -35,6 +35,8 @@ export class AdminCampaignEditComponent implements OnInit {
   modalRef: any;
   dataBlind = {
     category: [],
+    fashion: [],
+    cp_code_group: '',
     keyWord: [],
     keyWordChoose: [],
     arrUrlAttack: [],
@@ -87,6 +89,7 @@ export class AdminCampaignEditComponent implements OnInit {
       if (params['id']) {
         this.idCampaign = params['id'];
         this.getInfo(params['id']);
+        console.log(this.campaign);
       }
     });
     this.getColor();
@@ -94,27 +97,24 @@ export class AdminCampaignEditComponent implements OnInit {
     this.initForm();
     this.getBrand();
     this.getDataImage();
+    this.initFashion();
   }
 
   getDataImage() {
     this.campaignServiceGet.getDataImage(this.idCampaign).subscribe((res: any) => {
       this.dataImage = res;
-      console.log(this.dataImage, 'data');
-    })
+    });
   }
   getBrand() {
     this.campaignServiceGet.getBrand().subscribe(res => {
-      //console.log(res)
       this.brands = res;
-
-    })
+    });
 
   }
 
   getInfo(id) {
     this.campaginService.getData(`api/admin/campaigns/${id}`).subscribe(
       res => {
-        //console.log(res);
         this.campaign = res;
         this.image = this.commonService.getImageLink(res['cp_image'], 'campaigns', 'original');
         this.form.patchValue(res);
@@ -126,8 +126,7 @@ export class AdminCampaignEditComponent implements OnInit {
         this.checkedstate = res['cp_state'];
         this.initKeyword(res['keywords']);
         this.isShowCampaignImg = true;
-        this.currentMatchingData(res)
-        //console.log(this.form, this.form.value.cp_period_start, '------109')
+        this.currentMatchingData(res);
         this.cpDate.cp_period_start = moment.utc(this.form.value.cp_period_start).subtract({ hours: 7 }).toDate();
         this.cpDate.cp_period_end = moment.utc(this.form.value.cp_period_end).subtract({ hours: 7 }).toDate();
       },
@@ -197,6 +196,12 @@ export class AdminCampaignEditComponent implements OnInit {
         this.dataBlind.category = res['data'];
       });
   }
+  initFashion() {
+    this.campaginService.getData(`api/admin/codes?cdg_id=74`).subscribe(
+      res => {
+        this.dataBlind.fashion = res['data'];
+      });
+  }
 
   initForm() {
     this.form = this.formbuilder.group(
@@ -231,6 +236,7 @@ export class AdminCampaignEditComponent implements OnInit {
         cp_attachment_url: [''],
         cp_status: [],
         radio_cp_output_text: 1,
+        cp_code_group: ['', Validators.required],
       }
     );
   }

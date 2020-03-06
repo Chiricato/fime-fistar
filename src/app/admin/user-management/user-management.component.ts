@@ -181,7 +181,11 @@ export class UserManagementComponent implements OnInit {
             'searchValue': this.filtervalue ? this.filtervalue : '',
             'pageSize': this.pageSize,
             'page': this.page.pageNumber + 1,
-            'role': this.userType
+            'role': this.userType,
+            'allowComment': this.allowComment ? 1 : 0,
+            'allowReview': this.allowReview ? 1 : 0,
+            'isActive': this.activedCheckbox,
+            'isDelete': this.deletedCheckbox
         }).subscribe(res => {
             if (res.result) {
                 window.open(this.env.rootHost + res.result.path, '_blank');

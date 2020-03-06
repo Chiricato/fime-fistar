@@ -32,6 +32,8 @@ export class CampaignAddComponent implements OnInit {
 
   dataBlind = {
     category: [],
+    fashion: [],
+    cp_code_group: '',
     keyWord: [],
     keyWordChoose: [],
     arrUrlAttack: [],
@@ -87,6 +89,9 @@ export class CampaignAddComponent implements OnInit {
     this.initKeyword();
     this.getPartner();
     this.getBrand();
+    this.initFashion();
+    this.dataBlind.cp_code_group = this.dataBlind.cp_code_group ? this.dataBlind.cp_code_group : '10';
+    console.log(this.dataBlind.cp_code_group);
   }
   getColor() {
     this.campaginService.getData(`api/admin/fimecodes?type=color`).subscribe(res => {
@@ -98,11 +103,8 @@ export class CampaignAddComponent implements OnInit {
 
   getBrand() {
     this.campaignServiceGet.getBrand().subscribe(res => {
-      console.log(res)
       this.brands = res;
-      
-    })
-    
+    });
   }
 
   validUrl() {
@@ -148,6 +150,13 @@ export class CampaignAddComponent implements OnInit {
       });
   }
 
+  initFashion() {
+    this.campaginService.getData(`api/admin/codes?cdg_id=74`).subscribe(
+      res => {
+        this.dataBlind.fashion = res['data'];
+      });
+  }
+
   initForm() {
     this.form = new FormGroup(
       {
@@ -183,6 +192,7 @@ export class CampaignAddComponent implements OnInit {
         radio_cp_output_text: new FormControl(1),
         p_id: new FormControl('', [Validators.required]),
         cp_main_image: new FormControl('', [Validators.required]),
+        cp_code_group: new FormControl(10, [Validators.required]),
       }
     );
   }
@@ -201,7 +211,6 @@ export class CampaignAddComponent implements OnInit {
 
 
   setType(value) {
-
     this.form.controls.cp_type.setValue(value);
   }
 

@@ -17,7 +17,7 @@
     <app-admin-campaign-tab [tryId]="campaign.cp_try_id"></app-admin-campaign-tab><br>
     <form [formGroup]="form">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-3">
                         <label>{{ "Campaign name" | translate }}<span style="color: red">(*)</span></label>
@@ -54,21 +54,25 @@
                     <div class="col-md-3">
                         <label>{{ "Output Text" | translate }}</label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-9">
                         <mat-radio-group name="radio_cp_output_text" [(ngModel)]="cpOutputText"
                             (change)="checkCpOutputText()" formControlName="radio_cp_output_text">
                             <div class="row output-text">
-                                <div class="col-md-6">
-                                    <mat-radio-button name="radio_cp_output_text" [value]="1" color="primary">
+                                <div class="col-md-3">
+                                    <mat-radio-button name="radio_cp_output_text" [value]="1">
                                         Coundown</mat-radio-button>
                                 </div>
                                 <div class="col-md-6">
-                                    <mat-radio-button name="radio_cp_output_text" [value]="2" color="primary">
+                                    <mat-radio-button name="radio_cp_output_text" [value]="2">
                                         Customer text</mat-radio-button>
                                 </div>
                             </div>
-
                         </mat-radio-group>
+                        <div *ngIf="isInputCustomerText">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter output text" formControlName="cp_output_text" />
+                            </div>
+                        </div>
                     </div>
                     <!-- <div class="col-md-2">
                         <div class="form-group">
@@ -82,11 +86,6 @@
                                 text</label>
                         </div>
                     </div> -->
-                    <div class="col-md-5" *ngIf="isInputCustomerText">
-                        <div class="form-group">
-                            <input type="text" class="form-control" formControlName="cp_output_text" />
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
@@ -95,8 +94,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <textarea name="" formControlName="cp_short_description"
-                                [(ngModel)]="form.value.cp_short_description" class="form-control" f id="" cols="30"
-                                rows="10"></textarea>
+                                [(ngModel)]="form.value.cp_short_description" class="form-control" f id=""></textarea>
 
                         </div>
                     </div>
@@ -122,7 +120,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" formControlName="cp_hashtag" />
+                            <textarea class="form-control" name="name" formControlName="cp_hashtag"></textarea>
                         </div>
                     </div>
                 </div>
@@ -137,6 +135,20 @@
                                     [checked]="checkedstate == 1">
                                 <span class="slider round"></span>
                             </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>{{ "Category" | translate }}<span style="color: red">(*)</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <mat-radio-group class="radio-group radio-group-type"
+                                                 formControlName="cp_code_group" [(ngModel)]="form.value.cp_code_group" name="cp_code_group">
+                                        <mat-radio-button class="radio-button" value='10'>Beauty</mat-radio-button>
+                                        <mat-radio-button class="radio-button ml-5" value='74'>Fashion</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -167,13 +179,22 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <label>Category<span style="color: red">(*)</span></label>
+                            <label>Catalog<span style="color: red">(*)</span></label>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9" *ngIf="form.value.cp_code_group == '10'">
                             <div class="form-group">
                                 <select class='form-control' [(ngModel)]="form.value.cp_category"
                                     formControlName="cp_category" [(ngModel)]="form.value.cp_category">
                                     <option value="{{item['cd_id']}}" *ngFor="let item of dataBlind.category">
+                                        {{item['cd_label']}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-9" *ngIf="form.value.cp_code_group == '74'">
+                            <div class="form-group">
+                                <select class='form-control' [(ngModel)]="form.value.cp_category"
+                                    formControlName="cp_category" [(ngModel)]="form.value.cp_category">
+                                    <option value="{{item['cd_id']}}" *ngFor="let item of dataBlind.fashion">
                                         {{item['cd_label']}}</option>
                                 </select>
                             </div>
@@ -209,7 +230,7 @@
                         <div class="col-md-3">
                             <label>{{ "Type" | translate }}<span style="color: red">(*)</span></label>
                         </div>
-                        <div class="col-md-2">
+                        <!-- <div class="col-md-2">
                             <div class="form-group">
                                 <label><input type="radio" [checked]="!form.value.cp_type" class="form-control"
                                         name="type" (click)="setType(0)" />Free</label>
@@ -219,6 +240,16 @@
                             <div class="form-group">
                                 <label><input type="radio" [checked]="form.value.cp_type == 1" class="form-control"
                                         name="type" (click)="setType(1)" />Paid</label>
+                            </div>
+                        </div> -->
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <mat-radio-group class="radio-group radio-group-type"
+                                                 formControlName="cp_type" name="cp_type" [(ngModel)]="form.value.cp_type">
+                                        <mat-radio-button class="radio-button" [value]="0">Free</mat-radio-button>
+                    
+                                        <mat-radio-button class="radio-button ml-5" [value]="1">Paid</mat-radio-button>
+                                </mat-radio-group>
                             </div>
                         </div>
                     </div>

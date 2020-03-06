@@ -15,7 +15,7 @@
     </div>
     <form [formGroup]="form">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-3">
                         <label>Partner <span style="color: red">(*)</span></label>
@@ -34,13 +34,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="row marginTop10">
+                <div class="row">
                     <div class="col-md-3">
                         <label>Campaign name<span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="text" class="form-control" formControlName="cp_name" name="name" />
+                            <input type="text" class="form-control" formControlName="cp_name" name="name" placeholder="Enter name"/>
                         </div>
                         <div *ngIf="form.controls.cp_name.invalid && (isSubmitted|| form.controls.cp_name.touched)"
                             class="text-danger marginTop">
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row marginTop10">
+                <div class="row">
                     <div class="col-md-3">
                         <label>Text Color</label>
                     </div>
@@ -66,25 +66,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="row marginTop10">
+                <div class="row">
                     <div class="col-md-3">
                         <label>Output Text</label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-9">
                         <mat-radio-group name="radio_cp_output_text" [(ngModel)]="cpOutputText"
                             (change)="checkCpOutputText()" formControlName="radio_cp_output_text">
                             <div class="row output-text">
-                                <div class="col-md-6">
-                                    <mat-radio-button name="radio_cp_output_text" [value]="1" color="primary">
+                                <div class="col-md-3">
+                                    <mat-radio-button name="radio_cp_output_text" [value]="1">
                                         Coundown</mat-radio-button>
                                 </div>
                                 <div class="col-md-6">
-                                    <mat-radio-button name="radio_cp_output_text" [value]="2" color="primary">
+                                    <mat-radio-button name="radio_cp_output_text" [value]="2">
                                         Customer text</mat-radio-button>
                                 </div>
                             </div>
-
                         </mat-radio-group>
+                        <div *ngIf="isInputCustomerText">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="cp_output_text" placeholder="Enter output text"/>
+                            </div>
+                        </div>
                     </div>
                     <!-- <div class="col-md-2">
                         <div class="form-group">
@@ -98,24 +102,19 @@
                                 text</label>
                         </div>
                     </div> -->
-                    <div class="col-md-5" *ngIf="isInputCustomerText">
-                        <div class="form-group">
-                            <input type="text" class="form-control" formControlName="cp_output_text" />
-                        </div>
-                    </div>
                 </div>
-                <div class="row marginTop10">
+                <div class="row">
                     <div class="col-md-3">
                         <label>Short Description</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
                             <textarea name="" formControlName="cp_short_description" class="form-control" f id=""
-                                cols="30" rows="10"></textarea>
+                               ></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="row marginTop10">
+                <div class="row">
                     <div class="col-md-3">
                         <label>Description <span style="color: red">(*)</span></label>
                     </div>
@@ -132,18 +131,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="row marginTop10">
+                <div class="row">
                     <div class="col-md-3">
                         <label>Hashtag</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" formControlName="cp_hashtag" />
+                            <textarea class="form-control" formControlName="cp_hashtag" name="name"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="form">
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Disabled</label>
                         </div>
@@ -155,7 +154,30 @@
                             </label>
                         </div>
                     </div>
-                    <div class="row marginTop10">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Category<span style="color: red">(*)</span></label>
+                        </div>
+                        <!-- <div class="col-md-9">
+                            <div class="form-group">
+                                <mat-radio-group class="radio-group radio-group-type"
+                                                 formControlName="cp_code_group" [(ngModel)]="dataBlind.cp_code_group" name="cp_code_group">
+                                        <mat-radio-button class="radio-button" [value]="10">Beauty</mat-radio-button>
+                                        <mat-radio-button class="radio-button ml-5" [value]="74">Fashion</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div> -->
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <mat-radio-group class="radio-group radio-group-type"
+                                                 formControlName="cp_code_group" [(ngModel)]="form.value.cp_code_group" name="cp_code_group">
+                                        <mat-radio-button class="radio-button" [value]='10'>Beauty</mat-radio-button>
+                                        <mat-radio-button class="radio-button ml-5" [value]='74'>Fashion</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Brand<span style="color: red">(*)</span></label>
                         </div>
@@ -176,11 +198,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
-                            <label>Category<span style="color: red">(*)</span></label>
+                            <label>Catalog<span style="color: red">(*)</span></label>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9" *ngIf="form.value.cp_code_group == '10'">
                             <div class="form-group">
                                 <select class='form-control' formControlName="cp_category"
                                     [(ngModel)]="form.value.cp_category">
@@ -191,12 +213,27 @@
                             <div *ngIf="form.controls.cp_category.invalid && (isSubmitted|| form.controls.cp_category.touched)"
                                 class="text-danger marginTop">
                                 <div *ngIf="form.controls.cp_category.errors.required">
-                                    Category is required
+                                    Catalog is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9" *ngIf="form.value.cp_code_group == '74'">
+                            <div class="form-group">
+                                <select class='form-control' formControlName="cp_category"
+                                    [(ngModel)]="form.value.cp_category">
+                                    <option value="{{item['cd_id']}}" *ngFor="let item of dataBlind.fashion">
+                                        {{item['cd_label']}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="form.controls.cp_category.invalid && (isSubmitted|| form.controls.cp_category.touched)"
+                                class="text-danger marginTop">
+                                <div *ngIf="form.controls.cp_category.errors.required">
+                                    Catalog is required
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Model</label>
                         </div>
@@ -213,7 +250,7 @@
                         </div>
                     </div>
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Product url</label>
                         </div>
@@ -233,25 +270,22 @@
                         </div>
                     </div>
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Type<span style="color: red">(*)</span></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-9">
                             <div class="form-group">
-                                <label><input type="radio" [checked]="form.value.cp_type == 0" class="form-control"
-                                        name="type" (click)="setType(0)" />Free</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label><input type="radio" [checked]="form.value.cp_type == 1" class="form-control"
-                                        name="type" (click)="setType(1)" />Paid</label>
+                                <mat-radio-group class="radio-group radio-group-type"
+                                                 formControlName="cp_type" name="cp_type">
+                                        <mat-radio-button class="radio-button" [value]="0">Free</mat-radio-button>
+                                        <mat-radio-button class="radio-button ml-5" [value]="1">Paid</mat-radio-button>
+                                </mat-radio-group>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Price</label>
                         </div>
@@ -263,7 +297,7 @@
                         </div>
                     </div>
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Sale price</label>
                         </div>
@@ -274,7 +308,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Period<span style="color: red">(*)</span></label>
                         </div>
@@ -311,7 +345,7 @@
                         </div>
                     </div>
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Select keyword<span style="color: red">(*)</span></label>
                         </div>
@@ -350,7 +384,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Recruitment fiStar<span style="color: red">(*)</span></label>
                         </div>
@@ -368,7 +402,7 @@
                         </div>
                     </div>
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Delivery start date<span style="color: red">(*)</span></label>
                         </div>
@@ -395,7 +429,7 @@
                         </div>
                     </div>
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Delivery end date<span style="color: red">(*)</span></label>
                         </div>
@@ -428,7 +462,7 @@
 
 
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Main image<span style="color: red">(*)</span></label>
                         </div>
@@ -448,7 +482,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="row marginTop10">
+                    <!-- <div class="row">
                         <div class="col-md-3">
                             <label>Main image <span style="color:red">(*)</span></label><br>
                             <label>(image size : 670px x 470px)</label>
@@ -473,7 +507,7 @@
 
 
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Images</label><br>
                             <label for="">(image size : 720px x 1280px)</label>
@@ -517,7 +551,7 @@
                         </div>
                     </div>
 
-                    <div class="row marginTop10">
+                    <div class="row">
                         <div class="col-md-3">
                             <label>Images Description</label>
                         </div>
