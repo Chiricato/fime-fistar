@@ -120,7 +120,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <textarea class="form-control" name="name" formControlName="cp_hashtag"></textarea>
+                            <textarea class="form-control" [(ngModel)]="form.value.cp_hashtag" name="name" formControlName="cp_hashtag"></textarea>
+                            <span>Type space for seperating ex)#fime @lipstic #3CE</span>
                         </div>
                     </div>
                 </div>

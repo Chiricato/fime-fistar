@@ -182,9 +182,19 @@
                 <span> {{row.event_trgter_co}} / {{row.total_apply}}</span>
             </ng-template>
         </ngx-datatable-column>
+        <ngx-datatable-column name="Views" prop="view_cnt" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="70">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.view_cnt}}</span>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column name="Status" [resizeable]="false" [width]="100"  prop="count_down_type">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span> {{row.count_down_type}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Views Buy" prop="view_buy" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="70">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.view_buy}}</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Type" prop="event_knd_code" [headerClass]="'text-center'" [cellClass]="'text-center'" [width]="80" [canAutoResize]="false"

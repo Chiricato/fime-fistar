@@ -90,15 +90,14 @@ export class AdminTryComponent implements OnInit {
                 from: from, to: to
             }).subscribe(res => {
             this.tries = res.result.data;
-            
             console.log(this.tries[0].goods_cl_code);
             for (let i = 0; i < this.tries.length; i++) {
                 this.tries[i].event_bgnde = moment.utc(this.tries[i].event_bgnde);
                 this.tries[i].event_endde = moment.utc(this.tries[i].event_endde);
-                this.category_type = this.tries[i].goods_cl_code.slice(0,3);
-                console.log(this.category_type);
+                this.category_type = this.tries[i].goods_cl_code.slice(0, 3);
+                this.tries[i].view_cnt = parseInt(this.tries[i].view_cnt);
+                this.tries[i].view_buy = parseInt(this.tries[i].view_buy);
             }
-            
             this.tries = _.orderBy(this.tries, ['count_down_type'], ['desc']);
             this.total = res.result.total;
         });
