@@ -59,16 +59,31 @@
                 <div class="form-group">
                     <label>Catalog</label>
                     <div>
-                        <mat-form-field class="full-width">
+                        <!-- <mat-form-field class="full-width">
                             <mat-select [(ngModel)]="filter.category_id">
                                 <mat-option value="null">All</mat-option>
                                 <mat-option *ngFor="let category of categories" value="{{category.code}}">
                                     {{category.code_nm}}
                                 </mat-option>
                             </mat-select>
+                        </mat-form-field> -->
+                        <mat-form-field class="full-width">
+                            <mat-select matNativeControl [(ngModel)]="filter.category_id">
+                                <mat-optgroup label="Beauty">
+                                    <mat-option *ngFor="let category of categories" value="{{category.code}}">
+                                        {{category.code_nm}}
+                                    </mat-option>
+                                </mat-optgroup>
+                                <mat-optgroup label="Fashion">
+                                    <mat-option *ngFor="let item of fashion" value="{{item.code}}">
+                                        {{item.code_nm}}
+                                    </mat-option>
+                                </mat-optgroup>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
+                
             </div>
 
             <div class="col-2">

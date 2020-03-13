@@ -39,6 +39,7 @@ export class AdminTryComponent implements OnInit {
     public showActive = false;
     public pageLimitOptions = [];
     public category_type: any;
+    public fashion = [];
     constructor(
         private api: Restangular,
         private toast: ToastrService,
@@ -56,6 +57,7 @@ export class AdminTryComponent implements OnInit {
         this.getTries();
         this.getBrands();
         this.getCategories();
+        this.getFashion();
         this.pageLimitOptions = [
             {value: 5},
             {value: 10},
@@ -75,6 +77,11 @@ export class AdminTryComponent implements OnInit {
     getCategories() {
         this.api.all('categories').customGET('').subscribe(res => {
             this.categories = res.result;
+        });
+    }
+    getFashion() {
+        this.api.all('getFashion').customGET('').subscribe(res => {
+            this.fashion = res.result;
         });
     }
 
