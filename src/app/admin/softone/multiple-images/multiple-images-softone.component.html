@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="row" *ngIf="imagesBase64.length > 0">
-            <div class="col-12 resource-img default">
+            <div class="col-12 resource-img default display-none">
                 <img [src]="imagesBase64[imageIndex].base64" *ngIf="imagesBase64[imageIndex].base64 !== ''">
                 <img [src]="imagesBase64[imageIndex].url"
                      *ngIf="imagesBase64[imageIndex].base64 === '' && imagesBase64[imageIndex].url !== '' ">
@@ -32,25 +32,26 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-3" *ngFor="let img of imagesBase64; let i = index;">
-                <div class="resource-img mt-1">
-                    <img [src]="img.base64" *ngIf="img.base64 !== ''">
-                    <img [src]="img.url" *ngIf="img.base64 === '' && img.url !== ''">
-                    <div class="middle">
-                        <mat-card class="overlay-action" (click)="setImageToDefault(i)">
-                            <mat-card-actions>
-                                <button mat-button title="crop" (click)="editImage(i)" *ngIf="img.base64 !== ''">
-                                    <mat-icon>crop</mat-icon>
-                                </button>
-                                <button mat-button title="delete" (click)="deleteImage(i)">
-                                    <mat-icon>delete</mat-icon>
-                                </button>
-                            </mat-card-actions>
-                        </mat-card>
+        <div cdkDropList cdkDropListOrientation="horizontal" class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="col-3" *ngFor="let img of imagesBase64; let i = index;" cdkDrag>
+                    <div class="resource-img">
+                        <img [src]="img.base64" *ngIf="img.base64 !== ''" width="100%" height="auto">
+                        <img [src]="img.url" *ngIf="img.base64 === '' && img.url !== ''" width="100%" height="auto">
+                        <div class="middle">
+                            <mat-card class="overlay-action" (click)="setImageToDefault(i)">
+                                <mat-card-actions>
+                                    <button mat-button title="crop" (click)="editImage(i)" *ngIf="img.base64 !== ''">
+                                        <mat-icon>crop</mat-icon>
+                                    </button>
+                                    <button mat-button title="delete" (click)="deleteImage(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </mat-card-content>
 </mat-card>

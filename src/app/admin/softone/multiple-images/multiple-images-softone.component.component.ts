@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {AdminResourceDialogImageCropSoftOneComponent} from './dialog-image-crop-softone.component';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-admin-multiple-images-softone',
@@ -60,7 +61,10 @@ export class AdminMultipleImagesSoftOneComponent implements OnInit, OnChanges {
         }
         this.cd.detectChanges();
     }
-
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.imagesBase64, event.previousIndex, event.currentIndex);
+      }
+      
     fileChangeEvent(event: any): void {
         this.change = true;
         let maxImages = Number.MAX_VALUE;
