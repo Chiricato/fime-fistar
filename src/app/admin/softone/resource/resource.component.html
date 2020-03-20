@@ -35,7 +35,7 @@
         <mat-card-content>
             <div class="form-group" *ngIf="resource.resource_type == 1">
                 <div class="banner_img" *ngIf="!multiple">
-                    <img [src]="env.rootHost + resource.image_url" *ngIf="resource.image_url"/>
+                    <!-- <img [src]="env.rootHost + resource.image_url" *ngIf="resource.image_url"/> -->
                     <img [src]="resource.image_fistar_url" *ngIf="resource.image_fistar_url"/>
                 </div>
                 <div>

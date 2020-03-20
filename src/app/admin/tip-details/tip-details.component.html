@@ -433,8 +433,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <textarea class="form-control" [(ngModel)]="tip.cont1_body"
-                                      formControlName="cont1_body" name="cont1_body"></textarea>
+                        <ck-editor [(ngModel)]="tip.cont1_body" skin="moono-lisa" language="en" [fullPage]="true"
+                                      formControlName="cont1_body" name="cont1_body"></ck-editor>         
                         </div>
                     </div>
                 </div>
@@ -546,8 +546,9 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <textarea class="form-control" [(ngModel)]="tip.cont2_body"
-                                      formControlName="cont2_body" name="cont2_body"></textarea>
+                            <ck-editor [(ngModel)]="tip.cont2_body"
+                            formControlName="cont2_body" name="cont2_body" skin="moono-lisa" language="en" [fullPage]="true"
+                                    ></ck-editor>
                         </div>
                     </div>
                 </div>
