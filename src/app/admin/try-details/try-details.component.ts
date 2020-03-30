@@ -155,7 +155,8 @@ export class AdminTryDetailsComponent implements OnInit {
     getBrands() {
         this.api.all('brands').customGET('').subscribe(res => {
             // this.brands = _.sortBy(res.result, 'code_nm');
-            this.brands = _.orderBy(res.result, ['code_nm'], ['asc']);
+            // this.brands = _.orderBy(res.result, ['code_nm'], ['asc']);
+            this.brands = res.result;
         });
     }
 

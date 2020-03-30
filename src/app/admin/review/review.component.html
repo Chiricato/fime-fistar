@@ -51,7 +51,8 @@
                             <mat-select [(ngModel)]="filter.is_disabled">
                                 <mat-option value="null">All</mat-option>
                                 <mat-option value="Y">Active</mat-option>
-                                <mat-option value="N">Close</mat-option>
+                                <mat-option value="N">Inactive</mat-option>
+                                <mat-option value="D">Deleted</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -114,6 +115,11 @@
     </mat-card>
     <div class="multi-action" *ngIf="selected.length > 0">
         <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-default mr-1" [swal]="disableSwal" *ngIf="showRestore" (confirm)="onRestoreMulti(false)">
+                <i class="material-icons align-text-bottom">
+                    restore_from_trash
+                </i> <span> Restore</span>
+            </button>
             <button class="btn btn-primary mr-1" [swal]="disableSwal" *ngIf="showDeactivate" (confirm)="onToggleMulti(false)">
                 <i class="material-icons align-text-bottom">
                     visibility_off
@@ -197,6 +203,12 @@
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Views" prop="view_cnt" [resizeable]="false" [width]="70"></ngx-datatable-column>
+        <ngx-datatable-column name="Deleted" prop="" [resizeable]="false" [width]="70">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.delete_at == 'N'">No</span>
+                <span *ngIf="row.delete_at == 'Y'">Yes</span>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <button mat-icon-button [matMenuTriggerFor]="userActions">
@@ -233,9 +245,13 @@
                         <mat-icon>visibility</mat-icon>
                         <span>Enable</span>
                     </button>
-                    <button mat-menu-item [swal]="deleteSwal" (confirm)="onDelete([row])" class="datatable-action-button">
+                    <button *ngIf="row.delete_at== 'N'" mat-menu-item [swal]="deleteSwal" (confirm)="onDelete([row])" class="datatable-action-button">
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
+                    </button>
+                    <button *ngIf="row.delete_at== 'Y'" mat-menu-item [swal]="restoreSwal" (confirm)="onRestore([row])" class="datatable-action-button">
+                        <mat-icon>restore_from_trash</mat-icon>
+                        <span>Restore</span>
                     </button>
                 </mat-menu>
             </ng-template>
@@ -244,6 +260,8 @@
 </div>
 
 <swal #deleteSwal text="Are you sure to delete this review?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #restoreSwal text="Are you sure to restore this review?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>
 <swal #enableSwal text="Are you sure to approve this review?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>

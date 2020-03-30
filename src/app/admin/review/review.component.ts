@@ -33,6 +33,7 @@ export class AdminReviewComponent implements OnInit {
     public showActive = false;
     public showNormal = false;
     public showPopular = false;
+    public showRestore = false;
     public column = 'review_no';
     public sort = 'desc';
     public filter = {
@@ -157,12 +158,23 @@ export class AdminReviewComponent implements OnInit {
             }
         });
     }
+    onRestore(rows) {
+        const ids = _.map(rows, 'review_no');
+
+        this.api.all('reviews-restore').customPOST({ ids: ids }, '').subscribe(res => {
+            if (res.result) {
+                this.getReviews();
+                this.toast.success('The review has been restored');
+            }
+        });
+    }
 
     onSelect({ selected }) {
         this.selected.splice(0, this.selected.length);
         this.selected.push(...selected);
         if (this.selected.length > 0) {
             this.showDelete = true;
+            this.showRestore = true;
 
             let showDeactivate = true;
             let showActive = true;
@@ -189,6 +201,7 @@ export class AdminReviewComponent implements OnInit {
             this.showDeactivate = false;
             this.showActive = false;
             this.showDelete = false;
+            this.showRestore = false;
             this.showNormal = false;
             this.showPopular = false;
         }
@@ -203,6 +216,17 @@ export class AdminReviewComponent implements OnInit {
     onDeleteMulti() {
         if (this.selected.length > 0) {
             this.onDelete(this.selected);
+            this.showDeactivate = false;
+            this.showActive = false;
+            this.showDelete = false;
+            this.showRestore = false;
+            this.showNormal = false;
+            this.showPopular = false;
+        }
+    }
+    onRestoreMulti() {
+        if (this.selected.length > 0) {
+            this.onRestore(this.selected);
         }
     }
 
