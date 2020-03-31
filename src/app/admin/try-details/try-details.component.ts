@@ -76,7 +76,8 @@ export class AdminTryDetailsComponent implements OnInit {
             event_knd_code: 398002,
             short_desc: '',
             description: '',
-            resource_type: 1
+            resource_type: 1,
+            level_apply: 1
         };
 
         this.form = new FormGroup({
@@ -107,7 +108,8 @@ export class AdminTryDetailsComponent implements OnInit {
             output_category: new FormControl(this.output_category, []),
             sale_price: new FormControl(this.try.event_pc, []),
             resource_type: new FormControl(this.try.resource_type, []),
-            goods_code_group: new FormControl(this.try.goods_code_group, [])
+            goods_code_group: new FormControl(this.try.goods_code_group, []),
+            level_apply: new FormControl(this.try.level_apply, [])
         });
 
         if (this.tryId) {
