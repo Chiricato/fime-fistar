@@ -163,10 +163,14 @@
         <ngx-datatable-column name="Thumbnail" prop="main_image" [canAutoResize]="false" [resizeable]="false" class="thumbnail-col">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <div class="thumbnail-container">
-                    <img class="review-thumbnail" [src]="env.rootHost + row.main_image.file_cours + '/' + row.main_image.stre_file_nm"/>
-                    <div class="zoom-thumbnail">
-                        <img class="review-thumbnail-zoom" [src]="env.rootHost + row.main_image.file_cours + '/' + row.main_image.stre_file_nm"/>
+                    <img class="review-thumbnail" src="https://via.placeholder.com/100" *ngIf="row.main_image.file_cours == 'null'"/>
+                    <img class="review-thumbnail" [src]="env.rootHost + row.main_image.file_cours + '/' + row.main_image.stre_file_nm" *ngIf="row.main_image.type_file == 1"/>
+                    <div class="zoom-thumbnail" *ngIf="row.main_image.type_file == 1">
+                        <img class="review-thumbnail-zoom" [src]="row.main_image.file_cours?env.rootHost + row.main_image.file_cours + '/' + row.main_image.stre_file_nm:'https://via.placeholder.com/100'"/>
                     </div>
+                    <video class="review-thumbnail" *ngIf="row.main_image.type_file == 2" controls>
+                        <source [src]="env.rootHost + row.main_image.file_cours + '/' + row.main_image.stre_file_nm">
+                    </video>
                 </div>
             </ng-template>
         </ngx-datatable-column>
