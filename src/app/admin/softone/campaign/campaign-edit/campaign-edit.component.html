@@ -340,43 +340,6 @@
                         </div>
                     </div>
 
-                    <div class="row mt-4">
-                        <div class="col-md-3">
-                            <label>{{ "Join Max Count" | translate }}<span style="color: red">(*)</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <input type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"
-                                    class="form-control" [(ngModel)]="form.value.cp_total_free"
-                                    formControlName="cp_total_free" />
-                                <div style="color:red" *ngIf="form.value.cp_total_free==null&& active==true">
-                                    Join Max Count is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>Recruitment fiStar<span style="color: red">(*)</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <input type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"
-                                    class="form-control" max="10" [(ngModel)]="form.value.cp_total_influencer"
-                                    formControlName="cp_total_influencer" />
-                                <ng-container *ngIf="campaignErrors?.cp_total_influencer">
-                                    <div *ngFor="let item of campaignErrors.cp_total_influencer" style="color:red">
-                                        {{item}}
-                                    </div>
-                                </ng-container>
-                                <div style="color:red" *ngIf="form.value.cp_total_influencer==null&& active==true">
-                                    Recruitment fiStar is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
                         <div class="col-md-3">
                             <label>{{ "Delivery start date" | translate }}<span style="color: red">(*)</span></label>
@@ -523,6 +486,44 @@
                             </app-softone-resource>
                         </div>
                     </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <label>{{ "Join Max Count" | translate }}<span style="color: red">(*)</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                                    class="form-control" [(ngModel)]="form.value.cp_total_free"
+                                    formControlName="cp_total_free" />
+                                <div style="color:red" *ngIf="form.value.cp_total_free==null&& active==true">
+                                    Join Max Count is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Recruitment fiStar<span style="color: red">(*)</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"
+                                    class="form-control" max="10" [(ngModel)]="form.value.cp_total_influencer"
+                                    formControlName="cp_total_influencer" />
+                                <ng-container *ngIf="campaignErrors?.cp_total_influencer">
+                                    <div *ngFor="let item of campaignErrors.cp_total_influencer" style="color:red">
+                                        {{item}}
+                                    </div>
+                                </ng-container>
+                                <div style="color:red" *ngIf="form.value.cp_total_influencer==null&& active==true">
+                                    Recruitment fiStar is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <hr />
                     <div class="row mt-4">
                         <div class="col-md-3"></div>

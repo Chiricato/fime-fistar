@@ -368,40 +368,6 @@
                         </div>
                     </div>
 
-                    <div class="row mt-4">
-                        <div class="col-md-3">
-                            <label>Join Max Count<span style="color: red">(*)</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <input type="text" class="form-control" formControlName="cp_total_free"
-                                    (keypress)="numberOnly($event)" />
-                            </div>
-                            <div *ngIf="form.controls.cp_total_free.invalid && (isSubmitted|| form.controls.cp_total_free.touched)"
-                                class="text-danger marginTop">
-                                <div *ngIf="form.controls.cp_total_free.errors.required">
-                                    Join Max Count is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>Recruitment fiStar<span style="color: red">(*)</span></label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <input type="text" class="form-control" maxlength="10"
-                                    formControlName="cp_total_influencer" (keypress)="numberOnly($event)" />
-                            </div>
-                            <div *ngIf="form.controls.cp_total_influencer.invalid && (isSubmitted|| form.controls.cp_total_influencer.touched)"
-                                class="text-danger marginTop">
-                                <div *ngIf="form.controls.cp_total_influencer.errors.required">
-                                    Recruitment fiStar is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col-md-3">
@@ -568,6 +534,40 @@
                                     Images is required
                                 </div>
                             </div> -->
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <label>Join Max Count<span style="color: red">(*)</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="cp_total_free"
+                                    (keypress)="numberOnly($event)" />
+                            </div>
+                            <div *ngIf="form.controls.cp_total_free.invalid && (isSubmitted|| form.controls.cp_total_free.touched)"
+                                class="text-danger marginTop">
+                                <div *ngIf="form.controls.cp_total_free.errors.required">
+                                    Join Max Count is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Recruitment fiStar<span style="color: red">(*)</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" maxlength="10"
+                                    formControlName="cp_total_influencer" (keypress)="numberOnly($event)" />
+                            </div>
+                            <div *ngIf="form.controls.cp_total_influencer.invalid && (isSubmitted|| form.controls.cp_total_influencer.touched)"
+                                class="text-danger marginTop">
+                                <div *ngIf="form.controls.cp_total_influencer.errors.required">
+                                    Recruitment fiStar is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr />
