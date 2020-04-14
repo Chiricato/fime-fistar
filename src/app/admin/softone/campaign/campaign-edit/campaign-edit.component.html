@@ -281,7 +281,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <label>Period<span style="color: red">(*)</span></label>
+                            <label>Start Date - End Date<span style="color: red">(*)</span></label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group period">
@@ -296,6 +296,9 @@
                                         <div *ngIf="form.controls.cp_period_start.errors.required && active==true">
                                             Period start is required
                                         </div>
+                                    </div>
+                                    <div style="color:red" *ngIf="!validDate">
+                                        End date cannot over Start date
                                     </div>
                                 </div>
                                 &nbsp;~&nbsp;
@@ -498,6 +501,9 @@
                                     formControlName="cp_total_free" />
                                 <div style="color:red" *ngIf="form.value.cp_total_free==null&& active==true">
                                     Join Max Count is required
+                                </div>
+                                <div style="color:red" *ngIf="form.value.cp_total_free < form.value.cp_total_influencer">
+                                    Recruitment fiStar number cannot over Join Max count
                                 </div>
                             </div>
                         </div>

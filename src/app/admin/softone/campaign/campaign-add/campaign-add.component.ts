@@ -284,19 +284,25 @@ export class CampaignAddComponent implements OnInit {
   async save() {
     //  console.log(this.imagesAdd);return;
     let arr: any = [];
-    console.log(this.image_description,'dddd');
-    console.log(this.image_main_image,'276');
     this.isErrPeriod = false;
     this.isErrDeliveryDate = false;
     this.isSubmitted = true;
-    console.log('test');
     // if (this.form.invalid || this.isErrPeriod || this.isErrDeliveryDate || this.imagesAdd.imagesBase64 ===  undefined || this.imagesAdd.imagesBase64.length == 0) {
     //   return 0;
     // }
     if (this.form.invalid || this.isErrPeriod || this.isErrDeliveryDate ) {
       return 0;
     }
-    console.log('test');
+    
+    console.log(this.form.controls.cp_total_free.value);
+    console.log(this.form.controls.cp_total_influencer.value);
+    if (this.form.controls.cp_total_free.value < this.form.controls.cp_total_influencer.value) {
+      return 0;
+    }
+    if (Date.parse(this.form.controls.cp_period_start.value) > Date.parse(this.form.controls.cp_period_end.value)) {
+      this.isSubmitted = true;
+      return 0;
+    }
     if (this.cpDate.cp_period_start instanceof Object) {
       this.form.controls.cp_period_start.setValue(moment(this.cpDate.cp_period_start).format('YYYY-MM-DD HH:mm:ss'));
     }
@@ -315,11 +321,9 @@ export class CampaignAddComponent implements OnInit {
     for(let item of this.imagesAdd.imagesBase64){
       arr.push([item.base64,item.url.replace(this.env.rootHost + '/storage/attachments/large/', '')]);
     }
-//  console.log(arr,'array');return;
     for (var i = 0; i < arr.length; i++) {
       formsData.append('image['+i+'][0]', arr[i][0]);
       formsData.append('image['+i+'][1]', arr[i][1]);
-      // console.log(arr[i]);
 
     }
 

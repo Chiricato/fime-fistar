@@ -71,6 +71,7 @@ export class AdminCampaignEditComponent implements OnInit {
   dataImage: any = [];
   isSubmitted: any = false;
   invalidImages: any = false;
+  validDate = true;
 
   constructor(
     private router: Router,
@@ -389,7 +390,16 @@ export class AdminCampaignEditComponent implements OnInit {
       return 0;
 
     console.log(this.fistarsChannel, 'save----xxx');
-    
+    console.log(Date.parse(this.form.controls.cp_period_start.value));
+    console.log(Date.parse(this.form.controls.cp_period_end.value));
+    console.log(this.form.controls.cp_period_start.value);
+    if (this.form.controls.cp_total_free.value < this.form.controls.cp_total_influencer.value) {
+      return 0;
+    }
+    if (Date.parse(this.form.controls.cp_period_start.value) > Date.parse(this.form.controls.cp_period_end.value)) {
+      this.validDate = false;
+      return 0;
+    }
     if (this.activeEdit() == true) {
 
       //(this.cpDate)
