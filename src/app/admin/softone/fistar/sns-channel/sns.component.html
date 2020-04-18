@@ -80,23 +80,31 @@
                     Facebook
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_follower ? commonService.parseLargeNum(item.usn_follower): '-'}}</h4>
+                    <h4><input type="text" [(ngModel)]="item.usn_follower" class="form-control" formControlName="fLFacebook"></h4>
                     <p>Flowers</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_like ? commonService.parseLargeNum(item.usn_like) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_like" class="form-control" formControlName="usn_like_facebook">
+                    </h4>
                     <p>Reactions</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_comment ? commonService.parseLargeNum(item.usn_comment) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_comment" class="form-control" formControlName="usn_comment_facebook">
+                    </h4>
                     <p>Comments</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_share ? commonService.parseLargeNum(item.usn_share) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_share" class="form-control" formControlName="usn_share_facebook">
+                    </h4>
                     <p>Shares</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_view ? commonService.parseLargeNum(item.usn_view) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_view" class="form-control" formControlName="usn_view_facebook">
+                    </h4>
                     <p>Views</p>
                 </div>
             </div>
@@ -160,23 +168,31 @@
                     Youtube
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_follower ? commonService.parseLargeNum(item.usn_follower): '-'}}</h4>
+                    <h4><input type="text" [(ngModel)]="item.usn_follower" class="form-control" formControlName="fLYoutube"></h4>
                     <p>Flowers</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_like ? commonService.parseLargeNum(item.usn_like) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_like" class="form-control" formControlName="usn_like_youtube">
+                    </h4>
                     <p>Reactions</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_comment ? commonService.parseLargeNum(item.usn_comment) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_comment" class="form-control" formControlName="usn_comment_youtube">
+                    </h4>
                     <p>Comments</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_share ? commonService.parseLargeNum(item.usn_share) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_share" class="form-control" formControlName="usn_share_youtube">
+                    </h4>
                     <p>Shares</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_view ? commonService.parseLargeNum(item.usn_view) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_view" class="form-control" formControlName="usn_view_youtube">
+                    </h4>
                     <p>Views</p>
                 </div>
             </div>
@@ -229,23 +245,31 @@
                     Instagram
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_follower ? commonService.parseLargeNum(item.usn_follower): '-'}}</h4>
+                    <h4><input type="text" [(ngModel)]="item.usn_follower" class="form-control" formControlName="fLInstagram"></h4>
                     <p>Flowers</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_like ? commonService.parseLargeNum(item.usn_like) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_like" class="form-control" formControlName="usn_like_instagram">
+                    </h4>
                     <p>Reactions</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_comment ? commonService.parseLargeNum(item.usn_comment) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_comment" class="form-control" formControlName="usn_comment_instagram">
+                    </h4>
                     <p>Comments</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_share ? commonService.parseLargeNum(item.usn_share) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_share" class="form-control" formControlName="usn_share_instagram">
+                    </h4>
                     <p>Shares</p>
                 </div>
                 <div class="col-md-1">
-                    <h4>{{item.usn_view ? commonService.parseLargeNum(item.usn_view) : '-'}}</h4>
+                    <h4>
+                        <input type="text" [(ngModel)]="item.usn_view" class="form-control" formControlName="usn_view_instagram">
+                    </h4>
                     <p>Views</p>
                 </div>
             </div>

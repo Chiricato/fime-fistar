@@ -68,16 +68,31 @@ export class AdminFistarSNS implements OnInit {
         this.formFacebook = new FormGroup({
             costFacebook: new FormControl('', [Validators.required]),
             urlFacebook: new FormControl('', [Validators.required]),
+            fLFacebook: new FormControl('', []),
+            usn_like_facebook: new FormControl('', []),
+            usn_comment_facebook: new FormControl('', []),
+            usn_share_facebook: new FormControl('', []),
+            usn_view_facebook: new FormControl('', [])
         });
 
         this.formYoutube = new FormGroup({
             costYoutube: new FormControl('', [Validators.required]),
             urlYoutube: new FormControl('', []),
+            fLYoutube: new FormControl('', []),
+            usn_like_youtube: new FormControl('', []),
+            usn_comment_youtube: new FormControl('', []),
+            usn_share_youtube: new FormControl('', []),
+            usn_view_youtube: new FormControl('', [])
         });
 
         this.formIstagram = new FormGroup({
             costIstagram: new FormControl('', [Validators.required]),
             urlIstagram: new FormControl('', []),
+            fLInstagram: new FormControl('', []),
+            usn_like_instagram: new FormControl('', []),
+            usn_comment_instagram: new FormControl('', []),
+            usn_share_instagram: new FormControl('', []),
+            usn_view_instagram: new FormControl('', [])
 
         });
 
