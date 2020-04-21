@@ -51,6 +51,18 @@
                                 <ng-container *ngIf="!content.link && !content.dateUpdate && !content.modalView">
                                     {{content.title}}
                                 </ng-container>
+                                <!-- <ng-container *ngIf="content.title == 'Closed'">
+                                    <br>
+                                    Total/Payments
+                                    <br>
+                                    {{content.title_payments}}
+                                </ng-container> -->
+                                <!-- <ng-container *ngIf="content.title == 'Matching'">
+                                    <br>
+                                    Ask/Request/Matched
+                                    <br>
+                                    {{content.title_matching}}
+                                </ng-container> -->
 
                                 <label (click)="showModal(content.dataModal)"
                                     *ngIf="!content.dateUpdate&&!content.link&&content.modalView">
@@ -135,9 +147,15 @@
                             <button *ngIf="item.controls[0] == 'matched'" class="btn-control" (click)="toaz('matched')">...</button>
                             <button *ngIf="item.controls[0] == 'cancel'" class="btn-control" (click)="toaz('cancel')">...</button>
                             <button *ngIf="item.controls[0] != 'matched' && item.controls[0] != 'cancel'" class="btn-control" (click)="displaySub($event)">...</button>
-                            <div class="sub-control changePositionPopup" (mouseleave)="leave($event)">
+                            <div class="sub-control changePositionPopup" (mouseleave)="leave($event)" >
                                 <ng-container *ngFor="let it of item.controls">
                                     <a *ngIf="it.link" [routerLink]="it.link">{{it.value}}</a>
+                                    <a *ngIf="it.status_matching" [routerLink]="'/admin/campaign'" (click)="toggleReady(it.toggle_matching)">{{it.matching}}</a>
+                                    <a *ngIf="it.status_ready" [routerLink]="'/admin/campaign'" (click)="toggleMatching(it.toggle_ready)">{{it.ready}}</a>
+                                    <a *ngIf="it.status_ready1"[routerLink]="'/admin/campaign'" (click)="toggleOngo(it.toggle_ready1)">{{it.ready1}}</a>
+                                    <a *ngIf="it.status_ongo" [routerLink]="'/admin/campaign'" (click)="toggleReady(it.toggle_ongo)">{{it.ongo}}</a>
+                                    <a *ngIf="it.status_ongo1" [routerLink]="'/admin/campaign'" (click)="toggleClosed(it.toggle_ongo1)">{{it.ongo1}}</a>
+                                    <a *ngIf="it.status_closed" [routerLink]="'/admin/campaign'" (click)="toggleOngo(it.toggle_closed)">{{it.closed}}</a>
                                     <a *ngIf="it.action == 'delete'" (click)="delete(it.id)">{{it.value}}</a>
                                     <a *ngIf="it.action == 'disabled'" (click)="changeDisabled(it.id)">{{it.value}}</a>
                                     <!-- Ánh custom action -->

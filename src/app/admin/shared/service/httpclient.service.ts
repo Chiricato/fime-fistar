@@ -43,6 +43,10 @@ export class HttpClientAdminService {
       return  this.http.post(environment.host_fistar+'/api/admin/campaign-admin-review',data,httpOptions);
     }
 
+    matchingToReady(id) {
+        return this.http.put(`${environment.host_fistar}/api/admin/update-ready/` + id , httpOptions);
+    }
+
     getReviewAdminStatusId(id){
         return  this.http.get(environment.host_fistar+'/api/admin/campaign-admin-review/status/'+id);
       }

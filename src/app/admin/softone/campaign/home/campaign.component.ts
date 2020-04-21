@@ -171,14 +171,11 @@ export class AdminCampaignComponent implements OnInit {
     convertData(data) {
         // tslint:disable-next-line:prefer-const
         let arr = [];
-        console.log(data)
         for (let index = 0; index < data.length; index++) {
-            
-            
-            let brand = this.brands.filter(label =>label.CODE == data[index]['cp_brand'])
-           
-            let dataBrand="";
-            dataBrand=brand.length > 0 ? brand[0].CODE_NM : ""
+            let brand = this.brands.filter(label => label.CODE == data[index]['cp_brand']);
+            console.log(data[0]['count_status']['completed']);
+            let dataBrand = "";
+            dataBrand = brand.length > 0 ? brand[0].CODE_NM : "";
            
             let obj = {
                 id: data[index]['cp_id'],
@@ -192,6 +189,12 @@ export class AdminCampaignComponent implements OnInit {
                     { value: 'Comments', link: '/admin/comments/try/' + data[index]['cp_try_id'] },
                     { value: 'Reviews', link: '/admin/reviews/try/' + data[index]['cp_try_id'] },
                     { value: 'Winners', link: '/admin/winner/try/' + data[index]['cp_try_id'] },
+                    { matching: 'Ready', status_matching: data[index]['cp_status'] === 59, toggle_matching: data[index]['cp_id']},
+                    { ready: 'Matching', status_ready: data[index]['cp_status'] === 60, toggle_ready: data[index]['cp_id']},
+                    { ready1: 'On-going', status_ready1: data[index]['cp_status'] === 60, toggle_ready1: data[index]['cp_id']},
+                    { ongo: 'Ready', status_ongo: data[index]['cp_status'] === 61, toggle_ongo: data[index]['cp_id']},
+                    { ongo1: 'Closed', status_ongo1: data[index]['cp_status'] === 61, toggle_ongo1: data[index]['cp_id']},
+                    { closed: 'On-going', status_closed: data[index]['cp_status'] === 62, toggle_closed: data[index]['cp_id']},
                     {
                         value: data[index]['cp_state'] == 2 ? 'Enabled' : 'Disabled',
                         action: data[index]['cp_state'] == 2 ? 'enabledCampaign' : 'disabledCampaign', id: data[index]['cp_id']
@@ -199,13 +202,16 @@ export class AdminCampaignComponent implements OnInit {
                 ],
                 content: [
                     { title: data[index]['cp_id'] },
-                    { title: data[index]['partner']['pc_name'], bold: true, link: '/admin/partner/information/'+data[index]['partner']['pid'], target:'_blank' },
-                    { image: this.commonService.getCampaignThumb(data[index]), link: '/admin/campaign/edit/'+data[index]['cp_id'], target:'_blank' },
-                    { title: data[index]['cp_name'], underline: true, link: '/admin/campaign/edit/'+data[index]['cp_id'], target:'_blank' },
+                    { title: data[index]['partner']['pc_name'], bold: true, link: '/admin/partner/information/' + data[index]['partner']['pid'], target: '_blank' },
+                    { image: this.commonService.getCampaignThumb(data[index]), link: '/admin/campaign/edit/' + data[index]['cp_id'], target: '_blank' },
+                    { title: data[index]['cp_name'], underline: true, link: '/admin/campaign/edit/' + data[index]['cp_id'], target:'_blank' },
                     {
                         title: data[index]['cp_status'] === 59 ? 'Matching' :
                             data[index]['cp_status'] === 60 ? 'Ready' :
-                                data[index]['cp_status'] === 61 ? 'On-going' : 'Closed'
+                                data[index]['cp_status'] === 61 ? 'On-going' : 'Closed',
+                                title_payments: data[index]['payments_count'] + '/' + data[index]['payments_count'],
+                                title_ready: data[index]['payments_count'] + '/' + data[index]['payments_count'],
+                                // title_matching: data[index]['count_status']['apply'],
                     },
                     { title: data[index]['category']['cd_label'] },
                     // { title: data[index]['cp_brand'], bold: true },
@@ -537,6 +543,20 @@ export class AdminCampaignComponent implements OnInit {
             this.search();
         }
     }
+
+    
+
+    // onDelete(row) {
+    //     this.api
+    //         .one('del-categories', row.code)
+    //         .customDELETE('')
+    //         .subscribe(res => {
+    //             if (res.result) {
+    //                 this.getCategories();
+    //                 this.toast.success('The category has been deleted');
+    //             }
+    //         });
+    // }
 
 
 }

@@ -4,6 +4,8 @@ import { PagerService } from '../service/pager.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClientAdminService } from '../service/httpclient.service';
 import { ToastrService } from 'ngx-toastr';
+import { Restangular } from 'ngx-restangular';
+import { environment } from '../../../../environments/environment';
 declare var $: any;
 @Component({
   selector: 'app-data-table',
@@ -53,6 +55,7 @@ export class DataTableComponent implements OnInit {
   isBackgroundSelector = false;
 
   constructor(
+    private api: Restangular,
     private campaignService: HttpClientAdminService,
     private pagerService: PagerService,
     private router: Router,
@@ -244,4 +247,51 @@ export class DataTableComponent implements OnInit {
         break;
     }
   }
+
+  toggleReady(id) {
+    let formsData = new FormData();
+        this.campaignService.postData(`api/admin/update-ready/` + id, formsData)
+            .subscribe(res => {
+              if (res['success']) {
+              this.router.navigate(['/admin/campaign']);
+              this.toa.success('Success');
+              this.outputReloadData.emit();
+              }
+            });
+    }
+  toggleMatching(id) {
+    let formsData = new FormData();
+        this.campaignService.postData(`api/admin/update-matching/` + id, formsData)
+            .subscribe(res => {
+              if (res['success']) {
+              this.router.navigate(['/admin/campaign']);
+              this.toa.success('Success');
+              this.outputReloadData.emit();
+              }
+            });
+    }
+  toggleOngo(id) {
+    let formsData = new FormData();
+        this.campaignService.postData(`api/admin/update-ongoing/` + id, formsData)
+            .subscribe(res => {
+              if (res['success']) {
+              this.router.navigate(['/admin/campaign']);
+              this.toa.success('Success');
+              this.outputReloadData.emit();
+              }
+            });
+    }
+  toggleClosed(id) {
+    let formsData = new FormData();
+        this.campaignService.postData(`api/admin/update-closed/` + id, formsData)
+            .subscribe(res => {
+              if (res['success']) {
+              this.router.navigate(['/admin/campaign']);
+              this.toa.success('Success');
+              this.outputReloadData.emit();
+              }
+            });
+    }
+
+   
 }
