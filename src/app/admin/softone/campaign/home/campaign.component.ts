@@ -17,11 +17,15 @@ import { CampaignService as  CampaignServiceSoftone} from '../../../softone/serv
 export class AdminCampaignComponent implements OnInit {
     public fistars: any = [];
     public message: string;
-
+    public req_matching: any;
     public env: any = environment;
     public showDelete = false;
     public showDeactivate = false;
     public showActive = false;
+    public createDate: any;
+    public startDate: any;
+    public ongoDate: any;
+    public endDate: any;
     isSearch = false;
     pathCurrent;
     // TUAN DEV
@@ -173,10 +177,13 @@ export class AdminCampaignComponent implements OnInit {
         let arr = [];
         for (let index = 0; index < data.length; index++) {
             let brand = this.brands.filter(label => label.CODE == data[index]['cp_brand']);
-            console.log(data[0]['count_status']['completed']);
             let dataBrand = "";
             dataBrand = brand.length > 0 ? brand[0].CODE_NM : "";
-           
+            this.createDate = moment(data[index]['created_at']).format('YYYY-MM-DD');
+            this.startDate = moment(data[index]['cp_period_start']).format('YYYY-MM-DD');
+            this.ongoDate = moment(data[index]['cp_period_start']).add(3, 'day').format('YYYY-MM-DD');
+            this.endDate = moment(data[index]['cp_period_end']).format('YYYY-MM-DD');
+            console.log(data[index]['matchings'][index] === 'undefined' ? 0 : data[index]['matchings'][index]);
             let obj = {
                 id: data[index]['cp_id'],
                 main: data[index],
@@ -211,12 +218,24 @@ export class AdminCampaignComponent implements OnInit {
                                 data[index]['cp_status'] === 61 ? 'On-going' : 'Closed',
                                 title_payments: data[index]['payments_count'] + '/' + data[index]['payments_count'],
                                 title_ready: data[index]['payments_count'] + '/' + data[index]['payments_count'],
-                                // title_matching: data[index]['count_status']['apply'],
+                                title_matching_ask:  data[index]['statitics'] === null ? 0 : data[index]['statitics']['all'],
+                                title_matching_req:  data[index]['statitics'] === null ? 0 : data[index]['statitics']['request'],
+                                title_matching_matched:  data[index]['statitics'] === null ? 0 : data[index]['statitics']['matched'],
+                                title_review_total:  data[index]['total_review'],
+                                title_review_req:  data[index]['total_review_req'],
+                                title_review_confirm:  data[index]['total_review_confirm'],
+                                title_sns_total:  data[index]['distinct_channel'] === null ? 0 : data[index]['distinct_channel']['length'],
+                                title_sns_req:  data[index]['total_sns_req'],
+                                title_sns_confirm:  data[index]['total_sns_confirm'],
                     },
                     { title: data[index]['category']['cd_label'] },
                     // { title: data[index]['cp_brand'], bold: true },
                     { title: dataBrand },
-                    { title: data[index]['cp_period_start'], title_second: data[index]['cp_period_end'] },
+                    { title: data[index]['cp_status'] === 59 ? this.createDate + ' ~ ' + this.startDate :
+                            data[index]['cp_status'] === 60 ? this.startDate + ' ~ ' + this.ongoDate : 
+                            data[index]['cp_status'] === 61 ? this.ongoDate + ' ~ ' + this.endDate : 
+                            this.endDate
+                    },
                     {
                         title: (data[index]['cp_total_free'] - data[index]['cp_total_influencer']) + '/' + data[index]['cp_total_influencer'],
                         social: true, channel: this.getDistinct_channel(data[index]['distinct_channel'])

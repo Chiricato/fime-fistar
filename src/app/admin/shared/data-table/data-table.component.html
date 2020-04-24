@@ -51,18 +51,46 @@
                                 <ng-container *ngIf="!content.link && !content.dateUpdate && !content.modalView">
                                     {{content.title}}
                                 </ng-container>
-                                <!-- <ng-container *ngIf="content.title == 'Closed'">
+                                <ng-container *ngIf="content.title == 'Closed'">
                                     <br>
                                     Total/Payments
                                     <br>
                                     {{content.title_payments}}
-                                </ng-container> -->
-                                <!-- <ng-container *ngIf="content.title == 'Matching'">
+                                </ng-container>
+                                <ng-container *ngIf="content.title == 'Matching'">
                                     <br>
                                     Ask/Request/Matched
                                     <br>
-                                    {{content.title_matching}}
-                                </ng-container> -->
+                                    <span *ngIf="content.title_matching_ask ===null">0</span>
+                                    <span *ngIf="content.title_matching_ask !==null">{{content.title_matching_ask}}</span>
+                                    <span *ngIf="content.title_matching_req ===null">/0/</span>
+                                    <span *ngIf="content.title_matching_req !==null">/{{content.title_matching_req}}/</span>
+                                    <span *ngIf="content.title_matching_matched ===null">0</span>
+                                    <span *ngIf="content.title_matching_matched !==null">{{content.title_matching_matched}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="content.title == 'Ready'">
+                                    <br>
+                                    Total/Reviews/Confirmed
+                                    <br>
+                                    <span *ngIf="content.title_review_total ===null">0</span>
+                                    <span *ngIf="content.title_review_total !==null">{{content.title_review_total}}</span>
+                                    <span *ngIf="content.title_review_req ===null">/0/</span>
+                                    <span *ngIf="content.title_review_req !==null">/{{content.title_review_req}}/</span>
+                                    <span *ngIf="content.title_review_confirm ===null">0</span>
+                                    <span *ngIf="content.title_review_confirm !==null">{{content.title_review_confirm}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="content.title == 'On-going'">
+                                    <br>
+                                    Total/SNS/Confirmed
+                                    <br>
+                                    <span *ngIf="content.title_sns_total ===null">0</span>
+                                    <span *ngIf="content.title_sns_total !==null">{{content.title_sns_total}}</span>
+                                    <span *ngIf="content.title_sns_req ===null">/0/</span>
+                                    <span *ngIf="content.title_sns_req !==null">/{{content.title_sns_req}}/</span>
+                                    <span *ngIf="content.title_sns_confirm ===null">0</span>
+                                    <span *ngIf="content.title_sns_confirm !==null">{{content.title_sns_confirm}}</span>
+                                    
+                                </ng-container>
 
                                 <label (click)="showModal(content.dataModal)"
                                     *ngIf="!content.dateUpdate&&!content.link&&content.modalView">
@@ -87,8 +115,7 @@
                             </select>
                             <span *ngIf="content.title&&content.title_second"
                                 [ngClass]="{'font-bold': content.bold, 'underline': content.underline, 'text-left': content.title_second}">
-                                Start: {{content.title}}<br>
-                                End: {{content.title_second}}
+                               {{content.title}}
                             </span>
                             <span *ngIf="content.arrayTitle">
                                 <p class="link"

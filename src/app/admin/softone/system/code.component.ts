@@ -8,9 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CodesService } from '../service/system/codes.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PagerService } from '../../shared/service/pager.service';
 import { count } from 'rxjs/operators';
+import { Observable, forkJoin } from 'rxjs';
 declare var $: any;
 
 
@@ -31,6 +32,8 @@ export class AdminSystemCodeComponent implements OnInit {
     public showDelete = false;
     public showDeactivate = false;
     public showActive = false;
+    public form: any;
+    public category: any;
     modalRef: BsModalRef;
     formGroup: FormGroup;
     formSearch: FormGroup;
@@ -67,6 +70,7 @@ export class AdminSystemCodeComponent implements OnInit {
     total_item = 0;
     page_current = 1;
     idSubCode = '';
+    idFimeCode = '';
     actionSubCode = 'add';
     urlImage = '/storage/codes/';
     isSearch = false;
@@ -89,6 +93,7 @@ export class AdminSystemCodeComponent implements OnInit {
         this.initForm();
         this.initFormSubCode();
         this.initFormMainCode();
+        this.initFormFimeCode();
         this.getSearchCodes();
     }
 
@@ -111,6 +116,11 @@ export class AdminSystemCodeComponent implements OnInit {
             codeStatus: ['', Validators.required],
             activeImage: [''],
             inactiveImage: [''],
+        });
+    }
+    initFormFimeCode() {
+        this.form = new FormGroup({
+            code_nm: new FormControl(this.category.code_nm, [Validators.required])
         });
     }
 
@@ -148,11 +158,15 @@ export class AdminSystemCodeComponent implements OnInit {
                 break;
             case 'editSub':
                 this.idSubCode = item.cd_id;
+                this.idFimeCode = item.cd_code_fime_id;
                 this.titleSubCode = "Edit Sub Code";
                 console.log(item);
+                console.log(item.cd_code_fime_id);
                 this.formSubCode.controls['mainCode'].setValue(item.cdg_id);
                 this.formSubCode.controls['codeStatus'].setValue(item.cd_state);
                 this.formSubCode.controls['subCode'].setValue(item.cd_label);
+                // this.form.controls['code_nm'] = this.formSubCode.controls['subCode'].setValue(item.cd_label);
+                console.log(this.form.code_nm);
                 this.actionSubCode = 'edit';
 
                 break;
@@ -161,7 +175,6 @@ export class AdminSystemCodeComponent implements OnInit {
 
         this.modalRef = this.modalService.show(template);
         $(".modal").addClass('disable');
-
     }
 
     convertData(data) {
@@ -414,9 +427,14 @@ export class AdminSystemCodeComponent implements OnInit {
     }
 
     updateCode() {
-        if (this.idSubCode != '') {
-            let data = this.getBodySubCode();
-            this.codeService.updateCode(this.idSubCode, data).subscribe(res => {
+        if (this.idSubCode !== '') {
+            const data = this.getBodySubCode();
+            // this.formSubCode.controls.subCode = this.form.code_nm;
+            console.log(this.idFimeCode);
+            console.log(this.form.code_nm);
+            const code_fistar = this.codeService.updateCode(this.idSubCode, data);
+            const code_fime = this.api.one('categories', this.idFimeCode).customPUT(this.category);
+            forkJoin([code_fistar, code_fime]).subscribe(res => {
                 this.updateSuccess('Edit Sub Code Success');
                 this.getSearchCodes();
             }, err => {
