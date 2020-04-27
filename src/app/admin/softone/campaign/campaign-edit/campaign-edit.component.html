@@ -184,19 +184,20 @@
                         </div>
                         <div class="col-md-9" *ngIf="form.value.cp_code_group == '10'">
                             <div class="form-group">
-                                <select class='form-control' [(ngModel)]="form.value.cp_category"
-                                    formControlName="cp_category" [(ngModel)]="form.value.cp_category">
-                                    <option value="{{item['cd_id']}}" *ngFor="let item of dataBlind.category">
-                                        {{item['cd_label']}}</option>
+                                <!-- <input type="text" class="form-control" formControlName="cp_brand" name="name" /> -->
+                                <select class='form-control' formControlName="cp_beauty"
+                                    [(ngModel)]="form.value.cp_beauty">
+                                    <option value="{{item['CODE']}}" *ngFor="let item of beauty">
+                                        {{item['CODE_NM']}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-9" *ngIf="form.value.cp_code_group == '74'">
                             <div class="form-group">
-                                <select class='form-control' [(ngModel)]="form.value.cp_category"
-                                    formControlName="cp_category" [(ngModel)]="form.value.cp_category">
-                                    <option value="{{item['cd_id']}}" *ngFor="let item of dataBlind.fashion">
-                                        {{item['cd_label']}}</option>
+                                <select class='form-control' formControlName="cp_beauty"
+                                    [(ngModel)]="form.value.cp_beauty">
+                                    <option value="{{item['CODE']}}" *ngFor="let item of fashion">
+                                        {{item['CODE_NM']}}</option>
                                 </select>
                             </div>
                         </div>

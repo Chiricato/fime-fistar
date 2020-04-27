@@ -205,10 +205,33 @@
                         </div>
                         <div class="col-md-9" *ngIf="form.value.cp_code_group == '10'">
                             <div class="form-group">
+                                <select class='form-control' formControlName="cp_beauty"
+                                    [(ngModel)]="form.value.cp_beauty">
+                                    <option value="{{item['CODE']}}" *ngFor="let item of beauty">
+                                        {{item['CODE_NM']}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-9" *ngIf="form.value.cp_code_group == '74'">
+                            <div class="form-group">
+                                <select class='form-control' formControlName="cp_beauty"
+                                    [(ngModel)]="form.value.cp_beauty">
+                                    <option value="{{item['CODE']}}" *ngFor="let item of fashion">
+                                        {{item['CODE_NM']}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-3">
+                            <label>Catalog<span style="color: red">(*)</span></label>
+                        </div>
+                        <div class="col-md-9" *ngIf="form.value.cp_code_group == '10'">
+                            <div class="form-group">
                                 <select class='form-control' formControlName="cp_category"
                                     [(ngModel)]="form.value.cp_category">
-                                    <option value="{{item['cd_id']}}" *ngFor="let item of dataBlind.category">
-                                        {{item['cd_label']}}</option>
+                                    <option value="{{item['cd_id']}}" *ngFor="let item of beauty">
+                                        {{item['CODE_NM']}}</option>
                                 </select>
                             </div>
                             <div *ngIf="form.controls.cp_category.invalid && (isSubmitted|| form.controls.cp_category.touched)"
@@ -222,8 +245,8 @@
                             <div class="form-group">
                                 <select class='form-control' formControlName="cp_category"
                                     [(ngModel)]="form.value.cp_category">
-                                    <option value="{{item['cd_id']}}" *ngFor="let item of dataBlind.fashion">
-                                        {{item['cd_label']}}</option>
+                                    <option value="{{item['cd_id']}}" *ngFor="let item of fashion">
+                                        {{item['CODE_NM']}}</option>
                                 </select>
                             </div>
                             <div *ngIf="form.controls.cp_category.invalid && (isSubmitted|| form.controls.cp_category.touched)"
@@ -233,7 +256,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-3">
                             <label>Model</label>
@@ -326,7 +349,7 @@
                                             Period is required
                                         </div>
                                     </div> -->
-                                    <div style="color:red" *ngIf="isSubmitted">
+                                    <div style="color:red" *ngIf="convert_start_date > convert_end_date">
                                         End date cannot over Start date
                                     </div>
                                 </div>

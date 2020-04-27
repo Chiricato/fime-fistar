@@ -58,14 +58,19 @@ export class CampaignAddComponent implements OnInit {
   imagesArr = [];
   checkedstate = 0;
   error: any = {};
-  fistars:any=[];
-  brands:any=[];
-  fistarsChannel:any=[];
-  uids:any = [];
-  sns:any=[1,2,3,4];
-  channelBox:any = [];
-  cpDate:any = {};
+  fistars: any = [];
+  brands: any = [];
+  fashion: any = [];
+  beauty: any = [];
+  fistarsChannel: any = [];
+  uids: any = [];
+  sns: any = [1, 2, 3, 4];
+  channelBox: any = [];
+  cpDate: any = {};
   dataImage: any = [];
+  validDate = true;
+  convert_start_date: any;
+  convert_end_date: any;
   public isSubmitted = false;
   public isErrPeriod = false;
   public isErrDeliveryDate = false;
@@ -89,6 +94,8 @@ export class CampaignAddComponent implements OnInit {
     this.initKeyword();
     this.getPartner();
     this.getBrand();
+    this.getBeauty();
+    this.getFashion();
     this.initFashion();
     this.dataBlind.cp_code_group = this.dataBlind.cp_code_group ? this.dataBlind.cp_code_group : '10';
     console.log(this.dataBlind.cp_code_group);
@@ -104,6 +111,18 @@ export class CampaignAddComponent implements OnInit {
   getBrand() {
     this.campaignServiceGet.getBrand().subscribe(res => {
       this.brands = res;
+    });
+  }
+
+  getBeauty() {
+    this.campaignServiceGet.getBeauty().subscribe(res => {
+      this.beauty = res;
+    });
+  }
+
+  getFashion() {
+    this.campaignServiceGet.getFashion().subscribe(res => {
+      this.fashion = res;
     });
   }
 
@@ -166,8 +185,9 @@ export class CampaignAddComponent implements OnInit {
         cp_hashtag: new FormControl(''),
         // cp_brand: new FormControl('', [Validators.required, Validators.maxLength(255)]),
         cp_brand: new FormControl('', Validators.required),
+        cp_beauty: new FormControl('', Validators.required),
         cp_state: new FormControl(),
-        cp_category: new FormControl('', Validators.required),
+        // cp_category: new FormControl('', Validators.required),
         cp_model: new FormControl('', Validators.maxLength(255)),
         cp_product_url: new FormControl(''),
         cp_product_price: new FormControl(''),
@@ -296,10 +316,12 @@ export class CampaignAddComponent implements OnInit {
     
     console.log(this.form.controls.cp_total_free.value);
     console.log(this.form.controls.cp_total_influencer.value);
+    this.convert_start_date = Date.parse(this.form.controls.cp_period_start.value);
+    this.convert_end_date = Date.parse(this.form.controls.cp_period_end.value);
     if (this.form.controls.cp_total_free.value < this.form.controls.cp_total_influencer.value) {
       return 0;
     }
-    if (Date.parse(this.form.controls.cp_period_start.value) > Date.parse(this.form.controls.cp_period_end.value)) {
+    if (this.convert_start_date > this.convert_end_date) {
       this.isSubmitted = true;
       return 0;
     }

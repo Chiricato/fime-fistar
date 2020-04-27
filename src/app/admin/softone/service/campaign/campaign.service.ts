@@ -54,8 +54,21 @@ export class CampaignService {
   getAdminReview(id) {
     return this.http.get(this.env.host_fistar + '/api/admin/campaign-admin-review/'+id);
   }
+
   getBrand() {
     return this.http.get(this.env.host_fistar + '/api/v1/get-brand');
+  }
+
+  getBeauty() {
+    return this.http.get(this.env.host_fistar + '/api/v1/get-beauty');
+  }
+
+  getFashion() {
+    return this.http.get(this.env.host_fistar + '/api/v1/get-fashion');
+  }
+
+  getCatalog() {
+    return this.http.get(this.env.host_fistar + '/api/v1/get-catalog');
   }
 
   createAdminReview(data){

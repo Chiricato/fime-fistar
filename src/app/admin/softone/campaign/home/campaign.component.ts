@@ -26,6 +26,8 @@ export class AdminCampaignComponent implements OnInit {
     public startDate: any;
     public ongoDate: any;
     public endDate: any;
+    fashion: any = [];
+    beauty: any = [];
     isSearch = false;
     pathCurrent;
     // TUAN DEV
@@ -71,8 +73,9 @@ export class AdminCampaignComponent implements OnInit {
             end: ''
         }
     };
-    brands:any=[];
-    brandsGet:any=[];
+    category: any = [];
+    brands: any = [];
+    brandsGet: any = [];
 
     dataPost = {
         arrayDelete: []
@@ -101,6 +104,9 @@ export class AdminCampaignComponent implements OnInit {
 
     ngOnInit() {
         this.getBrandGet();
+        this.getCatalog();
+        this.getBeauty();
+        this.getFashion();
         this.env = environment;
         this.activerou.queryParams.subscribe(
             params => {
@@ -152,6 +158,23 @@ export class AdminCampaignComponent implements OnInit {
         })
         
       }
+    getCatalog() {
+        this.campaignServiceGet.getCatalog().subscribe(res => {
+          this.category = res;
+        });
+      }
+
+      getBeauty() {
+        this.campaignServiceGet.getBeauty().subscribe(res => {
+          this.beauty = res;
+        });
+      }
+    
+      getFashion() {
+        this.campaignServiceGet.getFashion().subscribe(res => {
+          this.fashion = res;
+        });
+      }
 
     reloadDataFromChild(event) {
         this.initData(this.data.page);
@@ -176,14 +199,16 @@ export class AdminCampaignComponent implements OnInit {
         // tslint:disable-next-line:prefer-const
         let arr = [];
         for (let index = 0; index < data.length; index++) {
-            let brand = this.brands.filter(label => label.CODE == data[index]['cp_brand']);
+            let brand = this.brands.filter(label => label.CODE === data[index]['cp_brand']);
+            let category = this.category.filter(label => label.CODE === data[index]['cp_beauty']);
             let dataBrand = "";
+            let dataCategory = "";
+            dataCategory = category.length > 0 ? category[0].CODE_NM : "";
             dataBrand = brand.length > 0 ? brand[0].CODE_NM : "";
             this.createDate = moment(data[index]['created_at']).format('YYYY-MM-DD');
             this.startDate = moment(data[index]['cp_period_start']).format('YYYY-MM-DD');
             this.ongoDate = moment(data[index]['cp_period_start']).add(3, 'day').format('YYYY-MM-DD');
             this.endDate = moment(data[index]['cp_period_end']).format('YYYY-MM-DD');
-            console.log(data[index]['matchings'][index] === 'undefined' ? 0 : data[index]['matchings'][index]);
             let obj = {
                 id: data[index]['cp_id'],
                 main: data[index],
@@ -228,7 +253,7 @@ export class AdminCampaignComponent implements OnInit {
                                 title_sns_req:  data[index]['total_sns_req'],
                                 title_sns_confirm:  data[index]['total_sns_confirm'],
                     },
-                    { title: data[index]['category']['cd_label'] },
+                    { title: dataCategory},
                     // { title: data[index]['cp_brand'], bold: true },
                     { title: dataBrand },
                     { title: data[index]['cp_status'] === 59 ? this.createDate + ' ~ ' + this.startDate :

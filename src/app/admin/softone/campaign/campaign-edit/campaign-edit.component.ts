@@ -62,6 +62,8 @@ export class AdminCampaignEditComponent implements OnInit {
   isShowCampaignImg = false;
   fistars: any = [];
   brands: any = [];
+  fashion: any = [];
+  beauty: any = [];
   fistarsChannel: any = [];
   uids: any = [];
   sns: any = [1, 2, 3, 4];
@@ -97,6 +99,8 @@ export class AdminCampaignEditComponent implements OnInit {
     this.initCategory();
     this.initForm();
     this.getBrand();
+    this.getBeauty();
+    this.getFashion();
     this.getDataImage();
     this.initFashion();
   }
@@ -111,6 +115,18 @@ export class AdminCampaignEditComponent implements OnInit {
       this.brands = res;
     });
 
+  }
+
+  getBeauty() {
+    this.campaignServiceGet.getBeauty().subscribe(res => {
+      this.beauty = res;
+    });
+  }
+
+  getFashion() {
+    this.campaignServiceGet.getFashion().subscribe(res => {
+      this.fashion = res;
+    });
   }
 
   getInfo(id) {
@@ -212,8 +228,8 @@ export class AdminCampaignEditComponent implements OnInit {
         cp_description: ['', Validators.required],
         cp_hashtag: [],
         cp_brand: ['', Validators.required],
+        cp_beauty: ['', Validators.required],
         cp_state: [],
-        cp_category: ['', Validators.required],
         cp_model: [],
         cp_product_url: [],
         cp_product_price: [''],
@@ -384,9 +400,9 @@ export class AdminCampaignEditComponent implements OnInit {
     console.log(this.images);
     this.active = true;
     let arr: any = [];
-    if (this.form.controls.cp_name.invalid || this.form.controls.cp_description.invalid || this.form.controls.cp_brand.invalid || this.form.controls.cp_category.invalid || this.form.controls.cp_type.invalid
+    if (this.form.controls.cp_name.invalid || this.form.controls.cp_description.invalid || this.form.controls.cp_brand.invalid || this.form.controls.cp_type.invalid
       || this.form.controls.cp_period_end.invalid || this.form.controls.cp_period_start.invalid || this.form.controls.cp_delivery_start_date.invalid || this.form.controls.cp_delivery_end_date.invalid
-      || this.form.controls.cp_image_title.invalid || this.form.controls.keywords.invalid)
+      || this.form.controls.cp_image_title.invalid || this.form.controls.keywords.invalid || this.form.controls.cp_beauty.invalid)
       return 0;
 
     console.log(this.fistarsChannel, 'save----xxx');

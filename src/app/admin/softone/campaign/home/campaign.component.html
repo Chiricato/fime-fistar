@@ -50,13 +50,30 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label>Category</label>
-                    <div>
+                    <!-- <div>
                         <mat-form-field class="full-width">
                             <mat-select (selectionChange)="getCategoryDetails($event.value)"
                                 [(value)]="dataBlind.categoryID">
                                 <mat-option value="">All</mat-option>
                                 <mat-option *ngFor="let item of dataBlind.category" [value]="item['cd_id']">
                                     {{item['cd_label']}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div> -->
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select matNativeControl [(ngModel)]="dataBlind.categoryID">
+                                <mat-option value="">All</mat-option>
+                                <mat-optgroup label="Beauty">
+                                    <mat-option *ngFor="let catalog of beauty" [value]="catalog['CODE']">
+                                        {{catalog['CODE_NM']}}
+                                    </mat-option>
+                                </mat-optgroup>
+                                <mat-optgroup label="Fashion">
+                                    <mat-option *ngFor="let item of fashion" [value]="item['CODE']">
+                                        {{item['CODE_NM']}}
+                                    </mat-option>
+                                </mat-optgroup>
                             </mat-select>
                         </mat-form-field>
                     </div>
