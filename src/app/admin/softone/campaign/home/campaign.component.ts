@@ -367,7 +367,7 @@ export class AdminCampaignComponent implements OnInit {
         }
         else {
             const index = this.dataBlind.campainStatus.indexOf(value);
-            this.dataBlind.campainStatus.splice(index);
+            this.dataBlind.campainStatus.splice(index, 1);
         }
     }
 
