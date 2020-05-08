@@ -69,6 +69,7 @@
                         </mat-form-field> -->
                         <mat-form-field class="full-width">
                             <mat-select matNativeControl [(ngModel)]="filter.category_id">
+                                <mat-option value="null">All</mat-option>
                                 <mat-optgroup label="Beauty">
                                     <mat-option *ngFor="let category of categories" value="{{category.code}}">
                                         {{category.code_nm}}

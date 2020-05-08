@@ -259,4 +259,8 @@ export class AdminTryDetailsComponent implements OnInit {
         this.router.navigate(['/admin/try']);
     }
 
+    changeCategory() {
+        this.try.goods_cl_code = '';
+    }
+
 }

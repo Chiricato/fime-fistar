@@ -121,8 +121,8 @@
                         <div class="form-group">
                             <div>
                                 <mat-radio-group [(ngModel)]="try.goods_code_group" formControlName="goods_code_group">
-                                    <mat-radio-button value="407">Beauty</mat-radio-button>
-                                    <mat-radio-button value="412">Fashion</mat-radio-button>
+                                    <mat-radio-button value="407" (click)="changeCategory()">Beauty</mat-radio-button>
+                                    <mat-radio-button value="412" (click)="changeCategory()">Fashion</mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
