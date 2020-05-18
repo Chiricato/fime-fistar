@@ -46,6 +46,7 @@ export class AdminBrandComponent implements OnInit {
     }
 
     onDelete(row) {
+        console.log(row.code);
         this.api
             .one('brands', row.code)
             .customDELETE('')
