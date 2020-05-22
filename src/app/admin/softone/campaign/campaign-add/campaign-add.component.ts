@@ -42,6 +42,7 @@ export class CampaignAddComponent implements OnInit {
     arrLinkAttack: [''],
     filetextLink: [''],
     multiImg: [],
+    start_date: ''
   };
   modalRef:any;
   image;
@@ -71,6 +72,8 @@ export class CampaignAddComponent implements OnInit {
   validDate = true;
   convert_start_date: any;
   convert_end_date: any;
+  crrDate: any;
+  onGoingDate: any;
   public isSubmitted = false;
   public isErrPeriod = false;
   public isErrDeliveryDate = false;
@@ -98,7 +101,11 @@ export class CampaignAddComponent implements OnInit {
     this.getFashion();
     this.initFashion();
     this.dataBlind.cp_code_group = this.dataBlind.cp_code_group ? this.dataBlind.cp_code_group : '10';
-    console.log(this.dataBlind.cp_code_group);
+    this.cpDate.cp_period_start = moment().add(3, 'day').format();
+    this.cpDate.cp_period_end = moment().add(10, 'day').format();
+    this.crrDate = moment(new Date()).format("YYYY-MM-DD");
+    // this.onGoingDate =  moment(this.cpDate.cp_period_start).add(3, 'day').format();
+    this.onChange();
   }
   getColor() {
     this.campaginService.getData(`api/admin/fimecodes?type=color`).subscribe(res => {
@@ -106,8 +113,10 @@ export class CampaignAddComponent implements OnInit {
     })
   }
 
-
-
+  onChange() {
+    this.onGoingDate =  moment(this.cpDate.cp_period_start).add(3, 'day').format();
+    console.log(this.onGoingDate);
+  }
   getBrand() {
     this.campaignServiceGet.getBrand().subscribe(res => {
       this.brands = res;
@@ -215,10 +224,8 @@ export class CampaignAddComponent implements OnInit {
         cp_code_group: new FormControl(10, [Validators.required]),
       }
     );
+    console.log(this.form);
   }
-
-
-
 
   pushKeyWord(id, event) {
     if (event.target.checked) {

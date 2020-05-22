@@ -339,10 +339,10 @@
                         <div class="col-md-9">
                             <div class="form-group period">
                                 <div class="from">
-                                    <input placeholder="Date Time:" formControlName="cp_period_start"
+                                    <input placeholder="Date Time:" formControlName="cp_period_start" 
                                         [owlDateTimeTrigger]="start_date" [(ngModel)]="cpDate.cp_period_start"
-                                        class="form-control" [owlDateTime]="start_date">
-                                    <owl-date-time #start_date></owl-date-time>
+                                        class="form-control" [owlDateTime]="start_date" (dateTimeInput)="onChange()">
+                                    <owl-date-time #start_date (click)="onChange()"></owl-date-time>
                                     <!-- <div *ngIf="form.controls.period_from.invalid && (form.controls.period_from.dirty || form.controls.period_from.touched)"
                                         class="text-danger">
                                         <div *ngIf="form.controls.period_from.errors.required">
@@ -357,7 +357,7 @@
                                 <div class="to">
                                     <input placeholder="Date Time:" formControlName="cp_period_end"
                                         [owlDateTimeTrigger]="end_date" [(ngModel)]="cpDate.cp_period_end"
-                                        class="form-control" [owlDateTime]="end_date">
+                                        class="form-control" [owlDateTime]="end_date" >
                                     <owl-date-time #end_date></owl-date-time>
                                     <!-- <div *ngIf="form.controls.period_to.invalid && (form.controls.period_to.dirty || form.controls.period_to.touched)"
                                             class="text-danger">
@@ -369,6 +369,39 @@
 
 
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            The entire schedule
+                        </div>
+                        <div class="col-md-9">
+                            <table class="table" >
+                                <thead class="thead-light">
+                                  <tr>
+                                    <th scope="col" style="font-weight: 300;">State</th>
+                                    <th scope="col" style="font-weight: 300;"><span style="color: red;">{{cpDate.cp_period_start | formatDate}}</span> ~ <span style="color: red;">{{cpDate.cp_period_end | formatDate}}</span> </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td scope="row">Matching</td>
+                                    <td>{{crrDate}} ~ <span style="color: red;">{{cpDate.cp_period_start | formatDate}}</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td scope="row">Start(ready)</td>
+                                    <td><span style="color: red;">{{cpDate.cp_period_start | formatDate}}</span> ~ {{onGoingDate | formatDate}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td scope="row">Ongoing</td>
+                                    <td>{{onGoingDate | formatDate}} ~ <span style="color: red;">{{cpDate.cp_period_end | formatDate}}</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td scope="row">End(Closed)</td>
+                                    <td><span style="color: red;">{{cpDate.cp_period_end | formatDate}}  ~ </span></td>
+                                  </tr>
+                                </tbody>
+                              </table>
                         </div>
                     </div>
 

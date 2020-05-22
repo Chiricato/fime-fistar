@@ -94,6 +94,7 @@ import { SafePipe } from '../pipes/transform-url.pipe';
 import { AdminResourceDialogImageCropComponent } from './admin/multiple-images/dialog-image-crop.component';
 import { NumberToCurrencyPipe } from '../pipes/number-to-currency.pipe';
 import { NumberLikePipe } from '../pipes/number-like.pipe';
+import { FormatDate } from '../pipes/format-date.pipe';
 import { AdminMultipleImagesComponent } from './admin/multiple-images/multiple-images.component';
 import { ReviewsComponent } from './frontend/reviews/reviews.component';
 import { FimersComponent } from './frontend/fimers/fimers.component';
@@ -297,6 +298,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminResourceDialogImageCropComponent,
         NumberToCurrencyPipe,
         NumberLikePipe,
+        FormatDate,
         SafeHtmlPipe,
         AdminReviewFimerComponent,
         AdminMultipleImagesComponent,
