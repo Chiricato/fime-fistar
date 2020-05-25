@@ -74,6 +74,8 @@ export class AdminCampaignEditComponent implements OnInit {
   isSubmitted: any = false;
   invalidImages: any = false;
   validDate = true;
+  onGoingDate: any;
+  crrDate: any;
 
   constructor(
     private router: Router,
@@ -89,10 +91,10 @@ export class AdminCampaignEditComponent implements OnInit {
   ngOnInit() {
     this.env = environment;
     this.activeRoute.params.forEach((params: Params) => {
+      console.log(params['id']);
       if (params['id']) {
         this.idCampaign = params['id'];
-        this.getInfo(params['id']);
-        console.log(this.campaign);
+        this.getInfo(this.idCampaign);
       }
     });
     this.getColor();
@@ -103,6 +105,7 @@ export class AdminCampaignEditComponent implements OnInit {
     this.getFashion();
     this.getDataImage();
     this.initFashion();
+    this.onChange();
   }
 
   getDataImage() {
@@ -146,6 +149,7 @@ export class AdminCampaignEditComponent implements OnInit {
         this.currentMatchingData(res);
         this.cpDate.cp_period_start = moment.utc(this.form.value.cp_period_start).subtract({ hours: 7 }).toDate();
         this.cpDate.cp_period_end = moment.utc(this.form.value.cp_period_end).subtract({ hours: 7 }).toDate();
+        this.crrDate = moment(this.campaign.created_at).format();
       },
       err => {
 
@@ -158,6 +162,13 @@ export class AdminCampaignEditComponent implements OnInit {
       //console.log('colors', res);
       this.colors = res;
     })
+  }
+
+  
+  onChange() {
+    this.onGoingDate =  moment(this.cpDate.cp_period_start).add(3, 'day').format();
+    this.cpDate.cp_period_end = moment(this.cpDate.cp_period_start).add(7, 'day').format();
+    // this.crrDate = moment(this.cpDate.cp_period_start).subtract(7, 'day').format();
   }
 
   setValueOutputText(cp_output_text) {

@@ -343,12 +343,12 @@
                                         [owlDateTimeTrigger]="start_date" [(ngModel)]="cpDate.cp_period_start"
                                         class="form-control" [owlDateTime]="start_date" (dateTimeInput)="onChange()">
                                     <owl-date-time #start_date (click)="onChange()"></owl-date-time>
-                                    <!-- <div *ngIf="form.controls.period_from.invalid && (form.controls.period_from.dirty || form.controls.period_from.touched)"
+                                    <div *ngIf="startDateParse < crrDateParse"
                                         class="text-danger">
-                                        <div *ngIf="form.controls.period_from.errors.required">
-                                            Period is required
+                                        <div >
+                                            The start date should be greater than current date.
                                         </div>
-                                    </div> -->
+                                    </div>
                                     <div style="color:red" *ngIf="convert_start_date > convert_end_date">
                                         End date cannot over Start date
                                     </div>
@@ -375,7 +375,7 @@
                         <div class="col-md-3">
                             The entire schedule
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9" *ngIf="startDateParse >= crrDateParse">
                             <table class="table" >
                                 <thead class="thead-light">
                                   <tr>
@@ -386,7 +386,7 @@
                                 <tbody>
                                   <tr>
                                     <td scope="row">Matching</td>
-                                    <td>{{crrDate}} ~ <span style="color: red;">{{cpDate.cp_period_start | formatDate}}</span></td>
+                                    <td>{{crrTime | formatDate}} ~ <span style="color: red;">{{cpDate.cp_period_start | formatDate}}</span></td>
                                   </tr>
                                   <tr>
                                     <td scope="row">Start(ready)</td>

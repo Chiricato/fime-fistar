@@ -74,6 +74,9 @@ export class CampaignAddComponent implements OnInit {
   convert_end_date: any;
   crrDate: any;
   onGoingDate: any;
+  crrTime: any;
+  crrDateParse: any;
+  startDateParse: any;
   public isSubmitted = false;
   public isErrPeriod = false;
   public isErrDeliveryDate = false;
@@ -102,8 +105,8 @@ export class CampaignAddComponent implements OnInit {
     this.initFashion();
     this.dataBlind.cp_code_group = this.dataBlind.cp_code_group ? this.dataBlind.cp_code_group : '10';
     this.cpDate.cp_period_start = moment().add(3, 'day').format();
-    this.cpDate.cp_period_end = moment().add(10, 'day').format();
-    this.crrDate = moment(new Date()).format("YYYY-MM-DD");
+    this.cpDate.cp_period_end = moment(this.cpDate.cp_period_start).add(7, 'day').format();
+    this.crrTime = moment(new Date()).format("YYYY-MM-DD");
     // this.onGoingDate =  moment(this.cpDate.cp_period_start).add(3, 'day').format();
     this.onChange();
   }
@@ -115,7 +118,14 @@ export class CampaignAddComponent implements OnInit {
 
   onChange() {
     this.onGoingDate =  moment(this.cpDate.cp_period_start).add(3, 'day').format();
-    console.log(this.onGoingDate);
+    this.cpDate.cp_period_end = moment(this.cpDate.cp_period_start).add(7, 'day').format();
+    // this.crrDate = moment(this.cpDate.cp_period_start).subtract(3, 'day').format();
+    this.crrDateParse = Date.parse(this.crrTime);
+    this.startDateParse = Date.parse(this.cpDate.cp_period_start);
+    if (this.startDateParse < this.crrDateParse) {
+      this.cpDate.cp_period_start = moment(new Date()).format();
+      this.cpDate.cp_period_end = moment(this.cpDate.cp_period_start).add(7, 'day').format();
+    }
   }
   getBrand() {
     this.campaignServiceGet.getBrand().subscribe(res => {
@@ -166,7 +176,6 @@ export class CampaignAddComponent implements OnInit {
       res => {
         this.dataBlind.keyWord = res['data'];
       }, err => {
-        console.log('dataBlind eror', err);
 
       });
   }
@@ -218,13 +227,13 @@ export class CampaignAddComponent implements OnInit {
         cp_attachment_type: new FormControl(''),
         cp_attachment_url: new FormControl('' ),
         cp_status: new FormControl(''),
+        create_at: new FormControl(''),
         radio_cp_output_text: new FormControl(1),
         p_id: new FormControl('', [Validators.required]),
         cp_main_image: new FormControl('', [Validators.required]),
         cp_code_group: new FormControl(10, [Validators.required]),
       }
     );
-    console.log(this.form);
   }
 
   pushKeyWord(id, event) {
@@ -321,14 +330,16 @@ export class CampaignAddComponent implements OnInit {
       return 0;
     }
     
-    console.log(this.form.controls.cp_total_free.value);
-    console.log(this.form.controls.cp_total_influencer.value);
     this.convert_start_date = Date.parse(this.form.controls.cp_period_start.value);
     this.convert_end_date = Date.parse(this.form.controls.cp_period_end.value);
     if (this.form.controls.cp_total_free.value < this.form.controls.cp_total_influencer.value) {
       return 0;
     }
     if (this.convert_start_date > this.convert_end_date) {
+      this.isSubmitted = true;
+      return 0;
+    }
+    if (this.startDateParse < this.crrDateParse) {
       this.isSubmitted = true;
       return 0;
     }
