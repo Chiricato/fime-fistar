@@ -245,6 +245,7 @@ export class AdminCampaignEditComponent implements OnInit {
         cp_product_url: [],
         cp_product_price: [''],
         cp_type: ['', Validators.required],
+        level_apply: ['', Validators.required],
         cp_campaign_price: ['', Validators.required],
         // cp_sale_price: ['', Validators.required],
         cp_period_end: ['', Validators.required],
@@ -286,7 +287,8 @@ export class AdminCampaignEditComponent implements OnInit {
 
 
   setType(value) {
-    this.form.controls.cp_type.setValue(value);
+    this.form.
+    controls.cp_type.setValue(value);
   }
 
   checkedstate;
@@ -413,7 +415,7 @@ export class AdminCampaignEditComponent implements OnInit {
     let arr: any = [];
     if (this.form.controls.cp_name.invalid || this.form.controls.cp_description.invalid || this.form.controls.cp_brand.invalid || this.form.controls.cp_type.invalid
       || this.form.controls.cp_period_end.invalid || this.form.controls.cp_period_start.invalid || this.form.controls.cp_delivery_start_date.invalid || this.form.controls.cp_delivery_end_date.invalid
-      || this.form.controls.cp_image_title.invalid || this.form.controls.keywords.invalid || this.form.controls.cp_beauty.invalid)
+      || this.form.controls.cp_image_title.invalid || this.form.controls.keywords.invalid || this.form.controls.cp_beauty.invalid || this.form.controls.level_apply.invalid)
       return 0;
 
     console.log(this.fistarsChannel, 'save----xxx');

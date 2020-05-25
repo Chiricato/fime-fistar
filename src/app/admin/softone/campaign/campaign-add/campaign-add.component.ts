@@ -227,6 +227,7 @@ export class CampaignAddComponent implements OnInit {
         cp_attachment_type: new FormControl(''),
         cp_attachment_url: new FormControl('' ),
         cp_status: new FormControl(''),
+        level_apply: new FormControl(1),
         create_at: new FormControl(''),
         radio_cp_output_text: new FormControl(1),
         p_id: new FormControl('', [Validators.required]),
