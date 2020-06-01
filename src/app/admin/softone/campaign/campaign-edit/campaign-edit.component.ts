@@ -150,6 +150,7 @@ export class AdminCampaignEditComponent implements OnInit {
         this.cpDate.cp_period_start = moment.utc(this.form.value.cp_period_start).subtract({ hours: 7 }).toDate();
         this.cpDate.cp_period_end = moment.utc(this.form.value.cp_period_end).subtract({ hours: 7 }).toDate();
         this.crrDate = moment(this.campaign.created_at).format();
+        this.onGoingDate =  moment(this.cpDate.cp_period_start).add(3, 'day').format();
       },
       err => {
 

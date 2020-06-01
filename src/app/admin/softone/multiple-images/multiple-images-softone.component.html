@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="row" *ngIf="imagesBase64.length > 0">
-            <div class="col-12 resource-img default display-none">
+            <div class="col-3 resource-img default display-none">
                 <img [src]="imagesBase64[imageIndex].base64" *ngIf="imagesBase64[imageIndex].base64 !== ''">
                 <img [src]="imagesBase64[imageIndex].url"
                      *ngIf="imagesBase64[imageIndex].base64 === '' && imagesBase64[imageIndex].url !== '' ">

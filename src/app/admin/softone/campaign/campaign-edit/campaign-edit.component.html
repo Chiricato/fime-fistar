@@ -491,13 +491,12 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label>Main image<span style="color:red">(*)</span></label><br>
-                            <label>(image size : 670px x 470px)</label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
                                 <app-softone-resource #resource
-                                    [resource]="{  url: campaign.cp_main_image_type==2 ? campaign.cp_main_image:'/storage/campaigns/'+campaign.cp_main_image, resource_type: campaign.cp_main_image_type, image_url: null, image_fistar_url: commonService.getImageLink(campaign.cp_main_image, 'campaigns', 'original')  }"
-                                    [resizeToWidth]="1920" [aspectRatio]="19/6" (ouputItem)="getImageMain($event)">
+                                    [resource]="{  url: campaign.cp_main_image_type==2 ? campaign.cp_main_image:'/storage/campaigns/'+campaign.cp_main_image, resource_type: campaign.cp_main_image_type, image_url: null, image_fistar_url: main_image }"
+                                    [resizeToWidth]="670" [aspectRatio]="67 / 47"  (ouputItem)="getImageMain($event)">
                                 </app-softone-resource>
                             </div>
                         </div>
@@ -516,7 +515,6 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label>Images</label><br>
-                            <label for="">(image size : 720px x 1280px)</label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">

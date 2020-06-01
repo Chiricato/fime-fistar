@@ -32,24 +32,23 @@
                     </mat-card>
                 </div>
             </div>
-            <div cdkDropList cdkDropListOrientation="horizontal" class="example-list"
-                (cdkDropListDropped)="drop($event)">
-                <div class="col-3" *ngFor="let img of imagesBase64; let i = index;" cdkDrag>
-                    <div class="resource-img">
-                        <img [src]="img.base64" *ngIf="img.base64 !== ''" width="100%" height="auto">
-                        <img [src]="img.url" *ngIf="img.base64 === '' && img.url !== ''" width="100%" height="auto">
-                        <div class="middle">
-                            <mat-card class="overlay-action" (click)="setImageToDefault(i)">
-                                <mat-card-actions>
-                                    <button mat-button title="crop" (click)="editImage(i)" *ngIf="img.base64 !== ''">
-                                        <mat-icon>crop</mat-icon>
-                                    </button>
-                                    <button mat-button title="delete" (click)="deleteImage(i)">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
-                                </mat-card-actions>
-                            </mat-card>
-                        </div>
+        </div>
+        <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="col-3" *ngFor="let img of imagesBase64; let i = index;" cdkDrag>
+                <div class="resource-img">
+                    <img [src]="img.base64" *ngIf="img.base64 !== ''" width="100%" height="auto">
+                    <img [src]="img.url" *ngIf="img.base64 === '' && img.url !== ''" width="100%" height="auto">
+                    <div class="middle">
+                        <mat-card class="overlay-action" (click)="setImageToDefault(i)">
+                            <mat-card-actions>
+                                <button mat-button title="crop" (click)="editImage(i)" *ngIf="img.base64 !== ''">
+                                    <mat-icon>crop</mat-icon>
+                                </button>
+                                <button mat-button title="delete" (click)="deleteImage(i)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
                     </div>
                 </div>
             </div>
