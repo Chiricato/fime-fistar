@@ -495,7 +495,7 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <app-softone-resource #resource
-                                    [resource]="{  url: campaign.cp_main_image_type==2 ? campaign.cp_main_image:'/storage/campaigns/'+campaign.cp_main_image, resource_type: campaign.cp_main_image_type, image_url: null, image_fistar_url: main_image }"
+                                    [resource]="{  url: campaign.cp_main_image_type==2 ? campaign.cp_main_image:'/storage/campaigns/'+campaign.cp_main_image, resource_type: campaign.cp_main_image_type, image_url: null, image_fistar_url: commonService.getImageLink(campaign.cp_main_image, 'campaigns', 'original') }"
                                     [resizeToWidth]="670" [aspectRatio]="67 / 47"  (ouputItem)="getImageMain($event)">
                                 </app-softone-resource>
                             </div>
