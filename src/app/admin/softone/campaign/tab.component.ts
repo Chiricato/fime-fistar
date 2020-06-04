@@ -38,7 +38,7 @@ export class AdminCampaignTabComponent implements OnInit {
 
     setLink(){
         this.campaginService.getData(`api/admin/campaigns/${this.id}`).subscribe((res:any) =>{
-            console.log(res, "RES")
+            // console.log(res, "RES")
             this.navLinks = [
                 {
                     label: 'Campaign Edit',

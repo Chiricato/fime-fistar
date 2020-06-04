@@ -35,7 +35,6 @@ export class AdminLayoutComponent implements OnInit {
             if (res.result && res.result.isOwner) {
                 // document.getElementsByClassName('admin-sidebar')[0].classList.remove('hidden');
                 this.user = res.result;
-                console.log(this.user)
                 // this.router.navigate(['/admin/try']);
             } else {
                 this.router.navigate(['/']);

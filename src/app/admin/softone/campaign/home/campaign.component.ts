@@ -145,14 +145,12 @@ export class AdminCampaignComponent implements OnInit {
         // this.campaignService.getData(`api/admin/codes?cdg_id=15`).subscribe(
             this.campaignServiceSoftone.getBrand().subscribe(
             res => {
-                    console.log(res)
                 // this.dataBlind.brands = res['data'];
                 this.brandsGet = res;
             });
     }
     getBrandGet() {
         this.campaignServiceGet.getBrand().subscribe(res => {
-          console.log(res)
           this.brands = res;
           
         })

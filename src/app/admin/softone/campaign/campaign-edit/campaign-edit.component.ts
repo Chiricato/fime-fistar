@@ -91,7 +91,6 @@ export class AdminCampaignEditComponent implements OnInit {
   ngOnInit() {
     this.env = environment;
     this.activeRoute.params.forEach((params: Params) => {
-      console.log(params['id']);
       if (params['id']) {
         this.idCampaign = params['id'];
         this.getInfo(this.idCampaign);
@@ -246,7 +245,7 @@ export class AdminCampaignEditComponent implements OnInit {
         cp_product_url: [],
         cp_product_price: [''],
         cp_type: ['', Validators.required],
-        level_apply: ['', Validators.required],
+        // level_apply: ['', Validators.required],
         cp_campaign_price: ['', Validators.required],
         // cp_sale_price: ['', Validators.required],
         cp_period_end: ['', Validators.required],
@@ -339,7 +338,6 @@ export class AdminCampaignEditComponent implements OnInit {
   }
 
   getImageMain(evt) {
-    //(evt, 'getImageMain')
     this.image_main_image = evt.file
     this.image_main_image_type = evt.type
   }
@@ -416,13 +414,9 @@ export class AdminCampaignEditComponent implements OnInit {
     let arr: any = [];
     if (this.form.controls.cp_name.invalid || this.form.controls.cp_description.invalid || this.form.controls.cp_brand.invalid || this.form.controls.cp_type.invalid
       || this.form.controls.cp_period_end.invalid || this.form.controls.cp_period_start.invalid || this.form.controls.cp_delivery_start_date.invalid || this.form.controls.cp_delivery_end_date.invalid
-      || this.form.controls.cp_image_title.invalid || this.form.controls.keywords.invalid || this.form.controls.cp_beauty.invalid || this.form.controls.level_apply.invalid)
+      || this.form.controls.cp_image_title.invalid || this.form.controls.keywords.invalid || this.form.controls.cp_beauty.invalid)
       return 0;
 
-    console.log(this.fistarsChannel, 'save----xxx');
-    console.log(Date.parse(this.form.controls.cp_period_start.value));
-    console.log(Date.parse(this.form.controls.cp_period_end.value));
-    console.log(this.form.controls.cp_period_start.value);
     if (this.form.controls.cp_total_free.value < this.form.controls.cp_total_influencer.value) {
       return 0;
     }
@@ -455,7 +449,7 @@ export class AdminCampaignEditComponent implements OnInit {
       for (let item of this.images.imagesBase64) {
         arr.push([item.base64, item.url.replace(this.env.rootHostFistar + '/storage/attachments/large/', '')]);
       }
-      //  console.log(arr,'array');return;
+      
       if(this.images.imagesBase64.length==0)
         formsData.append('image', '');
       else
@@ -464,8 +458,8 @@ export class AdminCampaignEditComponent implements OnInit {
           formsData.append('image[' + i + '][1]', arr[i][1]);
           // console.log(arr[i]);
         }
-      console.log(formsData.get('image'));
-      Object.keys(this.form.value).forEach(key => {
+        console.log(formsData.get('image'));
+        Object.keys(this.form.value).forEach(key => {
         if (this.form.value[key] instanceof Array) {
           //(1);
           for (let index = 0; index < this.form.value[key].length; index++) {
@@ -804,7 +798,7 @@ export class AdminCampaignEditComponent implements OnInit {
                 sns_cost: (z[0]) ? z[0].cost : 0
               }
               this.uids.push(item.influencer.uid + '-' + m.sns_id)
-              console.log(item);
+              // console.log(item);
               this.fistars.push(item.influencer)
               this.channelBox[item.influencer.uid] = this.getComboBoxChannel2(item.influencer)
               this.fistarsChannel.push(data)
@@ -814,7 +808,7 @@ export class AdminCampaignEditComponent implements OnInit {
         }
       })
     }
-    console.log('currentMatchingData', this.fistarsChannel, this.uids, this.channelBox)
+    // console.log('currentMatchingData', this.fistarsChannel, this.uids, this.channelBox)
 
 
   }

@@ -1,8 +1,8 @@
 export const environment = {
   host_fistar:'https://api-fistar.fime.vn',
   analysis_module_url: 'https://module-ai.fime.vn',
-  host: 'http://web-api.vietprojectgroup.com/api',
-  rootHost: 'http://web-api.vietprojectgroup.com/',
+  host: 'https://api-np.fime.vn/api',
+  rootHost: 'https://api-np.fime.vn/',
   rootHostFistar: 'https://api-fistar.fime.vn',
   url: 'https://fime.vn',
   production: true,

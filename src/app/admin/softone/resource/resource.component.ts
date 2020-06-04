@@ -50,6 +50,7 @@ export class SoftoneResourceComponent implements OnInit, OnChanges {
     public isChanged = false;
     public multiBase64: any = [];
     public tam:string;
+    public imagesBase64: ImageBase64[] = [];
 
     constructor(
         private api: Restangular,
@@ -169,6 +170,7 @@ export class SoftoneResourceComponent implements OnInit, OnChanges {
 
     imageCropped(event: ImageCroppedEvent) {
         this.fileBase64 = event.base64;
+        this.ouputItem.emit({type : 1 , file: event.file });
     }
 
     onSave(callback) {
@@ -213,5 +215,16 @@ export class SoftoneResourceComponent implements OnInit, OnChanges {
     returnUrl(){
         this.resource.video_url = this.tam;
 
+    }
+}
+export class ImageBase64 {
+    public type: any;
+    public base64: any;
+    public url: any;
+
+    constructor(type, base64, url) {
+        this.type = type;
+        this.base64 = base64;
+        this.url = url;
     }
 }
