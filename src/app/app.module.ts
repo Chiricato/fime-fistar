@@ -162,7 +162,8 @@ import {AdminCategoriesComponent} from './admin/categories/categories.component'
 import {AdminCategoriesDialogComponent} from './admin/categories-dialog/categories-dialog.component';
 import {AdminTipsComponent} from './admin/tips/tips.component';
 import {AdminTipDetailsComponent} from './admin/tip-details/tip-details.component';
-
+import {AdminPointComponent} from './admin/point/point.component';
+import {AdminPointDetailsComponent} from './admin/point-details/point-details.component';
 //softone dev
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
@@ -360,6 +361,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminCategoriesDialogComponent,
         AdminTipsComponent,
         AdminTipDetailsComponent,
+        AdminPointComponent,
+        AdminPointDetailsComponent,
 
 
         //soft0ne dev

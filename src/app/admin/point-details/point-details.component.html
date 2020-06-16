@@ -1,0 +1,229 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading" *ngIf="!pointId">
+                Point Policy Add
+            </div>
+            <div class="admin-heading" *ngIf="pointId">
+                Point Policy Edit
+            </div>
+            <div>
+                <button class="btn btn-default" (click)="goBack()"><i class="material-icons align-text-bottom">
+                    arrow_back
+                </i> <span>Back</span></button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row" *ngIf="pointId">
+                    <div class="col-md-3">
+                        <label>No</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <p>{{pointId}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Point Policy Name <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter name" [(ngModel)]="point.name"
+                                   formControlName="name" name="name"/>
+                            <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.name.errors.required">
+                                    Point Policy Name is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Apply Members</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-checkbox [(ngModel)]="point.level_1" formControlName="level_1" name="level_1" value="1">Member</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="point.level_2" formControlName="level_2" name="level_2" value="1">Silver</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="point.level_3" formControlName="level_3" name="level_3" value="1">Gold</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="point.level_4" formControlName="level_4" name="level_4" value="1">Platinum</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Add Point <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="point.add_point"
+                                   formControlName="add_point" name="add_point"/>
+                            <div *ngIf="form.controls.add_point.invalid && (form.controls.add_point.dirty || form.controls.add_point.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.add_point.errors.required">
+                                    Add Point is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Max Point</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="point.max_point"
+                                   formControlName="max_point" name="max_point"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Minus Point</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="point.minus_point"
+                                   formControlName="minus_point" name="minus_point"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Event Apply Limit(0 times means Unlimited)</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="point.limit_apply"
+                                   formControlName="limit_apply" name="limit_apply"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Point Expire(0 is basic point)</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="point.point_expried"
+                                   formControlName="point_expried" name="point_expried"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Start Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="start_date"
+                                                       matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #start_date type="datetime" openOnFocus="true"
+                                                timeInterval="5"></mat-datepicker>
+                                <input matInput class="form-control" formControlName="start_date"
+                                       [(ngModel)]="point.start_date"
+                                       [matDatepicker]="start_date" required autocomplete="false"
+                                       [max]="point.end_date">
+                            </div>
+                            <div *ngIf="form.controls.start_date.invalid && (form.controls.start_date.dirty || form.controls.start_date.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.start_date.errors.required">
+                                    Start Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>End Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="end_date"
+                                                       matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #end_date type="datetime" openOnFocus="true"
+                                                timeInterval="5"></mat-datepicker>
+                                <input matInput class="form-control" formControlName="end_date"
+                                       [(ngModel)]="point.end_date"
+                                       [matDatepicker]="end_date" required autocomplete="false"
+                                       [min]="point.start_date">
+                            </div>
+                            <div *ngIf="form.controls.end_date.invalid && (form.controls.end_date.dirty || form.controls.end_date.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.end_date.errors.required">
+                                    End Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="point.status"
+                                             formControlName="status" name="status">
+                                <mat-radio-button class="radio-button" [value]="1">Enable</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="2">Disable</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Note  </label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="point.note"
+                                      formControlName="note" name="note"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="pointId">
+                    <div class="col-md-3">
+                        <label>Update Log</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ul>
+                                <li *ngFor="let item of point.log; let i = index;">
+                                    {{item.content}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions d-flex justify-content-end col-md-8">
+            <button class="btn btn-default mr-1" (click)="goBack()">
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" [disabled]="!form.valid"
+                    (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>
