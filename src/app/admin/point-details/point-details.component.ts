@@ -96,8 +96,8 @@ export class AdminPointDetailsComponent implements OnInit {
 
     onSave() {
         this.isSubmitted = true;
-        this.point.start_date = moment.utc(this.point.start_date).format('YYYY-MM-DD HH:mm:ss');
-        this.point.end_date = moment.utc(this.point.end_date).format('YYYY-MM-DD HH:mm:ss');
+        this.point.start_date = moment.utc(this.point.start_date).format('YYYY-MM-DD');
+        this.point.end_date = moment.utc(this.point.end_date).format('YYYY-MM-DD');
 
         if (this.pointId) {
             this.api

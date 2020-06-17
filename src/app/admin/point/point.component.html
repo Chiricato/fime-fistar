@@ -95,7 +95,7 @@
                    [footerHeight]="50"
                    [count]="total" [offset]="pageIndex-1" [limit]="pageSize" [externalPaging]="true"
                    (page)='setPage($event)'
-                   [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'
+                   [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
                    [selected]="selected"
                    [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
         <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" [width]="50" ></ngx-datatable-column>
