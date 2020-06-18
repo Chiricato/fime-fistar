@@ -1,0 +1,42 @@
+<div class="component-admin-review">
+    <div class="row">
+        <div class="col-8">
+            <div class="admin-heading">
+                Membership Point Ratio
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 50px">NO</th>
+                        <th>Membership</th>
+                        <th>Add</th>
+                        <th>Minus</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of ratio; let i = index;">
+                        <td style="width: 50px">{{item.id}}</td>
+                        <td>
+                            <p *ngIf="item.level == 1">Member</p>
+                            <p *ngIf="item.level == 2">Silver</p>
+                            <p *ngIf="item.level == 3">Gold</p>
+                            <p *ngIf="item.level == 4">Platinum</p>
+                        </td>
+                        <td><input type="text"  [(ngModel)]="ratio[i].add" value="{{item.add}}" style="width: 100px"></td>
+                        <td><input type="text" [(ngModel)]="ratio[i].minus" value="{{item.minus}}" style="width: 100px"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="actions d-flex justify-content-end col-md-8">
+        <!-- <a routerLink="/admin/reviews" class="btn-hero btn-cancel">{{ "back" | translate }}</a> -->
+        <button (click)="close()" class="btn btn-cancel mr-2">Cancel</button>
+        <button (click)="onSave()" class="btn btn-primary">Save</button>
+    </div>
+</div>

@@ -123,7 +123,7 @@
                 
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Start Date <span style="color: red">(*)</span></label>
+                        <label>Start Date</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -134,7 +134,7 @@
                                                 timeInterval="5"></mat-datepicker>
                                 <input matInput class="form-control" formControlName="start_date"
                                        [(ngModel)]="point.start_date"
-                                       [matDatepicker]="start_date" required autocomplete="false"
+                                       [matDatepicker]="start_date" autocomplete="false"
                                        [max]="point.end_date">
                             </div>
                             <div *ngIf="form.controls.start_date.invalid && (form.controls.start_date.dirty || form.controls.start_date.touched)"
@@ -148,7 +148,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>End Date <span style="color: red">(*)</span></label>
+                        <label>End Date</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -159,7 +159,7 @@
                                                 timeInterval="5"></mat-datepicker>
                                 <input matInput class="form-control" formControlName="end_date"
                                        [(ngModel)]="point.end_date"
-                                       [matDatepicker]="end_date" required autocomplete="false"
+                                       [matDatepicker]="end_date" autocomplete="false"
                                        [min]="point.start_date">
                             </div>
                             <div *ngIf="form.controls.end_date.invalid && (form.controls.end_date.dirty || form.controls.end_date.touched)"

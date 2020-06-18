@@ -6,6 +6,8 @@ import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
 import {formatDate} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { PointRatioComponent } from '../point-ratio/point-ratio.component';
 
 @Component({
     selector: 'app-admin-point',
@@ -18,6 +20,7 @@ export class AdminPointComponent implements OnInit {
     public points: any;
     public env: any;
     public total: any;
+    public modalRef: BsModalRef;
     public filter = {
         level_1: false,
         level_2: false,
@@ -38,6 +41,7 @@ export class AdminPointComponent implements OnInit {
         private api: Restangular,
         private toast: ToastrService,
         private router: Router,
+        public modalService: BsModalService,
         @Inject(PLATFORM_ID) private platformId: Object
     ) {
     }
@@ -47,7 +51,7 @@ export class AdminPointComponent implements OnInit {
         this.pageIndex = 1;
         this.pageSize = 20;
         this.column = 'id';
-        this.sort = 'desc';
+        this.sort = 'asc';
         this.getPointPolicy();
         this.pageLimitOptions = [
             {value: 5},
@@ -150,6 +154,22 @@ export class AdminPointComponent implements OnInit {
     changePageLimit(limit: any): void {
         this.pageSize = limit;
         this.getPointPolicy();
+    }
+
+    Ratio() {
+        this.api.all('point-ratio').customGET().subscribe(res => {
+            const initialState = {
+                ratio: res.result
+            };
+            this.modalRef = this.modalService.show(
+                PointRatioComponent,
+                {initialState}
+            );
+
+            this.modalRef.content.onClose.subscribe(res => {
+                
+            });
+        });
     }
 
 }

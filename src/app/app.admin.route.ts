@@ -41,6 +41,7 @@ import {AdminTipsComponent} from './admin/tips/tips.component';
 import {AdminTipDetailsComponent} from './admin/tip-details/tip-details.component';
 import {AdminPointComponent} from './admin/point/point.component';
 import {AdminPointDetailsComponent} from './admin/point-details/point-details.component';
+import {PointRatioComponent} from './admin/point-ratio/point-ratio.component';
 //-----------------------------------softone dev-------------------------------------------------------
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
@@ -272,7 +273,8 @@ const appRoutes: Routes = [
             { path: 'tips/add', component: AdminTipDetailsComponent},
             { path: 'point-policy', component: AdminPointComponent},
             { path: 'point-policy/add', component: AdminPointDetailsComponent},
-            { path: 'point-policy/edit/:id', component: AdminPointDetailsComponent}
+            { path: 'point-policy/edit/:id', component: AdminPointDetailsComponent},
+            { path: 'point-ratio', component: PointRatioComponent },
         ]
     },
     // otherwise redirect to home
