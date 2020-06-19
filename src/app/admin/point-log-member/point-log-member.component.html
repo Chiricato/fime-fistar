@@ -1,0 +1,161 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col">
+            <div class="admin-heading">
+                Members Point Log
+            </div>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary float-right" routerLink="/admin/point-policy/add"> <span>Excel</span>
+            </button>
+            
+        </div>
+    </div>
+    <mat-card class="search-control">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Point Policy or Note</label>
+                    <div>
+                        <mat-radio-group [(ngModel)]="filter.type">
+                            <mat-radio-button checked value="user_no">User No</mat-radio-button>
+                            <mat-radio-button value="policy">Point Policy</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.key">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2" *ngIf="!expired">
+                <div class="form-group">
+                    <label>Status</label>
+                    <div>
+                        <mat-checkbox [(ngModel)]="filter.enable" value="1">Add</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.disable" value="1">Use</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Period</label>
+                    <div>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="from" placeholder="From" [(ngModel)]="filter.from"
+                                   [max]="filter.to">
+                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                            <mat-datepicker #from></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="to" placeholder="To" [(ngModel)]="filter.to"
+                                   [min]="filter.from">
+                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                            <mat-datepicker #to></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div >
+                    <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
+                        search
+                    </i> <span>Search</span></button>
+                    <button class="btn btn-default mr-1" (click)="onReset()"><i class="material-icons align-text-bottom">
+                        replay
+                    </i> <span>Reset</span></button>
+                </div>
+            </div>
+            
+        </div>
+    </mat-card>
+    <mat-tab-group animationDuration="0ms" (selectedTabChange)="tabChanged($event)">
+        <mat-tab label="Point Log"></mat-tab>
+        <mat-tab label="Expired Point Log"></mat-tab>
+    </mat-tab-group>
+    <div class="multi-action" *ngIf="selected.length > 0">
+        <div class="col-12 d-flex justify-content-end">
+            <button class="btn btn-primary mr-1" [swal]="disableSwal" *ngIf="showDeactivate" (confirm)="onToggleMulti(true)">
+                <i class="material-icons align-text-bottom">
+                    visibility_off
+                </i> <span> Disable</span>
+            </button>
+            <button class="btn btn-primary mr-1" [swal]="enableSwal" *ngIf="showActive" (confirm)="onToggleMulti(false)">
+                <i class="material-icons align-text-bottom">
+                    visibility
+                </i> <span> Enable</span>
+            </button>
+            <button class="btn btn-default mr-1" [swal]="deleteSwal" *ngIf="showDelete" (confirm)="onDeleteMulti()">
+                <i class="material-icons align-text-bottom">
+                    delete
+                </i> <span>Delete</span>
+            </button>
+        </div>
+    </div>
+
+    <ngx-datatable #myTable class="material" [rows]="points" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50"
+                   [count]="total" [offset]="pageIndex-1" [limit]="pageSize" [externalPaging]="true"
+                   (page)='setPage($event)'
+                   [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+                   [selected]="selected"
+                   [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
+        <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" [width]="50" ></ngx-datatable-column>
+        <ngx-datatable-column name="User No" prop="user_no" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Point Policy" prop="name" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Add Point" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.add_point}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Minus Point" [sortable]="false" prop="minus_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.minus_point}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Status" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.status == 1">Add</span>
+                <span *ngIf="row.status == 2">Use</span>
+                <span *ngIf="row.status == 3">Expired</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Point using Period" prop="start_date" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.start_date | date : 'yyyy/MM/dd' }} - {{ row.end_date | date : 'yyyy/MM/dd' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Updated at" prop="updated_at" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.updated_at | date : 'yyyy/MM/dd HH:mm' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        
+        
+        <ngx-datatable-column name="Note" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <button type="button" class="btn btn-default btn-secondary" *ngIf="row.note" popover="{{row.note}}" placement="left">
+                    Note
+                </button>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+    <select (change)="changePageLimit($event.target.value)" class="page-limit">
+        <option
+          *ngFor="let option of pageLimitOptions"
+          [value]="option.value"
+          [selected]="option.value == pageSize"
+        >
+          {{option.value}} per page
+        </option>
+      </select>
+  
+</div>
+
+<swal #enableSwal text="Are you sure to enable point policy?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #disableSwal text="Are you sure to disable point policy?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #deleteSwal text="Are you sure to delete point policy?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>

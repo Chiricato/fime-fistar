@@ -31,7 +31,7 @@ export class AdminPointDetailsComponent implements OnInit {
     public pointId: any;
     public point: any;
     public isSubmitted = false;
-    // public food: any;
+    public minDate: Date;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -58,9 +58,14 @@ export class AdminPointDetailsComponent implements OnInit {
             level_1: false,
             level_2: false,
             level_3: false,
-            level_4: false
+            level_4: false,
+            point_expried: 0,
+            add_point: 0,
+            max_point: 0,
+            minus_point: 0,
+            limit_apply: 0
         };
-
+        this.minDate = new Date();
         this.form = new FormGroup({
             name: new FormControl(this.point.name, [Validators.required]),
             note: new FormControl(this.point.note, []),
@@ -89,15 +94,24 @@ export class AdminPointDetailsComponent implements OnInit {
                 this.point = res.result;
                 console.log(this.point);
                 console.log(this.point.log);
-                this.point.start_date = moment.utc(this.point.start_date).toDate();
-                this.point.end_date = moment.utc(this.point.end_date).toDate();
+                this.point.start_date = moment(this.point.start_date).format('YYYY-MM-DD');
+                this.point.end_date = moment(this.point.end_date).format('YYYY-MM-DD');
             });
     }
 
     onSave() {
         this.isSubmitted = true;
-        this.point.start_date = moment.utc(this.point.start_date).format('YYYY-MM-DD');
-        this.point.end_date = moment.utc(this.point.end_date).format('YYYY-MM-DD');
+        if(this.point.start_date != undefined){
+            this.point.start_date = moment(this.point.start_date).format('YYYY-MM-DD');
+        }else{
+            this.point.start_date = '';
+        }
+        if(this.point.end_date != undefined){
+            this.point.end_date = moment(this.point.end_date).format('YYYY-MM-DD');
+        }else{
+            this.point.end_date = '';
+        }
+        
 
         if (this.pointId) {
             this.api
@@ -124,6 +138,15 @@ export class AdminPointDetailsComponent implements OnInit {
 
     goBack(): void {
         this.router.navigate(['/admin/point-policy']);
+    }
+    onChange(){
+        if(this.point.start_date != undefined && this.point.end_date != undefined){
+            const start_date =  moment(this.point.start_date);
+            const end_date =  moment(this.point.end_date);
+            this.point.point_expried = end_date.diff(start_date, 'days')+1;
+        }else{
+            this.point.point_expried = 0;
+        }
     }
 
 }

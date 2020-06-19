@@ -51,17 +51,17 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <div>
-                                <mat-checkbox [(ngModel)]="point.level_1" formControlName="level_1" name="level_1" value="1">Member</mat-checkbox>
-                                <mat-checkbox [(ngModel)]="point.level_2" formControlName="level_2" name="level_2" value="1">Silver</mat-checkbox>
-                                <mat-checkbox [(ngModel)]="point.level_3" formControlName="level_3" name="level_3" value="1">Gold</mat-checkbox>
-                                <mat-checkbox [(ngModel)]="point.level_4" formControlName="level_4" name="level_4" value="1">Platinum</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="point.level_1" formControlName="level_1" name="level_1" value="1" style="margin-right: 10px">Member</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="point.level_2" formControlName="level_2" name="level_2" value="1" style="margin-right: 10px">Silver</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="point.level_3" formControlName="level_3" name="level_3" value="1" style="margin-right: 10px">Gold</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="point.level_4" formControlName="level_4" name="level_4" value="1" style="margin-right: 10px">Platinum</mat-checkbox>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Add Point <span style="color: red">(*)</span></label>
+                        <label>Add Point</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -116,7 +116,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <input type="text" class="form-control" [(ngModel)]="point.point_expried"
-                                   formControlName="point_expried" name="point_expried"/>
+                                   formControlName="point_expried" name="point_expried" readonly="" />
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                                 <input matInput class="form-control" formControlName="start_date"
                                        [(ngModel)]="point.start_date"
                                        [matDatepicker]="start_date" autocomplete="false"
-                                       [max]="point.end_date">
+                                       [max]="point.end_date" [min]="minDate" (dateInput)="onChange()" (dateChange)="onChange()">
                             </div>
                             <div *ngIf="form.controls.start_date.invalid && (form.controls.start_date.dirty || form.controls.start_date.touched)"
                                  class="text-danger">
@@ -160,7 +160,7 @@
                                 <input matInput class="form-control" formControlName="end_date"
                                        [(ngModel)]="point.end_date"
                                        [matDatepicker]="end_date" autocomplete="false"
-                                       [min]="point.start_date">
+                                       [min]="point.start_date" (dateInput)="onChange()" (dateChange)="onChange()">
                             </div>
                             <div *ngIf="form.controls.end_date.invalid && (form.controls.end_date.dirty || form.controls.end_date.touched)"
                                  class="text-danger">

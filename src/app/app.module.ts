@@ -34,7 +34,8 @@ import {
     TabsModule,
     ProgressbarModule,
     TooltipModule,
-    AccordionModule
+    AccordionModule,
+    PopoverModule
 } from 'ngx-bootstrap';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -48,7 +49,6 @@ import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FileUploadModule } from 'ng2-file-upload';
-
 /* Component */
 import { HeaderComponent } from './_layout/frontend/header/header.component';
 import { AdminHeaderComponent } from './_layout/admin/admin-header/admin-header.component';
@@ -165,6 +165,8 @@ import {AdminTipDetailsComponent} from './admin/tip-details/tip-details.componen
 import {AdminPointComponent} from './admin/point/point.component';
 import {AdminPointDetailsComponent} from './admin/point-details/point-details.component';
 import {PointRatioComponent} from './admin/point-ratio/point-ratio.component';
+import {AdminPointLogComponent} from './admin/point-log/point-log.component';
+import {AdminPointLogMemberComponent} from './admin/point-log-member/point-log-member.component';
 //softone dev
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
@@ -365,6 +367,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminPointComponent,
         AdminPointDetailsComponent,
         PointRatioComponent,
+        AdminPointLogComponent,
+        AdminPointLogMemberComponent,
 
         //soft0ne dev
         AdminBannerFistarComponent,
@@ -495,6 +499,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         OwlNativeDateTimeModule,
         //softone dev
         CurrencyMaskModule,
+        PopoverModule.forRoot()
         //end
 
     ],
