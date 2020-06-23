@@ -3,7 +3,7 @@ import {Restangular} from 'ngx-restangular';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import {environment} from '../../../environments/environment';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import {formatDate} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import { BsModalRef, BsModalService  } from 'ngx-bootstrap';
@@ -22,7 +22,7 @@ export class AdminPointLogMemberComponent implements OnInit {
     public total: any;
     public modalRef: BsModalRef;
     public filter = {
-        type: 'user_no',
+        type: 'policy',
         key: null,
         enable: false,
         disable: false,
@@ -35,11 +35,13 @@ export class AdminPointLogMemberComponent implements OnInit {
     public pageSize = 20;
     public selected = [];
     public expired = 0;
+    public user_no: any;
     public pageLimitOptions = [];
     constructor(
         private api: Restangular,
         private toast: ToastrService,
         private router: Router,
+        public activeRoute: ActivatedRoute,
         public modalService: BsModalService,
         @Inject(PLATFORM_ID) private platformId: Object
     ) {
@@ -47,6 +49,9 @@ export class AdminPointLogMemberComponent implements OnInit {
 
     ngOnInit() {
         this.env = environment;
+        this.activeRoute.params.forEach((params: Params) => {
+            this.user_no = params['user_no'];
+        });
         this.pageIndex = 1;
         this.pageSize = 20;
         this.column = 'id';
@@ -74,7 +79,8 @@ export class AdminPointLogMemberComponent implements OnInit {
                 disable: this.filter.disable,
                 enable: this.filter.enable,
                 from: from, to: to,
-                expired: this.expired
+                expired: this.expired,
+                user_no: this.user_no
             }).subscribe(res => {
             this.points = res.result.data;
             this.total = res.result.total;
@@ -101,7 +107,7 @@ export class AdminPointLogMemberComponent implements OnInit {
 
     onReset() {
         this.filter = {
-            type: 'user_no',
+            type: 'policy',
             key: null,
             enable: false,
             disable: false,

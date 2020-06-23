@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col">
-            <button class="btn btn-primary float-right" routerLink="/admin/point-policy/add"> <span>Excel</span>
+            <button class="btn btn-primary float-right" (click)="onDownload()"> <span>Excel</span>
             </button>
             
         </div>
@@ -18,7 +18,7 @@
                     <label>Point Policy or Note</label>
                     <div>
                         <mat-radio-group [(ngModel)]="filter.type">
-                            <mat-radio-button checked value="user_no">User No</mat-radio-button>
+                            <mat-radio-button checked value="user_no" style="margin-right: 10px">User No</mat-radio-button>
                             <mat-radio-button value="policy">Point Policy</mat-radio-button>
                         </mat-radio-group>
                         <mat-form-field class="full-width">
@@ -102,7 +102,11 @@
                    [selected]="selected"
                    [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
         <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" [width]="50" ></ngx-datatable-column>
-        <ngx-datatable-column name="User No" prop="user_no" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="User No" prop="user_no" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <a routerLink="/admin/point-log-member/{{row.user_no}}">{{row.user_no}}</a>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column name="Point Policy" prop="name" [resizeable]="false"></ngx-datatable-column>
         <ngx-datatable-column name="Add Point" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>

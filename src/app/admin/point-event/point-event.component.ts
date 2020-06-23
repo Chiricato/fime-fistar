@@ -10,22 +10,24 @@ import { BsModalRef, BsModalService  } from 'ngx-bootstrap';
 import { PointRatioComponent } from '../point-ratio/point-ratio.component';
 
 @Component({
-    selector: 'app-admin-point-log',
-    templateUrl: './point-log.component.html',
+    selector: 'app-admin-point-event',
+    templateUrl: './point-event.component.html',
     styleUrls: [
-        './point-log.component.scss'
+        './point-event.component.scss'
     ]
 })
-export class AdminPointLogComponent implements OnInit {
+export class AdminEventLogComponent implements OnInit {
     public points: any;
     public env: any;
     public total: any;
     public modalRef: BsModalRef;
     public filter = {
-        type: 'user_no',
-        key: null,
+        join: false,
+        answer: false,
+        name: null,
         enable: false,
         disable: false,
+        ready: false,
         from: null,
         to: null
     };
@@ -34,7 +36,7 @@ export class AdminPointLogComponent implements OnInit {
     public pageIndex = 1;
     public pageSize = 20;
     public selected = [];
-    public expired = 0;
+    public closed = 0;
     public pageLimitOptions = [];
     constructor(
         private api: Restangular,
@@ -51,7 +53,7 @@ export class AdminPointLogComponent implements OnInit {
         this.pageSize = 20;
         this.column = 'id';
         this.sort = 'desc';
-        this.getPointPolicy();
+        this.getPointEvent();
         this.pageLimitOptions = [
             {value: 5},
             {value: 10},
@@ -62,20 +64,22 @@ export class AdminPointLogComponent implements OnInit {
 
     }
 
-    getPointPolicy() {
+    getPointEvent() {
         const from = this.filter.from ? formatDate(this.filter.from, 'MM/dd/yyyy', 'en-US') : null;
         const to = this.filter.to ? formatDate(this.filter.to, 'MM/dd/yyyy', 'en-US') : null;
 
-        this.api.all('point-log').customGET('',
-            {
-                page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
-                type: this.filter.type,
-                key: this.filter.key,
-                disable: this.filter.disable,
-                enable: this.filter.enable,
-                from: from, to: to,
-                expired: this.expired
-            }).subscribe(res => {
+        this.api.all('point-event').customGET('',
+        {
+            page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
+            join: this.filter.join,
+            answer: this.filter.answer,
+            name: this.filter.name,
+            disable: this.filter.disable,
+            enable: this.filter.enable,
+            ready: this.filter.ready,
+            from: from, to: to,
+            closed: this.closed
+        }).subscribe(res => {
             this.points = res.result.data;
             this.total = res.result.total;
         });
@@ -83,33 +87,35 @@ export class AdminPointLogComponent implements OnInit {
 
     onSearch() {
         this.pageIndex = 1;
-        this.getPointPolicy();
+        this.getPointEvent();
     }
 
     setPage(pageInfo) {
         this.pageIndex = pageInfo.offset + 1;
-        this.getPointPolicy();
+        this.getPointEvent();
     }
 
     onSort(event) {
         this.column = event.sorts[0].prop;
         this.sort = event.sorts[0].dir;
         this.pageIndex = 1;
-        this.getPointPolicy();
+        this.getPointEvent();
         return false;
     }
 
     onReset() {
         this.filter = {
-            type: 'user_no',
-            key: null,
+            join: false,
+            answer: false,
+            name: null,
             enable: false,
             disable: false,
+            ready: false,
             from: null,
             to: null
         };
 
-        this.getPointPolicy();
+        this.getPointEvent();
     }
 
     onToggle(rows, status) {
@@ -135,7 +141,7 @@ export class AdminPointLogComponent implements OnInit {
 
         this.api.all('delete').customPOST({ids: ids}).subscribe(res => {
             if (res.result) {
-                this.getPointPolicy();
+                this.getPointEvent();
                 this.toast.success('The point policy has been deleted');
             }
         });
@@ -149,34 +155,16 @@ export class AdminPointLogComponent implements OnInit {
 
     changePageLimit(limit: any): void {
         this.pageSize = limit;
-        this.getPointPolicy();
+        this.getPointEvent();
     }
 
     tabChanged($event) {
         if ($event.index === 0) {
-            this.expired = 0;
+            this.closed = 0;
         } else {
-            this.expired = 1;
+            this.closed = 1;
         }
-        this.getPointPolicy();
-    }
-
-    onDownload() {
-        const from = this.filter.from ? formatDate(this.filter.from, 'MM/dd/yyyy', 'en-US') : null;
-        const to = this.filter.to ? formatDate(this.filter.to, 'MM/dd/yyyy', 'en-US') : null;
-        this.api.all('point-log-excel').customGET('', {
-            page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
-            type: this.filter.type,
-            key: this.filter.key,
-            disable: this.filter.disable,
-            enable: this.filter.enable,
-            from: from, to: to,
-            expired: this.expired
-        }).subscribe(res => {
-            if (res.result) {
-                window.open(this.env.rootHost + res.result.path, '_blank');
-            }
-        });
+        this.getPointEvent();
     }
 
 }
