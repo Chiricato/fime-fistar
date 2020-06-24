@@ -1,0 +1,288 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading" *ngIf="!eventId">
+                Create Event
+            </div>
+            <div class="admin-heading" *ngIf="eventId">
+                Edit Event
+            </div>
+            <div>
+                <button class="btn btn-default" (click)="goBack()"><i class="material-icons align-text-bottom">
+                    arrow_back
+                </i> <span>Back</span></button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Event Title <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter name" [(ngModel)]="try.cntnts_nm"
+                                   formControlName="name" name="name"/>
+                            <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.name.errors.required">
+                                    Event Title is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="status" formControlName="type">
+                                    <mat-radio-button value="1">Enable</mat-radio-button>
+                                    <mat-radio-button value="2">Disable</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Connect Point Policy</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ng-select [items]="brands" [(ngModel)]="try.brnd_code" bindValue="code" bindLabel="code_nm"
+                                       formControlName="brand_id" name="brand_id" [virtualScroll]="true">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.code_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Apply Members</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-checkbox [(ngModel)]="try.brnd_code" formControlName="type" name="type" value="1" style="margin-right: 10px">Member</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="try.brnd_code" formControlName="type" name="type" value="1" style="margin-right: 10px">Silver</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="try.brnd_code" formControlName="type" name="type" value="1" style="margin-right: 10px">Gold</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="try.brnd_code" formControlName="type" name="type" value="1" style="margin-right: 10px">Platinum</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Add Point</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="try.brnd_code"
+                                   formControlName="type" name="add_point"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Minus Point</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="try.brnd_code"
+                                   formControlName="type" name="max_point"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Point payment method</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="try.event_knd_code"
+                                             formControlName="type" name="type">
+                                <mat-radio-button class="radio-button" [value]="1">Immediately</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="2">All members</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="3">Selected Members</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Max winner People<span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter join max count"
+                                   [(ngModel)]="try.event_trgter_co"
+                                   formControlName="join_max_count" name="join_max_count"/>
+                            <div *ngIf="form.controls.join_max_count.invalid && (form.controls.join_max_count.dirty || form.controls.join_max_count.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.join_max_count.errors.required">
+                                    Join Max Count is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Event Join Type</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="try.event_knd_code"
+                                             formControlName="type" name="type">
+                                <mat-radio-button class="radio-button" [value]="1">Join</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="2">Answer</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Start Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="start_date"
+                                                       matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #start_date type="datetime" openOnFocus="true"
+                                                timeInterval="5"></mat-datepicker>
+                                <input matInput class="form-control" formControlName="start_date"
+                                       [(ngModel)]="try.dlvy_bgnde"
+                                       [matDatepicker]="start_date" required autocomplete="false"
+                                       [max]="try.end_date">
+                            </div>
+                            <div *ngIf="form.controls.start_date.invalid && (form.controls.start_date.dirty || form.controls.start_date.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.start_date.errors.required">
+                                    Start Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>End Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="end_date"
+                                                       matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #end_date type="datetime" openOnFocus="true"
+                                                timeInterval="5"></mat-datepicker>
+                                <input matInput class="form-control" formControlName="end_date"
+                                       [(ngModel)]="try.dlvy_endde"
+                                       [matDatepicker]="end_date" required autocomplete="false"
+                                       [min]="try.start_date">
+                            </div>
+                            <div *ngIf="form.controls.end_date.invalid && (form.controls.end_date.dirty || form.controls.end_date.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.end_date.errors.required">
+                                    End Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Banner image <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <app-admin-resource #resource
+                                                [resource]="{ url: try.feature_image, resource_type: try.resource_type }"
+                                                [resizeToWidth]="670" [aspectRatio]="67 / 47"></app-admin-resource>
+                            <div *ngIf="isSubmitted && invalidMainImage"
+                                 class="text-danger">
+                                Banner image is require
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Image Description</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <app-admin-multiple-images #resourceImgDesc
+                                                       [needToCrop]="false"
+                                                       [maxImage]="1"
+                                                [images]="{ data: try.imgDesc }"
+                                                [resizeToWidth]="720" [aspectRatio]="1 / 1"></app-admin-multiple-images>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Winner’s Images Description <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <app-admin-multiple-images #images [images]="{ data: try.files}"
+                                                       [resizeToWidth]="720" [aspectRatio]="1 / 1"></app-admin-multiple-images>
+                            <div *ngIf="isSubmitted && invalidImages"
+                                 class="text-danger">
+                                Choose at least one image
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Text Content  <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ck-editor [(ngModel)]="try.goods_dc" skin="moono-lisa" language="en" [fullPage]="true"
+                                       formControlName="description" name="description"></ck-editor>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Using Comment field</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-checkbox [(ngModel)]="try.brnd_code" formControlName="description" name="description" value="1" style="margin-right: 10px">Using Comment field</mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions d-flex justify-content-end col-md-8">
+            <button class="btn btn-default mr-1" (click)="goBack()">
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" [disabled]="!form.valid"
+                    (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>

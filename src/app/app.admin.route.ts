@@ -45,6 +45,7 @@ import {PointRatioComponent} from './admin/point-ratio/point-ratio.component';
 import {AdminPointLogComponent} from './admin/point-log/point-log.component';
 import {AdminPointLogMemberComponent} from './admin/point-log-member/point-log-member.component';
 import {AdminEventLogComponent} from './admin/point-event/point-event.component';
+import {AdminPointEventAddComponent} from './admin/point-event-add/point-event-add.component';
 //-----------------------------------softone dev-------------------------------------------------------
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
@@ -280,7 +281,9 @@ const appRoutes: Routes = [
             { path: 'point-ratio', component: PointRatioComponent },
             { path: 'point-log', component: AdminPointLogComponent},
             { path: 'point-log-member/:user_no', component: AdminPointLogMemberComponent},
-            { path: 'event', component: AdminEventLogComponent}
+            { path: 'event', component: AdminEventLogComponent},
+            { path: 'event/edit/:id', component: AdminPointEventAddComponent},
+            { path: 'event/add', component: AdminPointEventAddComponent}
         ]
     },
     // otherwise redirect to home

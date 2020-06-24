@@ -18,6 +18,7 @@ import { PointRatioComponent } from '../point-ratio/point-ratio.component';
 })
 export class AdminPointLogMemberComponent implements OnInit {
     public points: any;
+    public user: any;
     public env: any;
     public total: any;
     public modalRef: BsModalRef;
@@ -35,6 +36,9 @@ export class AdminPointLogMemberComponent implements OnInit {
     public pageSize = 20;
     public selected = [];
     public expired = 0;
+    public total_point = 0;
+    public total_basic = 0;
+    public total_event = 0;
     public user_no: any;
     public pageLimitOptions = [];
     constructor(
@@ -57,6 +61,8 @@ export class AdminPointLogMemberComponent implements OnInit {
         this.column = 'id';
         this.sort = 'desc';
         this.getPointPolicy();
+        this.getTotalPoint();
+        this.getUser();
         this.pageLimitOptions = [
             {value: 5},
             {value: 10},
@@ -65,6 +71,23 @@ export class AdminPointLogMemberComponent implements OnInit {
             {value: 50}
         ];
 
+    }
+    getUser() {
+
+        this.api.all('admin/user/get').customGET(this.user_no).subscribe(res => {
+            this.user = res.result;
+        });
+    }
+    getTotalPoint() {
+
+        this.api.all('get-total-point-member').customGET(this.user_no,
+            {
+                expired: this.expired
+            }).subscribe(res => {
+            this.total_point = res.result.total;
+            this.total_basic = res.result.total_basic;
+            this.total_event = res.result.total_event;
+        });
     }
 
     getPointPolicy() {
@@ -165,6 +188,7 @@ export class AdminPointLogMemberComponent implements OnInit {
             this.expired = 1;
         }
         this.getPointPolicy();
+        this.getTotalPoint();
     }
 
 }

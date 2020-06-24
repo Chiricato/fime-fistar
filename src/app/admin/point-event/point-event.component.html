@@ -2,37 +2,47 @@
     <div class="row">
         <div class="col">
             <div class="admin-heading">
-                Members Point Log
+                Event List 
+                <span *ngIf="!closed">(On Going)</span>
+                <span *ngIf="closed">(Closed)</span>
             </div>
         </div>
         <div class="col">
-            <button class="btn btn-primary float-right" routerLink="/admin/point-policy/add"> <span>Excel</span>
+            <button class="btn btn-primary float-right" routerLink="/admin/event/add">
+                <i class="material-icons align-text-bottom">
+                    add
+                </i> <span>Add</span>
             </button>
-            
         </div>
     </div>
     <mat-card class="search-control">
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
-                    <label>Point Policy or Note</label>
+                    <label>Event Name</label>
                     <div>
-                        <mat-radio-group [(ngModel)]="filter.type">
-                            <mat-radio-button checked value="user_no" style="margin-right: 10px">User No</mat-radio-button>
-                            <mat-radio-button value="policy">Point Policy</mat-radio-button>
-                        </mat-radio-group>
                         <mat-form-field class="full-width">
-                            <input matInput placeholder="" [(ngModel)]="filter.key">
+                            <input matInput placeholder="" [(ngModel)]="filter.name">
                         </mat-form-field>
                     </div>
                 </div>
             </div>
-            <div class="col-2" *ngIf="!expired">
+            <div class="col-2">
+                <div class="form-group">
+                    <label>Event Type</label>
+                    <div>
+                        <mat-checkbox [(ngModel)]="filter.join" value="1">Join </mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.answer" value="1">Answer</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2" *ngIf="!closed">
                 <div class="form-group">
                     <label>Status</label>
                     <div>
-                        <mat-checkbox [(ngModel)]="filter.enable" value="1">Add</mat-checkbox>
-                        <mat-checkbox [(ngModel)]="filter.disable" value="1">Use</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.ready" value="1">Ready </mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.enable" value="1">Enable</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.disable" value="1">Disable</mat-checkbox>
                     </div>
                 </div>
             </div>
@@ -71,8 +81,8 @@
         </div>
     </mat-card>
     <mat-tab-group animationDuration="0ms" (selectedTabChange)="tabChanged($event)">
-        <mat-tab label="Point Log"></mat-tab>
-        <mat-tab label="Expired Point Log"></mat-tab>
+        <mat-tab label="On Going Event"></mat-tab>
+        <mat-tab label="Closed Event"></mat-tab>
     </mat-tab-group>
     <div class="multi-action" *ngIf="selected.length > 0">
         <div class="col-12 d-flex justify-content-end">
@@ -102,48 +112,48 @@
                    [selected]="selected"
                    [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
         <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" [width]="50" ></ngx-datatable-column>
-        <ngx-datatable-column name="User No" prop="user_no" [resizeable]="false">
+        <ngx-datatable-column name="Event name" prop="name" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Event Type" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <a routerLink="/admin/point-log-member/{{row.user_no}}">{{row.user_no}}</a>
+                <span *ngIf="row.type == 1">Join</span>
+                <span *ngIf="row.type == 2">Answer</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Point Policy" prop="name" [resizeable]="false"></ngx-datatable-column>
-        <ngx-datatable-column name="Add Point" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
+        <ngx-datatable-column name="Banner Image" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <span>{{row.add_point}}</span>
+                <img class="img"
+                     [src]="row.file.stre_file_nm ? env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm : env.rootHost + row.file.file_cours"
+                     *ngIf="row.resource_type == 1 && row.file.file_cours" target="_blank"/>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Minus Point" [sortable]="false" prop="minus_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
+        <ngx-datatable-column name="Membership" [sortable]="false" prop="minus_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <span>{{row.minus_point}}</span>
+                <span>{{row.level}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Members/comments" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template >
+                <button type="button" class="btn btn-default btn-secondary" *ngIf="row.note" popover="{{row.note}}" placement="left">
+                    {{row.member}}/{{row.comment}}
+                </button>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Status" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <span *ngIf="row.status == 1">Add</span>
-                <span *ngIf="row.status == 2">Use</span>
-                <span *ngIf="row.status == 3">Expired</span>
+                <span *ngIf="row.status == 1">Ready</span>
+                <span *ngIf="row.status == 2">Enable</span>
+                <span *ngIf="row.status == 3">Disable</span>
+                <span *ngIf="row.status == 4">Closed</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Point using Period" prop="start_date" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
+        <ngx-datatable-column name="Event Period" prop="start_date" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>{{ row.start_date | date : 'yyyy/MM/dd' }} - {{ row.end_date | date : 'yyyy/MM/dd' }}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Updated at" prop="updated_at" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-                <span>{{ row.updated_at | date : 'yyyy/MM/dd HH:mm' }}</span>
-            </ng-template>
-        </ngx-datatable-column>
         
         
-        <ngx-datatable-column name="Note" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-                <button type="button" class="btn btn-default btn-secondary" *ngIf="row.note" popover="{{row.note}}" placement="left">
-                    Note
-                </button>
-            </ng-template>
-        </ngx-datatable-column>
+        
     </ngx-datatable>
     <select (change)="changePageLimit($event.target.value)" class="page-limit">
         <option

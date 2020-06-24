@@ -13,7 +13,13 @@
     </div>
     <div class="row">
         <div class="col">
-            <span>User No: {{user_no}}</span> | <span>Total Point: </span>
+            <span>User No: {{user_no}}</span> | <span>Total Point: {{total_point}}p (Basic:{{total_basic}}p / Event {{total_event}}p)</span>
+            <p>
+                <span *ngIf="user.level_number == 1">Member</span>
+                <span *ngIf="user.level_number == 2">Silver Member</span>
+                <span *ngIf="user.level_number == 3">Gold Member</span>
+                <span *ngIf="user.level_number == 4">Platinum Member</span>
+            </p>
         </div>
     </div>
     <mat-card class="search-control">
@@ -125,6 +131,12 @@
                 <span *ngIf="row.status == 1">Add</span>
                 <span *ngIf="row.status == 2">Use</span>
                 <span *ngIf="row.status == 3">Expired</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Type" [sortable]="false" prop="type" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.type == 1">Basic</span>
+                <span *ngIf="row.type == 2">Event</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Point using Period" prop="start_date" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
