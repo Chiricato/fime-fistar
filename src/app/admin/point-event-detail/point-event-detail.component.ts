@@ -22,10 +22,10 @@ import {AdminMultipleImagesComponent} from '../multiple-images/multiple-images.c
 
 @Component({
     selector: 'app-admin-try',
-    templateUrl: './try-details.component.html',
-    styleUrls: ['./try-details.component.scss']
+    templateUrl: './point-event-detail.component.html',
+    styleUrls: ['./point-event-detail.component.scss']
 })
-export class AdminTryDetailsComponent implements OnInit {
+export class AdminPointEventDetailsComponent implements OnInit {
     @ViewChild('resource') public resource: AdminResourceComponent;
     @ViewChild('resourceImgDesc') public resourceImgDesc: AdminMultipleImagesComponent;
     @ViewChild('images') public images: AdminMultipleImagesComponent;

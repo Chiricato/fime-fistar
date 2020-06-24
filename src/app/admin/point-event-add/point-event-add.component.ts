@@ -35,14 +35,14 @@ export class AdminPointEventAddComponent implements OnInit {
     public env: any;
     public form: any;
     public eventId: any;
-    public try: any;
+    public event: any;
     public brands = [];
-    public tryEventTypes = [
+    public eventEventTypes = [
         {value: 1, viewValue: 'Join'},
         {value: 2, viewValue: 'Answer'}
     ];
     public timeColorCodes: any;
-    public tryEventTypeSelected = 'review';
+    public eventEventTypeSelected = 'review';
     public invalidMainImage = false;
     public invalidImages = false;
     public isSubmitted = false;
@@ -72,48 +72,49 @@ export class AdminPointEventAddComponent implements OnInit {
             this.eventId = params['id'];
         });
         this.timeColorCodes = [];
-        this.try = {
+        this.event = {
             event_knd_code: 398002,
             short_desc: '',
             description: '',
             resource_type: 1,
-            level_apply: 1
+            level_apply: 1,
+            status: 1
         };
 
         this.form = new FormGroup({
-            name: new FormControl(this.try.cntnts_nm, [Validators.required]),
-            time_color_code: new FormControl(this.try.time_color_code, []),
-            short_description: new FormControl(this.try.short_description, []),
-            description: new FormControl(this.try.good_dc, [Validators.required]),
-            is_disabled: new FormControl(this.try.is_disabled, []),
-            brand_id: new FormControl(this.try.brnd_code, [Validators.required]),
-            category_id: new FormControl(this.try.goods_cl_code, [Validators.required]),
-            start_date: new FormControl(this.try.event_bgnde, [Validators.required]),
-            end_date: new FormControl(this.try.event_endde, [Validators.required]),
-            delivery_start_date: new FormControl(this.try.dlvy_bgnde, [Validators.required]),
-            delivery_end_date: new FormControl(this.try.dlvy_endde, [Validators.required]),
-            join_max_count: new FormControl(this.try.event_trgter_co, [Validators.required]),
-            product_url: new FormControl(this.try.link_url, [Validators.required]),
-            model: new FormControl(this.try.modl_nombr, []),
-            type: new FormControl(this.try.event_knd_code, []),
-            hash_tag: new FormControl(this.try.hash_tag, []),
-            // is_try_event: new FormControl(this.try.is_try_event, []),
-            // try_event_start_date: new FormControl(this.try.try_event_start_date, []),
-            // try_event_end_date: new FormControl(this.try.try_event_end_date, []),
-            // quantity_to_qualify: new FormControl(this.try.quantity_to_qualify, []),
-            // try_event_type: new FormControl(this.try.try_event_type, []),
-            price: new FormControl(this.try.goods_pc, []),
-            goods_txt: new FormControl(this.try.goods_txt, []),
+            name: new FormControl(this.event.cntnts_nm, [Validators.required]),
+            time_color_code: new FormControl(this.event.time_color_code, []),
+            short_description: new FormControl(this.event.short_description, []),
+            description: new FormControl(this.event.good_dc, [Validators.required]),
+            is_disabled: new FormControl(this.event.is_disabled, []),
+            brand_id: new FormControl(this.event.brnd_code, [Validators.required]),
+            category_id: new FormControl(this.event.goods_cl_code, [Validators.required]),
+            start_date: new FormControl(this.event.event_bgnde, [Validators.required]),
+            end_date: new FormControl(this.event.event_endde, [Validators.required]),
+            delivery_start_date: new FormControl(this.event.dlvy_bgnde, [Validators.required]),
+            delivery_end_date: new FormControl(this.event.dlvy_endde, [Validators.required]),
+            join_max_count: new FormControl(this.event.event_trgter_co, [Validators.required]),
+            product_url: new FormControl(this.event.link_url, [Validators.required]),
+            model: new FormControl(this.event.modl_nombr, []),
+            type: new FormControl(this.event.event_knd_code, []),
+            hash_tag: new FormControl(this.event.hash_tag, []),
+            // is_event_event: new FormControl(this.event.is_event_event, []),
+            // event_event_start_date: new FormControl(this.event.event_event_start_date, []),
+            // event_event_end_date: new FormControl(this.event.event_event_end_date, []),
+            // quantity_to_qualify: new FormControl(this.event.quantity_to_qualify, []),
+            // event_event_type: new FormControl(this.event.event_event_type, []),
+            price: new FormControl(this.event.goods_pc, []),
+            goods_txt: new FormControl(this.event.goods_txt, []),
             output_text_type: new FormControl(this.output_text_type, []),
             output_category: new FormControl(this.output_category, []),
-            sale_price: new FormControl(this.try.event_pc, []),
-            resource_type: new FormControl(this.try.resource_type, []),
-            goods_code_group: new FormControl(this.try.goods_code_group, []),
-            level_apply: new FormControl(this.try.level_apply, [])
+            sale_price: new FormControl(this.event.event_pc, []),
+            resource_type: new FormControl(this.event.resource_type, []),
+            goods_code_group: new FormControl(this.event.goods_code_group, []),
+            level_apply: new FormControl(this.event.level_apply, [])
         });
 
         if (this.eventId) {
-            this.getTry();
+            this.getevent();
         }
         this.getColors();
         this.getBrands();
@@ -121,37 +122,37 @@ export class AdminPointEventAddComponent implements OnInit {
         this.getFashion();
         this.getBeauty();
         // this.getFood();
-        this.try.goods_code_group = this.try.goods_code_group ? this.try.goods_code_group : "407";
+        this.event.goods_code_group = this.event.goods_code_group ? this.event.goods_code_group : "407";
     }
 
-    getTry() {
-        this.api.one('tries', this.getTry).get()
+    getevent() {
+        this.api.one('tries', this.getevent).get()
             .subscribe(res => {
-                this.try = res.result;
+                this.event = res.result;
                 if (res.result.files.length > 0) {
-                    this.try.feature_image = res.result.files[0].stre_file_nm ? res.result.files[0].file_cours + '/' +
+                    this.event.feature_image = res.result.files[0].stre_file_nm ? res.result.files[0].file_cours + '/' +
                         res.result.files[0].stre_file_nm : res.result.files[0].file_cours;
                 } else {
-                    this.try.feature_image = null;
+                    this.event.feature_image = null;
                 }
 
                 if (res.result.imgDesc.length > 0) {
-                    this.try.desc_img = res.result.imgDesc[0].stre_file_nm ? res.result.imgDesc[0].file_cours + '/' +
+                    this.event.desc_img = res.result.imgDesc[0].stre_file_nm ? res.result.imgDesc[0].file_cours + '/' +
                         res.result.imgDesc[0].stre_file_nm : res.result.imgDesc[0].file_cours;
                 }
 
-                this.try.files.splice(0, 1);
-                this.try.event_knd_code = this.try.event_knd_code * 1;
+                this.event.files.splice(0, 1);
+                this.event.event_knd_code = this.event.event_knd_code * 1;
 
-                this.try.event_bgnde = moment.utc(this.try.event_bgnde).toDate();
-                this.try.event_endde = moment.utc(this.try.event_endde).toDate();
-                this.try.dlvy_bgnde = moment.utc(this.try.dlvy_bgnde).toDate();
-                this.try.dlvy_endde = moment.utc(this.try.dlvy_endde).toDate();
-                this.output_text_type = this.try.goods_txt ? '2' : '1';
-                this.try.is_disabled = this.try.expsr_at !== 'Y';
-                // this.try.try_event_type = (this.try.try_event_type != null && this.tryEventTypes.indexOf(this.try.try_event_type) !== -1) ? this.try.try_event_type : this.tryEventTypes[0].value;
-                // this.try.try_event_start_date = this.try.try_event_start_date != null ? moment.utc(this.try.try_event_start_date).toDate() : this.try.start_date;
-                // this.try.try_event_end_date = this.try.try_event_end_date != null ? moment.utc(this.try.try_event_end_date).toDate() : this.try.end_date;
+                this.event.event_bgnde = moment.utc(this.event.event_bgnde).toDate();
+                this.event.event_endde = moment.utc(this.event.event_endde).toDate();
+                this.event.dlvy_bgnde = moment.utc(this.event.dlvy_bgnde).toDate();
+                this.event.dlvy_endde = moment.utc(this.event.dlvy_endde).toDate();
+                this.output_text_type = this.event.goods_txt ? '2' : '1';
+                this.event.is_disabled = this.event.expsr_at !== 'Y';
+                // this.event.event_event_type = (this.event.event_event_type != null && this.eventEventTypes.indexOf(this.event.event_event_type) !== -1) ? this.event.event_event_type : this.eventEventTypes[0].value;
+                // this.event.event_event_start_date = this.event.event_event_start_date != null ? moment.utc(this.event.event_event_start_date).toDate() : this.event.start_date;
+                // this.event.event_event_end_date = this.event.event_event_end_date != null ? moment.utc(this.event.event_event_end_date).toDate() : this.event.end_date;
             });
     }
 
@@ -205,9 +206,9 @@ export class AdminPointEventAddComponent implements OnInit {
         this.resourceImgDesc.onSave((res) => {
             if (typeof res !== 'undefined') {
                 if (res.images) {
-                    this.try.img_desc = res.images[0];
+                    this.event.img_desc = res.images[0];
                 } else {
-                    this.try.img_desc = null;
+                    this.event.img_desc = null;
                 }
             }
 
@@ -216,13 +217,13 @@ export class AdminPointEventAddComponent implements OnInit {
                     this.invalidMainImage = true;
                     return;
                 }
-                this.try.resource_type = response.resource_type;
+                this.event.resource_type = response.resource_type;
                 this.images.onSave((rs) => {
-                    this.try.images = rs.images;
+                    this.event.images = rs.images;
                     if (this.output_text_type === '1') {
-                        this.try.goods_txt = null;
+                        this.event.goods_txt = null;
                     }
-                    this.try.images.splice(0, 0, {name: response.name, url: response.url});
+                    this.event.images.splice(0, 0, {name: response.name, url: response.url});
                     this.onSaveCallback();
                 });
             });
@@ -230,41 +231,41 @@ export class AdminPointEventAddComponent implements OnInit {
     }
 
     onSaveCallback() {
-        this.try.expsr_at = this.try.is_disabled ? 'N' : 'Y';
-        this.try.event_bgnde_format = moment.utc(this.try.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
-        this.try.event_endde_format = moment.utc(this.try.event_endde).format('YYYY-MM-DD HH:mm:ss');
-        this.try.dlvy_bgnde_format = moment(this.try.dlvy_bgnde).format('YYYY-MM-DD');
-        this.try.dlvy_endde_format = moment(this.try.dlvy_endde).format('YYYY-MM-DD');
+        this.event.expsr_at = this.event.is_disabled ? 'N' : 'Y';
+        this.event.event_bgnde_format = moment.utc(this.event.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
+        this.event.event_endde_format = moment.utc(this.event.event_endde).format('YYYY-MM-DD HH:mm:ss');
+        this.event.dlvy_bgnde_format = moment(this.event.dlvy_bgnde).format('YYYY-MM-DD');
+        this.event.dlvy_endde_format = moment(this.event.dlvy_endde).format('YYYY-MM-DD');
 
-        if (this.getTry) {
+        if (this.getevent) {
             this.api
-                .one('tries', this.getTry)
-                .customPUT(this.try)
+                .one('tries', this.getevent)
+                .customPUT(this.event)
                 .subscribe(res => {
                     if (res.result) {
-                        this.toast.success('Update try successfully');
-                        this.router.navigate(['/admin/try']);
+                        this.toast.success('Update event successfully');
+                        this.router.navigate(['/admin/event']);
                     }
                 });
         } else {
             this.api
                 .all('tries')
-                .customPOST(this.try)
+                .customPOST(this.event)
                 .subscribe(res => {
                     if (res.result) {
-                        this.toast.success('Add try successfully');
-                        this.router.navigate(['/admin/try']);
+                        this.toast.success('Add event successfully');
+                        this.router.navigate(['/admin/event']);
                     }
                 });
         }
     }
 
     goBack(): void {
-        this.router.navigate(['/admin/try']);
+        this.router.navigate(['/admin/event']);
     }
 
     changeCategory() {
-        this.try.goods_cl_code = '';
+        this.event.goods_cl_code = '';
     }
 
 }
