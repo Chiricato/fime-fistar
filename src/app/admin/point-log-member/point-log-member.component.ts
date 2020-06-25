@@ -187,6 +187,14 @@ export class AdminPointLogMemberComponent implements OnInit {
         } else {
             this.expired = 1;
         }
+        this.filter = {
+           type: 'policy',
+           key: null,
+           enable: false,
+           disable: false,
+           from: null,
+           to: null
+        };
         this.getPointPolicy();
         this.getTotalPoint();
     }

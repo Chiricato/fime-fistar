@@ -112,18 +112,18 @@
                    [selected]="selected"
                    [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
         <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" [width]="50" ></ngx-datatable-column>
-        <ngx-datatable-column name="Event name" prop="name" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Event name" prop="title" [resizeable]="false"></ngx-datatable-column>
         <ngx-datatable-column name="Event Type" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.type == 1">Join</span>
                 <span *ngIf="row.type == 2">Answer</span>
+
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Banner Image" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <img class="img"
-                     [src]="row.file.stre_file_nm ? env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm : env.rootHost + row.file.file_cours"
-                     *ngIf="row.resource_type == 1 && row.file.file_cours" target="_blank"/>
+                     [src]="row.path ? env.rootHost + row.path + '/' + row.url : 'https://via.placeholder.com/100'" />
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Membership" [sortable]="false" prop="minus_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
@@ -133,9 +133,7 @@
         </ngx-datatable-column>
         <ngx-datatable-column name="Members/comments" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template >
-                <button type="button" class="btn btn-default btn-secondary" *ngIf="row.note" popover="{{row.note}}" placement="left">
-                    {{row.member}}/{{row.comment}}
-                </button>
+                {{row.member}}/{{row.comment}}
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Status" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
@@ -151,7 +149,29 @@
                 <span>{{ row.start_date | date : 'yyyy/MM/dd' }} - {{ row.end_date | date : 'yyyy/MM/dd' }}</span>
             </ng-template>
         </ngx-datatable-column>
-        
+        <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <button mat-icon-button [matMenuTriggerFor]="userActions">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #userActions="matMenu">
+                    <button mat-menu-item [routerLink]="['/admin/event/edit', row.id]" class="datatable-action-button">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item [swal]="disableSwal"
+                            *ngIf="row.status == 1" (confirm)="onToggle([row], 2)" class="datatable-action-button">
+                        <mat-icon>visibility_off</mat-icon>
+                        <span>Disable</span>
+                    </button>
+                    <button mat-menu-item [swal]="enableSwal"
+                            *ngIf="row.status == 2" (confirm)="onToggle([row], 1)" class="datatable-action-button">
+                        <mat-icon>visibility</mat-icon>
+                        <span>Enable</span>
+                    </button>
+                </mat-menu>
+            </ng-template>
+        </ngx-datatable-column>
         
         
     </ngx-datatable>

@@ -49,8 +49,9 @@ export class AdminPointEventAddComponent implements OnInit {
     public output_text_type = '1';
     public output_category = '407';
     public fashion: any;
-    public beauty: any;
-    // public food: any;
+    public points: [];
+    public readonly = false;
+    public point_policy: any;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -72,126 +73,100 @@ export class AdminPointEventAddComponent implements OnInit {
             this.eventId = params['id'];
         });
         this.timeColorCodes = [];
+        this.points = [];
         this.event = {
-            event_knd_code: 398002,
-            short_desc: '',
-            description: '',
+            content: '',
             resource_type: 1,
-            level_apply: 1,
-            status: 1
+            level_1: 1,
+            level_2: 1,
+            level_3: 1,
+            level_4: 1,
+            status: 1,
+            max_winner: 0,
+            add_point: 0,
+            minus_point: 0,
+            type: 1
         };
 
         this.form = new FormGroup({
-            name: new FormControl(this.event.cntnts_nm, [Validators.required]),
-            time_color_code: new FormControl(this.event.time_color_code, []),
-            short_description: new FormControl(this.event.short_description, []),
-            description: new FormControl(this.event.good_dc, [Validators.required]),
-            is_disabled: new FormControl(this.event.is_disabled, []),
-            brand_id: new FormControl(this.event.brnd_code, [Validators.required]),
-            category_id: new FormControl(this.event.goods_cl_code, [Validators.required]),
+            title: new FormControl(this.event.title, [Validators.required]),
+            status: new FormControl(this.event.status, [Validators.required]),
+            point_policy_id: new FormControl(this.event.point_policy_id, []),
+            level_1: new FormControl({value:this.event.level_1,disabled: this.readonly}, []),
+            level_2: new FormControl({value:this.event.level_2,disabled: this.readonly}, []),
+            level_3: new FormControl({value:this.event.level_3,disabled: this.readonly}, []),
+            level_4: new FormControl({value:this.event.level_4,disabled: this.readonly}, []),
+            add_point: new FormControl(this.event.add_point, []),
+            minus_point: new FormControl(this.event.minus_point, []),
+            payment_method: new FormControl(this.event.payment_method, [Validators.required]),
             start_date: new FormControl(this.event.event_bgnde, [Validators.required]),
             end_date: new FormControl(this.event.event_endde, [Validators.required]),
-            delivery_start_date: new FormControl(this.event.dlvy_bgnde, [Validators.required]),
-            delivery_end_date: new FormControl(this.event.dlvy_endde, [Validators.required]),
-            join_max_count: new FormControl(this.event.event_trgter_co, [Validators.required]),
-            product_url: new FormControl(this.event.link_url, [Validators.required]),
-            model: new FormControl(this.event.modl_nombr, []),
-            type: new FormControl(this.event.event_knd_code, []),
-            hash_tag: new FormControl(this.event.hash_tag, []),
-            // is_event_event: new FormControl(this.event.is_event_event, []),
-            // event_event_start_date: new FormControl(this.event.event_event_start_date, []),
-            // event_event_end_date: new FormControl(this.event.event_event_end_date, []),
-            // quantity_to_qualify: new FormControl(this.event.quantity_to_qualify, []),
-            // event_event_type: new FormControl(this.event.event_event_type, []),
-            price: new FormControl(this.event.goods_pc, []),
-            goods_txt: new FormControl(this.event.goods_txt, []),
-            output_text_type: new FormControl(this.output_text_type, []),
-            output_category: new FormControl(this.output_category, []),
-            sale_price: new FormControl(this.event.event_pc, []),
-            resource_type: new FormControl(this.event.resource_type, []),
-            goods_code_group: new FormControl(this.event.goods_code_group, []),
-            level_apply: new FormControl(this.event.level_apply, [])
+            max_winner: new FormControl(this.event.max_winner, []),
+            type: new FormControl(this.event.type, [Validators.required]),
+            content: new FormControl(this.event.content, []),
+            comment_field: new FormControl(this.event.comment_field, [])
         });
 
         if (this.eventId) {
-            this.getevent();
+            this.getEvent();
         }
-        this.getColors();
-        this.getBrands();
-        this.getCategories();
-        this.getFashion();
-        this.getBeauty();
-        // this.getFood();
-        this.event.goods_code_group = this.event.goods_code_group ? this.event.goods_code_group : "407";
+        this.getPointPolicy();
     }
 
-    getevent() {
-        this.api.one('tries', this.getevent).get()
+    getEvent() {
+        this.api.one('find-event', this.eventId).get()
             .subscribe(res => {
                 this.event = res.result;
-                if (res.result.files.length > 0) {
-                    this.event.feature_image = res.result.files[0].stre_file_nm ? res.result.files[0].file_cours + '/' +
-                        res.result.files[0].stre_file_nm : res.result.files[0].file_cours;
+                if (res.result.banner) {
+                    this.event.banner_image = res.result.banner.path ? res.result.banner.path + '/' +
+                        res.result.banner.url : null;
                 } else {
-                    this.event.feature_image = null;
+                    this.event.banner_image = null;
                 }
 
-                if (res.result.imgDesc.length > 0) {
-                    this.event.desc_img = res.result.imgDesc[0].stre_file_nm ? res.result.imgDesc[0].file_cours + '/' +
-                        res.result.imgDesc[0].stre_file_nm : res.result.imgDesc[0].file_cours;
+                if (res.result.file_description.length > 0) {
+                    this.event.desc_img = res.result.file_description[0].path ? res.result.file_description[0].path + '/' +
+                        res.result.file_description[0].url : null;
                 }
 
-                this.event.files.splice(0, 1);
-                this.event.event_knd_code = this.event.event_knd_code * 1;
-
-                this.event.event_bgnde = moment.utc(this.event.event_bgnde).toDate();
-                this.event.event_endde = moment.utc(this.event.event_endde).toDate();
-                this.event.dlvy_bgnde = moment.utc(this.event.dlvy_bgnde).toDate();
-                this.event.dlvy_endde = moment.utc(this.event.dlvy_endde).toDate();
-                this.output_text_type = this.event.goods_txt ? '2' : '1';
-                this.event.is_disabled = this.event.expsr_at !== 'Y';
-                // this.event.event_event_type = (this.event.event_event_type != null && this.eventEventTypes.indexOf(this.event.event_event_type) !== -1) ? this.event.event_event_type : this.eventEventTypes[0].value;
-                // this.event.event_event_start_date = this.event.event_event_start_date != null ? moment.utc(this.event.event_event_start_date).toDate() : this.event.start_date;
-                // this.event.event_event_end_date = this.event.event_event_end_date != null ? moment.utc(this.event.event_event_end_date).toDate() : this.event.end_date;
+                this.event.file_description.splice(0, 1);
             });
     }
 
-    getBrands() {
-        this.api.all('brands').customGET('').subscribe(res => {
-            // this.brands = _.sortBy(res.result, 'code_nm');
-            // this.brands = _.orderBy(res.result, ['code_nm'], ['asc']);
-            this.brands = res.result;
-        });
-    }
+    getPointPolicy() {
 
-    getCategories() {
-        this.api.all('categories').customGET('').subscribe(res => {
-            this.categories = res.result;
-            console.log(this.categories);
+        this.api.all('point-policy').customGET('',
+            {
+                column: 'id', sort: 'desc',
+                enable: true,
+                all: true
+            }).subscribe(res => {
+            this.points = res.result
         });
     }
-    getFashion() {
-        this.api.all('getFashion').customGET('').subscribe(res => {
-            this.fashion = res.result;
-        });
-    }
-    getBeauty() {
-        this.api.all('getBeauty').customGET('').subscribe(res => {
-            this.beauty = res.result;
-        });
-    }
-    // getFood() {
-    //     this.api.all('getFood').customGET('').subscribe(res => {
-    //         this.food = res.result;
-    //     });
-    // }
-
-    getColors() {
-        this.api.all('admin').customGET('text-colors').subscribe(res => {
-            if (res.result) {
-                this.timeColorCodes = res.result;
-            }
-        });
+    onChangePoint(){
+        console.log(this.point_policy);
+        if(this.point_policy){
+            this.readonly = true;
+            this.event.add_point = this.point_policy.add_point;
+            this.event.minus_point = this.point_policy.minus_point;
+            this.event.level_1 = this.point_policy.level_1;
+            this.event.level_2 = this.point_policy.level_2;
+            this.event.level_3 = this.point_policy.level_3;
+            this.event.level_4 = this.point_policy.level_4;
+            this.event.point_policy_id = this.point_policy.id;
+        }else{
+            this.readonly = false;
+            this.event.add_point = 0;
+            this.event.minus_point = 0;
+            this.event.level_1 = 1;
+            this.event.level_2 = 1;
+            this.event.level_3 = 1;
+            this.event.level_4 = 1;
+            this.event.point_policy_id = 0;
+        }
+        
+        
     }
 
     onSave() {
@@ -220,9 +195,6 @@ export class AdminPointEventAddComponent implements OnInit {
                 this.event.resource_type = response.resource_type;
                 this.images.onSave((rs) => {
                     this.event.images = rs.images;
-                    if (this.output_text_type === '1') {
-                        this.event.goods_txt = null;
-                    }
                     this.event.images.splice(0, 0, {name: response.name, url: response.url});
                     this.onSaveCallback();
                 });
@@ -237,9 +209,9 @@ export class AdminPointEventAddComponent implements OnInit {
         this.event.dlvy_bgnde_format = moment(this.event.dlvy_bgnde).format('YYYY-MM-DD');
         this.event.dlvy_endde_format = moment(this.event.dlvy_endde).format('YYYY-MM-DD');
 
-        if (this.getevent) {
+        if (this.eventId) {
             this.api
-                .one('tries', this.getevent)
+                .one('tries', this.eventId)
                 .customPUT(this.event)
                 .subscribe(res => {
                     if (res.result) {

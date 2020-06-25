@@ -1,4 +1,4 @@
-<div class="component-admin-event">
+<div class="component-admin-try">
     <div class="row">
         <div class="col-12 d-flex justify-content-between">
             <div class="admin-heading" *ngIf="!eventId">
@@ -23,11 +23,11 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter name" [(ngModel)]="event.cntnts_nm"
-                                   formControlName="name" name="name"/>
-                            <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
+                            <input type="text" class="form-control" placeholder="Event Title" [(ngModel)]="event.title"
+                                   formControlName="title" name="title"/>
+                            <div *ngIf="form.controls.title.invalid && (form.controls.title.dirty || form.controls.title.touched)"
                                  class="text-danger">
-                                <div *ngIf="form.controls.name.errors.required">
+                                <div *ngIf="form.controls.title.errors.required">
                                     Event Title is required
                                 </div>
                             </div>
@@ -41,9 +41,9 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <div>
-                                <mat-radio-group [(ngModel)]="event.status" formControlName="type">
-                                    <mat-radio-button value="1">Enable</mat-radio-button>
-                                    <mat-radio-button value="2">Disable</mat-radio-button>
+                                <mat-radio-group [(ngModel)]="event.status" formControlName="status" name="status">
+                                    <mat-radio-button [value]="1">Enable</mat-radio-button>
+                                    <mat-radio-button [value]="2">Disable</mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
@@ -56,12 +56,34 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <ng-select [items]="brands" [(ngModel)]="event.brnd_code" bindValue="code" bindLabel="code_nm"
-                                       formControlName="brand_id" name="brand_id" [virtualScroll]="true">
+                            <ng-select [items]="points" [(ngModel)]="point_policy" bindLabel="name"
+                                       formControlName="point_policy_id" name="point_policy_id" [virtualScroll]="true" (change)="onChangePoint($event)">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
-                                    <span>{{ item.code_nm }}</span>
+                                    <span>{{ item.name }}</span>
                                 </ng-template>
                             </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Add Point</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="event.add_point"
+                                   formControlName="add_point" name="add_point" [readonly]="readonly"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Minus Point</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="event.minus_point"
+                                   formControlName="minus_point" name="minus_point" [readonly]="readonly"/>
                         </div>
                     </div>
                 </div>
@@ -72,44 +94,23 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <div>
-                                <mat-checkbox [(ngModel)]="event.brnd_code" formControlName="type" name="type" value="1" style="margin-right: 10px">Member</mat-checkbox>
-                                <mat-checkbox [(ngModel)]="event.brnd_code" formControlName="type" name="type" value="1" style="margin-right: 10px">Silver</mat-checkbox>
-                                <mat-checkbox [(ngModel)]="event.brnd_code" formControlName="type" name="type" value="1" style="margin-right: 10px">Gold</mat-checkbox>
-                                <mat-checkbox [(ngModel)]="event.brnd_code" formControlName="type" name="type" value="1" style="margin-right: 10px">Platinum</mat-checkbox>
+                                <mat-checkbox [disabled]="readonly" [(ngModel)]="event.level_1" formControlName="level_1" name="level_1" value="1" style="margin-right: 10px">Member</mat-checkbox>
+                                <mat-checkbox [disabled]="readonly" [(ngModel)]="event.level_2" formControlName="level_2" name="level_2" value="1" style="margin-right: 10px">Silver</mat-checkbox>
+                                <mat-checkbox [disabled]="readonly" [(ngModel)]="event.level_3" formControlName="level_3" name="level_3" value="1" style="margin-right: 10px">Gold</mat-checkbox>
+                                <mat-checkbox [disabled]="readonly" [(ngModel)]="event.level_4" formControlName="level_4" name="level_4" value="1" style="margin-right: 10px">Platinum</mat-checkbox>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Add Point</label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <input type="text" class="form-control" [(ngModel)]="event.brnd_code"
-                                   formControlName="type" name="add_point"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Minus Point</label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <input type="text" class="form-control" [(ngModel)]="event.brnd_code"
-                                   formControlName="type" name="max_point"/>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="row">
                     <div class="col-md-3">
                         <label>Point payment method</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="event.event_knd_code"
-                                             formControlName="type" name="type">
+                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="event.payment_method"
+                                             formControlName="payment_method" name="payment_method">
                                 <mat-radio-button class="radio-button" [value]="1">Immediately</mat-radio-button>
                                 <mat-radio-button class="radio-button" [value]="2">All members</mat-radio-button>
                                 <mat-radio-button class="radio-button" [value]="3">Selected Members</mat-radio-button>
@@ -119,19 +120,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Max winner People<span style="color: red">(*)</span></label>
+                        <label>Max winner People</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Enter join max count"
-                                   [(ngModel)]="event.event_trgter_co"
-                                   formControlName="join_max_count" name="join_max_count"/>
-                            <div *ngIf="form.controls.join_max_count.invalid && (form.controls.join_max_count.dirty || form.controls.join_max_count.touched)"
-                                 class="text-danger">
-                                <div *ngIf="form.controls.join_max_count.errors.required">
-                                    Join Max Count is required
-                                </div>
-                            </div>
+                                   [(ngModel)]="event.max_winner"
+                                   formControlName="max_winner" name="max_winner"/>
                         </div>
                     </div>
                 </div>
@@ -141,7 +136,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="event.event_knd_code"
+                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="event.type"
                                              formControlName="type" name="type">
                                 <mat-radio-button class="radio-button" [value]="1">Join</mat-radio-button>
                                 <mat-radio-button class="radio-button" [value]="2">Answer</mat-radio-button>
@@ -161,7 +156,7 @@
                                 <mat-datepicker #start_date type="datetime" openOnFocus="true"
                                                 timeInterval="5"></mat-datepicker>
                                 <input matInput class="form-control" formControlName="start_date"
-                                       [(ngModel)]="event.dlvy_bgnde"
+                                       [(ngModel)]="event.start_date"
                                        [matDatepicker]="start_date" required autocomplete="false"
                                        [max]="event.end_date">
                             </div>
@@ -186,7 +181,7 @@
                                 <mat-datepicker #end_date type="datetime" openOnFocus="true"
                                                 timeInterval="5"></mat-datepicker>
                                 <input matInput class="form-control" formControlName="end_date"
-                                       [(ngModel)]="event.dlvy_endde"
+                                       [(ngModel)]="event.end_date"
                                        [matDatepicker]="end_date" required autocomplete="false"
                                        [min]="event.start_date">
                             </div>
@@ -205,8 +200,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <app-admin-resource #resource
-                                                [resource]="{ url: event.feature_image, resource_type: event.resource_type }"
+                            <app-admin-resource #resource [needToCrop]="false"
+                                                [resource]="{ url: event.banner_image, resource_type: event.resource_type }"
                                                 [resizeToWidth]="670" [aspectRatio]="67 / 47"></app-admin-resource>
                             <div *ngIf="isSubmitted && invalidMainImage"
                                  class="text-danger">
@@ -224,23 +219,19 @@
                             <app-admin-multiple-images #resourceImgDesc
                                                        [needToCrop]="false"
                                                        [maxImage]="1"
-                                                [images]="{ data: event.imgDesc }"
+                                                [images]="{ data: event.desc_img }"
                                                 [resizeToWidth]="720" [aspectRatio]="1 / 1"></app-admin-multiple-images>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Winner’s Images Description <span style="color: red">(*)</span></label>
+                        <label>Winner’s Images Description</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <app-admin-multiple-images #images [images]="{ data: event.files}"
+                            <app-admin-multiple-images #images [images]="{ data: event.winner_image}"
                                                        [resizeToWidth]="720" [aspectRatio]="1 / 1"></app-admin-multiple-images>
-                            <div *ngIf="isSubmitted && invalidImages"
-                                 class="text-danger">
-                                Choose at least one image
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -252,8 +243,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <ck-editor [(ngModel)]="event.goods_dc" skin="moono-lisa" language="en" [fullPage]="true"
-                                       formControlName="description" name="description"></ck-editor>
+                            <ck-editor [(ngModel)]="event.content" skin="moono-lisa" language="en" [fullPage]="true"
+                                       formControlName="content" name="content"></ck-editor>
                         </div>
                     </div>
                 </div>
@@ -264,7 +255,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <div>
-                                <mat-checkbox [(ngModel)]="event.brnd_code" formControlName="description" name="description" value="1" style="margin-right: 10px">Using Comment field</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="event.comment_field" formControlName="comment_field" name="comment_field" value="1" style="margin-right: 10px">Using Comment field</mat-checkbox>
                             </div>
                         </div>
                     </div>
