@@ -57,7 +57,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <ng-select [items]="points" [(ngModel)]="point_policy" bindLabel="name"
-                                       formControlName="point_policy_id" name="point_policy_id" [virtualScroll]="true" (change)="onChangePoint($event)">
+                                       formControlName="point_policy_id" name="point_policy_id" [virtualScroll]="true" (change)="onChangePoint()">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span>{{ item.name }}</span>
                                 </ng-template>
