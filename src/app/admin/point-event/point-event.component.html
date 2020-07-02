@@ -123,7 +123,7 @@
         <ngx-datatable-column name="Banner Image" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <img class="img"
-                     [src]="row.path ? env.rootHost + row.path + '/' + row.url : 'https://via.placeholder.com/100'" />
+                     [src]="row.name ? env.rootHost + row.url + '/' + row.name : 'https://via.placeholder.com/100'" />
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Membership" [sortable]="false" prop="minus_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
@@ -138,9 +138,9 @@
         </ngx-datatable-column>
         <ngx-datatable-column name="Status" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <span *ngIf="row.status == 1">Ready</span>
-                <span *ngIf="row.status == 2">Enable</span>
-                <span *ngIf="row.status == 3">Disable</span>
+                <span *ngIf="row.status == 3">Ready</span>
+                <span *ngIf="row.status == 1">Enable</span>
+                <span *ngIf="row.status == 2">Disable</span>
                 <span *ngIf="row.status == 4">Closed</span>
             </ng-template>
         </ngx-datatable-column>
@@ -187,9 +187,9 @@
   
 </div>
 
-<swal #enableSwal text="Are you sure to enable point policy?" type="question" [showCancelButton]="true"
+<swal #enableSwal text="Are you sure to enable event?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>
-<swal #disableSwal text="Are you sure to disable point policy?" type="question" [showCancelButton]="true"
+<swal #disableSwal text="Are you sure to disable event?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>
-<swal #deleteSwal text="Are you sure to delete point policy?" type="question" [showCancelButton]="true"
+<swal #deleteSwal text="Are you sure to delete event?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>

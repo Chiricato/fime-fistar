@@ -27,8 +27,8 @@ import {AdminMultipleImagesComponent} from '../multiple-images/multiple-images.c
 })
 export class AdminPointEventAddComponent implements OnInit {
     @ViewChild('resource') public resource: AdminResourceComponent;
+    @ViewChild('winnerImage') public winnerImage: AdminMultipleImagesComponent;
     @ViewChild('resourceImgDesc') public resourceImgDesc: AdminMultipleImagesComponent;
-    @ViewChild('images') public images: AdminMultipleImagesComponent;
 
     public message: string;
     public categories: any;
@@ -118,18 +118,13 @@ export class AdminPointEventAddComponent implements OnInit {
             .subscribe(res => {
                 this.event = res.result;
                 if (res.result.banner) {
-                    this.event.banner_image = res.result.banner.path ? res.result.banner.path + '/' +
-                        res.result.banner.url : null;
+                    this.event.banner_image = res.result.banner.name ? res.result.banner.url + '/' +
+                        res.result.banner.name : null;
                 } else {
                     this.event.banner_image = null;
                 }
-
-                if (res.result.file_description.length > 0) {
-                    this.event.desc_img = res.result.file_description[0].path ? res.result.file_description[0].path + '/' +
-                        res.result.file_description[0].url : null;
-                }
-
-                this.event.file_description.splice(0, 1);
+                this.point_policy = this.event.point_policy;
+                console.log(this.event);
             });
     }
 
@@ -145,7 +140,6 @@ export class AdminPointEventAddComponent implements OnInit {
         });
     }
     onChangePoint(){
-        console.log(this.point_policy);
         if(this.point_policy){
             this.readonly = true;
             this.event.add_point = this.point_policy.add_point;
@@ -171,17 +165,11 @@ export class AdminPointEventAddComponent implements OnInit {
 
     onSave() {
         this.isSubmitted = true;
-        if (!this.images.isValidData()) {
-            this.invalidImages = true;
-            return;
-        } else {
-            this.invalidImages = false;
-        }
 
         this.resourceImgDesc.onSave((res) => {
             if (typeof res !== 'undefined') {
                 if (res.images) {
-                    this.event.img_desc = res.images[0];
+                    this.event.img_desc = res.images;
                 } else {
                     this.event.img_desc = null;
                 }
@@ -192,10 +180,10 @@ export class AdminPointEventAddComponent implements OnInit {
                     this.invalidMainImage = true;
                     return;
                 }
-                this.event.resource_type = response.resource_type;
-                this.images.onSave((rs) => {
-                    this.event.images = rs.images;
-                    this.event.images.splice(0, 0, {name: response.name, url: response.url});
+                this.event.banner = response;
+                this.winnerImage.onSave((rs) => {
+                    this.event.winnerImage = rs.images;
+                    console.log(this.event,'this.event');
                     this.onSaveCallback();
                 });
             });
@@ -203,15 +191,12 @@ export class AdminPointEventAddComponent implements OnInit {
     }
 
     onSaveCallback() {
-        this.event.expsr_at = this.event.is_disabled ? 'N' : 'Y';
-        this.event.event_bgnde_format = moment.utc(this.event.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
-        this.event.event_endde_format = moment.utc(this.event.event_endde).format('YYYY-MM-DD HH:mm:ss');
-        this.event.dlvy_bgnde_format = moment(this.event.dlvy_bgnde).format('YYYY-MM-DD');
-        this.event.dlvy_endde_format = moment(this.event.dlvy_endde).format('YYYY-MM-DD');
-
+        this.event.start_date = moment(this.event.start_date).format('YYYY-MM-DD');
+        this.event.end_date = moment(this.event.end_date).format('YYYY-MM-DD');
+        console.log(this.event);
         if (this.eventId) {
             this.api
-                .one('tries', this.eventId)
+                .one('update-event', this.eventId)
                 .customPUT(this.event)
                 .subscribe(res => {
                     if (res.result) {
@@ -221,7 +206,7 @@ export class AdminPointEventAddComponent implements OnInit {
                 });
         } else {
             this.api
-                .all('tries')
+                .all('add-event')
                 .customPOST(this.event)
                 .subscribe(res => {
                     if (res.result) {
@@ -234,10 +219,6 @@ export class AdminPointEventAddComponent implements OnInit {
 
     goBack(): void {
         this.router.navigate(['/admin/event']);
-    }
-
-    changeCategory() {
-        this.event.goods_cl_code = '';
     }
 
 }

@@ -121,15 +121,15 @@ export class AdminEventLogComponent implements OnInit {
     onToggle(rows, status) {
         const ids = _.map(rows, 'id');
 
-        this.api.all('change-status').customPUT({ids: ids, status: status}).subscribe(res => {
+        this.api.all('change-status-event').customPUT({ids: ids, status: status}).subscribe(res => {
             if (res.result) {
                 for (const row of rows) {
                     row.status = status;
                 }
                 if (status == 2) {
-                    this.toast.success('The point policy has been disabled');
+                    this.toast.success('The event has been disabled');
                 } else {
-                    this.toast.success('The point policy has been enabled');
+                    this.toast.success('The event has been enabled');
                 }
                 this.selected = [];
             }

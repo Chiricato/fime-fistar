@@ -218,8 +218,7 @@
                         <div class="form-group">
                             <app-admin-multiple-images #resourceImgDesc
                                                        [needToCrop]="false"
-                                                       [maxImage]="1"
-                                                [images]="{ data: event.desc_img }"
+                                                [images]="{ data: event.file_description }"
                                                 [resizeToWidth]="720" [aspectRatio]="1 / 1"></app-admin-multiple-images>
                         </div>
                     </div>
@@ -230,7 +229,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <app-admin-multiple-images #images [images]="{ data: event.winner_image}"
+                            <app-admin-multiple-images #winnerImage [needToCrop]="false" [images]="{ data: event.winner}"
                                                        [resizeToWidth]="720" [aspectRatio]="1 / 1"></app-admin-multiple-images>
                         </div>
                     </div>
