@@ -85,7 +85,8 @@ export class AdminPointEventAddComponent implements OnInit {
             max_winner: 0,
             add_point: 0,
             minus_point: 0,
-            type: 1
+            type: 1,
+            max_point: 0
         };
 
         this.form = new FormGroup({
@@ -149,6 +150,7 @@ export class AdminPointEventAddComponent implements OnInit {
             this.event.level_3 = this.point_policy.level_3;
             this.event.level_4 = this.point_policy.level_4;
             this.event.point_policy_id = this.point_policy.id;
+            this.event.max_point = this.point_policy.max_point;
         }else{
             this.readonly = false;
             this.event.add_point = 0;
@@ -158,6 +160,7 @@ export class AdminPointEventAddComponent implements OnInit {
             this.event.level_3 = 1;
             this.event.level_4 = 1;
             this.event.point_policy_id = 0;
+            this.event.max_point = 0;
         }
         
         

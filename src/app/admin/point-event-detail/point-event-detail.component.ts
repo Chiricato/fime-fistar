@@ -31,27 +31,20 @@ export class AdminPointEventDetailsComponent implements OnInit {
     @ViewChild('images') public images: AdminMultipleImagesComponent;
 
     public message: string;
-    public categories: any;
     public env: any;
-    public form: any;
-    public tryId: any;
-    public try: any;
-    public brands = [];
-    public tryEventTypes = [
-        {value: 'review', viewValue: 'Review'},
-        {value: 'like', viewValue: 'Like'},
-        {value: 'comment', viewValue: 'Comment'}
-    ];
-    public timeColorCodes: any;
-    public tryEventTypeSelected = 'review';
-    public invalidMainImage = false;
-    public invalidImages = false;
-    public isSubmitted = false;
-    public output_text_type = '1';
-    public output_category = '407';
-    public fashion: any;
-    public beauty: any;
-    // public food: any;
+    public eventId: any;
+    public events: any;
+    public event_apply: any;
+    public pageLimitOptions = [];
+    public pageIndex = 1;
+    public pageSize = 20;
+    public selected = [];
+    public total = 0;
+    public column = 'id';
+    public sort = 'desc';
+    public type_rand = 1;
+    public number_rand = 0;
+    public remain_winner = 0;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -68,204 +61,109 @@ export class AdminPointEventDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.env = environment;
-
+        this.pageLimitOptions = [
+            {value: 5},
+            {value: 10},
+            {value: 20},
+            {value: 25},
+            {value: 50}
+        ];
         this.activeRoute.params.forEach((params: Params) => {
-            this.tryId = params['id'];
+            this.eventId = params['id'];
         });
-        this.timeColorCodes = [];
-        this.try = {
-            event_knd_code: 398002,
-            short_desc: '',
-            description: '',
-            resource_type: 1,
-            level_apply: 1
+        this.event_apply = [];
+        this.events = {
+            payment_method: 1,
+            type: 1,
+            views: 0,
+            member: 0,
+            comment: 0,
+            current_winner: 0,
+            max_winner: 0
         };
-
-        this.form = new FormGroup({
-            name: new FormControl(this.try.cntnts_nm, [Validators.required]),
-            time_color_code: new FormControl(this.try.time_color_code, []),
-            short_description: new FormControl(this.try.short_description, []),
-            description: new FormControl(this.try.good_dc, [Validators.required]),
-            is_disabled: new FormControl(this.try.is_disabled, []),
-            brand_id: new FormControl(this.try.brnd_code, [Validators.required]),
-            category_id: new FormControl(this.try.goods_cl_code, [Validators.required]),
-            start_date: new FormControl(this.try.event_bgnde, [Validators.required]),
-            end_date: new FormControl(this.try.event_endde, [Validators.required]),
-            delivery_start_date: new FormControl(this.try.dlvy_bgnde, [Validators.required]),
-            delivery_end_date: new FormControl(this.try.dlvy_endde, [Validators.required]),
-            join_max_count: new FormControl(this.try.event_trgter_co, [Validators.required]),
-            product_url: new FormControl(this.try.link_url, [Validators.required]),
-            model: new FormControl(this.try.modl_nombr, []),
-            type: new FormControl(this.try.event_knd_code, []),
-            hash_tag: new FormControl(this.try.hash_tag, []),
-            // is_try_event: new FormControl(this.try.is_try_event, []),
-            // try_event_start_date: new FormControl(this.try.try_event_start_date, []),
-            // try_event_end_date: new FormControl(this.try.try_event_end_date, []),
-            // quantity_to_qualify: new FormControl(this.try.quantity_to_qualify, []),
-            // try_event_type: new FormControl(this.try.try_event_type, []),
-            price: new FormControl(this.try.goods_pc, []),
-            goods_txt: new FormControl(this.try.goods_txt, []),
-            output_text_type: new FormControl(this.output_text_type, []),
-            output_category: new FormControl(this.output_category, []),
-            sale_price: new FormControl(this.try.event_pc, []),
-            resource_type: new FormControl(this.try.resource_type, []),
-            goods_code_group: new FormControl(this.try.goods_code_group, []),
-            level_apply: new FormControl(this.try.level_apply, [])
-        });
-
-        if (this.tryId) {
-            this.getTry();
-        }
-        this.getColors();
-        this.getBrands();
-        this.getCategories();
-        this.getFashion();
-        this.getBeauty();
-        // this.getFood();
-        this.try.goods_code_group = this.try.goods_code_group ? this.try.goods_code_group : "407";
+        console.log('events',this.events);
+        this.getEvent();
+        this.getEventApply();
     }
-
-    getTry() {
-        this.api.one('tries', this.tryId).get()
+    getEvent() {
+        this.api.one('find-event', this.eventId).get()
             .subscribe(res => {
-                this.try = res.result;
-                if (res.result.files.length > 0) {
-                    this.try.feature_image = res.result.files[0].stre_file_nm ? res.result.files[0].file_cours + '/' +
-                        res.result.files[0].stre_file_nm : res.result.files[0].file_cours;
-                } else {
-                    this.try.feature_image = null;
-                }
-
-                if (res.result.imgDesc.length > 0) {
-                    this.try.desc_img = res.result.imgDesc[0].stre_file_nm ? res.result.imgDesc[0].file_cours + '/' +
-                        res.result.imgDesc[0].stre_file_nm : res.result.imgDesc[0].file_cours;
-                }
-
-                this.try.files.splice(0, 1);
-                this.try.event_knd_code = this.try.event_knd_code * 1;
-
-                this.try.event_bgnde = moment.utc(this.try.event_bgnde).toDate();
-                this.try.event_endde = moment.utc(this.try.event_endde).toDate();
-                this.try.dlvy_bgnde = moment.utc(this.try.dlvy_bgnde).toDate();
-                this.try.dlvy_endde = moment.utc(this.try.dlvy_endde).toDate();
-                this.output_text_type = this.try.goods_txt ? '2' : '1';
-                this.try.is_disabled = this.try.expsr_at !== 'Y';
-                // this.try.try_event_type = (this.try.try_event_type != null && this.tryEventTypes.indexOf(this.try.try_event_type) !== -1) ? this.try.try_event_type : this.tryEventTypes[0].value;
-                // this.try.try_event_start_date = this.try.try_event_start_date != null ? moment.utc(this.try.try_event_start_date).toDate() : this.try.start_date;
-                // this.try.try_event_end_date = this.try.try_event_end_date != null ? moment.utc(this.try.try_event_end_date).toDate() : this.try.end_date;
+                this.events = res.result;
+                this.remain_winner = this.events.max_winner - this.events.current_winner
+                console.log('events',this.events);
             });
+        
     }
 
-    getBrands() {
-        this.api.all('brands').customGET('').subscribe(res => {
-            // this.brands = _.sortBy(res.result, 'code_nm');
-            // this.brands = _.orderBy(res.result, ['code_nm'], ['asc']);
-            this.brands = res.result;
+    getEventApply() {
+        this.api.one('event-apply', this.eventId).customGET('',{
+            page: this.pageIndex, pageSize: this.pageSize,
+            column: this.column, sort: this.sort
+        }).subscribe(res => {
+            this.event_apply = res.result.data;
+            this.total = res.result.total;
+            console.log(this.event_apply);
         });
     }
 
-    getCategories() {
-        this.api.all('categories').customGET('').subscribe(res => {
-            this.categories = res.result;
-            console.log(this.categories);
-        });
-    }
-    getFashion() {
-        this.api.all('getFashion').customGET('').subscribe(res => {
-            this.fashion = res.result;
-        });
-    }
-    getBeauty() {
-        this.api.all('getBeauty').customGET('').subscribe(res => {
-            this.beauty = res.result;
-        });
-    }
-    // getFood() {
-    //     this.api.all('getFood').customGET('').subscribe(res => {
-    //         this.food = res.result;
-    //     });
-    // }
-
-    getColors() {
-        this.api.all('admin').customGET('text-colors').subscribe(res => {
-            if (res.result) {
-                this.timeColorCodes = res.result;
-            }
-        });
+    changePageLimit(limit: any): void {
+        this.pageSize = limit;
+        this.getEventApply();
     }
 
-    onSave() {
-        this.isSubmitted = true;
-        if (!this.images.isValidData()) {
-            this.invalidImages = true;
-            return;
-        } else {
-            this.invalidImages = false;
-        }
+    setPage(pageInfo) {
+        this.pageIndex = pageInfo.offset + 1;
+        this.getEventApply();
+    }
+    onSort(event) {
+        this.column = event.sorts[0].prop;
+        this.sort = event.sorts[0].dir;
+        this.pageIndex = 1;
+        this.getEventApply();
+        return false;
+    }
 
-        this.resourceImgDesc.onSave((res) => {
-            if (typeof res !== 'undefined') {
-                if (res.images) {
-                    this.try.img_desc = res.images[0];
-                } else {
-                    this.try.img_desc = null;
+    onSelect({selected}) {
+        this.selected.splice(0, this.selected.length);
+        this.selected.push(...selected);
+    }
+    onChange() {
+        console.log(this.selected);
+        if(this.type_rand == 1){
+            if (this.selected.length <= 0) {
+                this.toast.error('Please choose item');
+                return false;
+            }else{
+                if(this.selected.length > this.remain_winner){
+                    this.toast.error('Count is not over remain winner');
+                    return false;
                 }
+                const ids = _.map(this.selected, 'id');
+
+                this.api.all('winner_apply').customPOST({ids: ids,event_id:this.events.id}).subscribe(res => {
+                    if (res.result) {
+                        this.pageIndex = 1;
+                        this.getEvent();
+                        this.getEventApply();
+                        this.toast.success('The user has been winner');
+                    }
+                });
             }
-
-            this.resource.onSave((response) => {
-                if (typeof response === 'undefined' || typeof response.url === 'undefined' || !response.url) {
-                    this.invalidMainImage = true;
-                    return;
-                }
-                this.try.resource_type = response.resource_type;
-                this.images.onSave((rs) => {
-                    this.try.images = rs.images;
-                    if (this.output_text_type === '1') {
-                        this.try.goods_txt = null;
-                    }
-                    this.try.images.splice(0, 0, {name: response.name, url: response.url});
-                    this.onSaveCallback();
-                });
-            });
-        });
-    }
-
-    onSaveCallback() {
-        this.try.expsr_at = this.try.is_disabled ? 'N' : 'Y';
-        this.try.event_bgnde_format = moment.utc(this.try.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
-        this.try.event_endde_format = moment.utc(this.try.event_endde).format('YYYY-MM-DD HH:mm:ss');
-        this.try.dlvy_bgnde_format = moment(this.try.dlvy_bgnde).format('YYYY-MM-DD');
-        this.try.dlvy_endde_format = moment(this.try.dlvy_endde).format('YYYY-MM-DD');
-
-        if (this.tryId) {
-            this.api
-                .one('tries', this.tryId)
-                .customPUT(this.try)
-                .subscribe(res => {
+        }else{
+            if(this.number_rand > this.remain_winner){
+                this.toast.error('Count is not over remain winner');
+                return false;
+            }else{
+                this.api.all('winner_random').customPOST({number_rand: this.number_rand,event_id:this.events.id}).subscribe(res => {
                     if (res.result) {
-                        this.toast.success('Update try successfully');
-                        this.router.navigate(['/admin/try']);
+                        this.pageIndex = 1;
+                        this.getEvent();
+                        this.getEventApply();
+                        this.toast.success('The user has been winner');
                     }
                 });
-        } else {
-            this.api
-                .all('tries')
-                .customPOST(this.try)
-                .subscribe(res => {
-                    if (res.result) {
-                        this.toast.success('Add try successfully');
-                        this.router.navigate(['/admin/try']);
-                    }
-                });
+            }
         }
-    }
-
-    goBack(): void {
-        this.router.navigate(['/admin/try']);
-    }
-
-    changeCategory() {
-        this.try.goods_cl_code = '';
     }
 
 }
