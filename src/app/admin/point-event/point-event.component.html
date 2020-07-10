@@ -112,7 +112,11 @@
                    [selected]="selected"
                    [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
         <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" [width]="50" ></ngx-datatable-column>
-        <ngx-datatable-column name="Event name" prop="title" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Event name" prop="title" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <a routerLink="/admin/event/detail/{{row.id}}">{{row.title}}</a>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column name="Event Type" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.type == 1">Join</span>

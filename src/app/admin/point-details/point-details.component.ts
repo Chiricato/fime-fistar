@@ -101,6 +101,10 @@ export class AdminPointDetailsComponent implements OnInit {
 
     onSave() {
         this.isSubmitted = true;
+        if(this.point.name == ''){
+            this.form.controls.name.errors.required = true;
+            return false;
+        }
         if(this.point.start_date != undefined){
             this.point.start_date = moment(this.point.start_date).format('YYYY-MM-DD');
         }else{

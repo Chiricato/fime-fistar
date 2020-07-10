@@ -165,5 +165,8 @@ export class AdminPointEventDetailsComponent implements OnInit {
             }
         }
     }
+    goBack(): void {
+        this.router.navigate(['/admin/event']);
+    }
 
 }
