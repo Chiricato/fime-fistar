@@ -204,6 +204,7 @@
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.reviews_code_group == 407">Beauty</span>
                 <span *ngIf="row.reviews_code_group == 412">Fashion</span>
+                <span *ngIf="row.reviews_code_group == 420">Food</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Views" prop="view_cnt" [resizeable]="false" [width]="70"></ngx-datatable-column>
