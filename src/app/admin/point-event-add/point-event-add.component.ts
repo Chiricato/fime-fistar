@@ -86,7 +86,8 @@ export class AdminPointEventAddComponent implements OnInit {
             add_point: 0,
             minus_point: 0,
             type: 1,
-            max_point: 0
+            max_point: 0,
+            payment_method: 1
         };
 
         this.form = new FormGroup({
@@ -99,7 +100,7 @@ export class AdminPointEventAddComponent implements OnInit {
             level_4: new FormControl({value:this.event.level_4,disabled: this.readonly}, []),
             add_point: new FormControl(this.event.add_point, []),
             minus_point: new FormControl(this.event.minus_point, []),
-            payment_method: new FormControl(this.event.payment_method, [Validators.required]),
+            payment_method: new FormControl(this.event.payment_method),
             start_date: new FormControl(this.event.event_bgnde, [Validators.required]),
             end_date: new FormControl(this.event.event_endde, [Validators.required]),
             max_winner: new FormControl(this.event.max_winner, []),
@@ -123,6 +124,9 @@ export class AdminPointEventAddComponent implements OnInit {
                         res.result.banner.name : null;
                 } else {
                     this.event.banner_image = null;
+                }
+                if(this.event.status == 3){
+                    this.event.status = 1;
                 }
                 this.point_policy = this.event.point_policy;
                 console.log(this.event);

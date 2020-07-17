@@ -22,12 +22,12 @@ export class AdminEventLogComponent implements OnInit {
     public total: any;
     public modalRef: BsModalRef;
     public filter = {
-        join: false,
-        answer: false,
+        join: true,
+        answer: true,
         name: null,
-        enable: false,
-        disable: false,
-        ready: false,
+        enable: true,
+        disable: true,
+        ready: true,
         from: null,
         to: null
     };

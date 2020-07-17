@@ -108,7 +108,8 @@ export class AdminPointLogComponent implements OnInit {
             from: null,
             to: null
         };
-
+        this.column = 'id';
+        this.sort = 'desc';
         this.getPointPolicy();
     }
 

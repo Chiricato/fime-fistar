@@ -32,6 +32,7 @@ export class AdminPointDetailsComponent implements OnInit {
     public point: any;
     public isSubmitted = false;
     public minDate: Date;
+    name_required = false;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -101,8 +102,8 @@ export class AdminPointDetailsComponent implements OnInit {
 
     onSave() {
         this.isSubmitted = true;
-        if(this.point.name == ''){
-            this.form.controls.name.errors.required = true;
+        if(this.point.name == '' || this.point.name == undefined){
+            this.name_required = true;
             return false;
         }
         if(this.point.start_date != undefined){

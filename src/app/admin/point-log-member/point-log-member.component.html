@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col">
-            <button class="btn btn-primary float-right" routerLink="/admin/point-policy/add"> <span>Excel</span>
+            <button class="btn btn-default float-right" routerLink="/admin/point-policy"> <span>Back</span>
             </button>
             
         </div>
@@ -112,7 +112,7 @@
                    [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
                    [selected]="selected"
                    [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
-        <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" [width]="50" ></ngx-datatable-column>
+        <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" ></ngx-datatable-column>
         
         <ngx-datatable-column name="Point Policy" prop="name" [resizeable]="false"></ngx-datatable-column>
         <ngx-datatable-column name="Add Point" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="100">

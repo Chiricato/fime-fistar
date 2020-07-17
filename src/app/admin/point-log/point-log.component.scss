@@ -1,7 +1,15 @@
 @import "~scss/mixins";
 @import "~scss/variables";
 @import "~scss/font_imports";
-
+::ng-deep{
+  .ngx-datatable .datatable-body-cell{
+    overflow-x: initial!important;
+    position: relative;
+  }
+  .popover{
+    max-width:500px;
+  }
+}
 .component-admin-try {
   .form-group{
     .mat-checkbox{
