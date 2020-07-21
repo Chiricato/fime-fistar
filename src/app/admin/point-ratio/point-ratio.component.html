@@ -27,8 +27,8 @@
                             <p *ngIf="item.level == 3">Gold</p>
                             <p *ngIf="item.level == 4">Platinum</p>
                         </td>
-                        <td><input type="text"  [(ngModel)]="ratio[i].add" value="{{item.add}}" style="width: 100px"></td>
-                        <td><input type="text" [(ngModel)]="ratio[i].minus" value="{{item.minus}}" style="width: 100px"></td>
+                        <td><input type="text"  [(ngModel)]="ratio[i].add" value="{{item.add}}" style="width: 100px">%</td>
+                        <td><input type="text" [(ngModel)]="ratio[i].minus" value="{{item.minus}}" style="width: 100px">%</td>
                     </tr>
                 </tbody>
             </table>

@@ -57,6 +57,7 @@ export class AdminPointLogMemberComponent implements OnInit {
             this.user_no = params['user_no'];
         });
         this.pageIndex = 1;
+        this.user = {};
         this.pageSize = 20;
         this.column = 'id';
         this.sort = 'desc';

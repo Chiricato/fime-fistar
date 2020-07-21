@@ -99,7 +99,7 @@
                             <td>Current Winner Number</td>
                             <td class="ts_salary">{{events.current_winner}}</td>
                         </tr>
-                        <tr>
+                        <tr  *ngIf="events.max_winner > 0">
                             <td>Remain Winner Number</td>
                             <td class="k_salary">{{events.max_winner - events.current_winner}}</td>
                         </tr>
