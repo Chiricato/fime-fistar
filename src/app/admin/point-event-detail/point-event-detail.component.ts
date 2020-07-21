@@ -128,7 +128,17 @@ export class AdminPointEventDetailsComponent implements OnInit {
         this.selected.push(...selected);
     }
     onChange() {
-        console.log(this.selected);
+        if(this.events.payment_method == 2){
+            this.api.all('winner_apply_all').customPOST({event_id:this.events.id}).subscribe(res => {
+                if (res.result) {
+                    this.pageIndex = 1;
+                    this.getEvent();
+                    this.getEventApply();
+                    this.toast.success('All member has been winner');
+                }
+            });
+            return;
+        }
         if(this.type_rand == 1){
             if (this.selected.length <= 0) {
                 this.toast.error('Please choose item');

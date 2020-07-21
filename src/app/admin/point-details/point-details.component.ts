@@ -32,7 +32,8 @@ export class AdminPointDetailsComponent implements OnInit {
     public point: any;
     public isSubmitted = false;
     public minDate: Date;
-    name_required = false;
+    public name_required = false;
+    public readonly = false;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -85,6 +86,7 @@ export class AdminPointDetailsComponent implements OnInit {
         });
 
         if (this.pointId) {
+            this.readonly = true;
             this.getPoint();
         }
     }

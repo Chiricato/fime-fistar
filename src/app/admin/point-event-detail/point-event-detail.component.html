@@ -167,7 +167,7 @@
     </select>
     
 </div>
-<div class="row">
+<div class="row" *ngIf="events.payment_method == 3 && events.status == 4">
     
     <div class="col-md-9">
         <div class="form-group">
@@ -185,6 +185,9 @@
     <div class="col-md-3">
         <button class="btn btn-primary" (click)="onChange()"><span>Change</span></button>
     </div>
+</div>
+<div class="row" *ngIf="events.payment_method == 2 && events.status == 4">
+    <button class="btn btn-primary" (click)="onChange()"><span>Add Point All Member</span></button>
 </div>
 <swal #enableSwal text="Are you sure to enable events?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>

@@ -129,7 +129,9 @@ export class AdminPointEventAddComponent implements OnInit {
                     this.event.status = 1;
                 }
                 this.point_policy = this.event.point_policy;
-                console.log(this.event);
+                if(this.point_policy){
+                    this.readonly = true;
+                }
             });
     }
 
@@ -139,7 +141,8 @@ export class AdminPointEventAddComponent implements OnInit {
             {
                 column: 'id', sort: 'desc',
                 enable: true,
-                all: true
+                all: true,
+                event: true
             }).subscribe(res => {
             this.points = res.result
         });
@@ -155,6 +158,7 @@ export class AdminPointEventAddComponent implements OnInit {
             this.event.level_4 = this.point_policy.level_4;
             this.event.point_policy_id = this.point_policy.id;
             this.event.max_point = this.point_policy.max_point;
+            this.event.limit_apply = this.point_policy.limit_apply;
         }else{
             this.readonly = false;
             this.event.add_point = 0;
@@ -165,6 +169,7 @@ export class AdminPointEventAddComponent implements OnInit {
             this.event.level_4 = 1;
             this.event.point_policy_id = 0;
             this.event.max_point = 0;
+            this.event.limit_apply = 0;
         }
         
         

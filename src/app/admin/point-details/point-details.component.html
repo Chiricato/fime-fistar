@@ -34,7 +34,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Enter name" [(ngModel)]="point.name"
-                                   formControlName="name" name="name"/>
+                                   formControlName="name" name="name" [readonly]="readonly"/>
                             <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
                                  class="text-danger">
                                 <div *ngIf="form.controls.name.errors.required">

@@ -102,13 +102,15 @@ export class AdminPointComponent implements OnInit {
     }
 
     onReset() {
+        this.column = 'id';
+        this.sort = 'asc';
         this.filter = {
-            level_1: null,
-            level_2: null,
-            level_3: null,
-            level_4: null,
-            enable: null,
-            disable: null,
+            level_1: false,
+            level_2: false,
+            level_3: false,
+            level_4: false,
+            enable: false,
+            disable: false,
             from: null,
             to: null
         };
