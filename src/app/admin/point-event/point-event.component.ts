@@ -161,8 +161,28 @@ export class AdminEventLogComponent implements OnInit {
     tabChanged($event) {
         if ($event.index === 0) {
             this.closed = 0;
+            this.filter = {
+                join: true,
+                answer: true,
+                name: null,
+                enable: true,
+                disable: true,
+                ready: true,
+                from: null,
+                to: null
+            }
         } else {
             this.closed = 1;
+            this.filter = {
+                join: true,
+                answer: true,
+                name: null,
+                enable: false,
+                disable: false,
+                ready: false,
+                from: null,
+                to: null
+            }
         }
         this.getPointEvent();
     }
