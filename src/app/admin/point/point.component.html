@@ -144,7 +144,7 @@
                         <span>Edit</span>
                     </button>
                     <button mat-menu-item [swal]="disableSwal"
-                            *ngIf="row.status == 1" (confirm)="onToggle([row], 2)" class="datatable-action-button">
+                            *ngIf="row.status == 1 && row.point_expried != 0" (confirm)="onToggle([row], 2)" class="datatable-action-button">
                         <mat-icon>visibility_off</mat-icon>
                         <span>Disable</span>
                     </button>

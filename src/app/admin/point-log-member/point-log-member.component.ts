@@ -200,4 +200,23 @@ export class AdminPointLogMemberComponent implements OnInit {
         this.getTotalPoint();
     }
 
+    onDownload() {
+        const from = this.filter.from ? formatDate(this.filter.from, 'MM/dd/yyyy', 'en-US') : null;
+        const to = this.filter.to ? formatDate(this.filter.to, 'MM/dd/yyyy', 'en-US') : null;
+        this.api.all('point-log-excel').customGET('', {
+            page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
+            type: this.filter.type,
+            key: this.filter.key,
+            disable: this.filter.disable,
+            enable: this.filter.enable,
+            from: from, to: to,
+            expired: this.expired,
+            user_no: this.user_no
+        }).subscribe(res => {
+            if (res.result) {
+                window.open(this.env.rootHost + res.result.path, '_blank');
+            }
+        });
+    }
+
 }

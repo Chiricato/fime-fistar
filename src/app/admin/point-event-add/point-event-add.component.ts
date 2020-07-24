@@ -87,7 +87,8 @@ export class AdminPointEventAddComponent implements OnInit {
             minus_point: 0,
             type: 1,
             max_point: 0,
-            payment_method: 1
+            payment_method: 1,
+            limit_apply: 0
         };
 
         this.form = new FormGroup({
