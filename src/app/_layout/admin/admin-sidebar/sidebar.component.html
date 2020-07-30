@@ -29,7 +29,7 @@
                 <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
                     <a [routerLink]="['/admin/try']"><span>{{ 'Try' | translate }}</span></a>
                 </li>
-                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}" style="display: none;">
                     <a [routerLink]="['/admin/try/event']"><span>{{ 'Try Events' | translate }}</span></a>
                 </li>
                 <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
@@ -104,7 +104,7 @@
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/point-log']">
             <mat-icon class="sidenav-icon">people</mat-icon> <span>{{ 'POINT LOG' | translate }}</span>
         </a>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/event']">
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/event']" style="display: none;">
             <mat-icon class="sidenav-icon">opacity</mat-icon> <span>{{ 'EVENT' | translate }}</span>
         </a>
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/user-management']">
