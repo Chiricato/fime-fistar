@@ -138,7 +138,7 @@ export class AdminTipDetailsComponent implements OnInit {
             caption_text2: new FormControl(this.tip.caption_text2, []),
             source_site_name2: new FormControl(this.tip.source_site_name2, []),
             source_site_url2: new FormControl(this.tip.source_site_url2, []),
-            cont2_body: new FormControl(this.tip.cont2_body, [Validators.required]),
+            cont2_body: new FormControl(this.tip.cont2_body, []),
             tips_cl_code: new FormControl(this.tip.tips_cl_code, [Validators.required]),
             content_id: new FormControl(this.tip.content_id),
             cont1_photo: new FormControl(this.tip.cont1_photo, []),
