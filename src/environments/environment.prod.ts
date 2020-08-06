@@ -8,5 +8,5 @@ export const environment = {
   production: true,
   facebook_app_id: '197684317620676', // Customer app id
   facebook_app_version: 'v3.2',
-  webUrl: 'http://fime.vietprojectgroup.com',
+  webUrl: 'http://13.228.141.200',
 };
