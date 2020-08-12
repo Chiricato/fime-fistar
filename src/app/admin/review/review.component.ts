@@ -36,6 +36,12 @@ export class AdminReviewComponent implements OnInit {
     public showRestore = false;
     public column = 'review_no';
     public sort = 'desc';
+    public auto_enable = false;
+    public enable_log =  {};
+    public logs: any;
+    public pageIndexLog = 1;
+    public pageSizeLog = 10;
+    public totallogs = 0;
     public filter = {
         name: null,
         reg_name: null,
@@ -63,6 +69,7 @@ export class AdminReviewComponent implements OnInit {
         this.column = 'review_no';
         this.sort = 'desc';
         this.getCategories();
+        this.getLogs();
         this.getReviews();
         this.getUsers();
         this.pageLimitOptions = [
@@ -72,6 +79,8 @@ export class AdminReviewComponent implements OnInit {
             {value: 25},
             {value: 50}
         ];
+        console.log(this.enable_log);
+        
     }
 
     changePageLimit(limit: any): void {
@@ -97,6 +106,20 @@ export class AdminReviewComponent implements OnInit {
                 this.reviews[i].view_cnt = parseInt(this.reviews[i].view_cnt);
             }
         });
+
+        this.api.all('review-enable-log').customGET('', {
+            first: true
+        }).subscribe(res => {
+            if(res.result){
+                this.enable_log = res.result;
+                console.log(this.enable_log);
+                if(res.result.status){
+                    this.auto_enable = true;
+                }
+                
+            }
+        });
+        
     }
 
     getCategories() {
@@ -283,6 +306,47 @@ export class AdminReviewComponent implements OnInit {
             this.modalRef.content.onClose.subscribe(res => {
                 this.reviews = res.result;
             });
+        });
+    }
+
+    onChange($event){
+        console.log(this.auto_enable);
+        this.api.all('review-enable-log').customPOST({
+            status: this.auto_enable
+        }).subscribe(res => {
+            console.log(res.result);
+            this.enable_log = res.result;
+        });
+    }
+
+    openForm() {
+        this.getLogs();
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+
+    setPageLog(pageInfo) {
+        this.pageIndexLog = pageInfo.offset + 1;
+        this.getLogs();
+    }
+
+    onSortLog(event) {
+        this.column = event.sorts[0].prop;
+        this.sort = event.sorts[0].dir;
+        this.pageIndexLog = 1;
+        this.getLogs();
+        return false;
+    }
+    getLogs(){
+        this.api.all('review-enable-log').customGET('', {
+            page: this.pageIndexLog, column: this.column, sort: this.sort,
+        }).subscribe(res => {
+            this.logs = res.result.data;
+            this.totallogs = res.result.total;
+            console.log('logs',this.logs);
         });
     }
 
