@@ -37,7 +37,9 @@ export class AdminReviewComponent implements OnInit {
     public column = 'review_no';
     public sort = 'desc';
     public auto_enable = false;
-    public enable_log =  {};
+    public enable_log =  {
+        content: ''
+    };
     public logs: any;
     public pageIndexLog = 1;
     public pageSizeLog = 10;
