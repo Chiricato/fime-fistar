@@ -38,6 +38,8 @@ export class AdminPointLogMemberComponent implements OnInit {
     public expired = 0;
     public total_point = 0;
     public total_basic = 0;
+    public old_point = 0;
+    public basic_point = 0;
     public total_event = 0;
     public user_no: any;
     public pageLimitOptions = [];
@@ -88,6 +90,8 @@ export class AdminPointLogMemberComponent implements OnInit {
             this.total_point = res.result.total;
             this.total_basic = res.result.total_basic;
             this.total_event = res.result.total_event;
+            this.old_point = res.result.old_point;
+            this.basic_point = res.result.basic_point;
         });
     }
 
