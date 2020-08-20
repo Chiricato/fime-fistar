@@ -41,6 +41,7 @@ export class AdminLoginComponent implements OnInit {
         this.model = {
             email: '',
             password: '',
+            admin:true
         };
 
         this.loginForm = this.formBuilder.group({
