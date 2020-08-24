@@ -118,8 +118,9 @@
         
         <ngx-datatable-column name="Point Policy" prop="name" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <span *ngIf="row.name">{{row.name}}</span>
-                <span *ngIf="!row.name">{{row.title}}</span>
+                <span *ngIf="row.name && !row.other_title">{{row.name}}</span>
+                <span *ngIf="!row.name && !row.other_title">{{row.title}}</span>
+                <span *ngIf="row.other_title">{{row.other_title}}</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Add Point" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="100">
