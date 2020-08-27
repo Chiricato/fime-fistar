@@ -44,6 +44,7 @@
                 </mat-form-field>
 
                 <div class="checkbox-container px-3">
+                    <mat-checkbox class="px-3" [(ngModel)]="pendingCheckbox" color="primary">Not Verify</mat-checkbox>
                     <mat-checkbox class="px-3" [(ngModel)]="activedCheckbox" color="primary">Actived</mat-checkbox>
                     <mat-checkbox class="px-3" [(ngModel)]="deletedCheckbox" color="primary">Deleted</mat-checkbox>
                     <mat-checkbox class="px-3" [(ngModel)]="allowComment" color="primary">Comment</mat-checkbox>
@@ -155,6 +156,16 @@
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </a>
+                        <button mat-menu-item [swal]="verifySwal"
+                            *ngIf="!row.verification" (confirm)="onVerify(row)" class="datatable-action-button">
+                            <mat-icon>visibility</mat-icon>
+                            <span>Verify</span>
+                        </button>
+                        <button mat-menu-item [swal]="resendSwal"
+                                *ngIf="!row.verification" (confirm)="onResend(row)" class="datatable-action-button">
+                            <mat-icon>send</mat-icon>
+                            <span>Resend Mail Verify</span>
+                        </button>
                         <button mat-menu-item [swal]="deleteSwal" (confirm)="onDelete(row)" class="datatable-action-button">
                             <mat-icon>delete</mat-icon>
                             <span>Delete</span>
@@ -182,4 +193,9 @@
       [focusCancel]="true"></swal>
 
 <swal #deleteSwal text="Are you sure to delete user?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+
+<swal #verifySwal text="Are you sure to verify this account?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #resendSwal text="Are you sure to resend mail verify this account?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>

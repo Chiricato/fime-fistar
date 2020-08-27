@@ -36,6 +36,7 @@ export class UserManagementComponent implements OnInit {
     public deletedCheckbox = false;
     public allowComment = true;
     public allowReview = true;
+    public pendingCheckbox = false;
     public filtervalue;
     public modalRef: BsModalRef;
     public pageSize = 10;
@@ -105,7 +106,8 @@ export class UserManagementComponent implements OnInit {
             'role': this.userType,
             'pageSize': this.pageSize,
             'column': this.column,
-            'sort': this.sort
+            'sort': this.sort,
+            'isPending': this.pendingCheckbox,
         }).subscribe(res => {
             this.page.pageNumber = res.result.current_page - 1;
             this.users = UserManagementComponent.handleData(res.result.data);
@@ -150,6 +152,21 @@ export class UserManagementComponent implements OnInit {
     onDelete(row) {
         this.api.one('admin/user/', row.user_no).customDELETE('').subscribe(res => {
             this.getUsers();
+        });
+    }
+
+    onVerify(row) {
+        this.api.one('admin/user/onVerify').customPOST({user_no:row.user_no}).subscribe(res => {
+            this.getUsers();
+            this.toast.success('The user has been verify');
+        });
+    }
+
+    onResend(row) {
+        this.api.one('admin/user/onResend').customPOST({user_no:row.user_no}).subscribe(res => {
+            console.log(res.result);
+            this.getUsers();
+            this.toast.success('The user has been resend mail verify');
         });
     }
 
