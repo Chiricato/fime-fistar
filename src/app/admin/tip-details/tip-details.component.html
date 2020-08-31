@@ -340,7 +340,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <textarea class="form-control" [(ngModel)]="tip.tips_desc_body"
-                                      formControlName="tips_desc_body" name="tips_desc_body"></textarea>
+                                      formControlName="tips_desc_body" name="tips_desc_body" rows="6"></textarea>
                         </div>
                     </div>
                 </div>
@@ -566,20 +566,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>cont2_body  <span style="color: red">(*)</span></label>
+                        <label>cont2_body</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
                             <ck-editor [(ngModel)]="tip.cont2_body"
                             formControlName="cont2_body" name="cont2_body" skin="moono-lisa" language="en" [fullPage]="true"
-                                    ></ck-editor>
-                             
-                            <div *ngIf="form.controls.cont2_body.invalid && (form.controls.cont2_body.dirty || form.controls.cont2_body.touched)"
-                                class="text-danger">
-                                <div *ngIf="form.controls.cont2_body.errors.required">
-                                    Cont2_body is required
-                                </div>
-                            </div>       
+                                    ></ck-editor>       
                         </div>
                     </div>
                 </div>

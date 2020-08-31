@@ -94,16 +94,25 @@
                 </div>
             </div>
             <div class="col-4">
-                    <div class="form-group">
-                        <label>Author</label>
-                        <div>
-                            <mat-form-field class="full-width">
-                                <input matInput placeholder="" [(ngModel)]="filter.reg_name">
-                            </mat-form-field>
-                        </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.reg_name">
+                        </mat-form-field>
                     </div>
                 </div>
-            <div class="col-8 d-flex justify-content-end" style="height: 36px;">
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Auto Enable Review</label>
+                    <div>
+                        <mat-slide-toggle color="#FF65B1" [(ngModel)]="auto_enable" (change)="onChange($event)"></mat-slide-toggle>
+                        <a class="ml-3" href="javascript:void(0)" (click)="openForm()">{{enable_log.content}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 d-flex justify-content-end" style="height: 36px;">
                 <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
                     search
                 </i> <span>Search</span></button>
@@ -224,7 +233,7 @@
                         <mat-icon>mode_comment</mat-icon>
                         <span>Comments</span>
                     </a>
-                    <a mat-menu-item (click)="openReviewDetail(env.webUrl + '/reviews/detail/' + row.slug)" class="datatable-action-button">
+                    <a mat-menu-item target="_blank" href="{{env.webUrl + '/reviews/detail/' + row.slug}}" class="datatable-action-button">
                         <mat-icon>open_in_new</mat-icon>
                         <span>View</span>
                     </a>
@@ -262,6 +271,24 @@
             </ng-template>
         </ngx-datatable-column>
     </ngx-datatable>
+</div>
+<div id="myForm" class="modal">
+    <div class="row modal-content">
+        <ngx-datatable #myTable2 class="material col-md-12" [rows]="logs" [columnMode]="'force'" [headerHeight]="50"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'" [count]="totallogs" [limit]="pageSizeLog"
+                    [offset]="pageIndexLog-1"
+                    [externalPaging]="true" (page)='setPageLog($event)' [externalSorting]="true" (sort)="onSortLog($event)">
+            <ngx-datatable-column name="ID" [sortable]="false" prop="id" [width]="80" [canAutoResize]="false" [resizeable]="false" >
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Content" [sortable]="false" [width]="800" prop="content" [canAutoResize]="false" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span> {{row.content}}</span >
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable> 
+        <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+    </div>
 </div>
 
 <swal #deleteSwal text="Are you sure to delete this review?" type="question" [showCancelButton]="true"
