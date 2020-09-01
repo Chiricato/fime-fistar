@@ -192,7 +192,7 @@
                 <span>{{row.category_name }}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Try Period" [resizeable]="false" [width]="80"  prop="event_bgnde">
+        <ngx-datatable-column name="Try Period" [resizeable]="false" [width]="180"  prop="event_bgnde">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>Start: {{ row.event_bgnde | date : 'yyyy/MM/dd HH:mm' }}</span>
                 <span>End: {{ row.event_endde | date : 'yyyy/MM/dd HH:mm' }}</span>
