@@ -156,7 +156,7 @@
             </button>
         </div>
     </div>
-    <ngx-datatable #myTable class="material" [rows]="reviews" [columnMode]="'force'" [headerHeight]="50"
+    <ngx-datatable #myTable class="material" [rows]="reviews" [columnMode]="'force'" [headerHeight]="50" [rowClass]="getRowClass"
                    [footerHeight]="50"
                    [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'
                    [selected]="selected"
@@ -168,7 +168,7 @@
                               [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true" [cellClass]="'text-center d-flex justify-content-center'"
                               [headerClass]="'text-center d-flex justify-content-center'">
         </ngx-datatable-column>
-        <ngx-datatable-column name="ID" prop="review_no" [width]="70" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="ID" prop="review_no" [width]="70" [canAutoResize]="false" [resizeable]="false" [headerClass]="insertYourCssClassNameHere"></ngx-datatable-column >
         <ngx-datatable-column name="Thumbnail" prop="main_image" [canAutoResize]="false" [resizeable]="false" class="thumbnail-col">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <div class="thumbnail-container">
@@ -232,6 +232,10 @@
                     <a mat-menu-item [routerLink]="['/admin/comments/review', row.review_no]" class="datatable-action-button">
                         <mat-icon>mode_comment</mat-icon>
                         <span>Comments</span>
+                    </a>
+                    <a mat-menu-item [routerLink]="['/admin/review-rereport/', row.review_no]" class="datatable-action-button">
+                        <mat-icon>report</mat-icon>
+                        <span>Report</span>
                     </a>
                     <a mat-menu-item target="_blank" href="{{env.webUrl + '/reviews/detail/' + row.slug}}" class="datatable-action-button">
                         <mat-icon>open_in_new</mat-icon>

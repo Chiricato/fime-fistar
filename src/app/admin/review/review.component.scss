@@ -94,3 +94,7 @@
     overflow: unset;
   }
 }
+::ng-deep .row-color1 {
+  border: 2px solid red;
+  width: auto;
+}

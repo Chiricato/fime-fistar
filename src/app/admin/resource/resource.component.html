@@ -29,9 +29,9 @@
             </div>
         </mat-card-subtitle>
         <mat-card-content>
-            <div class="form-group" *ngIf="resource.resource_type == 1">
+            <div class="form-group" *ngIf="resource.resource_type == 1 && env">
                 <div class="banner_img">
-                    <img src="{{env.rootHost}}{{resource.image_url}}" *ngIf="resource.image_url"/>
+                    <img [src]="env.rootHost + resource.image_url" *ngIf="resource.image_url"/>
                 </div>
                 <div>
                     <div *ngIf="required_upload_file_url" class="text-danger">
