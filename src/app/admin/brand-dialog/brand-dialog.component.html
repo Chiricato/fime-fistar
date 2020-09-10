@@ -22,7 +22,8 @@
                                         </i> <span class="select-text" >Select</span>
                                     </label>
                                 </div>
-                            </div><div class="icon" *ngIf="activeImages != '';">
+                            </div>
+                            <div class="icon" *ngIf="activeImages">
                                 <img [src]="env.rootHost + activeImages">
                             </div>
                         </label>
@@ -48,6 +49,18 @@
                         <div *ngIf="form.controls.name.errors.required">
                             Please enter brand name
                         </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="pointer">Category : </label><br>
+                        <mat-form-field class="full-width">
+                            <mat-select [(ngModel)]="brand.category_brand" formControlName="category_brand">
+                                <mat-option value="407">Beauty</mat-option>
+                                <mat-option value="412">Fashion</mat-option>
+                                <mat-option value="420">Food</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="form-group">

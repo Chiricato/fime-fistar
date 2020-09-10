@@ -41,6 +41,7 @@ export class AdminBrandDialogComponent implements OnInit {
 
         this.form = new FormGroup({
             name: new FormControl(this.brand.code_nm, [Validators.required]),
+            category_brand: new FormControl(this.brand.category_brand, [Validators.required]),
             code_dc: new FormControl(this.brand.code_dc, [])
         });
         this.uploader.onAfterAddingFile = (file) => {
