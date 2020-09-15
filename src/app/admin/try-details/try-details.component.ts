@@ -94,7 +94,7 @@ export class AdminTryDetailsComponent implements OnInit {
             delivery_start_date: new FormControl(this.try.dlvy_bgnde, [Validators.required]),
             delivery_end_date: new FormControl(this.try.dlvy_endde, [Validators.required]),
             join_max_count: new FormControl(this.try.event_trgter_co, [Validators.required]),
-            product_url: new FormControl(this.try.link_url, [Validators.required]),
+            product_url: new FormControl(this.try.link_url, []),
             model: new FormControl(this.try.modl_nombr, []),
             type: new FormControl(this.try.event_knd_code, []),
             hash_tag: new FormControl(this.try.hash_tag, []),

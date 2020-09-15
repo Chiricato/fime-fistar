@@ -224,19 +224,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Product Url <span style="color: red">(*)</span></label>
+                        <label>Product Url</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Enter url"
                                    [(ngModel)]="try.link_url"
                                    formControlName="product_url" name="product_url"/>
-                            <div *ngIf="form.controls.product_url.invalid && (form.controls.product_url.dirty || form.controls.product_url.touched)"
-                                 class="text-danger">
-                                <div *ngIf="form.controls.product_url.errors.required">
-                                    Product Url is required
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
