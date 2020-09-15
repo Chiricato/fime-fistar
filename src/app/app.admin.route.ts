@@ -100,6 +100,7 @@ import { AdminImagesAIComponent } from './admin/softone/images-ai/images-ai.comp
 import { AdminSystemSettingComponent } from './admin/softone/system/setting/setting.component';
 import { AdminCampaignSearchFistarComponent } from './admin/softone/campaign/campaign-add/search-fistar/search-fistar.component';
 import { AdminCampaignReviewDmncComponent } from './admin/softone/campaign/review/admin-detail/review-admin.component';
+import { AdminReviewReportComponent } from './admin/review-report/review-report.component';
 //-----------------------------------------------end softone-------------------------------------------------------------------
 const appRoutes: Routes = [
     // User route here
@@ -267,6 +268,7 @@ const appRoutes: Routes = [
             { path: 'reviews/detail/:id', component: AdminReviewDetailsComponent },
             { path: 'reviews/try/:tryId', component: AdminReviewComponent },
             { path: 'reviews/fimer', component: AdminReviewFimerComponent },
+            { path: 'review-rereport/:id', component: AdminReviewReportComponent },
             { path: 'profile', component: AdminProfileComponent },
             { path: 'update-password', component: AdminUpdatePasswordComponent },
             { path: 'hashtags', component: AdminHashtagComponent},

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
 import { CookieService } from '../../../services/cookie.service';
 // import * as _ from 'lodash';
@@ -63,6 +63,12 @@ export class AdminReviewComponent implements OnInit {
         public modalService: BsModalService
     ) { }
 
+    getRowClass = (row) => {
+        console.log(row)
+       return {
+        'row-color1': row.review_report === true,
+       };
+      }
     ngOnInit() {
         this.env = environment;
         this.tryId = this.route.snapshot.paramMap.get('tryId');

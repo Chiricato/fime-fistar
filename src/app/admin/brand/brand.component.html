@@ -35,6 +35,13 @@
     <ngx-datatable #myTable class="material" [rows]="brands" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
                    [rowHeight]="'auto'" [count]="brands.length" [limit]="10" [offset]="offset">
         <ngx-datatable-column name="Name" prop="code_nm"></ngx-datatable-column>
+        <ngx-datatable-column name="Category" prop="category_brand">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.category_brand == 407">Beauty</span>
+                <span *ngIf="row.category_brand == 412">Fashion</span>
+                <span *ngIf="row.category_brand == 420">Food</span>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column [width]="150" name="Action" [sortable]="false" class="action-column" headerClass="action" [canAutoResize]="false" [resizeable]="false">
             <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">>
                 <ng-template let-row="row" ngx-datatable-cell-template>

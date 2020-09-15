@@ -80,6 +80,7 @@ import { AdminTopnavComponent } from './_layout/admin/admin-topnav/topnav.compon
 import { AdminBlogComponent } from './admin/blog/blog.component';
 import { AdminBlogDetailsComponent } from './admin/blog-details/blog-details.component';
 import { AdminReviewComponent } from './admin/review/review.component';
+import { AdminReviewReportComponent } from './admin/review-report/review-report.component';
 import { AdminReviewDetailsComponent } from './admin/review-detail/review-details.component';
 import { AdminBrandComponent } from './admin/brand/brand.component';
 import { AdminBrandDialogComponent } from './admin/brand-dialog/brand-dialog.component';
@@ -289,6 +290,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminSidebarComponent,
         AdminTopnavComponent,
         AdminReviewComponent,
+        AdminReviewReportComponent,
         AdminReviewDetailsComponent,
         AdminTopnavComponent,
         AdminBrandComponent,
