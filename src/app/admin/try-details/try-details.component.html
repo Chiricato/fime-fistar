@@ -123,7 +123,7 @@
                                 <mat-radio-group [(ngModel)]="try.goods_code_group" formControlName="goods_code_group">
                                     <mat-radio-button value="407" (click)="changeCategory()">Beauty</mat-radio-button>
                                     <mat-radio-button value="412" (click)="changeCategory()">Fashion</mat-radio-button>
-                                    <!-- <mat-radio-button value="420" (click)="changeCategory()">Food</mat-radio-button> -->
+                                    <mat-radio-button value="420" (click)="changeCategory()">Food</mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
@@ -172,13 +172,13 @@
                                     <span>{{ item.code_nm }}</span>
                                 </ng-template>
                             </ng-select>
-                            <!-- <ng-select [items]="food" [(ngModel)]="try.goods_cl_code" bindValue="code" bindLabel="code_nm" 
+                            <ng-select [items]="food" [(ngModel)]="try.goods_cl_code" bindValue="code" bindLabel="code_nm"
                                         [virtualScroll]="true" *ngIf="try.goods_code_group == 420"
                                         formControlName="category_id" name="category_id">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span>{{ item.code_nm }}</span>
                                 </ng-template>
-                            </ng-select> -->
+                            </ng-select>
 
                             <div *ngIf="form.controls.category_id.invalid && (form.controls.category_id.dirty || form.controls.category_id.touched)"
                                  class="text-danger">
@@ -224,19 +224,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Product Url <span style="color: red">(*)</span></label>
+                        <label>Product Url</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Enter url"
                                    [(ngModel)]="try.link_url"
                                    formControlName="product_url" name="product_url"/>
-                            <div *ngIf="form.controls.product_url.invalid && (form.controls.product_url.dirty || form.controls.product_url.touched)"
-                                 class="text-danger">
-                                <div *ngIf="form.controls.product_url.errors.required">
-                                    Product Url is required
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -254,7 +248,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-md-3">
                         <label>Level</label>
                     </div>
@@ -269,7 +263,7 @@
                             </mat-radio-group>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <label>Price</label>

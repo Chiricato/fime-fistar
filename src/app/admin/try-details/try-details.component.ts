@@ -51,7 +51,7 @@ export class AdminTryDetailsComponent implements OnInit {
     public output_category = '407';
     public fashion: any;
     public beauty: any;
-    // public food: any;
+    public food: any;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -94,7 +94,7 @@ export class AdminTryDetailsComponent implements OnInit {
             delivery_start_date: new FormControl(this.try.dlvy_bgnde, [Validators.required]),
             delivery_end_date: new FormControl(this.try.dlvy_endde, [Validators.required]),
             join_max_count: new FormControl(this.try.event_trgter_co, [Validators.required]),
-            product_url: new FormControl(this.try.link_url, [Validators.required]),
+            product_url: new FormControl(this.try.link_url, []),
             model: new FormControl(this.try.modl_nombr, []),
             type: new FormControl(this.try.event_knd_code, []),
             hash_tag: new FormControl(this.try.hash_tag, []),
@@ -121,7 +121,7 @@ export class AdminTryDetailsComponent implements OnInit {
         this.getCategories();
         this.getFashion();
         this.getBeauty();
-        // this.getFood();
+        this.getFood();
         this.try.goods_code_group = this.try.goods_code_group ? this.try.goods_code_group : "407";
     }
 
@@ -180,11 +180,11 @@ export class AdminTryDetailsComponent implements OnInit {
             this.beauty = res.result;
         });
     }
-    // getFood() {
-    //     this.api.all('getFood').customGET('').subscribe(res => {
-    //         this.food = res.result;
-    //     });
-    // }
+    getFood() {
+        this.api.all('getFood').customGET('').subscribe(res => {
+            this.food = res.result;
+        });
+    }
 
     getColors() {
         this.api.all('admin').customGET('text-colors').subscribe(res => {

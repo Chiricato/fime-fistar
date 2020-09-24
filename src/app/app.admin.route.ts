@@ -39,6 +39,14 @@ import { AdminReviewEditComponent } from './admin/review-edit/review-edit.compon
 import {AdminCategoriesComponent} from './admin/categories/categories.component';
 import {AdminTipsComponent} from './admin/tips/tips.component';
 import {AdminTipDetailsComponent} from './admin/tip-details/tip-details.component';
+import {AdminPointComponent} from './admin/point/point.component';
+import {AdminPointDetailsComponent} from './admin/point-details/point-details.component';
+import {PointRatioComponent} from './admin/point-ratio/point-ratio.component';
+import {AdminPointLogComponent} from './admin/point-log/point-log.component';
+import {AdminPointLogMemberComponent} from './admin/point-log-member/point-log-member.component';
+import {AdminEventLogComponent} from './admin/point-event/point-event.component';
+import {AdminPointEventAddComponent} from './admin/point-event-add/point-event-add.component';
+import {AdminPointEventDetailsComponent} from './admin/point-event-detail/point-event-detail.component';
 //-----------------------------------softone dev-------------------------------------------------------
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
@@ -92,6 +100,7 @@ import { AdminImagesAIComponent } from './admin/softone/images-ai/images-ai.comp
 import { AdminSystemSettingComponent } from './admin/softone/system/setting/setting.component';
 import { AdminCampaignSearchFistarComponent } from './admin/softone/campaign/campaign-add/search-fistar/search-fistar.component';
 import { AdminCampaignReviewDmncComponent } from './admin/softone/campaign/review/admin-detail/review-admin.component';
+import { AdminReviewReportComponent } from './admin/review-report/review-report.component';
 //-----------------------------------------------end softone-------------------------------------------------------------------
 const appRoutes: Routes = [
     // User route here
@@ -259,6 +268,7 @@ const appRoutes: Routes = [
             { path: 'reviews/detail/:id', component: AdminReviewDetailsComponent },
             { path: 'reviews/try/:tryId', component: AdminReviewComponent },
             { path: 'reviews/fimer', component: AdminReviewFimerComponent },
+            { path: 'review-rereport/:id', component: AdminReviewReportComponent },
             { path: 'profile', component: AdminProfileComponent },
             { path: 'update-password', component: AdminUpdatePasswordComponent },
             { path: 'hashtags', component: AdminHashtagComponent},
@@ -267,7 +277,17 @@ const appRoutes: Routes = [
             { path: 'category', component: AdminCategoriesComponent},
             { path: 'tips', component: AdminTipsComponent},
             { path: 'tips/edit/:id', component: AdminTipDetailsComponent},
-            { path: 'tips/add', component: AdminTipDetailsComponent}
+            { path: 'tips/add', component: AdminTipDetailsComponent},
+            { path: 'point-policy', component: AdminPointComponent},
+            { path: 'point-policy/add', component: AdminPointDetailsComponent},
+            { path: 'point-policy/edit/:id', component: AdminPointDetailsComponent},
+            { path: 'point-ratio', component: PointRatioComponent },
+            { path: 'point-log', component: AdminPointLogComponent},
+            { path: 'point-log-member/:user_no', component: AdminPointLogMemberComponent},
+            { path: 'event', component: AdminEventLogComponent},
+            { path: 'event/edit/:id', component: AdminPointEventAddComponent},
+            { path: 'event/add', component: AdminPointEventAddComponent},
+            { path: 'event/detail/:id', component: AdminPointEventDetailsComponent}
         ]
     },
     // otherwise redirect to home

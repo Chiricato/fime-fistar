@@ -1,0 +1,193 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading">
+                Event Details
+            </div>
+            <div>
+                <button class="btn btn-default" (click)="goBack()"><i class="material-icons align-text-bottom">
+                    arrow_back
+                </i> <span>Back</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading">
+                {{events.title}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <p >Events Summary</p>
+        </div>
+        <div class="col-12 d-flex justify-content-between">
+            <div style="float: left;width: 50%">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Total Applied Members</td>
+                            <td class="x_salary">{{events.member}}</td>
+                        </tr>
+                        <tr>
+                            <td>Point payment method</td>
+                            <td class="x_salary">
+                                <span *ngIf="events.payment_method == 1">Immediately</span>
+                                <span *ngIf="events.payment_method == 2">All members</span>
+                                <span *ngIf="events.payment_method == 3">Selected Members</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Comments</td>
+                            <td class="x_salary">{{events.comment}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="float: left;width: 50%">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Event Period</td>
+                            <td class="f_salary">{{events.start_date}} ~ {{events.end_date}}</td>
+                        </tr>
+                        <tr>
+                            <td>Join Type</td>
+                            <td class="ts_salary">
+                                <span *ngIf="events.type == 1">Join</span>
+                                <span *ngIf="events.type == 2">Answer</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Views</td>
+                            <td class="k_salary">{{events.views}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <p>Winner Summary</p>
+        </div>
+        <div class="col-12 d-flex justify-content-between">
+            <div style="float: left;width: 50%">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Total Applied Members</td>
+                            <td class="x_salary">{{events.member}}</td>
+                        </tr>
+                        <tr>
+                            <td>Remain Applied Member</td>
+                            <td class="x_salary">{{events.member - events.current_winner}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="float: left;width: 50%">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Max Winner Number</td>
+                            <td class="f_salary">{{events.max_winner}}</td>
+                        </tr>
+                        <tr>
+                            <td>Current Winner Number</td>
+                            <td class="ts_salary">{{events.current_winner}}</td>
+                        </tr>
+                        <tr  *ngIf="events.max_winner > 0">
+                            <td>Remain Winner Number</td>
+                            <td class="k_salary">{{events.max_winner - events.current_winner}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <ngx-datatable #myTable class="material" [rows]="event_apply" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50"
+                   [count]="total" [offset]="pageIndex-1" [limit]="pageSize" [externalPaging]="true"
+                   (page)='setPage($event)'
+                   [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+                   [selected]="selected"
+                   [externalSorting]="true" (sort)="onSort($event)" (select)='onSelect($event)' [rowHeight]="'auto'">
+        <ngx-datatable-column [frozenLeft]="true" [width]="50" [sortable]="false" [canAutoResize]="false"
+                              [draggable]="false"
+                              [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true" [cellClass]="'text-center d-flex justify-content-center'"
+                              [headerClass]="'text-center d-flex justify-content-center'">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" ></ngx-datatable-column>
+        <ngx-datatable-column name="User No" prop="user_no" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Apply Date" prop="created_at" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.created_at | date : 'yyyy/MM/dd' }}</span>
+
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Answer" [sortable]="false" prop="add_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+               <span>{{row.content}}</span>
+                 
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Point" [sortable]="false" prop="number_point" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.number_point}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Membership" prop="level_number" [headerClass]="'text-center'" [cellClass]="'text-center'" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template >
+                <span *ngIf="row.level_number == 1">Member</span>
+                <span *ngIf="row.level_number == 2">Silver</span>
+                <span *ngIf="row.level_number == 3">Gold</span>
+                <span *ngIf="row.level_number == 4">Platinum</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Winner" [sortable]="false" prop="winner" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.winner == 0">-</span>
+                <span *ngIf="row.winner == 1">Winner</span>
+            </ng-template>
+        </ngx-datatable-column>
+        
+    </ngx-datatable>
+    <select (change)="changePageLimit($event.target.value)" class="page-limit">
+        <option
+          *ngFor="let option of pageLimitOptions"
+          [value]="option.value"
+          [selected]="option.value == pageSize"
+        >
+          {{option.value}} per page
+        </option>
+    </select>
+    
+</div>
+<div class="row" *ngIf="events.payment_method == 3 && events.status == 4">
+    
+    <div class="col-md-9">
+        <div class="form-group">
+            <div>
+                <mat-radio-group [(ngModel)]="type_rand">
+                    <mat-radio-button [value]="1" class="mr-3">Change Selected user to Winner </mat-radio-button>
+                    <mat-radio-button [value]="2"><mat-form-field>
+                        <input matInput placeholder="" [(ngModel)]="number_rand">
+                    </mat-form-field> out of {{events.max_winner - events.current_winner}} randomly changed to winners</mat-radio-button>
+                    
+                </mat-radio-group>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary" (click)="onChange()"><span>Change</span></button>
+    </div>
+</div>
+<div class="row" *ngIf="events.payment_method == 2 && events.status == 4">
+    <button class="btn btn-primary" (click)="onChange()"><span>Add Point All Member</span></button>
+</div>
+<swal #enableSwal text="Are you sure to enable events?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>

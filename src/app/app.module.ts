@@ -34,7 +34,8 @@ import {
     TabsModule,
     ProgressbarModule,
     TooltipModule,
-    AccordionModule
+    AccordionModule,
+    PopoverModule
 } from 'ngx-bootstrap';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -48,7 +49,6 @@ import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FileUploadModule } from 'ng2-file-upload';
-
 /* Component */
 import { HeaderComponent } from './_layout/frontend/header/header.component';
 import { AdminHeaderComponent } from './_layout/admin/admin-header/admin-header.component';
@@ -80,6 +80,7 @@ import { AdminTopnavComponent } from './_layout/admin/admin-topnav/topnav.compon
 import { AdminBlogComponent } from './admin/blog/blog.component';
 import { AdminBlogDetailsComponent } from './admin/blog-details/blog-details.component';
 import { AdminReviewComponent } from './admin/review/review.component';
+import { AdminReviewReportComponent } from './admin/review-report/review-report.component';
 import { AdminReviewDetailsComponent } from './admin/review-detail/review-details.component';
 import { AdminBrandComponent } from './admin/brand/brand.component';
 import { AdminBrandDialogComponent } from './admin/brand-dialog/brand-dialog.component';
@@ -162,7 +163,14 @@ import {AdminCategoriesComponent} from './admin/categories/categories.component'
 import {AdminCategoriesDialogComponent} from './admin/categories-dialog/categories-dialog.component';
 import {AdminTipsComponent} from './admin/tips/tips.component';
 import {AdminTipDetailsComponent} from './admin/tip-details/tip-details.component';
-
+import {AdminPointComponent} from './admin/point/point.component';
+import {AdminPointDetailsComponent} from './admin/point-details/point-details.component';
+import {PointRatioComponent} from './admin/point-ratio/point-ratio.component';
+import {AdminPointLogComponent} from './admin/point-log/point-log.component';
+import {AdminPointLogMemberComponent} from './admin/point-log-member/point-log-member.component';
+import {AdminEventLogComponent} from './admin/point-event/point-event.component';
+import {AdminPointEventAddComponent} from './admin/point-event-add/point-event-add.component';
+import {AdminPointEventDetailsComponent} from './admin/point-event-detail/point-event-detail.component';
 //softone dev
 import { AdminBannerFistarComponent } from './admin/softone/banner-fistar/banner-fistar.component';
 import { AdminBannerFistarDetailsComponent } from './admin/softone/banner-fistar-details/banner-fistar-details.component';
@@ -282,6 +290,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminSidebarComponent,
         AdminTopnavComponent,
         AdminReviewComponent,
+        AdminReviewReportComponent,
         AdminReviewDetailsComponent,
         AdminTopnavComponent,
         AdminBrandComponent,
@@ -360,7 +369,14 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminCategoriesDialogComponent,
         AdminTipsComponent,
         AdminTipDetailsComponent,
-
+        AdminPointComponent,
+        AdminPointDetailsComponent,
+        PointRatioComponent,
+        AdminPointLogComponent,
+        AdminPointLogMemberComponent,
+        AdminEventLogComponent,
+        AdminPointEventAddComponent,
+        AdminPointEventDetailsComponent,
 
         //soft0ne dev
         AdminBannerFistarComponent,
@@ -491,6 +507,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         OwlNativeDateTimeModule,
         //softone dev
         CurrencyMaskModule,
+        PopoverModule.forRoot()
         //end
 
     ],

@@ -12,6 +12,7 @@ yarn.lock
 /typings/
 /tsd_typings/
 /dist/
+/src/environments/
 /dist-server/
 /compiled/
 
@@ -29,5 +30,5 @@ webpack.records.json
 *.metadata.json
 *.shim.ngstyle.ts
 yarn.lock
-#src/environments/environment.ts
+
 .svn

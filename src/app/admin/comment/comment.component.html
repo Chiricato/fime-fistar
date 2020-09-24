@@ -67,7 +67,8 @@
         </ngx-datatable-column>
     </ngx-datatable>
     <div class="actions d-flex justify-content-end col-md-8">
-        <button routerLink="/" class="btn btn-primary">Back</button>
+        <button [routerLink]="['/admin/try']" class="btn btn-primary" *ngIf="object_type == 'try'">Back</button>
+        <button [routerLink]="['/admin/reviews']" class="btn btn-primary" *ngIf="object_type == 'review'">Back</button>
     </div>
 </div>
 

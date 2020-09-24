@@ -26,6 +26,12 @@
                             <input type="text" class="form-control" placeholder="Enter name"
                                    [(ngModel)]="tip.subject"
                                    formControlName="name" name="name"/>
+                            <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.name.errors.required">
+                                    Name is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -179,6 +185,12 @@
                                     <span>{{ item.code_nm }}</span>
                                 </ng-template>
                             </ng-select>
+                            <div *ngIf="form.controls.code_brand.invalid && (form.controls.code_brand.dirty || form.controls.code_brand.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.code_brand.errors.required">
+                                    Brand is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,6 +206,12 @@
                                     <span>{{ item.code_nm }}</span>
                                 </ng-template>
                             </ng-select>
+                            <div *ngIf="form.controls.tips_cl_code.invalid && (form.controls.tips_cl_code.dirty || form.controls.tips_cl_code.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.tips_cl_code.errors.required">
+                                    Category is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -322,7 +340,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <textarea class="form-control" [(ngModel)]="tip.tips_desc_body"
-                                      formControlName="tips_desc_body" name="tips_desc_body"></textarea>
+                                      formControlName="tips_desc_body" name="tips_desc_body" rows="6"></textarea>
                         </div>
                     </div>
                 </div>
@@ -433,8 +451,14 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                        <ck-editor [(ngModel)]="tip.cont1_body" skin="moono-lisa" language="en" [fullPage]="true"
-                                      formControlName="cont1_body" name="cont1_body"></ck-editor>         
+                            <ck-editor [(ngModel)]="tip.cont1_body" skin="moono-lisa" language="en" [fullPage]="true"
+                                        formControlName="cont1_body" name="cont1_body"></ck-editor>
+                            <div *ngIf="form.controls.cont1_body.invalid && (form.controls.cont1_body.dirty || form.controls.cont1_body.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.cont1_body.errors.required">
+                                    Cont1_body is required
+                                </div>
+                            </div>       
                         </div>
                     </div>
                 </div>
@@ -542,13 +566,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>cont2_body  <span style="color: red">(*)</span></label>
+                        <label>cont2_body</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
                             <ck-editor [(ngModel)]="tip.cont2_body"
                             formControlName="cont2_body" name="cont2_body" skin="moono-lisa" language="en" [fullPage]="true"
-                                    ></ck-editor>
+                                    ></ck-editor>       
                         </div>
                     </div>
                 </div>
@@ -647,7 +671,7 @@
                     cancel
                 </i> <span> {{ "cancel" | translate }}</span>
             </button>
-            <button class="btn btn-primary mr-1"
+            <button class="btn btn-primary mr-1" [disabled]="!form.valid"
                     (click)="onSave()">
                 <i class="material-icons align-text-bottom">
                     save

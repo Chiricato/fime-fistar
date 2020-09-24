@@ -9,6 +9,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { AdminResourceComponent } from '../resource/resource.component';
+import {FileUploader} from 'ng2-file-upload';
+
+const URL = environment.host + '/uploads';
 
 @Component({
     selector: 'app-admin-brand-dialog',
@@ -21,6 +24,10 @@ export class AdminBrandDialogComponent implements OnInit {
     public form: any;
     public brand: any;
     public onClose: Subject<boolean>;
+    public type = 0;
+    public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'category'});
+    public fileBase64: any;
+    public activeImages = '';
 
     constructor(
         private api: Restangular,
@@ -33,8 +40,16 @@ export class AdminBrandDialogComponent implements OnInit {
         this.onClose = new Subject();
 
         this.form = new FormGroup({
-            name: new FormControl(this.brand.code_nm, [Validators.required])
+            name: new FormControl(this.brand.code_nm, [Validators.required]),
+            category_brand: new FormControl(this.brand.category_brand, [Validators.required]),
+            code_dc: new FormControl(this.brand.code_dc, [])
         });
+        this.uploader.onAfterAddingFile = (file) => {
+            file.withCredentials = false;
+        };
+        if (typeof this.brand !== 'undefined' && typeof this.brand.code_nm !== 'undefined') {
+            this.activeImages = this.brand.additional;
+        }
     }
 
     save() {
@@ -49,6 +64,9 @@ export class AdminBrandDialogComponent implements OnInit {
     }
 
     onSave() {
+        if (this.activeImages !== '') {
+            this.brand.additional = this.activeImages;
+        }
         if (this.brand.code) {
             this.api
                 .one('brands', this.brand.code)
@@ -80,5 +98,25 @@ export class AdminBrandDialogComponent implements OnInit {
 
     close() {
         this.bsModalRef.hide();
+    }
+
+    fileChangeEvent(event: any, type): void {
+        this.type = type;
+        const files = event.target.files;
+        if (files && files[0]) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = this.handleImageResult.bind(this);
+            reader.readAsDataURL(file);
+        }
+    }
+
+    handleImageResult(readerEvt) {
+        this.fileBase64 = readerEvt.target.result;
+        this.api.all('uploads').customPOST({file: this.fileBase64}).subscribe(res => {
+            if (this.type === 1) {
+                this.activeImages = res.result.url + '/' + res.result.name;
+            }
+        });
     }
 }

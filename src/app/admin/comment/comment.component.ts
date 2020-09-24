@@ -21,7 +21,7 @@ export class AdminCommentComponent implements OnInit {
     public pageIndex: any;
     public env: any;
     private object_id: number;
-    private object_type: string;
+    public object_type: string;
     public pageSize = 10;
     public pageLimitOptions = [];
     public selected = [];

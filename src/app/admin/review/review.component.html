@@ -94,16 +94,25 @@
                 </div>
             </div>
             <div class="col-4">
-                    <div class="form-group">
-                        <label>Author</label>
-                        <div>
-                            <mat-form-field class="full-width">
-                                <input matInput placeholder="" [(ngModel)]="filter.reg_name">
-                            </mat-form-field>
-                        </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.reg_name">
+                        </mat-form-field>
                     </div>
                 </div>
-            <div class="col-8 d-flex justify-content-end" style="height: 36px;">
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Auto Enable Review</label>
+                    <div>
+                        <mat-slide-toggle color="#FF65B1" [(ngModel)]="auto_enable" (change)="onChange($event)"></mat-slide-toggle>
+                        <a class="ml-3" href="javascript:void(0)" (click)="openForm()">{{enable_log.content}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 d-flex justify-content-end" style="height: 36px;">
                 <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
                     search
                 </i> <span>Search</span></button>
@@ -147,7 +156,7 @@
             </button>
         </div>
     </div>
-    <ngx-datatable #myTable class="material" [rows]="reviews" [columnMode]="'force'" [headerHeight]="50"
+    <ngx-datatable #myTable class="material" [rows]="reviews" [columnMode]="'force'" [headerHeight]="50" [rowClass]="getRowClass"
                    [footerHeight]="50"
                    [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'
                    [selected]="selected"
@@ -159,7 +168,7 @@
                               [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true" [cellClass]="'text-center d-flex justify-content-center'"
                               [headerClass]="'text-center d-flex justify-content-center'">
         </ngx-datatable-column>
-        <ngx-datatable-column name="ID" prop="review_no" [width]="70" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="ID" prop="review_no" [width]="70" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column >
         <ngx-datatable-column name="Thumbnail" prop="main_image" [canAutoResize]="false" [resizeable]="false" class="thumbnail-col">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <div class="thumbnail-container">
@@ -204,6 +213,7 @@
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.reviews_code_group == 407">Beauty</span>
                 <span *ngIf="row.reviews_code_group == 412">Fashion</span>
+                <span *ngIf="row.reviews_code_group == 420">Food</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Views" prop="view_cnt" [resizeable]="false" [width]="70"></ngx-datatable-column>
@@ -223,7 +233,11 @@
                         <mat-icon>mode_comment</mat-icon>
                         <span>Comments</span>
                     </a>
-                    <a mat-menu-item (click)="openReviewDetail(env.webUrl + '/reviews/detail/' + row.slug)" class="datatable-action-button">
+                    <a mat-menu-item [routerLink]="['/admin/review-rereport/', row.review_no]" class="datatable-action-button">
+                        <mat-icon>report</mat-icon>
+                        <span>Report</span>
+                    </a>
+                    <a mat-menu-item target="_blank" href="{{env.webUrl + '/reviews/detail/' + row.slug}}" class="datatable-action-button">
                         <mat-icon>open_in_new</mat-icon>
                         <span>View</span>
                     </a>
@@ -261,6 +275,24 @@
             </ng-template>
         </ngx-datatable-column>
     </ngx-datatable>
+</div>
+<div id="myForm" class="modal">
+    <div class="row modal-content">
+        <ngx-datatable #myTable2 class="material col-md-12" [rows]="logs" [columnMode]="'force'" [headerHeight]="50"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'" [count]="totallogs" [limit]="pageSizeLog"
+                    [offset]="pageIndexLog-1"
+                    [externalPaging]="true" (page)='setPageLog($event)' [externalSorting]="true" (sort)="onSortLog($event)">
+            <ngx-datatable-column name="ID" [sortable]="false" prop="id" [width]="80" [canAutoResize]="false" [resizeable]="false" >
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Content" [sortable]="false" [width]="800" prop="content" [canAutoResize]="false" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span> {{row.content}}</span >
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable> 
+        <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+    </div>
 </div>
 
 <swal #deleteSwal text="Are you sure to delete this review?" type="question" [showCancelButton]="true"

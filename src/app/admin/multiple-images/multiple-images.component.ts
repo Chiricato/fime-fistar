@@ -54,7 +54,12 @@ export class AdminMultipleImagesComponent implements OnInit, OnChanges {
             const data = this.images.data;
             const data_length = data.length;
             for (let i = 0; i < data_length; i++) {
-                this.imagesBase64.push(new ImageBase64('', '', this.env.rootHost + data[i].file_cours + '/' + data[i].stre_file_nm));
+                if(data[i].name){
+                    this.imagesBase64.push(new ImageBase64('', '', this.env.rootHost + data[i].url + '/' + data[i].name));
+                }else{
+                    this.imagesBase64.push(new ImageBase64('', '', this.env.rootHost + data[i].file_cours + '/' + data[i].stre_file_nm));
+                }
+                
             }
         }
         this.cd.detectChanges();
