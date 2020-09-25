@@ -40,6 +40,9 @@ export class AdminReviewComponent implements OnInit {
     public enable_log =  {
         content: ''
     };
+    public fashion: any;
+    public beauty: any;
+    public food: any;
     public logs: any;
     public pageIndexLog = 1;
     public pageSizeLog = 10;
@@ -51,7 +54,8 @@ export class AdminReviewComponent implements OnInit {
         type: 'null',
         category_id: 'null',
         from: null,
-        to: null
+        to: null,
+        category_type:  0
     };
     public tryId: string;
     public pageLimitOptions = [];
@@ -87,7 +91,9 @@ export class AdminReviewComponent implements OnInit {
             {value: 25},
             {value: 50}
         ];
-        console.log(this.enable_log);
+        this.getFashion();
+        this.getBeauty();
+        this.getFood();
         
     }
 
@@ -104,7 +110,7 @@ export class AdminReviewComponent implements OnInit {
         this.api.all('reviews').customGET('', {
             tryId: this.tryId,
             page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
-            category_id: this.filter.category_id, name: this.filter.name, reg_name: this.filter.reg_name,
+            category_id: this.filter.category_id, category_type: this.filter.category_type, name: this.filter.name, reg_name: this.filter.reg_name,
             is_disabled: this.filter.is_disabled, type: this.filter.type,
             from: from, to: to
         }).subscribe(res => {
@@ -133,6 +139,21 @@ export class AdminReviewComponent implements OnInit {
     getCategories() {
         this.api.all('categories').customGET('').subscribe(res => {
             this.categories = res.result;
+        });
+    }
+    getFashion() {
+        this.api.all('getFashion').customGET('').subscribe(res => {
+            this.fashion = res.result;
+        });
+    }
+    getBeauty() {
+        this.api.all('getBeauty').customGET('').subscribe(res => {
+            this.beauty = res.result;
+        });
+    }
+    getFood() {
+        this.api.all('getFood').customGET('').subscribe(res => {
+            this.food = res.result;
         });
     }
     getUsers() {
@@ -278,6 +299,7 @@ export class AdminReviewComponent implements OnInit {
             is_disabled: 'null',
             type: 'null',
             category_id: 'null',
+            category_type: 0,
             from: null,
             to: null
         };
