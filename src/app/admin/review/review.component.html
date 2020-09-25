@@ -17,7 +17,7 @@
     </div>
     <mat-card class="search-control">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                 <div class="form-group">
                     <label>Title</label>
                     <div>
@@ -27,7 +27,21 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-2">
+                <div class="form-group">
+                    <label>Category</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select [(ngModel)]="filter.category_type">
+                                <mat-option value="0">All</mat-option>
+                                <mat-option value="407">Beauty</mat-option>
+                                <mat-option value="412">Fashion</mat-option>
+                                <mat-option value="420">Food</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
             <div class="col-2">
                 <div class="form-group">
                     <label>Catalog </label>
@@ -35,8 +49,21 @@
                         <mat-form-field class="full-width">
                             <mat-select [(ngModel)]="filter.category_id">
                                 <mat-option value="null">All</mat-option>
-                                <mat-option *ngFor="let category of categories"
-                                            value="{{category.code}}">{{category.code_nm}}</mat-option>
+                                <mat-optgroup label="Beauty" *ngIf="filter.category_type == 0 || filter.category_type == 407">
+                                    <mat-option *ngFor="let category of beauty" value="{{category.code}}">
+                                        {{category.code_nm}}
+                                    </mat-option>
+                                </mat-optgroup>
+                                <mat-optgroup label="Fashion" *ngIf="filter.category_type == 0 ||filter.category_type == 412">
+                                    <mat-option *ngFor="let item of fashion" value="{{item.code}}">
+                                        {{item.code_nm}}
+                                    </mat-option>
+                                </mat-optgroup>
+                                <mat-optgroup label="Food" *ngIf="filter.category_type == 0 || filter.category_type == 420">
+                                    <mat-option *ngFor="let item of food" value="{{item.code}}">
+                                        {{item.code_nm}}
+                                    </mat-option>
+                                </mat-optgroup>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -74,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <div class="form-group">
                     <label>Period</label>
                     <div>
