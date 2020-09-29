@@ -19,7 +19,8 @@ import {AdminResourceComponent} from '../resource/resource.component';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import * as moment from 'moment';
 import {AdminMultipleImagesComponent} from '../multiple-images/multiple-images.component';
-
+import { FileUploader, FileSelectDirective, Headers } from 'ng2-file-upload';
+const URL_UL = environment.host + '/uploadWinner';
 @Component({
     selector: 'app-admin-try',
     templateUrl: './point-event-detail.component.html',
@@ -45,6 +46,7 @@ export class AdminPointEventDetailsComponent implements OnInit {
     public type_rand = 1;
     public number_rand = 0;
     public remain_winner = 0;
+    public uploader: FileUploader;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -84,6 +86,14 @@ export class AdminPointEventDetailsComponent implements OnInit {
         console.log('events',this.events);
         this.getEvent();
         this.getEventApply();
+
+        this.uploader = new FileUploader({
+            url: URL_UL+'/'+this.eventId,
+            itemAlias: 'file'
+        });
+        this.uploader.onAfterAddingFile = (file) => {
+            file.withCredentials = false;
+        };
     }
     getEvent() {
         this.api.one('find-event', this.eventId).get()
@@ -177,6 +187,25 @@ export class AdminPointEventDetailsComponent implements OnInit {
     }
     goBack(): void {
         this.router.navigate(['/admin/event']);
+    }
+
+    onDownload() {
+        this.api.all('event-excel/'+this.events.id).customGET('').subscribe(res => {
+            if (res.result) {
+                window.open(this.env.rootHost + res.result.path, '_blank');
+            }
+        });
+    }
+
+    onSelectFile(event) {
+        const files = event.target.files;
+        if (this.uploader.queue && this.uploader.queue.length) {
+            this.uploader.uploadAll();
+            this.uploader.onCompleteAll = () => {
+                this.toast.success('Upload winner success');
+
+            };
+        }
     }
 
 }
