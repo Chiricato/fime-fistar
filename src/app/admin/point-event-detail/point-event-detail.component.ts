@@ -202,6 +202,7 @@ export class AdminPointEventDetailsComponent implements OnInit {
         if (this.uploader.queue && this.uploader.queue.length) {
             this.uploader.uploadAll();
             this.uploader.onCompleteAll = () => {
+                this.getEventApply();
                 this.toast.success('Upload winner success');
 
             };
