@@ -110,7 +110,8 @@ export class AdminTryDetailsComponent implements OnInit {
             sale_price: new FormControl(this.try.event_pc, []),
             resource_type: new FormControl(this.try.resource_type, []),
             goods_code_group: new FormControl(this.try.goods_code_group, []),
-            level_apply: new FormControl(this.try.level_apply, [])
+            level_apply: new FormControl(this.try.level_apply, []),
+            location: new FormControl(this.try.location, [])
         });
 
         if (this.tryId) {
