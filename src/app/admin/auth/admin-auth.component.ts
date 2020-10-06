@@ -59,7 +59,12 @@ export class AdminLoginComponent implements OnInit {
         this.api.all('fimers').customGET('profile').subscribe(res => {
             if (res.result && res.result.isOwner) {
                 this.user = res.result;
-                this.router.navigate(['/admin/try']);
+                if(this.user.role_id == 7){
+                    this.router.navigate(['/admin']);
+                }else{
+                    this.router.navigate(['/admin/try']);
+                }
+                
             } else {
                 this.router.navigate(['/']);
             }

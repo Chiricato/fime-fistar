@@ -291,7 +291,7 @@ const appRoutes: Routes = [
         ]
     },
     // otherwise redirect to home
-    { path: '**', redirectTo: '/admin/try' }
+    { path: '**', redirectTo: '/admin' }
 ];
 
 export const Routing = RouterModule.forRoot(appRoutes);
