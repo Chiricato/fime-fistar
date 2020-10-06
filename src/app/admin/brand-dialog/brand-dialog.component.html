@@ -8,71 +8,40 @@
     <form [formGroup]="form" novalidate class="review-form">
         <div class="brand-container">
             <div class="brand-content">
-                <div class="form-group img pointer">
-                    <div class="active">
-                        <label >
-                            <span class="pointer">Logo: </span>
-                            <input id="file-input" class="select-img" type="file" (change)="fileChangeEvent($event, 1)"
-                                   accept=".png, .jpg, .jpeg, .gif">
-                            <div class="pointer img-wrap">
-                                <div class="icon">
-                                    <label  for="file-input" class="select-file">
-                                        <i class="material-icons align-text-bottom select-icon">
-                                            cloud_upload
-                                        </i> <span class="select-text" >Select</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="icon" *ngIf="activeImages">
-                                <img [src]="env.rootHost + activeImages">
-                            </div>
-                        </label>
-                    </div>
-                </div>
                 <div class="form-group">
                     <label>Cover Image</label>
-                    <app-admin-resource #resource [resource]="{ url: brand.file}" [resizeToWidth]="1400"
-                        [aspectRatio]="14/3.8"></app-admin-resource>
+                    <app-admin-resource #resource [resource]="{ url: brand.file}" [resizeToWidth]="1150" [aspectRatio]="145/19"></app-admin-resource>
                     <!-- <div *ngIf="isSubmitted && invalidMainImage" class="text-danger">
                         Cover image is require
                     </div> -->
                 </div>
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" placeholder="Enter name" class="form-control" [(ngModel)]="brand.code_nm"
-                        formControlName="name" />
-                    <div *ngIf="
+                    <input
+                        type="text"
+                        placeholder="Enter name"
+                        class="form-control"
+                        [(ngModel)]="brand.code_nm"
+                        formControlName="name"
+                    />
+                    <div
+                        *ngIf="
                             form.controls.name.invalid &&
                             (form.controls.name.dirty ||
                                 form.controls.name.touched)
-                        " class="text-danger">
+                        "
+                        class="text-danger"
+                    >
                         <div *ngIf="form.controls.name.errors.required">
                             Please enter brand name
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div>
-                        <label class="pointer">Category : </label><br>
-                        <mat-form-field class="full-width">
-                            <mat-select [(ngModel)]="brand.category_brand" formControlName="category_brand">
-                                <mat-option value="407">Beauty</mat-option>
-                                <mat-option value="412">Fashion</mat-option>
-                                <mat-option value="420">Food</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" placeholder="Enter description" class="form-control" [(ngModel)]="brand.code_dc"
-                        formControlName="code_dc" />
-                </div>
-
+                
             </div>
         </div>
         <div class="modal-actions">
-            <button class="btn btn-default mr-1" (click)="close()">
+            <button class="btn btn-default mr-1" (click)="close()" >
                 <i class="material-icons align-text-bottom">
                     cancel
                 </i> <span> {{ "cancel" | translate }}</span>

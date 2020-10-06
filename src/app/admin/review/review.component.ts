@@ -68,11 +68,8 @@ export class AdminReviewComponent implements OnInit {
     ) { }
 
     getRowClass = (row) => {
-        console.log(row)
-       return {
-        'row-color1': row.review_report === true,
-       };
-      }
+       
+    }
     ngOnInit() {
         this.env = environment;
         this.tryId = this.route.snapshot.paramMap.get('tryId');
