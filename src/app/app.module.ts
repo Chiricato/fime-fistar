@@ -255,7 +255,8 @@ import {AdminMultipleImagesSoftOneComponent} from "./admin/softone/multiple-imag
 
 import {AdminResourceDialogImageCropSoftOneComponent} from "./admin/softone/multiple-images/dialog-image-crop-softone.component";
 //-----------------end softone dev------------------------------
-
+import { AdminFieldComponent } from './admin/field/field.component';
+import { AdminFieldDialogComponent } from './admin/field-dialog/field-dialog.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -295,6 +296,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminTopnavComponent,
         AdminBrandComponent,
         AdminBrandDialogComponent,
+        AdminFieldComponent,
+        AdminFieldDialogComponent,
         AdminDeliveryDialogComponent,
         DeliveryDialogComponent,
         AdminResourceComponent,
@@ -549,6 +552,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminCategoryDialogComponent,
         AdminCategoriesDialogComponent,
         AdminBrandDialogComponent,
+        AdminFieldDialogComponent,
         AdminDeliveryDialogComponent,
         DeliveryDialogComponent,
         AdminResourceDialogImageCropComponent,

@@ -238,6 +238,10 @@
         </div>
         <div *ngIf="user.role_id == 7 || user.role_id == 6 ">
             <b>{{ 'Local Shop Admin'  }}</b>
+             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/fields']">
+                <mat-icon class="sidenav-icon">photo_library</mat-icon>
+                <span>Field</span>
+            </a>
         </div>
         <a mat-list-item (click)="onLoggedout()">
             <mat-icon class="sidenav-icon">exit_to_app</mat-icon>

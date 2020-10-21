@@ -102,6 +102,7 @@ import { AdminCampaignSearchFistarComponent } from './admin/softone/campaign/cam
 import { AdminCampaignReviewDmncComponent } from './admin/softone/campaign/review/admin-detail/review-admin.component';
 import { AdminReviewReportComponent } from './admin/review-report/review-report.component';
 //-----------------------------------------------end softone-------------------------------------------------------------------
+import { AdminFieldComponent } from './admin/field/field.component';
 const appRoutes: Routes = [
     // User route here
     {
@@ -287,7 +288,8 @@ const appRoutes: Routes = [
             { path: 'event', component: AdminEventLogComponent},
             { path: 'event/edit/:id', component: AdminPointEventAddComponent},
             { path: 'event/add', component: AdminPointEventAddComponent},
-            { path: 'event/detail/:id', component: AdminPointEventDetailsComponent}
+            { path: 'event/detail/:id', component: AdminPointEventDetailsComponent},
+            { path: 'fields', component: AdminFieldComponent }
         ]
     },
     // otherwise redirect to home
