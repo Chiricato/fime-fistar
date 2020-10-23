@@ -257,7 +257,8 @@ import {AdminResourceDialogImageCropSoftOneComponent} from "./admin/softone/mult
 //-----------------end softone dev------------------------------
 import { AdminFieldComponent } from './admin/field/field.component';
 import { AdminFieldDialogComponent } from './admin/field-dialog/field-dialog.component';
-
+import { AdminShopComponent } from './admin/shop/shop.component';
+import { AdminShopDetailsComponent } from './admin/shop-details/shop-details.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -443,7 +444,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminCampaignSearchFistarComponent,
         AdminCampaignReviewDmncComponent,
         AdminMultipleImagesSoftOneComponent,
-        AdminResourceDialogImageCropSoftOneComponent
+        AdminResourceDialogImageCropSoftOneComponent,
+        AdminShopComponent,
+        AdminShopDetailsComponent
         //end softone dev
 
 

@@ -103,6 +103,8 @@ import { AdminCampaignReviewDmncComponent } from './admin/softone/campaign/revie
 import { AdminReviewReportComponent } from './admin/review-report/review-report.component';
 //-----------------------------------------------end softone-------------------------------------------------------------------
 import { AdminFieldComponent } from './admin/field/field.component';
+import { AdminShopComponent } from './admin/shop/shop.component';
+import { AdminShopDetailsComponent } from './admin/shop-details/shop-details.component';
 const appRoutes: Routes = [
     // User route here
     {
@@ -289,7 +291,9 @@ const appRoutes: Routes = [
             { path: 'event/edit/:id', component: AdminPointEventAddComponent},
             { path: 'event/add', component: AdminPointEventAddComponent},
             { path: 'event/detail/:id', component: AdminPointEventDetailsComponent},
-            { path: 'fields', component: AdminFieldComponent }
+            { path: 'fields', component: AdminFieldComponent },
+            { path: 'shops', component: AdminShopComponent },
+            { path: 'shops/detail/:id', component: AdminShopDetailsComponent },
         ]
     },
     // otherwise redirect to home
