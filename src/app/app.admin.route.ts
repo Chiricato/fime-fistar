@@ -293,7 +293,8 @@ const appRoutes: Routes = [
             { path: 'event/detail/:id', component: AdminPointEventDetailsComponent},
             { path: 'fields', component: AdminFieldComponent },
             { path: 'shops', component: AdminShopComponent },
-            { path: 'shops/detail/:id', component: AdminShopDetailsComponent },
+            { path: 'shop/detail/:id', component: AdminShopDetailsComponent },
+            { path: 'shop/add', component: AdminShopDetailsComponent},
         ]
     },
     // otherwise redirect to home

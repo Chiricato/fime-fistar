@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4" *ngIf="!expired">
+            <div class="col-4">
                 <div class="form-group">
                     <label>Status</label>
                     <div>
@@ -89,12 +89,17 @@
         <ngx-datatable-column name="Street" prop="street" [resizeable]="false"></ngx-datatable-column>
         <ngx-datatable-column name="Field 1" prop="field_name_1" [resizeable]="false"></ngx-datatable-column>
         <ngx-datatable-column name="Field 2" prop="field_name_2" [resizeable]="false"></ngx-datatable-column>
-        <ngx-datatable-column name="Fime Try" prop="tries" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Fime Try" prop="tries" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="!row.tries">0</span>
+                <span *ngIf="row.tries">{{row.tries}}</span>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column name="Status" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <span *ngIf="row.status == 1">Add</span>
-                <span *ngIf="row.status == 2">Use</span>
-                <span *ngIf="row.status == 3">Expired</span>
+                <span *ngIf="row.status == 0">Pending</span>
+                <span *ngIf="row.status == 1">Enable</span>
+                <span *ngIf="row.status == 2">Disable</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Regist date" prop="created_at" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
@@ -113,7 +118,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #userActions="matMenu">
-                    <button mat-menu-item [routerLink]="['/admin/shop/edit', row.id]" class="datatable-action-button">
+                    <button mat-menu-item [routerLink]="['/admin/shop/detail', row.id]" class="datatable-action-button">
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>

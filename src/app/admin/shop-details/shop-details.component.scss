@@ -3,6 +3,9 @@
 @import "~scss/font_imports";
 
 .component-admin-try {
+    .col-md-3{
+        max-width: 125px;
+    }
     padding-bottom: 50px;
     ::ng-deep {
         .tag-list {
