@@ -79,6 +79,20 @@
                 (sort)="onSort($event)"
         >
             <ngx-datatable-column name="User No" prop="user_no" [width]="180" [canAutoResize]="false" [resizeable]="false">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span *ngIf="row.level_number == 1">
+                        [M]{{row.user_no}}
+                    </span>
+                    <span *ngIf="row.level_number == 2">
+                        [S]{{row.user_no}}
+                    </span>
+                    <span *ngIf="row.level_number == 3">
+                        [G]{{row.user_no}}
+                    </span>
+                    <span *ngIf="row.level_number == 4">
+                        [P]{{row.user_no}}
+                    </span>
+                </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Full Name" prop="reg_name">
             </ngx-datatable-column>

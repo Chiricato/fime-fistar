@@ -26,7 +26,8 @@ export class UserManagementComponent implements OnInit {
         {'id': 'email', 'name': 'Email'},
         {'id': 'cellphone', 'name': 'Phone'},
         {'id': 'reg_name', 'name': 'Full Name'},
-        {'id': 'id', 'name': 'Display Name'}
+        {'id': 'id', 'name': 'Display Name'},
+        {'id': 'memberlevel', 'name': 'Member level'}
     ];
     public filterSelected = this.filterOptions[1].id;
     public column = 'reviews';
