@@ -23,6 +23,7 @@ export class AdminSidebarComponent implements OnInit {
 
     ngOnInit() {
         this.showMenu = '';
+        console.log(this.user,'123');
         this.pushRightClass = 'push-right';
         // console.log(this.router.url.indexOf('/admin/request/partner'), "ROUTER")
     }
@@ -34,6 +35,8 @@ export class AdminSidebarComponent implements OnInit {
             this.showMenu = element;
         }
     }
+
+
 
     toggleSidebar() {
         const dom: any = document.querySelector('body');

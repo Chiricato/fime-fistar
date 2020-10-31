@@ -1,0 +1,40 @@
+<div class="admin-try-dialog">
+    <div class="row">
+        <div class="col-12">
+            <div class="admin-heading" *ngIf="!field.id">Add field</div>
+            <div class="admin-heading" *ngIf="field.id">Edit field</div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate class="review-form">
+        <div class="field-container">
+            <div class="field-content">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="Enter name" class="form-control" [(ngModel)]="field.name"
+                        formControlName="name" />
+                    <div *ngIf="
+                            form.controls.name.invalid &&
+                            (form.controls.name.dirty ||
+                                form.controls.name.touched)
+                        " class="text-danger">
+                        <div *ngIf="form.controls.name.errors.required">
+                            Please enter field name
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-default mr-1" (click)="close()">
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" (click)="save()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>

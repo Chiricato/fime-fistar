@@ -8,5 +8,5 @@ export const environment = {
   production: true,
   facebook_app_id: '197684317620676', // Customer app id
   facebook_app_version: 'v3.2',
-  webUrl: 'https://fime.vn',
+  webUrl: 'http://localhost:4200/',
 };

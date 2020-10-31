@@ -39,6 +39,7 @@ export class AdminUserDetailComponent implements OnInit {
             cellphone: new FormControl(this.user.cellphone, [Validators.required]),
             home_addr1: new FormControl(this.user.home_addr1, [Validators.required]),
             active: new FormControl(this.user.active, [Validators.required]),
+            password: new FormControl(this.user.password, [Validators.required]),
             allow_comment: new FormControl(this.user.allow_comment, [Validators.required]),
             allow_review: new FormControl(this.user.allow_review, [Validators.required]),
             delete: new FormControl(this.user.delete, [Validators.required]),

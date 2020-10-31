@@ -1,0 +1,49 @@
+@import "~scss/mixins";
+@import "~scss/variables";
+@import "~scss/font_imports";
+
+.admin-try-dialog {
+}
+
+.btn.btn-primary {
+  background-color: #20a8d8 !important;
+  border-color: #20a8d8 !important;;
+}
+::ng-deep {
+	.brand-content .option{display:none}
+}
+.select-file {
+  border: 1px solid #20a8d8;
+  padding: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.select-icon{
+  color: #20a8d8;
+}
+.select-text{
+  color: #20a8d8;
+}
+.select-img {
+  display: none;
+}
+.active {
+  display: flex;
+
+  label {
+    display: flex;
+  }
+  .img-wrap {
+    .icon {
+      margin-left: 20px;
+    }
+  }
+  .icon {
+    margin-left: 20px;
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
+  }
+}

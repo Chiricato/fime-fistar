@@ -1,0 +1,65 @@
+@import "~scss/mixins";
+@import "~scss/variables";
+@import "~scss/font_imports";
+::ng-deep{
+  .ngx-datatable .datatable-body-cell{
+    overflow-x: initial!important;
+    position: relative;
+  }
+  .popover{
+    max-width:500px;
+  }
+}
+.component-admin-try {
+  .form-group{
+    .mat-checkbox{
+      margin-right: 10px;
+    }
+  }
+  .multi-action {
+    margin-top: 30px;
+  }
+
+  .mat-form-field.full-width {
+    width: 100%;
+  }
+
+  .mat-form-field.half-width {
+    width: 48%;
+    margin-right: 2%
+  }
+
+  .search-control {
+    margin-top: 20px;
+  }
+
+  .action {
+    i {
+      cursor: pointer;
+      margin-right: 15px;
+      color: #b0b0b0;
+      font-size: 21px;
+      margin-top: 6px;
+    }
+  }
+
+  .multi-action {
+    margin-top: 30px;
+  }
+
+  ngx-datatable {
+    .icon {
+      margin-right: 10px;
+      color: #b0b0b0;
+      font-size: 24px;
+      margin-top: 6px;
+      cursor: pointer;
+    }
+  }
+
+  .btn {
+    i {
+      font-size: 20px;
+    }
+  }
+}

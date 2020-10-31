@@ -1,0 +1,619 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading" *ngIf="!shopId">
+                Create Shop
+            </div>
+            <div class="admin-heading" *ngIf="shopId">
+                Edit Shop
+            </div>
+            <div>
+                <button class="btn btn-default" (click)="goBack()"><i class="material-icons align-text-bottom">
+                    arrow_back
+                </i> <span>Back</span></button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Name <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter name" [(ngModel)]="shop.name"
+                                   formControlName="name" name="name"/>
+                            <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.name.errors.required">
+                                    Name is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Address <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter address" [(ngModel)]="shop.address"
+                                   formControlName="address" name="address"/>
+                            <div *ngIf="form.controls.address.invalid && (form.controls.address.dirty || form.controls.address.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.address.errors.required">
+                                    Address is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Phone</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter phone" [(ngModel)]="shop.phone"
+                                           formControlName="phone" name="phone"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Owner</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter owner" [(ngModel)]="shop.owner"
+                                           formControlName="owner" name="owner"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Field 1 <span style="color: red">(*)</span></label>
+                            </div>
+                            <div class="col-md-9">
+
+                                <div class="form-group">
+                                    <ng-select [items]="fields" [(ngModel)]="shop.field_1" bindValue="id" bindLabel="name"
+                                               formControlName="field_1" name="field_1" [virtualScroll]="true">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                                            <span>{{ item.name }}</span>
+                                        </ng-template>
+                                    </ng-select>
+                                    <div *ngIf="form.controls.field_1.invalid && (form.controls.field_1.dirty || form.controls.field_1.touched)"
+                                         class="text-danger">
+                                        <div *ngIf="form.controls.field_1.errors.required">
+                                            Field 1 is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Field 2 <span style="color: red">(*)</span></label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <ng-select [items]="fields" [(ngModel)]="shop.field_2" bindValue="id" bindLabel="name"
+                                               formControlName="field_2" name="field_2" [virtualScroll]="true">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                                            <span>{{ item.name }}</span>
+                                        </ng-template>
+                                    </ng-select>
+                                    <div *ngIf="form.controls.field_2.invalid && (form.controls.field_2.dirty || form.controls.field_2.touched)"
+                                         class="text-danger">
+                                        <div *ngIf="form.controls.field_2.errors.required">
+                                            Field 2 is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Street <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ng-select [items]="streets" [(ngModel)]="shop.street_id" bindValue="id" bindLabel="name"
+                                       formControlName="street_id" name="street_id" [virtualScroll]="true">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.name }}</span>
+                                </ng-template>
+                            </ng-select>
+                            <div *ngIf="form.controls.street_id.invalid && (form.controls.street_id.dirty || form.controls.street_id.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.street_id.errors.required">
+                                    Street is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>City</label>
+                            </div>
+                            <div class="col-md-9">
+
+                                <div class="form-group">
+                                    <ng-select [items]="cities" [(ngModel)]="shop.city_id" bindValue="id" bindLabel="name"
+                                               formControlName="city_id" name="city_id" [virtualScroll]="true" (change)="changeCity()">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                                            <span>{{ item.name }}</span>
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>District</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <ng-select [items]="states" [(ngModel)]="shop.district_id" bindValue="id" bindLabel="name"
+                                               formControlName="district_id" name="district_id" [virtualScroll]="true" (change)="changeDistrict()">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index" >
+                                            <span>{{ item.name }}</span>
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Ward</label>
+                            </div>
+                            <div class="col-md-9">
+
+                                <div class="form-group">
+                                    <ng-select [items]="wards" [(ngModel)]="shop.ward_id" bindValue="id" bindLabel="name"
+                                               formControlName="ward_id" name="ward_id" [virtualScroll]="true">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                                            <span>{{ item.name }}</span>
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Image file name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter Image file name" [(ngModel)]="shop.image"
+                                           formControlName="image" name="image"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter email" [(ngModel)]="shop.email"
+                                   formControlName="email" name="email"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Facebook Link</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter facebook link" [(ngModel)]="shop.facebook_link"
+                                   formControlName="facebook_link" name="facebook_link"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Followers</label>
+                            </div>
+                            <div class="col-md-9">
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter follower" [(ngModel)]="shop.follower"
+                                   formControlName="follower" name="follower"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Likes</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter likes" [(ngModel)]="shop.likes"
+                                   formControlName="likes" name="likes"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Home Page</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter homepage" [(ngModel)]="shop.homepage"
+                           formControlName="homepage" name="homepage"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>SNS</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-radio-group [(ngModel)]="shop.sns_type" formControlName="sns_type">
+                                <mat-radio-button value="1">Instagram</mat-radio-button>
+                                <mat-radio-button value="2">Google</mat-radio-button>
+                                <mat-radio-button value="3">Zalo</mat-radio-button>
+                            </mat-radio-group>
+                            <input type="text" class="form-control" placeholder="Enter sns url" [(ngModel)]="shop.sns_url"
+                           formControlName="sns_url" name="sns_url"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Hashtag</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                                <textarea class="form-control" [(ngModel)]="shop.hashtag"
+                                          formControlName="hashtag" name="hashtag"></textarea>
+                            <span>Type space for seperating. 예)#fime #lipstic #3CE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Cover image</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>
+                                <input class="select-img" id="file-input1" type="file" (change)="fileChangeEvent($event, 1)"
+                                       accept=".png, .jpg, .jpeg, .gif">
+                
+                                <div class="icon" *ngIf="cover_image && shopId">
+                                    <img [src]="env.rootHost + shop.img_url + '/' + cover_image" [width]="150" [height]="100">
+                                </div>
+                                <div class="icon" *ngIf="cover_image && !shopId">
+                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + cover_image" [width]="150" [height]="100">
+                                </div>
+                                <div  class="pointer">
+                                    <div class="icon">
+                                        <label  for="file-input1" class="select-file">
+                                            <i class="material-icons align-text-bottom select-icon">
+                                                cloud_upload
+                                            </i> <span class="select-text" >Select</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Image 1</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>
+                                <input class="select-img" id="file-input2" type="file" (change)="fileChangeEvent($event, 2)"
+                                       accept=".png, .jpg, .jpeg, .gif">
+                
+                                <div class="icon" *ngIf="image1 && shopId">
+                                    <img [src]="env.rootHost + shop.img_url + '/' + image1" [width]="150" [height]="100">
+                                </div>
+                                <div class="icon" *ngIf="image1 && !shopId">
+                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image1" [width]="150" [height]="100">
+                                </div>
+                                <div  class="pointer">
+                                    <div class="icon">
+                                        <label  for="file-input2" class="select-file">
+                                            <i class="material-icons align-text-bottom select-icon">
+                                                cloud_upload
+                                            </i> <span class="select-text" >Select</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Image 2</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>
+                                <input class="select-img" id="file-input3" type="file" (change)="fileChangeEvent($event, 3)"
+                                       accept=".png, .jpg, .jpeg, .gif">
+                
+                                <div class="icon" *ngIf="image2 && shopId">
+                                    <img [src]="env.rootHost + shop.img_url + '/' + image2" [width]="150" [height]="100">
+                                </div>
+                                <div class="icon" *ngIf="image2 && !shopId">
+                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image2" [width]="150" [height]="100">
+                                </div>
+                                <div  class="pointer">
+                                    <div class="icon">
+                                        <label  for="file-input3" class="select-file">
+                                            <i class="material-icons align-text-bottom select-icon">
+                                                cloud_upload
+                                            </i> <span class="select-text" >Select</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Image 3</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>
+                                <input class="select-img" id="file-input4" type="file" (change)="fileChangeEvent($event, 4)"
+                                       accept=".png, .jpg, .jpeg, .gif">
+                
+                                <div class="icon" *ngIf="image3 && shopId">
+                                    <img [src]="env.rootHost + shop.img_url + '/' + image3" [width]="150" [height]="100">
+                                </div>
+                                <div class="icon" *ngIf="image3 && !shopId">
+                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image3" [width]="150" [height]="100">
+                                </div>
+                                <div  class="pointer">
+                                    <div class="icon">
+                                        <label  for="file-input4" class="select-file">
+                                            <i class="material-icons align-text-bottom select-icon">
+                                                cloud_upload
+                                            </i> <span class="select-text" >Select</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Image 4</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>
+                                <input class="select-img" id="file-input5" type="file" (change)="fileChangeEvent($event, 5)"
+                                       accept=".png, .jpg, .jpeg, .gif">
+                
+                                <div class="icon" *ngIf="image4 && shopId">
+                                    <img [src]="env.rootHost + shop.img_url + '/' + image4" [width]="150" [height]="100">
+                                </div>
+                                <div class="icon" *ngIf="image4 && !shopId">
+                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image4" [width]="150" [height]="100">
+                                </div>
+                                <div  class="pointer">
+                                    <div class="icon">
+                                        <label  for="file-input5" class="select-file">
+                                            <i class="material-icons align-text-bottom select-icon">
+                                                cloud_upload
+                                            </i> <span class="select-text" >Select</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Image 5</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>
+                                <input class="select-img" id="file-input6" type="file" (change)="fileChangeEvent($event, 6)"
+                                       accept=".png, .jpg, .jpeg, .gif">
+                
+                                <div class="icon" *ngIf="image5 && shopId">
+                                    <img [src]="env.rootHost + shop.img_url + '/' + image5" [width]="150" [height]="100">
+                                </div>
+                                <div class="icon" *ngIf="image5 && !shopId">
+                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image5" [width]="150" [height]="100">
+                                </div>
+                                <div  class="pointer">
+                                    <div class="icon">
+                                        <label  for="file-input6" class="select-file">
+                                            <i class="material-icons align-text-bottom select-icon">
+                                                cloud_upload
+                                            </i> <span class="select-text" >Select</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Connected Try List</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary float-right" (click)="openFormTry()">
+                                    <i class="material-icons align-text-bottom">
+                                        add
+                                    </i> <span>Add</span>
+                                </button>
+                            </div>
+                            <div class="col-md-12" id="myFormTry" class="modal">
+                                <div class="row modal-content">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary float-right" (click)="AddTriesMulti()">
+                                            <i class="material-icons align-text-bottom">
+                                                add
+                                            </i> <span>Add</span>
+                                        </button>
+                                    </div>
+                                    <ngx-datatable #myTable class="material col-md-12" [rows]="try" [columnMode]="'force'" [headerHeight]="50"
+                                                [footerHeight]="50"
+                                                [rowHeight]="'auto'" [count]="totalTry" [limit]="pageSize"
+                                                [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'
+                                                [selected]="selected"
+                                                [offset]="pageIndexTry-1"
+                                                [externalPaging]="true" (page)='setPageTry($event)' [externalSorting]="true" (sort)="onSortTry($event)">
+                                        <ngx-datatable-column [frozenLeft]="true" [width]="50" [sortable]="false" [canAutoResize]="false"
+                                                [draggable]="false"
+                                                [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true" [cellClass]="'text-center d-flex justify-content-center'"
+                                                [headerClass]="'text-center d-flex justify-content-center'">
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="ID" prop="cntnts_no" [width]="80" [canAutoResize]="false" [resizeable]="false" >
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span> {{row.cntnts_no}}</span>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Image" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
+                                            <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
+                                                <img class="img"
+                                                     [src]="row.file.stre_file_nm ? env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm : env.rootHost + row.file.file_cours"
+                                                     *ngIf="row.resource_type == 1 && row.file.file_cours" target="_blank"/>
+                                                <img class="img" [src]="'/assets/images/noimage.jpg'"
+                                                     alt="Review image" *ngIf="row.resource_type == 1 && !row.file.file_cours">
+                                                <a class="link" href="{{row.file.file_cours}}" *ngIf="row.resource_type == 2" target="_blank">Link</a>
+                                                <video *ngIf="row.resource_type == 3" width="160" height="120" controls muted>
+                                                    <source [src]="env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm">
+                                                </video>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Title" prop="cntnts_nm" [width]="210" [canAutoResize]="false" [resizeable]="false">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span> {{row.cntnts_nm}}</span >
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Event period" [width]="150" [canAutoResize]="false" [resizeable]="false">
+                                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                                <span> {{row.event_bgnde}} ~ {{row.event_endde}} </span>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Status" prop="count_down_type" [width]="140" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                    </ngx-datatable> 
+                                    <button type="button" class="btn cancel" (click)="closeFormTry()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <ngx-datatable #myTable class="material col-md-12" [rows]="tries_mapping" [columnMode]="'force'" [headerHeight]="50"
+                                        [footerHeight]="50"
+                                        [rowHeight]="'auto'" [count]="totalTryMapping" (page)='setPageTry($event)' [externalSorting]="true" (sort)="setPageTry($event)">
+                                
+                                <ngx-datatable-column name="ID" prop="cntnts_no" [width]="70" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
+                                <ngx-datatable-column name="Image" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
+                                    <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
+                                        <img class="img"
+                                             [src]="row.stre_file_nm ? env.rootHost + row.file_cours + '/' + row.stre_file_nm : env.rootHost + row.file_cours"
+                                             *ngIf="row.file_cours" target="_blank"/>
+                                        <img class="img" [src]="'/assets/images/noimage.jpg'"
+                                             alt="Try image" *ngIf="!row.file_cours">
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Title" prop="sj" [width]="210" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <span> {{row.sj}}</span >
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Event period" [width]="150" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <span> {{row.event_bgnde}} ~ {{row.event_endde}} </span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column [width]="150" name="Action" [sortable]="false" [canAutoResize]="false" [resizeable]="false">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <mat-chip-list class="action">
+                                            <button class="btn btn-dark" (click)="onDelete([row])" title="Delete">
+                                                Del
+                                            </button>
+                                        </mat-chip-list>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Contact History</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                                <textarea class="form-control" [(ngModel)]="shop.contact_history"
+                                          formControlName="contact_history" name="contact_history"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions d-flex justify-content-end col-md-8">
+            <button class="btn btn-default mr-1" (click)="goBack()">
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" [disabled]="!form.valid"
+                    (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>

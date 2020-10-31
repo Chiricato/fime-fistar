@@ -9,18 +9,25 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { AdminResourceComponent } from '../resource/resource.component';
+import {FileUploader} from 'ng2-file-upload';
+
+const URL = environment.host + '/uploads';
 
 @Component({
-    selector: 'app-admin-brand-dialog',
-    templateUrl: './brand-dialog.component.html',
-    styleUrls: ['./brand-dialog.component.scss']
+    selector: 'app-admin-field-dialog',
+    templateUrl: './field-dialog.component.html',
+    styleUrls: ['./field-dialog.component.scss']
 })
-export class AdminBrandDialogComponent implements OnInit {
+export class AdminFieldDialogComponent implements OnInit {
     @ViewChild('resource') public resource: AdminResourceComponent;
     public env: any;
     public form: any;
-    public brand: any;
+    public field: any;
     public onClose: Subject<boolean>;
+    public type = 0;
+    public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'category'});
+    public fileBase64: any;
+    public activeImages = '';
 
     constructor(
         private api: Restangular,
@@ -33,33 +40,23 @@ export class AdminBrandDialogComponent implements OnInit {
         this.onClose = new Subject();
 
         this.form = new FormGroup({
-            name: new FormControl(this.brand.code_nm, [Validators.required])
+            name: new FormControl(this.field.name, [Validators.required])
         });
     }
 
     save() {
-        if (!this.resource.isChanged) {
-            this.onSave();
-        } else {
-            this.resource.onSave((response) => {
-                const name = response.name.split('.');
-                const originalName = name[0] + '_ORIGINAL.' + name[1];
-                this.brand.file = response.url + '/' + originalName;
-                this.brand.resource_type = response.resource_type;
-                this.onSave();
-            });
-        }
+        this.onSave();
     }
 
     onSave() {
-        if (this.brand.code) {
+        if (this.field.id) {
             this.api
-                .one('brands', this.brand.code)
-                .customPUT(this.brand)
+                .one('field', this.field.id)
+                .customPUT(this.field)
                 .subscribe(res => {
                     if (res.result) {
                         this.toast.success(
-                            'Brand has been updated successfully.'
+                            'Field has been updated successfully.'
                         );
                         this.onClose.next(true);
                         this.bsModalRef.hide();
@@ -67,12 +64,12 @@ export class AdminBrandDialogComponent implements OnInit {
                 });
         } else {
             this.api
-                .all('brands')
-                .post(this.brand)
+                .all('field')
+                .post(this.field)
                 .subscribe(res => {
                     if (res.result) {
                         this.toast.success(
-                            'Brand has been created successfully.'
+                            'Field has been created successfully.'
                         );
                         this.onClose.next(true);
                         this.bsModalRef.hide();

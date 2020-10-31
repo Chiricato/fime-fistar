@@ -102,6 +102,9 @@ import { AdminCampaignSearchFistarComponent } from './admin/softone/campaign/cam
 import { AdminCampaignReviewDmncComponent } from './admin/softone/campaign/review/admin-detail/review-admin.component';
 import { AdminReviewReportComponent } from './admin/review-report/review-report.component';
 //-----------------------------------------------end softone-------------------------------------------------------------------
+import { AdminFieldComponent } from './admin/field/field.component';
+import { AdminShopComponent } from './admin/shop/shop.component';
+import { AdminShopDetailsComponent } from './admin/shop-details/shop-details.component';
 const appRoutes: Routes = [
     // User route here
     {
@@ -287,11 +290,15 @@ const appRoutes: Routes = [
             { path: 'event', component: AdminEventLogComponent},
             { path: 'event/edit/:id', component: AdminPointEventAddComponent},
             { path: 'event/add', component: AdminPointEventAddComponent},
-            { path: 'event/detail/:id', component: AdminPointEventDetailsComponent}
+            { path: 'event/detail/:id', component: AdminPointEventDetailsComponent},
+            { path: 'fields', component: AdminFieldComponent },
+            { path: 'shops', component: AdminShopComponent },
+            { path: 'shop/detail/:id', component: AdminShopDetailsComponent },
+            { path: 'shop/add', component: AdminShopDetailsComponent},
         ]
     },
     // otherwise redirect to home
-    { path: '**', redirectTo: '/admin/try' }
+    { path: '**', redirectTo: '/admin' }
 ];
 
 export const Routing = RouterModule.forRoot(appRoutes);

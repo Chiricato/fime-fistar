@@ -1,0 +1,160 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col">
+            <div class="admin-heading">
+                Local Shop List
+            </div>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary float-right" routerLink="/admin/shop/add"> <span>Add New Shop</span>
+            </button>
+            
+        </div>
+    </div>
+    <mat-card class="search-control">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Shop Name  or Address</label>
+                    <div>
+                        <mat-radio-group [(ngModel)]="filter.type">
+                            <mat-radio-button checked value="name" style="margin-right: 10px">Shop Name</mat-radio-button>
+                            <mat-radio-button value="address">Address</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.key">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Status</label>
+                    <div>
+                        <mat-checkbox [(ngModel)]="filter.enable" value="1">Enable</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.disable" value="1">Disable</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.pending" value="1">Pending</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Period</label>
+                    <div>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="from" placeholder="From" [(ngModel)]="filter.from"
+                                   [max]="filter.to">
+                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                            <mat-datepicker #from></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="to" placeholder="To" [(ngModel)]="filter.to"
+                                   [min]="filter.from">
+                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                            <mat-datepicker #to></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div >
+                    <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
+                        search
+                    </i> <span>Search</span></button>
+                    <button class="btn btn-default mr-1" (click)="onReset()"><i class="material-icons align-text-bottom">
+                        replay
+                    </i> <span>Reset</span></button>
+                </div>
+            </div>
+            
+        </div>
+    </mat-card>
+
+    <ngx-datatable #myTable class="material" [rows]="shops" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50"
+                   [count]="total" [offset]="pageIndex-1" [limit]="pageSize" [externalPaging]="true"
+                   (page)='setPage($event)'
+                   [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+                   [selected]="selected"
+                   [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
+        <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" ></ngx-datatable-column>
+        <ngx-datatable-column name="Shop Name" prop="name" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.name}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Image file name" prop="image" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Street" prop="street" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Field 1" prop="field_name_1" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Field 2" prop="field_name_2" [resizeable]="false"></ngx-datatable-column>
+        <ngx-datatable-column name="Fime Try" prop="tries" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="!row.tries">0</span>
+                <span *ngIf="row.tries">{{row.tries}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Status" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.status == 0">Pending</span>
+                <span *ngIf="row.status == 1">Enable</span>
+                <span *ngIf="row.status == 2">Disable</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Regist date" prop="created_at" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.created_at | date : 'yyyy/MM/dd' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Last Updated" prop="updated_at" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.updated_at | date : 'yyyy/MM/dd HH:mm' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <button mat-icon-button [matMenuTriggerFor]="userActions">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #userActions="matMenu">
+                    <button mat-menu-item [routerLink]="['/admin/shop/detail', row.id]" class="datatable-action-button">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item [swal]="disableSwal"
+                            *ngIf="row.status == 1 || row.status == 0" (confirm)="onToggle([row], 2)" class="datatable-action-button">
+                        <mat-icon>visibility_off</mat-icon>
+                        <span>Disable</span>
+                    </button>
+                    <button mat-menu-item [swal]="enableSwal"
+                            *ngIf="row.status == 2 || row.status == 0" (confirm)="onToggle([row], 1)" class="datatable-action-button">
+                        <mat-icon>visibility</mat-icon>
+                        <span>Enable</span>
+                    </button>
+                    <button mat-menu-item [swal]="deleteSwal" (confirm)="onDelete([row])" class="datatable-action-button">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </mat-menu>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+    <select (change)="changePageLimit($event.target.value)" class="page-limit">
+        <option
+          *ngFor="let option of pageLimitOptions"
+          [value]="option.value"
+          [selected]="option.value == pageSize"
+        >
+          {{option.value}} per page
+        </option>
+      </select>
+  
+</div>
+
+<swal #enableSwal text="Are you sure to enable shop?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #disableSwal text="Are you sure to disable shop?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #deleteSwal text="Are you sure to delete shop?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
