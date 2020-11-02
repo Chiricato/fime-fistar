@@ -1,0 +1,95 @@
+<div class="component-admin-banner">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading" *ngIf="!bannerId">
+                {{ "create_banner" | translate }} Shop
+            </div>
+            <div class="admin-heading" *ngIf="bannerId">
+                {{ "edit_banner" | translate }} Shop
+            </div>
+            <div>
+                <button class="btn btn-default" routerLink="/admin/bannershop"><i class="material-icons align-text-bottom">
+                    arrow_back
+                </i> <span>Back</span></button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Type</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <select class='form-control' [(ngModel)]="banner.type" formControlName="type" name="type">
+                                    <option value="1">Home 1</option>
+                                    <option value="2">Home 2</option>
+                                    <option value="3">Home 3</option>
+                                    <option value="4">Home 4</option>
+                                    <option value="5">Product 1</option>
+                                    <option value="6">Product 2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>{{ "url" | translate }}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter url"
+                                       [(ngModel)]="banner.target_url"
+                                       formControlName="target_url" name="target_url"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Target type</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <select class='form-control' [(ngModel)]="banner.target_type" formControlName="target_type" name="target_type">
+                                    <option value="_blank">_blank</option>
+                                    <option value="_self">_self</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Cover image</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <app-admin-resource #resource
+                                                    [resource]="{ url: banner.url, resource_type: 1 }"
+                                                    [resizeToWidth]="1920" [aspectRatio]="19/6" [needToCrop]="false"></app-admin-resource>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions d-flex justify-content-end col-md-8">
+            <button class="btn btn-default mr-1" routerLink="/admin/banners">
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" [disabled]="!form.valid"
+                    (click)="save()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>
