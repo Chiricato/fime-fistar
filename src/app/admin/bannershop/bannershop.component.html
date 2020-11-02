@@ -93,12 +93,17 @@
                 <span *ngIf="row.type == 6">Product 2</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Url" prop="url" [sortable]="false" [canAutoResize]="false">
+        <ngx-datatable-column name="Url" prop="url" [sortable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <a class="link" href="{{row.target_url}}" *ngIf="row.target_url" target="_blank">{{row.target_url}}</a>
             </ng-template>
         </ngx-datatable-column>
-
+        <ngx-datatable-column name="Status" prop="is_disabled" [sortable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="!row.is_disabled">Enable</span>
+                <span *ngIf="row.is_disabled2">Disable</span>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column name="Updated At" prop="event_bgnde">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>{{ row.updated_at | date : 'yyyy/MM/dd HH:mm' }}</span>

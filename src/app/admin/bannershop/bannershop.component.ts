@@ -81,7 +81,7 @@ export class AdminBannerShopComponent implements OnInit {
     onToggle(rows, togggle) {
         const ids = _.map(rows, 'id');
 
-        this.api.all('banners').customPUT({ ids: ids, toggle: togggle }, 'toggle').subscribe(res => {
+        this.api.all('bannershop').customPUT({ ids: ids, toggle: togggle }, 'toggle').subscribe(res => {
             if (res.result) {
                 for (const row of rows) {
                     row.is_disabled = togggle;
@@ -100,7 +100,7 @@ export class AdminBannerShopComponent implements OnInit {
     onDelete(rows) {
         const ids = _.map(rows, 'id');
 
-        this.api.all('banners').customPOST({ ids: ids }, 'deleteMulti').subscribe(res => {
+        this.api.all('bannershop').customPOST({ ids: ids }, 'deleteMulti').subscribe(res => {
             if (res.result) {
                 this.getBanners();
                 this.toast.success('The banner has been deleted');
