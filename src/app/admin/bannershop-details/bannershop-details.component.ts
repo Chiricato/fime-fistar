@@ -65,7 +65,7 @@ export class AdminBannerShopDetailsComponent implements OnInit {
 
     getBanner() {
         this.api
-            .one('banners', this.bannerId)
+            .one('bannershop', this.bannerId)
             .get()
             .subscribe(res => {
                 this.banner = res.result;
