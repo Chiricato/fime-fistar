@@ -57,7 +57,10 @@ export class AdminBrandDialogComponent implements OnInit {
             this.onSave();
         } else {
             this.resource.onSave((response) => {
-                this.brand.file = response.url + '/' + response.name;
+                const name = response.name.split('.');
+                const originalName = name[0] + '_ORIGINAL.' + name[1];
+                this.brand.file = response.url + '/' + originalName;
+                this.brand.resource_type = response.resource_type;
                 this.onSave();
             });
         }

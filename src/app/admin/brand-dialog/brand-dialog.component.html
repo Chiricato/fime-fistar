@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label>Cover Image</label>
-                    <app-admin-resource #resource [resource]="{ url: brand.file}" [resizeToWidth]="1400"
+                    <app-admin-resource #resource [resource]="{ url: brand.file, resource_type: brand.resource_type}" [resizeToWidth]="1400"
                         [aspectRatio]="14/3.8"></app-admin-resource>
                     <!-- <div *ngIf="isSubmitted && invalidMainImage" class="text-danger">
                         Cover image is require
