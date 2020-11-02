@@ -94,7 +94,7 @@ export class AdminBannerShopDetailsComponent implements OnInit {
                 .subscribe(res => {
                     if (res.result) {
                         this.toast.success('Update banner successfully');
-                        this.router.navigate(['/admin/banners']);
+                        this.router.navigate(['/admin/bannershop']);
                     }
                 });
         } else {
@@ -104,7 +104,7 @@ export class AdminBannerShopDetailsComponent implements OnInit {
                 .subscribe(res => {
                     if (res.result) {
                         this.toast.success('Add banner successfully');
-                        this.router.navigate(['/admin/banners']);
+                        this.router.navigate(['/admin/bannershop']);
                     }
                 });
         }
