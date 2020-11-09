@@ -35,23 +35,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Address <span style="color: red">(*)</span></label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter address" [(ngModel)]="shop.address"
-                                   formControlName="address" name="address"/>
-                            <div *ngIf="form.controls.address.invalid && (form.controls.address.dirty || form.controls.address.touched)"
-                                 class="text-danger">
-                                <div *ngIf="form.controls.address.errors.required">
-                                    Address is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-3">
@@ -135,7 +118,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <ng-select [items]="streets" [(ngModel)]="shop.street_id" bindValue="id" bindLabel="name"
-                                       formControlName="street_id" name="street_id" [virtualScroll]="true">
+                                       formControlName="street_id" name="street_id" [virtualScroll]="true" (change)="changeStreet($event)">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span>{{ item.name }}</span>
                                 </ng-template>
@@ -153,17 +136,23 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-3">
-                                <label>City</label>
+                                <label>City <span style="color: red">(*)</span></label>
                             </div>
                             <div class="col-md-9">
 
                                 <div class="form-group">
                                     <ng-select [items]="cities" [(ngModel)]="shop.city_id" bindValue="id" bindLabel="name"
-                                               formControlName="city_id" name="city_id" [virtualScroll]="true" (change)="changeCity()">
+                                               formControlName="city_id" name="city_id" [virtualScroll]="true" (change)="changeCity($event)">
                                         <ng-template ng-option-tmp let-item="item" let-index="index">
                                             <span>{{ item.name }}</span>
                                         </ng-template>
                                     </ng-select>
+                                    <div *ngIf="form.controls.city_id.invalid && (form.controls.city_id.dirty || form.controls.city_id.touched)"
+                                         class="text-danger">
+                                        <div *ngIf="form.controls.city_id.errors.required">
+                                            City is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -171,16 +160,22 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-3">
-                                <label>District</label>
+                                <label>District <span style="color: red">(*)</span></label>
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <ng-select [items]="states" [(ngModel)]="shop.district_id" bindValue="id" bindLabel="name"
-                                               formControlName="district_id" name="district_id" [virtualScroll]="true" (change)="changeDistrict()">
+                                               formControlName="district_id" name="district_id" [virtualScroll]="true" (change)="changeDistrict($event)">
                                         <ng-template ng-option-tmp let-item="item" let-index="index" >
                                             <span>{{ item.name }}</span>
                                         </ng-template>
                                     </ng-select>
+                                    <div *ngIf="form.controls.district_id.invalid && (form.controls.district_id.dirty || form.controls.district_id.touched)"
+                                         class="text-danger">
+                                        <div *ngIf="form.controls.district_id.errors.required">
+                                            District is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -190,17 +185,23 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-3">
-                                <label>Ward</label>
+                                <label>Ward <span style="color: red">(*)</span></label>
                             </div>
                             <div class="col-md-9">
 
                                 <div class="form-group">
                                     <ng-select [items]="wards" [(ngModel)]="shop.ward_id" bindValue="id" bindLabel="name"
-                                               formControlName="ward_id" name="ward_id" [virtualScroll]="true">
+                                               formControlName="ward_id" name="ward_id" [virtualScroll]="true" (change)="changeWard($event)">
                                         <ng-template ng-option-tmp let-item="item" let-index="index">
                                             <span>{{ item.name }}</span>
                                         </ng-template>
                                     </ng-select>
+                                    <div *ngIf="form.controls.ward_id.invalid && (form.controls.ward_id.dirty || form.controls.ward_id.touched)"
+                                         class="text-danger">
+                                        <div *ngIf="form.controls.ward_id.errors.required">
+                                            Ward is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -214,6 +215,34 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Enter Image file name" [(ngModel)]="shop.image"
                                            formControlName="image" name="image"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Address <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter address" [(ngModel)]="shop.address"
+                                   formControlName="address" name="address"/>
+                               <div class="input-group-append">
+                                   <span class="input-group-text">
+                                       <span *ngIf="street_name != ''">{{street_name}}, </span>
+                                       <span *ngIf="ward_name != ''">{{ward_name}}, </span>
+                                       <span *ngIf="state_name != ''">{{state_name}}, </span>
+                                       <span *ngIf="city_name != ''">{{city_name}}</span>
+                                   </span>
+                                </div>
+                            </div>
+                            
+                            <div *ngIf="form.controls.address.invalid && (form.controls.address.dirty || form.controls.address.touched)"
+                                 class="text-danger">
+                                <div *ngIf="form.controls.address.errors.required">
+                                    Address is required
                                 </div>
                             </div>
                         </div>
