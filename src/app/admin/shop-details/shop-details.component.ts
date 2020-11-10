@@ -159,9 +159,28 @@ export class AdminShopDetailsComponent implements OnInit {
                 this.image4 = this.shop.image4;
                 this.image5 = this.shop.image5;
                 this.list_id_tries_mapping = this.shop.tries;
+                this.city_name =this.shop.city_name;
+                this.state_name = this.shop.state_name;
+                this.ward_name = this.shop.ward_name;
+                if(this.shop.city_id){
+                    this.api.all('state/'+this.shop.city_id).customGET('').subscribe(res => {
+                        this.states = res.result;
+                    });
+                }else{
+                    this.states = [];
+                }
+
+                if(this.shop.district_id){
+                    this.api.all('ward/'+this.shop.district_id).customGET('').subscribe(res => {
+                        this.wards = res.result;
+                    });
+                }else{
+                    this.wards = [];
+                }
                 
             });
         this.getTryMapping();
+
     }
 
     getTryMapping() {
