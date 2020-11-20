@@ -105,6 +105,8 @@ import { AdminReviewReportComponent } from './admin/review-report/review-report.
 import { AdminFieldComponent } from './admin/field/field.component';
 import { AdminShopComponent } from './admin/shop/shop.component';
 import { AdminShopDetailsComponent } from './admin/shop-details/shop-details.component';
+import { AdminBannerShopComponent } from './admin/bannershop/bannershop.component';
+import { AdminBannerShopDetailsComponent } from './admin/bannershop-details/bannershop-details.component';
 const appRoutes: Routes = [
     // User route here
     {
@@ -295,6 +297,9 @@ const appRoutes: Routes = [
             { path: 'shops', component: AdminShopComponent },
             { path: 'shop/detail/:id', component: AdminShopDetailsComponent },
             { path: 'shop/add', component: AdminShopDetailsComponent},
+            { path: 'bannershop', component: AdminBannerShopComponent },
+            { path: 'bannershop/add', component: AdminBannerShopDetailsComponent },
+            { path: 'bannershop/edit/:id', component: AdminBannerShopDetailsComponent },
         ]
     },
     // otherwise redirect to home

@@ -66,6 +66,10 @@
                 <mat-icon class="sidenav-icon">photo</mat-icon>
                 <span>{{ 'BANNER SLIDER' | translate }}</span>
             </a>
+            <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/bannershop']">
+                <mat-icon class="sidenav-icon">photo</mat-icon>
+                <span>BANNER SHOP</span>
+            </a>
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/tips']">
                 <mat-icon class="sidenav-icon">photo_library</mat-icon>
                 <span>{{ 'TIPS' | translate }}</span>

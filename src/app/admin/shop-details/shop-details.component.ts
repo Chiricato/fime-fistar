@@ -37,6 +37,10 @@ export class AdminShopDetailsComponent implements OnInit {
     public streets: any;
     public states: any;
     public wards: any;
+    public city_name = "";
+    public state_name = "";
+    public ward_name = "";
+    street_name = "";
     public env: any;
     public form: any;
     public shopId: any;
@@ -113,9 +117,9 @@ export class AdminShopDetailsComponent implements OnInit {
             field_1: new FormControl(this.shop.field_1, [Validators.required]),
             field_2: new FormControl(this.shop.field_2, [Validators.required]),
             street_id: new FormControl(this.shop.street_id, [Validators.required]),
-            city_id: new FormControl(this.shop.city_id, []),
-            district_id: new FormControl(this.shop.district_id, []),
-            ward_id: new FormControl(this.shop.ward_id, []),
+            city_id: new FormControl(this.shop.city_id, [Validators.required]),
+            district_id: new FormControl(this.shop.district_id, [Validators.required]),
+            ward_id: new FormControl(this.shop.ward_id, [Validators.required]),
             image: new FormControl(this.shop.image, []),
             email: new FormControl(this.shop.email, []),
             facebook_link: new FormControl(this.shop.facebook_link, []),
@@ -155,9 +159,28 @@ export class AdminShopDetailsComponent implements OnInit {
                 this.image4 = this.shop.image4;
                 this.image5 = this.shop.image5;
                 this.list_id_tries_mapping = this.shop.tries;
+                this.city_name =this.shop.city_name;
+                this.state_name = this.shop.state_name;
+                this.ward_name = this.shop.ward_name;
+                if(this.shop.city_id){
+                    this.api.all('state/'+this.shop.city_id).customGET('').subscribe(res => {
+                        this.states = res.result;
+                    });
+                }else{
+                    this.states = [];
+                }
+
+                if(this.shop.district_id){
+                    this.api.all('ward/'+this.shop.district_id).customGET('').subscribe(res => {
+                        this.wards = res.result;
+                    });
+                }else{
+                    this.wards = [];
+                }
                 
             });
         this.getTryMapping();
+
     }
 
     getTryMapping() {
@@ -211,7 +234,8 @@ export class AdminShopDetailsComponent implements OnInit {
             this.fields = res.result;
         });
     }
-    changeCity() {
+    changeCity(event) {
+        this.city_name = event.name;
         if(this.shop.city_id){
             this.api.all('state/'+this.shop.city_id).customGET('').subscribe(res => {
                 this.states = res.result;
@@ -221,7 +245,16 @@ export class AdminShopDetailsComponent implements OnInit {
         }
         
     }
-    changeDistrict() {
+    changeWard(event) {
+        this.ward_name = event.name;
+        
+    }
+    changeStreet(event) {
+        this.street_name = event.name;
+        
+    }
+    changeDistrict(event) {
+        this.state_name = event.name;
         if(this.shop.district_id){
             this.api.all('ward/'+this.shop.district_id).customGET('').subscribe(res => {
                 this.wards = res.result;
