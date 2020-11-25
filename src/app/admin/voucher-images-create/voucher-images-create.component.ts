@@ -50,6 +50,9 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
         private toast: ToastrService,
         public modalService: BsModalService
     ) { }
+    handleChange($event: ColorEvent) {
+        this.form.controls.text_color.value = "rgba(" + $event.color.rgb.r + ", " + $event.color.rgb.g + ", " + $event.color.rgb.b + ", " + $event.color.rgb.a + ")";
+      }
 
     ngOnInit() {
         this.env = environment;
@@ -79,10 +82,6 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
         });
 
     }
-    handleChange($event: ColorEvent) {
-        console.log($event.color.rgb);
-        this.form.controls.text_color.value = "rgba(" + $event.color.rgb.r + ", " + $event.color.rgb.g + ", " + $event.color.rgb.b + ", " + $event.color.rgb.a + ")";
-      }
     
     previewVoucher() {
         this.voucherOb = {
@@ -97,7 +96,6 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
             series_header: this.form.controls.series_header.value,
             zip_name: '',
         }
-        console.log(this.voucherOb);
         const initialState = {
             voucher: _.cloneDeep(this.voucherOb)
         };
