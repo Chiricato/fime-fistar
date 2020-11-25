@@ -1,0 +1,156 @@
+<div class="component-admin-banner">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading" *ngIf="!bannerId">
+                Create Voucher Images
+            </div>
+            <div class="admin-heading" *ngIf="bannerId">
+                {{ "edit_banner" | translate }}
+            </div>
+            <div>
+                <button class="btn btn-default" routerLink="/admin/banners"><i class="material-icons align-text-bottom">
+                        arrow_back
+                    </i> <span>Back</span></button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>PARTNER NAME </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter partner name "
+                                    formControlName="partner_name" name="partner_name" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>VOUCHER TITLE</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter voucher title"
+                                    maxlength="255" rows="4" formControlName="voucher_title" name="voucher_title" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>VALID UNTIL</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group period">
+                                <div class="from">
+                                    <mat-form-field>
+                                        <mat-datepicker-toggle [for]="vaild_date" matSuffix></mat-datepicker-toggle>
+                                        <mat-datepicker #vaild_date type="datetime" openOnFocus="true" timeInterval="5">
+                                        </mat-datepicker>
+                                        <input matInput class="form-control" formControlName="vaild_date"
+                                            [(ngModel)]="voucher.vaild_date" [matDatepicker]="vaild_date" required
+                                            autocomplete="false" placeholder="From">
+                                    </mat-form-field>
+                                    <div *ngIf="form.controls.vaild_date.invalid && (form.controls.vaild_date.dirty || form.controls.vaild_date.touched)"
+                                        class="text-danger">
+                                        <div *ngIf="form.controls.vaild_date.errors.required">
+                                            Vaild date is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <label>Category</label>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <div>
+                                    <mat-radio-group formControlName="code_group" required>
+                                        <mat-radio-button value="407">Beauty</mat-radio-button>
+                                        <mat-radio-button value="412" style="margin-left: 20px;">Fashion</mat-radio-button>
+                                        <mat-radio-button value="420" style="margin-left: 20px;">Food</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>SERIAL HEADER </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter series header" formControlName="series_header"
+                                    name="series_header" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>SERIAL NUMBER</label>
+                        </div>
+                        <div class="col-md-9">
+                            <mat-form-field appearance="fill">
+                              <mat-label>From</mat-label>
+                              <input matInput formControlName="series_number_from" required type="number" required>
+                              <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" style="margin-left: 20px;">
+                              <mat-label>To</mat-label>
+                              <input matInput formControlName="series_number_to" required type="number" required>
+                              <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>ĐIỀU KIỆN ÁP DỤNG</label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <!-- <textarea type="text" class="form-control" formControlName="conditions_apply"
+                                    name="conditions_apply"></textarea> -->
+                                    <ck-editor skin="moono-lisa" language="en" [fullPage]="true"
+                                               formControlName="conditions_apply" name="conditions_apply" required></ck-editor>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>BACKGROUND COLOR </label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <color-sketch (onChange)="handleChange($event)"></color-sketch>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="my-node">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions d-flex justify-content-end col-md-8">
+            <button class="btn btn-default mr-1" routerLink="/voucher-images">
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" (click)="previewVoucher()" [disabled]="!form.valid">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> Preview Voucher</span>
+            </button>
+        </div>
+    </form>
+</div>

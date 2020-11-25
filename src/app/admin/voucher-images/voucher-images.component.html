@@ -1,10 +1,10 @@
 <div class="component-admin-brand">
     <div class="row">
         <div class="col">
-            <div class="admin-heading">Brands</div>
+            <div class="admin-heading">Voucher Image</div>
         </div>
         <div class="col">
-            <button class="btn btn-primary float-right" (click)="addBrand()">
+            <button class="btn btn-primary float-right" routerLink="/admin/voucher-images-create">
                 <i class="material-icons align-text-bottom">
                     add
                 </i> <span>Add</span>
@@ -17,32 +17,35 @@
             <div class="col-12 d-flex justify-content-between">
                 <div class="form-group">
                     <mat-form-field class="full-width">
-                        <input matInput placeholder="Brand name " [(ngModel)]="filter.name">
+                        <input matInput placeholder="Vouchers name " [(ngModel)]="filter.partner_name">
                     </mat-form-field>
                 </div>
                 <div>
-                    <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
-                        search
-                    </i> <span>Search</span></button>
+                    <button class="btn btn-primary mr-1" (click)="onSearch()"><i
+                            class="material-icons align-text-bottom">
+                            search
+                        </i> <span>Search</span></button>
                     <button class="btn btn-default" (click)="onReset()"><i class="material-icons align-text-bottom">
-                        replay
-                    </i> <span>Reset</span></button>
+                            replay
+                        </i> <span>Reset</span></button>
                 </div>
             </div>
         </div>
     </mat-card>
 
-    <ngx-datatable #myTable class="material" [rows]="brands" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-                   [rowHeight]="'auto'" [count]="brands.length" [limit]="10" [offset]="offset">
-        <ngx-datatable-column name="Name" prop="code_nm"></ngx-datatable-column>
-        <!-- <ngx-datatable-column name="Category" prop="category_brand">
+    <ngx-datatable #myTable class="material" [rows]="vouchers" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="'auto'" [count]="vouchers.length" [limit]="10">
+        <ngx-datatable-column name="Partner Name" prop="partner_name"></ngx-datatable-column>
+        <ngx-datatable-column name="Zip Name" prop="zip_name"></ngx-datatable-column>
+        <ngx-datatable-column name="Category" prop="code_group">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <span *ngIf="row.category_brand == 407">Beauty</span>
-                <span *ngIf="row.category_brand == 412">Fashion</span>
-                <span *ngIf="row.category_brand == 420">Food</span>
+                <span *ngIf="row.code_group == 407">Beauty</span>
+                <span *ngIf="row.code_group == 412">Fashion</span>
+                <span *ngIf="row.code_group == 420">Food</span>
             </ng-template>
-        </ngx-datatable-column> -->
-        <ngx-datatable-column [width]="150" name="Action" [sortable]="false" class="action-column" headerClass="action" [canAutoResize]="false" [resizeable]="false">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Download Date" prop="created_at"></ngx-datatable-column>
+        <!-- <ngx-datatable-column [width]="150" name="Action" [sortable]="false" class="action-column" headerClass="action" [canAutoResize]="false" [resizeable]="false">
             <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">>
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <button mat-icon-button [matMenuTriggerFor]="userActions">
@@ -61,8 +64,9 @@
                 </ng-template>
             </ngx-datatable-column>
 
-        </ngx-datatable-column>
+        </ngx-datatable-column> -->
     </ngx-datatable>
 </div>
 
-<swal #deleteSwal text="Are you sure to delete brand?" type="question" [showCancelButton]="true" [focusCancel]="true"></swal>
+<swal #deleteSwal text="Are you sure to delete vouchers?" type="question" [showCancelButton]="true"
+    [focusCancel]="true"></swal>

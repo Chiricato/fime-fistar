@@ -107,6 +107,10 @@ import { AdminShopComponent } from './admin/shop/shop.component';
 import { AdminShopDetailsComponent } from './admin/shop-details/shop-details.component';
 import { AdminBannerShopComponent } from './admin/bannershop/bannershop.component';
 import { AdminBannerShopDetailsComponent } from './admin/bannershop-details/bannershop-details.component';
+import { AdminQaSubCategoryComponent } from './admin/qa-sub-category/qa-sub-category.component';
+import { AdminQuestionComponent } from './admin/question/question.component';
+import { AdminVoucherImagesComponent } from './admin/voucher-images/voucher-images.component';
+import { AdminVoucherImagesCreateComponent } from './admin/voucher-images-create/voucher-images-create.component';
 const appRoutes: Routes = [
     // User route here
     {
@@ -300,6 +304,10 @@ const appRoutes: Routes = [
             { path: 'bannershop', component: AdminBannerShopComponent },
             { path: 'bannershop/add', component: AdminBannerShopDetailsComponent },
             { path: 'bannershop/edit/:id', component: AdminBannerShopDetailsComponent },
+            { path: 'qa-sub-category', component: AdminQaSubCategoryComponent },
+            { path: 'question', component: AdminQuestionComponent },
+            { path: 'voucher-images', component: AdminVoucherImagesComponent },
+            { path: 'voucher-images-create', component: AdminVoucherImagesCreateComponent },
         ]
     },
     // otherwise redirect to home
