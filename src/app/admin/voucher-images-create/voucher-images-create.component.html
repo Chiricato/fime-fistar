@@ -102,12 +102,12 @@
                         <div class="col-md-9">
                             <mat-form-field appearance="fill">
                               <mat-label>From</mat-label>
-                              <input matInput formControlName="series_number_from" required type="number" required>
+                              <input matInput formControlName="series_number_from" required type="number" min="1" required>
                               <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                             </mat-form-field>
                             <mat-form-field appearance="fill" style="margin-left: 20px;">
                               <mat-label>To</mat-label>
-                              <input matInput formControlName="series_number_to" required type="number" required>
+                              <input matInput formControlName="series_number_to" required type="number" min="2" required>
                               <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                             </mat-form-field>
                         </div>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <color-sketch (onChange)="handleChange($event)"></color-sketch>
+                                <color-sketch color="#fff" (onChange)="handleChange($event)"></color-sketch>
                             </div>
                         </div>
                     </div>

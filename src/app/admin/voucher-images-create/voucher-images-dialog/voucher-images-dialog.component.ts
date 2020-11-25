@@ -9,7 +9,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Subject } from 'rxjs';
 import { AdminResourceComponent } from '../../resource/resource.component';
-import { FileUploader } from 'ng2-file-upload';
 import html2canvas from 'html2canvas';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver';
@@ -33,7 +32,6 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
     public voucher: any;
     public onClose: Subject<boolean>;
     public type = 0;
-    public uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'category' });
     public fileBase64: any;
     public activeImages = '';
     public code: any;
@@ -61,7 +59,6 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
             this.code = this.code_header + this.voucher.series_number_from;
             this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-0' + this.voucher.series_number_to + '.zip';
         }
-        console.log(this.zip_name);
         this.voucher.zip_name = this.zip_name
         this.voucherForm = new FormGroup({
             partner_name: new FormControl(this.voucher.partner_nam),
@@ -73,18 +70,11 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
             vaild_date: new FormControl(this.voucher.vaild_date),
             zip_name: new FormControl(this.voucher.zip_name),
         });
-        console.log(this.voucherForm);
-        this.uploader.onAfterAddingFile = (file) => {
-            file.withCredentials = false;
-        };
         document.getElementById('export-voucher').style.backgroundColor = this.voucher.text_color;
-        // for (let index = 1; index <= 3; index++) {
-        // }
     }
 
 
     onSave() {
-        console.log(this.voucher);
         this.api
             .all('add-voucher-image')
             .post(this.voucher)
@@ -133,10 +123,8 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
                 img.file(this.voucher.series_header + '0' + (i + this.voucher.series_number_from) + ".png", item, { base64: true });
             }
         });
-        console.log(seri, '1')
         zip.generateAsync({ type: "blob" })
             .then(function (content) {
-                console.log(seri, '2');
                 // see FileSaver.js
                 saveAs(content, seri);
             });
