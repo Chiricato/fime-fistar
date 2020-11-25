@@ -44,6 +44,7 @@ export class AdminBrandDialogComponent implements OnInit {
             // category_brand: new FormControl(this.brand.category_brand, [Validators.required]),
             code_dc: new FormControl(this.brand.code_dc, [])
         });
+        console.log(this.brand);
         this.uploader.onAfterAddingFile = (file) => {
             file.withCredentials = false;
         };

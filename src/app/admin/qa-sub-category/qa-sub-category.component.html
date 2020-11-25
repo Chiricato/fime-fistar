@@ -1,0 +1,42 @@
+<div class="component-admin-category">
+    <div class="row">
+        <div class="col">
+            <div class="admin-heading">Q&A Sub Category</div>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary float-right"  (click)="addCategory()">
+                <i class="material-icons align-text-bottom">
+                    add
+                </i> <span>Add</span>
+            </button>
+        </div>
+    </div>
+
+    <ngx-datatable #myTable class="material" [rows]="categories" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50" [rowHeight]="'auto'" [count]="categories.length" [limit]="10">
+        <ngx-datatable-column name="ID" prop="id"></ngx-datatable-column>
+        <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+        <ngx-datatable-column name="Category" prop="code_group">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.code_group === '407'">Beauty</span>
+                <span *ngIf="row.code_group === '412'">Fashion</span>
+                <span *ngIf="row.code_group === '420'">Food</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [width]="150" name="Action" [sortable]="false" [canAutoResize]="false" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <mat-chip-list class="action">
+                    <i class="material-icons" (click)="editCategory(row)" title="Edit">
+                        edit
+                    </i>
+                    <i class="material-icons" [swal]="deleteSwal" (confirm)="onDelete(row)" title="Delete">
+                        delete
+                    </i>
+                </mat-chip-list>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+
+<swal #deleteSwal text="Are you sure to delete category?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>

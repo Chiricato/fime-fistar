@@ -1,0 +1,127 @@
+@import "~scss/mixins";
+@import "~scss/variables";
+@import "~scss/font_imports";
+::ng-deep {
+    .modal-dialog {
+        width: 450px;
+        .modal-content {
+            padding: 0;
+        }
+    }
+}
+.admin-voucher-dialog {
+    // padding: 20px;
+    .voucher-form {
+        .voucher-container {
+            padding: 20px;
+            .voucher-content {
+                .pointer {
+                    border: 2px solid #aaaaaa;
+                    height: 150px;
+                    font-size: 36px;
+                    padding: 35px 0;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    background: white;
+                }
+                .code-wrap {
+                    padding: 0 0 0 20px;
+                    width: 100%;
+                    display: flex;
+                    .code {
+                        font-weight: 600;
+                        padding-top: 3px;
+                    }
+                    .code-text {
+                        width: 100%;
+                        border: 2px solid #aaaaaa;
+                        margin-left: 15px;
+                        color: red;
+                        padding: 1px 7px;
+                        height: 30px;
+                        background: white;
+                    }
+                }
+                .cond {
+                    label {
+                        font-weight: 600;
+                    }
+                    .active {
+                        border: 2px solid #aaaaaa;
+                        padding: 12px 0;
+                        background: white;
+                    }
+                }
+            }
+            .voucher-footer {
+                background-color: #000000;
+                padding: 10px;
+                .col-12 {
+                    padding: 0 0 10px;
+                    img {
+                        width: 85px;
+                    }
+                }
+                .company-name {
+                    font-weight: 600;
+                }
+                p {
+                    color: #ffffff;
+                    font-size: 12px;
+                    margin-bottom: 5px;
+                }
+                span {
+                    color: #ffffff;
+                    font-size: 10px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
+
+.btn.btn-primary {
+    background-color: #20a8d8 !important;
+    border-color: #20a8d8 !important;
+}
+::ng-deep {
+    .brand-content .option {
+        display: none;
+    }
+}
+.select-file {
+    border: 1px solid #20a8d8;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.select-icon {
+    color: #20a8d8;
+}
+.select-text {
+    color: #20a8d8;
+}
+.select-img {
+    display: none;
+}
+.active {
+    display: flex;
+
+    label {
+        display: flex;
+    }
+    .img-wrap {
+        .icon {
+            margin-left: 20px;
+        }
+    }
+    .icon {
+        margin-left: 20px;
+        img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+    }
+}

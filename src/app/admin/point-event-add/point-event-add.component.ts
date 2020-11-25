@@ -180,13 +180,16 @@ export class AdminPointEventAddComponent implements OnInit {
         this.isSubmitted = true;
 
         this.resourceImgDesc.onSave((res) => {
-            if (typeof res !== 'undefined') {
+            console.log(res);
+            // if (typeof res !== 'undefined') {
+                console.log(res.images);
                 if (res.images) {
                     this.event.img_desc = res.images;
                 } else {
                     this.event.img_desc = null;
+                    console.log('no');
                 }
-            }
+            // }
 
             this.resource.onSave((response) => {
                 if (typeof response === 'undefined' || typeof response.url === 'undefined' || !response.url) {
