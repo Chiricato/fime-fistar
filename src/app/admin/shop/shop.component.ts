@@ -7,7 +7,8 @@ import {Router} from '@angular/router';
 import {formatDate} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
 import { BsModalRef, BsModalService  } from 'ngx-bootstrap';
-
+import { FileUploader, FileSelectDirective, Headers } from 'ng2-file-upload';
+const URL_UL = environment.host + '/uploadShop';
 @Component({
     selector: 'app-admin-point-log',
     templateUrl: './shop.component.html',
@@ -37,6 +38,7 @@ export class AdminShopComponent implements OnInit {
     public pageSize = 20;
     public selected = [];
     public pageLimitOptions = [];
+    public uploader: FileUploader;
     constructor(
         private api: Restangular,
         private toast: ToastrService,
@@ -60,6 +62,13 @@ export class AdminShopComponent implements OnInit {
             {value: 25},
             {value: 50}
         ];
+        this.uploader = new FileUploader({
+            url: URL_UL,
+            itemAlias: 'file'
+        });
+        this.uploader.onAfterAddingFile = (file) => {
+            file.withCredentials = false;
+        };
 
     }
 
@@ -155,6 +164,18 @@ export class AdminShopComponent implements OnInit {
     changePageLimit(limit: any): void {
         this.pageSize = limit;
         this.getShop();
+    }
+
+    onSelectFile(event) {
+        const files = event.target.files;
+        if (this.uploader.queue && this.uploader.queue.length) {
+            this.uploader.uploadAll();
+            this.uploader.onCompleteAll = () => {
+                this.getShop();
+                this.toast.success('Import success');
+
+            };
+        }
     }
 
 }
