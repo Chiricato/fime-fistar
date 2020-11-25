@@ -3,6 +3,7 @@
 @import "~scss/font_imports";
 ::ng-deep {
     .modal-dialog {
+        margin-top: 20px;
         width: 450px;
         .modal-content {
             padding: 0;
@@ -47,13 +48,16 @@
                     label {
                         font-weight: 600;
                     }
+                    ::ng-deep #condition p {
+                        margin-bottom: 0 !important;
+                    }
                     .active {
                         border: 2px solid #aaaaaa;
                         padding: 12px 0;
                         background: white;
                         word-break: break-word;
                         p {
-                            margin-bottom: 0!important;
+                            margin-bottom: 0 !important;
                         }
                     }
                 }
