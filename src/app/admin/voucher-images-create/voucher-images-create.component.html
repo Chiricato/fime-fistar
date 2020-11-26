@@ -1,11 +1,8 @@
 <div class="component-admin-banner">
     <div class="row">
         <div class="col-12 d-flex justify-content-between">
-            <div class="admin-heading" *ngIf="!bannerId">
+            <div class="admin-heading">
                 Create Voucher Images
-            </div>
-            <div class="admin-heading" *ngIf="bannerId">
-                {{ "edit_banner" | translate }}
             </div>
             <div>
                 <button class="btn btn-default" routerLink="/admin/banners"><i class="material-icons align-text-bottom">
