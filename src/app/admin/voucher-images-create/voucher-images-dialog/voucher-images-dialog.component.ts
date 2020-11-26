@@ -101,7 +101,10 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
     async downloadImage() {
         for (let index = 1; index <= this.voucher.series_number_to - this.voucher.series_number_from + 1; index++) {
             await this.testCode(index);
-            await html2canvas(this.screen.nativeElement).then(canvas => {
+            await html2canvas(this.screen.nativeElement,{
+                scrollX: 0,
+                scrollY: 0
+              }).then(canvas => {
                 this.canvas.nativeElement.src = canvas.toDataURL();
                 this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
                 this.basePic.push(this.downloadLink.nativeElement.href.replace(/^data:image\/(png|jpg);base64,/, ""));

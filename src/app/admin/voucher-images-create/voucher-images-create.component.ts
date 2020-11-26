@@ -35,7 +35,7 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
     public categories: any;
     public env: any;
     public form: any;
-    public bannerId: any;
+    public voucherId: any;
     public voucher: any;
     public required_upload_file_url: boolean;
     public imageChangedEvent: any;
@@ -50,15 +50,12 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
         private toast: ToastrService,
         public modalService: BsModalService
     ) { }
-    handleChange($event: ColorEvent) {
-        this.form.controls.text_color.value = "rgba(" + $event.color.rgb.r + ", " + $event.color.rgb.g + ", " + $event.color.rgb.b + ", " + $event.color.rgb.a + ")";
-      }
 
     ngOnInit() {
         this.env = environment;
 
         this.activeRoute.params.forEach((params: Params) => {
-            this.bannerId = params['id'];
+            this.voucherId = params['id'];
         });
 
         this.required_upload_file_url = false;
@@ -68,21 +65,37 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
         };
 
         this.voucher.code_group = "407";
+        if (this.voucherId) {
+            this.getVoucher();
+        }
         this.form = new FormGroup({
             partner_name: new FormControl(this.voucher.partner_name, []),
             voucher_title: new FormControl(this.voucher.voucher_title, []),
-            conditions_apply: new FormControl(this.voucher.conditions_apply, []),
+            conditions_apply: new FormControl(this.voucher.conditions_dc, []),
             code_group: new FormControl(this.voucher.code_group, []),
             text_color: new FormControl(this.voucher.text_color, []),
             vaild_date: new FormControl(this.voucher.vaild_date, []),
-            series_number_from: new FormControl(this.voucher.series_number_from, []),
-            series_number_to: new FormControl(this.voucher.series_number_to, []),
-            series_header: new FormControl(this.voucher.series_header, []),
-            
+            series_number_from: new FormControl(this.voucher.series_from, []),
+            series_number_to: new FormControl(this.voucher.series_to, []),
+            series_header: new FormControl(this.voucher.code, []),
+
         });
 
     }
-    
+    handleChange($event: ColorEvent) {
+        this.form.controls.text_color.value = "rgba(" + $event.color.rgb.r + ", " + $event.color.rgb.g + ", " + $event.color.rgb.b + ", " + $event.color.rgb.a + ")";
+    }
+
+    getVoucher() {
+        this.api
+            .one('voucher-image/detail/', this.voucherId)
+            .get()
+            .subscribe(res => {
+                this.voucher = res;
+                this.form.controls.text_color.value = this.voucher.text_color;
+            });
+    }
+
     previewVoucher() {
         this.voucherOb = {
             partner_name: this.form.controls.partner_name.value,
@@ -101,7 +114,7 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
         };
         this.modalRef = this.modalService.show(
             AdminVoucherImagesDialogComponent,
-            {initialState}
+            { initialState }
         );
 
         // this.modalRef.content.onClose.subscribe(result => {

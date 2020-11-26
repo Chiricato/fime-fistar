@@ -25,7 +25,8 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Enter partner name "
-                                    formControlName="partner_name" name="partner_name" required/>
+                                    [(ngModel)]="voucher.partner_name" formControlName="partner_name"
+                                    name="partner_name" required />
                             </div>
                         </div>
                     </div>
@@ -37,7 +38,8 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Enter voucher title"
-                                    maxlength="255" rows="4" formControlName="voucher_title" name="voucher_title" required>
+                                    [(ngModel)]="voucher.voucher_title" maxlength="255" rows="4"
+                                    formControlName="voucher_title" name="voucher_title" required>
                             </div>
                         </div>
                     </div>
@@ -55,7 +57,7 @@
                                         </mat-datepicker>
                                         <input matInput class="form-control" formControlName="vaild_date"
                                             [(ngModel)]="voucher.vaild_date" [matDatepicker]="vaild_date" required
-                                            autocomplete="false" placeholder="From">
+                                            autocomplete="false" placeholder="Vaild date">
                                     </mat-form-field>
                                     <div *ngIf="form.controls.vaild_date.invalid && (form.controls.vaild_date.dirty || form.controls.vaild_date.touched)"
                                         class="text-danger">
@@ -73,24 +75,27 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <div>
-                                    <mat-radio-group formControlName="code_group" required>
+                                    <mat-radio-group formControlName="code_group" required
+                                        [(ngModel)]="voucher.code_group">
                                         <mat-radio-button value="407">Beauty</mat-radio-button>
-                                        <mat-radio-button value="412" style="margin-left: 20px;">Fashion</mat-radio-button>
+                                        <mat-radio-button value="412" style="margin-left: 20px;">Fashion
+                                        </mat-radio-button>
                                         <mat-radio-button value="420" style="margin-left: 20px;">Food</mat-radio-button>
                                     </mat-radio-group>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-3">
                             <label>SERIAL HEADER </label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Enter series header" formControlName="series_header"
-                                    name="series_header" required/>
+                                <input type="text" class="form-control" placeholder="Enter series header"
+                                    formControlName="series_header" [(ngModel)]="voucher.code"
+                                    name="series_header" required />
                             </div>
                         </div>
                     </div>
@@ -101,14 +106,16 @@
                         </div>
                         <div class="col-md-9">
                             <mat-form-field appearance="fill">
-                              <mat-label>From</mat-label>
-                              <input matInput formControlName="series_number_from" required type="number" min="1" required>
-                              <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                                <mat-label>From</mat-label>
+                                <input matInput formControlName="series_number_from" required type="number" min="1" [(ngModel)]="voucher.series_from"
+                                    required>
+                                <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                             </mat-form-field>
                             <mat-form-field appearance="fill" style="margin-left: 20px;">
-                              <mat-label>To</mat-label>
-                              <input matInput formControlName="series_number_to" required type="number" min="2" required>
-                              <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                                <mat-label>To</mat-label>
+                                <input matInput formControlName="series_number_to" required type="number" min="2" [(ngModel)]="voucher.series_to"
+                                    required>
+                                <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                             </mat-form-field>
                         </div>
                     </div>
@@ -121,8 +128,8 @@
                             <div class="form-group">
                                 <!-- <textarea type="text" class="form-control" formControlName="conditions_apply"
                                     name="conditions_apply"></textarea> -->
-                                    <ck-editor skin="moono-lisa" language="en" [fullPage]="true"
-                                               formControlName="conditions_apply" name="conditions_apply" required></ck-editor>
+                                <ck-editor skin="moono-lisa" language="en" [fullPage]="true" [(ngModel)]="voucher.conditions_dc"
+                                    formControlName="conditions_apply" name="conditions_apply" required></ck-editor>
                             </div>
                         </div>
                         <div class="col-md-2">

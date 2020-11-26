@@ -308,6 +308,7 @@ const appRoutes: Routes = [
             { path: 'question', component: AdminQuestionComponent },
             { path: 'voucher-images', component: AdminVoucherImagesComponent },
             { path: 'voucher-images-create', component: AdminVoucherImagesCreateComponent },
+            { path: 'voucher-images-edit/:id', component: AdminVoucherImagesCreateComponent },
         ]
     },
     // otherwise redirect to home

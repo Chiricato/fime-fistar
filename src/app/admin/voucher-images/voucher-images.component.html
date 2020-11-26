@@ -45,26 +45,22 @@
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Download Date" prop="created_at"></ngx-datatable-column>
-        <!-- <ngx-datatable-column [width]="150" name="Action" [sortable]="false" class="action-column" headerClass="action" [canAutoResize]="false" [resizeable]="false">
+        <ngx-datatable-column [width]="150" name="Action" [sortable]="false" class="action-column" headerClass="action" [canAutoResize]="false" [resizeable]="false">
             <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">>
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <button mat-icon-button [matMenuTriggerFor]="userActions">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #userActions="matMenu">
-                        <button mat-menu-item (click)="editBrand(row)" class="datatable-action-button">
-                            <mat-icon>edit</mat-icon>
-                            <span>Edit</span>
-                        </button>
-                        <button mat-menu-item [swal]="deleteSwal" (confirm)="onDelete(row)" class="datatable-action-button">
-                            <mat-icon>delete</mat-icon>
-                            <span>Delete</span>
+                        <button mat-menu-item  routerLink="/admin/voucher-images-edit/{{row.id}}" class="datatable-action-button">
+                            <mat-icon>get_app</mat-icon>
+                            <span>Download</span>
                         </button>
                     </mat-menu>
                 </ng-template>
             </ngx-datatable-column>
 
-        </ngx-datatable-column> -->
+        </ngx-datatable-column>
     </ngx-datatable>
 </div>
 
