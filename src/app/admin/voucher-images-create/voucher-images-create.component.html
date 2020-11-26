@@ -127,6 +127,8 @@
                                     name="conditions_apply"></textarea> -->
                                 <ck-editor skin="moono-lisa" language="en" [fullPage]="true" [(ngModel)]="voucher.conditions_dc"
                                     formControlName="conditions_apply" name="conditions_apply" required></ck-editor>
+                                    <small *ngIf="!validCondition" id="descriptionHelp" class="form-text" style="color: red;">
+                                        Please enter up to 5 rows</small>
                             </div>
                         </div>
                         <div class="col-md-2">

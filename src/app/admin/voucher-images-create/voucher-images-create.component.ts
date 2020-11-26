@@ -42,6 +42,7 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
     public imageBase64: any;
     public modalRef: BsModalRef;
     public voucherOb: any;
+    public validCondition = true;
 
     constructor(
         private api: Restangular,
@@ -96,7 +97,22 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
             });
     }
 
+    isValidContent() {
+        var description = this.form.controls.conditions_apply.value;
+        var des = (description.split(new RegExp("<p>", "gi")).length - 1);
+        var des2 = (description.split(new RegExp("<li>", "gi")).length - 1);
+        if (des > 5 || des2 > 5) {
+            this.validCondition = false;
+            return
+        } else this.validCondition = true;
+    }
+
+
     previewVoucher() {
+        this.isValidContent();
+        if(!this.validCondition) {
+            return
+        }
         this.voucherOb = {
             partner_name: this.form.controls.partner_name.value,
             voucher_title: this.form.controls.voucher_title.value,

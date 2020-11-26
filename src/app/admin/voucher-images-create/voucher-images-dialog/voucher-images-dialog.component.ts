@@ -96,7 +96,7 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
     }
 
     testCode(index) {
-        this.code = this.code_header + (index + this.voucher.series_number_from);
+        this.code = this.code_header + (index + parseInt(this.voucher.series_number_from));
     }
     async downloadImage() {
         for (let index = 1; index <= this.voucher.series_number_to - this.voucher.series_number_from + 1; index++) {
@@ -120,10 +120,10 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
         var img = zip.folder("images");
         this.basePic.map((item, i) => {
             if (this.voucher.series_number_to < 10) {
-                img.file(this.voucher.series_header + '00' + (i + this.voucher.series_number_from) + ".png", item, { base64: true });
+                img.file(this.voucher.series_header + '00' + (i + parseInt(this.voucher.series_number_from)) + ".png", item, { base64: true });
             }
             if (this.voucher.series_number_to >= 10) {
-                img.file(this.voucher.series_header + '0' + (i + this.voucher.series_number_from) + ".png", item, { base64: true });
+                img.file(this.voucher.series_header + '0' + (i + parseInt(this.voucher.series_number_from)) + ".png", item, { base64: true });
             }
         });
         zip.generateAsync({ type: "blob" })
