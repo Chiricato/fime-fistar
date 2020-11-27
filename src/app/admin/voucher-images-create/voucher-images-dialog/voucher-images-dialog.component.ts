@@ -67,10 +67,16 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
             conditions_apply: new FormControl(this.voucher.conditions_apply, []),
             code_group: new FormControl(this.voucher.code_group, []),
             text_color: new FormControl(this.voucher.text_color),
+            background_color: new FormControl(this.voucher.background_color),
             vaild_date: new FormControl(this.voucher.vaild_date),
             zip_name: new FormControl(this.voucher.zip_name),
         });
-        document.getElementById('export-voucher').style.backgroundColor = this.voucher.text_color;
+        document.getElementById('export-voucher').style.backgroundColor = this.voucher.background_color;
+        document.getElementById('export-voucher').style.color = this.voucher.text_color;
+        document.getElementById('codeWrap').style.backgroundColor = this.voucher.background_color;
+        document.getElementById('codeWrap').style.color = this.voucher.text_color;
+        document.getElementById('cond-header').style.color = this.voucher.text_color;
+        document.getElementById('condition').style.borderColor = this.voucher.text_color;
     }
 
 
@@ -101,10 +107,11 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
     async downloadImage() {
         for (let index = 1; index <= this.voucher.series_number_to - this.voucher.series_number_from + 1; index++) {
             await this.testCode(index);
-            await html2canvas(this.screen.nativeElement,{
+            await html2canvas(this.screen.nativeElement, {
                 scrollX: 0,
                 scrollY: 0
-              }).then(canvas => {
+            }).then(canvas => {
+                document.getElementById('main-wrap').style.border = 'border: 2px dashed #aaaaaa;';
                 this.canvas.nativeElement.src = canvas.toDataURL();
                 this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
                 this.basePic.push(this.downloadLink.nativeElement.href.replace(/^data:image\/(png|jpg);base64,/, ""));

@@ -75,6 +75,7 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
             conditions_apply: new FormControl(this.voucher.conditions_dc, []),
             code_group: new FormControl(this.voucher.code_group, []),
             text_color: new FormControl(this.voucher.text_color, []),
+            background_color: new FormControl(this.voucher.background_color, []),
             vaild_date: new FormControl(this.voucher.vaild_date, []),
             series_number_from: new FormControl(this.voucher.series_from, []),
             series_number_to: new FormControl(this.voucher.series_to, []),
@@ -84,6 +85,9 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
 
     }
     handleChange($event: ColorEvent) {
+        this.form.controls.background_color.value = "rgba(" + $event.color.rgb.r + ", " + $event.color.rgb.g + ", " + $event.color.rgb.b + ", " + $event.color.rgb.a + ")";
+    }
+    handleChangeColor($event: ColorEvent) {
         this.form.controls.text_color.value = "rgba(" + $event.color.rgb.r + ", " + $event.color.rgb.g + ", " + $event.color.rgb.b + ", " + $event.color.rgb.a + ")";
     }
 
@@ -94,6 +98,7 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
             .subscribe(res => {
                 this.voucher = res;
                 this.form.controls.text_color.value = this.voucher.text_color;
+                this.form.controls.background_color.value = this.voucher.background_color;
             });
     }
 
@@ -119,6 +124,7 @@ export class AdminVoucherImagesCreateComponent implements OnInit {
             conditions_apply: this.form.controls.conditions_apply.value,
             code_group: this.form.controls.code_group.value,
             text_color: this.form.controls.text_color.value,
+            background_color: this.form.controls.background_color.value,
             vaild_date: this.form.controls.vaild_date.value,
             series_number_from: this.form.controls.series_number_from.value,
             series_number_to: this.form.controls.series_number_to.value,

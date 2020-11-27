@@ -5,7 +5,8 @@
                 Create Voucher Images
             </div>
             <div>
-                <button class="btn btn-default" routerLink="/admin/voucher-images"><i class="material-icons align-text-bottom">
+                <button class="btn btn-default" routerLink="/admin/voucher-images"><i
+                        class="material-icons align-text-bottom">
                         arrow_back
                     </i> <span>Back</span></button>
             </div>
@@ -91,8 +92,8 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Enter series header"
-                                    formControlName="series_header" [(ngModel)]="voucher.code"
-                                    name="series_header" required />
+                                    formControlName="series_header" [(ngModel)]="voucher.code" name="series_header"
+                                    required />
                             </div>
                         </div>
                     </div>
@@ -104,19 +105,37 @@
                         <div class="col-md-9">
                             <mat-form-field appearance="fill">
                                 <mat-label>From</mat-label>
-                                <input matInput formControlName="series_number_from" required type="number" min="1" [(ngModel)]="voucher.series_from"
-                                    required>
+                                <input matInput formControlName="series_number_from" required type="number" min="1"
+                                    [(ngModel)]="voucher.series_from" required>
                                 <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                             </mat-form-field>
                             <mat-form-field appearance="fill" style="margin-left: 20px;">
                                 <mat-label>To</mat-label>
-                                <input matInput formControlName="series_number_to" required type="number" min="2" [(ngModel)]="voucher.series_to"
-                                    required>
+                                <input matInput formControlName="series_number_to" required type="number" min="2"
+                                    [(ngModel)]="voucher.series_to" required>
                                 <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                             </mat-form-field>
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>TEXT COLOR </label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <color-sketch color="#000" (onChange)="handleChangeColor($event)"></color-sketch>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="float: right;">BACKGROUND COLOR </label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <color-sketch color="#fff" (onChange)="handleChange($event)"></color-sketch>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <label>ĐIỀU KIỆN ÁP DỤNG</label>
@@ -125,18 +144,12 @@
                             <div class="form-group">
                                 <!-- <textarea type="text" class="form-control" formControlName="conditions_apply"
                                     name="conditions_apply"></textarea> -->
-                                <ck-editor skin="moono-lisa" language="en" [fullPage]="true" [(ngModel)]="voucher.conditions_dc"
-                                    formControlName="conditions_apply" name="conditions_apply" required></ck-editor>
-                                    <small *ngIf="!validCondition" id="descriptionHelp" class="form-text" style="color: red;">
-                                        Please enter up to 5 rows</small>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <label>BACKGROUND COLOR </label>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <color-sketch color="#fff" (onChange)="handleChange($event)"></color-sketch>
+                                <ck-editor skin="moono-lisa" language="en" [fullPage]="true"
+                                    [(ngModel)]="voucher.conditions_dc" formControlName="conditions_apply"
+                                    name="conditions_apply" required></ck-editor>
+                                <small *ngIf="!validCondition" id="descriptionHelp" class="form-text"
+                                    style="color: red;">
+                                    Please enter up to 5 rows</small>
                             </div>
                         </div>
                     </div>

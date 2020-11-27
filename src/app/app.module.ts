@@ -96,6 +96,7 @@ import { AdminResourceDialogImageCropComponent } from './admin/multiple-images/d
 import { NumberToCurrencyPipe } from '../pipes/number-to-currency.pipe';
 import { NumberLikePipe } from '../pipes/number-like.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
+import { FormatDateVoucher } from '../pipes/date-voucher.pipe';
 import { AdminMultipleImagesComponent } from './admin/multiple-images/multiple-images.component';
 import { ReviewsComponent } from './frontend/reviews/reviews.component';
 import { FimersComponent } from './frontend/fimers/fimers.component';
@@ -321,6 +322,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         NumberToCurrencyPipe,
         NumberLikePipe,
         FormatDate,
+        FormatDateVoucher,
         SafeHtmlPipe,
         AdminReviewFimerComponent,
         AdminMultipleImagesComponent,

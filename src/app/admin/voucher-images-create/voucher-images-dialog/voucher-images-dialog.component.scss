@@ -4,7 +4,7 @@
 ::ng-deep {
     .modal-dialog {
         margin-top: 20px;
-        width: 450px;
+        width: 420px;
         .modal-content {
             padding: 0;
         }
@@ -17,31 +17,36 @@
             padding: 20px;
             .voucher-content {
                 .pointer {
-                    border: 2px solid #aaaaaa;
-                    height: 150px;
+                    border: 2px dashed #aaaaaa;
+                    min-height: 150px;
                     font-size: 36px;
-                    padding: 35px 0;
+                    padding: 3px;
                     text-align: center;
                     display: flex;
                     justify-content: center;
                     background: white;
+                    border-radius: 25px;
+                    margin-top: 30px;
+                    .active {
+                        border-radius: 25px;
+                        padding: 7% 20px;
+                        line-height: 40px;
+                        width: 100%;
+                        font-family: 'iciel-Cadena';
+                    }
                 }
                 .code-wrap {
-                    padding: 0 0 0 20px;
+                    padding: 0 0 0 10px;
                     width: 100%;
                     display: flex;
+                    font-size: 23px;
                     .code {
                         font-weight: 600;
                         padding-top: 3px;
                     }
                     .code-text {
-                        width: 100%;
-                        border: 2px solid #aaaaaa;
-                        margin-left: 15px;
-                        color: red;
-                        padding: 1px 7px;
+                        padding: 3px 7px;
                         height: 30px;
-                        background: white;
                     }
                 }
                 .cond {
@@ -52,7 +57,7 @@
                         margin-bottom: 0 !important;
                     }
                     .active {
-                        border: 2px solid #aaaaaa;
+                        border: 1px solid;
                         padding: 12px 0;
                         background: white;
                         word-break: break-word;
