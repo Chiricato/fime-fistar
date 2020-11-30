@@ -46,12 +46,14 @@
                     display: flex;
                     font-size: 23px;
                     font-family: 'Sahar-Regular';
+                    padding-bottom: 4px;
                     .code {
                         font-weight: 600;
-                        padding-top: 5px;
+                        font-family: 'iciel-Cadena';
+                        font-size: 26px;
                     }
                     .code-text {
-                        padding: 5px 7px;
+                        padding: 10px 7px 0;
                         height: 30px;
                     }
                 }
@@ -59,7 +61,7 @@
                     label {
                         font-weight: 600;
                         font-family: 'iciel-Cadena';
-                        font-size: 18px;
+                        font-size: 23px;
                     }
                     ::ng-deep #condition p {
                         margin-bottom: 0 !important;

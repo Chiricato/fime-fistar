@@ -119,7 +119,7 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
 
         }
         await this.zipImage(this.zip_name);
-        this.onSave();
+        // this.onSave();
         this.bsModalRef.hide();
     }
     zipImage(seri) {
