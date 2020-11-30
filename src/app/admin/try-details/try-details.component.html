@@ -463,7 +463,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <app-admin-multiple-images #images [images]="{ data: try.files}"
-                                                       [resizeToWidth]="720" [aspectRatio]="1 / 1"></app-admin-multiple-images>
+                                                       [resizeToWidth]="720" [needToCrop] = "true" [aspectRatio]="1 / 1"></app-admin-multiple-images>
                             <div *ngIf="isSubmitted && invalidImages"
                                  class="text-danger">
                                 Choose at least one image
