@@ -52,6 +52,8 @@ export class AdminTryDetailsComponent implements OnInit {
     public fashion: any;
     public beauty: any;
     public food: any;
+    public other: any;
+    public life_style: any;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -123,6 +125,8 @@ export class AdminTryDetailsComponent implements OnInit {
         this.getFashion();
         this.getBeauty();
         this.getFood();
+        this.getLifeStyle();
+        this.getOther();
         this.try.goods_code_group = this.try.goods_code_group ? this.try.goods_code_group : "407";
     }
 
@@ -184,6 +188,16 @@ export class AdminTryDetailsComponent implements OnInit {
     getFood() {
         this.api.all('getFood').customGET('').subscribe(res => {
             this.food = res.result;
+        });
+    }
+    getOther() {
+        this.api.all('getOther').customGET('').subscribe(res => {
+            this.other = res.result;
+        });
+    }
+    getLifeStyle() {
+        this.api.all('getLifeStyle').customGET('').subscribe(res => {
+            this.life_style = res.result;
         });
     }
 
