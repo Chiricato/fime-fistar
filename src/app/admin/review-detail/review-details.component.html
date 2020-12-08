@@ -6,7 +6,8 @@
             </div>
         </div>
         <div class="col-4 pull-right">
-            <a class="btn btn-primary mr-1" [routerLink]="['/admin/reviews/edit', review.review_no]" (click)="close()">Edit</a>
+            <a class="btn btn-primary mr-1" [routerLink]="['/admin/reviews/edit', review.review_no]"
+                (click)="close()">Edit</a>
         </div>
     </div>
     <div class="row">
@@ -17,7 +18,8 @@
             </div>
             <div class="review-body">
                 <label>Description</label>
-                <div style="text-align: justify;word-break: break-word;" [innerHtml]="review.review_dc | safeHtml"></div>
+                <div style="text-align: justify;word-break: break-word;" [innerHtml]="review.review_dc | safeHtml">
+                </div>
             </div>
             <div class="review-footer">
                 <label>Images</label>
@@ -29,7 +31,10 @@
                     <div class="images" *ngFor="let image of review.files; let i = index;">
                         <img width="200px" height="200px"
                             [src]="env.rootHost + review.files[i].FILE_COURS + '/' + review.files[i].STRE_FILE_NM"
-                            alt="product" class="other-image">
+                            alt="product" class="other-image" *ngIf="image.TYPE_FILE == 1">
+                        <video class="main-img" *ngIf="image.TYPE_FILE == 2 && !image.THUMB_FILE_NM" width="200px" height="200px" style="object-fit: cover;">
+                            <source [src]="env.rootHost + image.FILE_COURS +'/'+ image.STRE_FILE_NM" type="video/webm">
+                        </video>
                     </div>
                 </div>
 
