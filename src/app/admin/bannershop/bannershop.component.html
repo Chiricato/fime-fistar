@@ -37,6 +37,8 @@
                                 <mat-option value="4">Home 4</mat-option>
                                 <mat-option value="5">Product 1</mat-option>
                                 <mat-option value="6">Product 2</mat-option>
+                                <mat-option value="7">Category</mat-option>
+                                <mat-option value="8">Notice</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -91,6 +93,8 @@
                 <span *ngIf="row.type == 4">Home 4</span>
                 <span *ngIf="row.type == 5">Product 1</span>
                 <span *ngIf="row.type == 6">Product 2</span>
+                <span *ngIf="row.type == 7">Category</span>
+                <span *ngIf="row.type == 8">Notice</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Url" prop="url" [sortable]="false">
