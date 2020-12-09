@@ -22,7 +22,7 @@ export class AdminVoucherImagesComponent implements OnInit {
     public pageSize: any;
     public vouchers = [];
     public images = [];
-    public totalReviews: any;
+    public totalVouchers: any;
     public env: any;
     public modalRef: BsModalRef;
     public selected = [];
@@ -87,7 +87,7 @@ export class AdminVoucherImagesComponent implements OnInit {
         }).subscribe(res => {
             this.vouchers = res.result.data;
             console.log(this.vouchers);
-            this.totalReviews = res.result.total;
+            this.totalVouchers = res.result.total;
             // for (let i = 0; i < this.questions.length; i++) {
             //     this.questions[i].view_cnt = parseInt(this.questions[i].view_cnt);
             // }
