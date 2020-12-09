@@ -34,7 +34,8 @@
     </mat-card>
 
     <ngx-datatable #myTable class="material" [rows]="vouchers" [columnMode]="'force'" [headerHeight]="50"
-        [footerHeight]="50" [rowHeight]="'auto'" [count]="vouchers.length" [limit]="10">
+        [footerHeight]="50" [rowHeight]="'auto'" [count]="totalVouchers" [limit]="pageSize"
+        [offset]="pageIndex-1" [externalPaging]="true" (page)='setPage($event)' [externalSorting]="true"> 
         <ngx-datatable-column name="Partner Name" prop="partner_name"></ngx-datatable-column>
         <ngx-datatable-column name="Zip Name" prop="zip_name"></ngx-datatable-column>
         <ngx-datatable-column name="Category" prop="code_group">
