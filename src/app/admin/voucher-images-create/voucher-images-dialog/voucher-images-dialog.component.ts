@@ -49,15 +49,34 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
         this.env = environment;
         this.onClose = new Subject();
 
-        if (this.voucher.series_number_to < 10) {
+        if (this.voucher.series_number_from < 10) {
             this.code_header = this.voucher.series_header + '00';
             this.code = this.code_header + this.voucher.series_number_from;
-            this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-00' + this.voucher.series_number_to + '.zip';
+            // this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-00' + this.voucher.series_number_to + '.zip';
         }
-        if (this.voucher.series_number_to >= 10) {
+        if (this.voucher.series_number_from >= 10) {
             this.code_header = this.voucher.series_header + '0';
             this.code = this.code_header + this.voucher.series_number_from;
+            // this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-0' + this.voucher.series_number_to + '.zip';
+        }
+        
+        if (this.voucher.series_number_from < 10 && this.voucher.series_number_to < 10) {
+            this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-00' + this.voucher.series_number_to + '.zip';
+        }
+        if (this.voucher.series_number_from < 10 && this.voucher.series_number_to >= 10 ) {
             this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-0' + this.voucher.series_number_to + '.zip';
+        }
+        if (this.voucher.series_number_from >=10 && this.voucher.series_number_to >= 10) {
+            this.zip_name = this.voucher.series_header + '0' + this.voucher.series_number_from + '-0' + this.voucher.series_number_to + '.zip';
+        }
+        if (this.voucher.series_number_from >=10 && this.voucher.series_number_to >= 100) {
+            this.zip_name = this.voucher.series_header + '0' + this.voucher.series_number_from + '-' + this.voucher.series_number_to + '.zip';
+        }
+        if (this.voucher.series_number_from < 10 && this.voucher.series_number_to >= 100) {
+            this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-' + this.voucher.series_number_to + '.zip';
+        }
+        if (this.voucher.series_number_from >= 100 && this.voucher.series_number_to >= 100) {
+            this.zip_name = this.voucher.series_header + this.voucher.series_number_from + '-' + this.voucher.series_number_to + '.zip';
         }
         this.voucher.zip_name = this.zip_name
         this.voucherForm = new FormGroup({
@@ -101,12 +120,21 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
         this.bsModalRef.hide();
     }
 
-    testCode(index) {
+    testCode(index) {        
         this.code = this.code_header + (index + parseInt(this.voucher.series_number_from));
     }
     async downloadImage() {
-        for (let index = 1; index <= this.voucher.series_number_to - this.voucher.series_number_from + 1; index++) {
-            await this.testCode(index);
+        for (let index = parseInt(this.voucher.series_number_from) + 1; index <= parseInt(this.voucher.series_number_to) + 1; index++) {
+            var i = index.toString();
+            if (i.length === 1) {
+                this.code = this.voucher.series_header + '00'  + index;
+            }
+            if (i.length === 2) {
+                this.code = this.voucher.series_header + '0'  + index;
+            }
+            if (i.length >= 3) {
+                this.code = this.voucher.series_header  + index;
+            }
             await html2canvas(this.screen.nativeElement, {
                 scrollX: 0,
                 scrollY: 0
@@ -119,18 +147,24 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
 
         }
         await this.zipImage(this.zip_name);
-        this.onSave();
+        // this.onSave();
         this.bsModalRef.hide();
     }
     zipImage(seri) {
         var zip = new JSZip();
         var img = zip.folder("images");
-        this.basePic.map((item, i) => {
-            if (this.voucher.series_number_to < 10) {
-                img.file(this.voucher.series_header + '00' + (i + parseInt(this.voucher.series_number_from)) + ".png", item, { base64: true });
+        this.basePic.map((item, i ) => {
+            i = parseInt(this.voucher.series_number_from) + i;
+            var index = i.toString();
+            // console.log(index.length, index);
+            if (index.length === 1) {
+                img.file(this.voucher.series_header + '00'  + index + ".png", item, { base64: true });
             }
-            if (this.voucher.series_number_to >= 10) {
-                img.file(this.voucher.series_header + '0' + (i + parseInt(this.voucher.series_number_from)) + ".png", item, { base64: true });
+            if (index.length === 2) {
+                img.file(this.voucher.series_header + '0'  + index + ".png", item, { base64: true });
+            }
+            if (index.length >= 3) {
+                img.file(this.voucher.series_header + index + ".png", item, { base64: true });
             }
         });
         zip.generateAsync({ type: "blob" })
