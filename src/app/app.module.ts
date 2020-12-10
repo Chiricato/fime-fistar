@@ -269,6 +269,8 @@ import { AdminQuestionComponent } from './admin/question/question.component';
 import { AdminVoucherImagesComponent } from './admin/voucher-images/voucher-images.component';
 import { AdminVoucherImagesCreateComponent } from './admin/voucher-images-create/voucher-images-create.component';
 import { AdminVoucherImagesDialogComponent } from './admin/voucher-images-create/voucher-images-dialog/voucher-images-dialog.component';
+import { AdminVoucherComponent } from './admin/voucher/voucher.component';
+import { AdminVoucherDetailsComponent } from './admin/voucher-details/voucher-details.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -398,6 +400,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminVoucherImagesComponent,
         AdminVoucherImagesCreateComponent,
         AdminVoucherImagesDialogComponent,
+        AdminVoucherComponent,
+        AdminVoucherDetailsComponent,
 
         //soft0ne dev
         AdminBannerFistarComponent,
