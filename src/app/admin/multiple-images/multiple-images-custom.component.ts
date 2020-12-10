@@ -1,11 +1,11 @@
-import {Component, OnInit, Input, ChangeDetectorRef, OnChanges} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
-import {environment} from '../../../environments/environment';
-import {ToastrService} from 'ngx-toastr';
-import {Subject} from 'rxjs';
-import {MatDialog} from '@angular/material';
-import {AdminResourceDialogImageCropComponent} from './dialog-image-crop.component';
-import {ImageBase64} from './multiple-images.component';
+import { Component, OnInit, Input, ChangeDetectorRef, OnChanges } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
+import { environment } from '../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { AdminResourceDialogImageCropComponent } from './dialog-image-crop.component';
+import { ImageBase64 } from './multiple-images.component';
 import * as EXIF from 'exif-js/exif';
 
 @Component({
@@ -50,8 +50,10 @@ export class AdminMultipleImagesCustomComponent implements OnInit, OnChanges {
             const data = this.images.data;
             const data_length = data.length;
             for (let i = 0; i < data_length; i++) {
-                this.imagesBase64.push(new ImageBase64('', '',
-                    this.env.rootHost + data[i].FILE_COURS + '/' + data[i].STRE_FILE_NM, data[i].THUMB_FILE_NM));
+                if (data[i].TYPE_FILE == 1) {
+                    this.imagesBase64.push(new ImageBase64('', '',
+                        this.env.rootHost + data[i].FILE_COURS + '/' + data[i].STRE_FILE_NM, data[i].THUMB_FILE_NM));
+                }
             }
         }
         this.cd.detectChanges();
@@ -209,20 +211,22 @@ export class AdminMultipleImagesCustomComponent implements OnInit, OnChanges {
 
     onSave(callback) {
         if (this.change === true) {
-            this.api.all('uploads').customPOST({files: this.imagesBase64}).subscribe(res => {
-                callback({change: this.change, images: res.result.images});
+            this.api.all('uploads').customPOST({ files: this.imagesBase64 }).subscribe(res => {
+                callback({ change: this.change, images: res.result.images });
             });
         } else {
             const data = [];
             for (let i = 0; i < this.images.data.length; i++) {
-                const item = this.images.data[i];
-                if (item.name) {
-                    data.push(item);
-                } else if (item.STRE_FILE_NM) {
-                    data.push({name: item.STRE_FILE_NM, url: item.FILE_COURS, thumb_name: item.THUMB_FILE_NM});
+                if (this.images.data[i].TYPE_FILE == 1) {
+                    const item = this.images.data[i];
+                    if (item.name) {
+                        data.push(item);
+                    } else if (item.STRE_FILE_NM) {
+                        data.push({ name: item.STRE_FILE_NM, url: item.FILE_COURS, thumb_name: item.THUMB_FILE_NM });
+                    }
                 }
             }
-            callback({images: data});
+            callback({ images: data });
         }
     }
 

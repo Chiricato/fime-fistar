@@ -9,7 +9,7 @@
     <form class="content" [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="col-12">
-                <div class="review-title-block">
+                <div class="review-title-block form-group">
                     <label>Title</label>
                     <!-- <input class="review-title form-control" [(ngModel)]="review.goods_nm"> -->
                     <input type="text" class="form-control" id="name" [(ngModel)]="review.goods_nm"
@@ -18,7 +18,7 @@
                         class="form-text text-muted">{{
                             'please_enter_product_name' | translate }}</small>
                 </div>
-                <div class="review-body">
+                <div class="review-body form-group">
                     <label>Short Description</label>
                     <!-- <input class="review-title form-control" [(ngModel)]="review.review_short"> -->
                     <textarea [ngClass]="{'has-error': hasError(form, form.short_description)}"
@@ -30,16 +30,79 @@
                         class="form-text text-muted">{{ 'please_enter_short_description' | translate }}</small>
                 </div>
                 <div class="form-group">
-                    <label for="category">{{ 'category' | translate}}</label>
-                    <select [ngClass]="{'has-error': hasError(form, form.category_id)}" id="category"
-                        class="form-control" [(ngModel)]="review.goods_cl_code" formControlName="category_id">
+                    <label for="category" class="category-top">{{ 'category' | translate}}</label>
+                    <div class="form-group category-form">
+                        <mat-radio-group [(ngModel)]="review.reviews_code_group" formControlName="reviews_code_group">
+                            <mat-radio-button value="407">Beauty</mat-radio-button>
+                            <mat-radio-button value="412" style="margin-left: 20px;">Fashion</mat-radio-button>
+                            <mat-radio-button value="420" style="margin-left: 20px;">Food</mat-radio-button>
+                            <mat-radio-button value="424" style="margin-left: 20px;">Life style</mat-radio-button>
+                            <mat-radio-button value="425" style="margin-left: 20px;">Others</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category">Catalog</label>
+                    <select *ngIf="review.reviews_code_group == 407"
+                        [ngClass]="{'has-error': hasError(form, form.category_id)}" id="category" class="form-control"
+                        [(ngModel)]="review.goods_cl_code" formControlName="category_id">
                         <option value="">{{ 'choose_category' | translate }}</option>
                         <option value="{{ category.code }}" *ngFor="let category of categories">{{ category.code_nm }}
+                        </option>
+                    </select>
+                    <select *ngIf="review.reviews_code_group == 412"
+                        [ngClass]="{'has-error': hasError(form, form.category_id)}" id="category" class="form-control"
+                        [(ngModel)]="review.goods_cl_code" formControlName="category_id">
+                        <option value="">{{ 'choose_category' | translate }}</option>
+                        <option value="{{ category.code }}" *ngFor="let category of fashion">{{ category.code_nm }}
+                        </option>
+                    </select>
+                    <select *ngIf="review.reviews_code_group == 420"
+                        [ngClass]="{'has-error': hasError(form, form.category_id)}" id="category" class="form-control"
+                        [(ngModel)]="review.goods_cl_code" formControlName="category_id">
+                        <option value="">{{ 'choose_category' | translate }}</option>
+                        <option value="{{ category.code }}" *ngFor="let category of food">{{ category.code_nm }}
+                        </option>
+                    </select>
+                    <select *ngIf="review.reviews_code_group == 424"
+                        [ngClass]="{'has-error': hasError(form, form.category_id)}" id="category" class="form-control"
+                        [(ngModel)]="review.goods_cl_code" formControlName="category_id">
+                        <option value="">{{ 'choose_category' | translate }}</option>
+                        <option value="{{ category.code }}" *ngFor="let category of life_style">{{ category.code_nm }}
+                        </option>
+                    </select>
+                    <select *ngIf="review.reviews_code_group == 425"
+                        [ngClass]="{'has-error': hasError(form, form.category_id)}" id="category" class="form-control"
+                        [(ngModel)]="review.goods_cl_code" formControlName="category_id">
+                        <option value="">{{ 'choose_category' | translate }}</option>
+                        <option value="{{ category.code }}" *ngFor="let category of other">{{ category.code_nm }}
                         </option>
                     </select>
                     <small *ngIf="form.category_id.errors && form.category_id.touched" id="categoryHelp"
                         class="form-text text-muted">{{
                         'please_choose_category' | translate }}</small>
+                </div>
+                <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <ng-select [items]="brands" [(ngModel)]="review.goods_cl_code_brand" bindValue="code"
+                        bindLabel="code_nm" id="brand" formControlName="brand_id" name="brand_id" [virtualScroll]="true"
+                        placeholder="Chọn thương hiệu">
+                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                            <span>{{ item.code_nm }}</span>
+                        </ng-template>
+                    </ng-select>
+                    <small *ngIf="form.brand_id.errors && form.brand_id.touched" id="categoryHelp"
+                        class="form-text text-muted">{{
+                        'please_choose_category' | translate }}</small>
+                </div>
+                <div class="form-group">
+                    <label for="hashtag">Hashtag</label>
+                    <textarea [ngClass]="{'has-error': hasError(form, form.hash_tag)}" class="form-control hashtag"
+                        id="hashtag" maxlength="200" placeholder="{{ 'enter_hashtag' | translate }}"
+                        [(ngModel)]="review.hash_tag" formControlName="hash_tag">
+                    </textarea>
+                    <small *ngIf="form.hash_tag.errors && form.hash_tag.touched" id="shortDescriptionHelp"
+                        class="form-text text-muted">{{ 'please_enter_hashtag' | translate }}</small>
                 </div>
                 <div class="review-body">
                     <label>Description</label>
@@ -58,8 +121,38 @@
                     <app-admin-multiple-images-custom id="images" #images [images]="{ data: review.files}"
                         [resizeToWidth]="500" [aspectRatio]="54 / 40">
                     </app-admin-multiple-images-custom>
-                    <small *ngIf="form.term.errors" id="agreeHelp" class="form-text text-muted">{{ 'please_agree' |
-                        translate }}</small>
+                </div>
+                <div class="form-group img-pc">
+                    <div class="form-header">
+                        <label for="images">Video</label>
+                    </div>
+                    <mat-card class="img-box-custom">
+                        <mat-card-content>
+                            <div class="content">
+                                <div class="resource-img default"
+                                    *ngFor="let item of review.videoFiles; let i = index;">
+                                    <img class="main-img img"
+                                        *ngIf="item && item.type_file_video == 2 && item.thumb_name"
+                                        [src]="env.rootHost + item.url + '/' + item.thumb_name"
+                                        alt="">
+                                    <img class="main-img img"
+                                        *ngIf="item && item.type_file_video == 1 && item.thumb_name"
+                                        [src]="env.rootHost + item.url + '/' + item.thumb_name"
+                                        alt="">
+                                    <video class="main-img img"
+                                        *ngIf="item && item.type_file_video == 2 && !item.thumb_name"
+                                        [src]="env.rootHost + item.url + '/' + item.name"
+                                        type="video/mp4">
+                                    </video>
+                                    <video class="main-img img"
+                                        *ngIf="item && item.type_file_video == 1 && !item.thumb_name"
+                                        [src]="env.rootHost + item.url + '/' + item.name"
+                                        type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </div>

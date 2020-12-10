@@ -96,6 +96,7 @@ import { AdminResourceDialogImageCropComponent } from './admin/multiple-images/d
 import { NumberToCurrencyPipe } from '../pipes/number-to-currency.pipe';
 import { NumberLikePipe } from '../pipes/number-like.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
+import { FormatDateVoucher } from '../pipes/date-voucher.pipe';
 import { AdminMultipleImagesComponent } from './admin/multiple-images/multiple-images.component';
 import { ReviewsComponent } from './frontend/reviews/reviews.component';
 import { FimersComponent } from './frontend/fimers/fimers.component';
@@ -250,6 +251,7 @@ import { AdminImagesAIComponent } from './admin/softone/images-ai/images-ai.comp
 import { AdminSystemSettingComponent } from './admin/softone/system/setting/setting.component';
 import { AdminCampaignSearchFistarComponent } from './admin/softone/campaign/campaign-add/search-fistar/search-fistar.component';
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { ColorSketchModule } from 'ngx-color/sketch';
 
 import {AdminMultipleImagesSoftOneComponent} from "./admin/softone/multiple-images/multiple-images-softone.component.component";
 
@@ -261,6 +263,12 @@ import { AdminShopComponent } from './admin/shop/shop.component';
 import { AdminShopDetailsComponent } from './admin/shop-details/shop-details.component';
 import { AdminBannerShopComponent } from './admin/bannershop/bannershop.component';
 import { AdminBannerShopDetailsComponent } from './admin/bannershop-details/bannershop-details.component';
+import { AdminQaSubCategoryComponent } from './admin/qa-sub-category/qa-sub-category.component';
+import { AdminQaSubCategoryDialogComponent } from './admin/qa-sub-category-dialog/qa-sub-category-dialog.component';
+import { AdminQuestionComponent } from './admin/question/question.component';
+import { AdminVoucherImagesComponent } from './admin/voucher-images/voucher-images.component';
+import { AdminVoucherImagesCreateComponent } from './admin/voucher-images-create/voucher-images-create.component';
+import { AdminVoucherImagesDialogComponent } from './admin/voucher-images-create/voucher-images-dialog/voucher-images-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -314,6 +322,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         NumberToCurrencyPipe,
         NumberLikePipe,
         FormatDate,
+        FormatDateVoucher,
         SafeHtmlPipe,
         AdminReviewFimerComponent,
         AdminMultipleImagesComponent,
@@ -383,6 +392,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminEventLogComponent,
         AdminPointEventAddComponent,
         AdminPointEventDetailsComponent,
+        AdminQaSubCategoryComponent,
+        AdminQaSubCategoryDialogComponent,
+        AdminQuestionComponent,
+        AdminVoucherImagesComponent,
+        AdminVoucherImagesCreateComponent,
+        AdminVoucherImagesDialogComponent,
 
         //soft0ne dev
         AdminBannerFistarComponent,
@@ -450,7 +465,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminShopComponent,
         AdminShopDetailsComponent,
         AdminBannerShopComponent,
-        AdminBannerShopDetailsComponent
+        AdminBannerShopDetailsComponent,
+
         //end softone dev
 
 
@@ -515,6 +531,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         BrowserModule,
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
+        ColorSketchModule,
         //softone dev
         CurrencyMaskModule,
         PopoverModule.forRoot()
@@ -569,7 +586,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         PointsDialogComponent,
         GuideUploadDialogComponent,
         AdminResourceDialogImageCropSoftOneComponent,
-        AdminHashtagDialogComponent
+        AdminHashtagDialogComponent,
+        AdminQaSubCategoryDialogComponent,
+        AdminVoucherImagesDialogComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -55,6 +55,7 @@ export class AdminBannerShopDetailsComponent implements OnInit {
         this.form = new FormGroup({
             type: new FormControl(this.banner.type, []),
             target_url: new FormControl(this.banner.target_url, []),
+            category_id: new FormControl(this.banner.category_id, []),
             target_type: new FormControl(this.banner.target_url, []),
         });
 

@@ -1,0 +1,110 @@
+@import "~scss/mixins";
+@import "~scss/variables";
+@import "~scss/font_imports";
+::ng-deep {
+    .modal-dialog {
+        margin-top: 20px;
+        width: 420px;
+        .modal-content {
+            padding: 0;
+        }
+    }
+}
+.admin-voucher-dialog {
+    // padding: 20px;
+    .voucher-form {
+        background-color: #fffceb;
+        .voucher-container {
+            padding: 20px;
+            background-color: #fffceb;
+            .voucher-content {
+                .vaild-until  {
+                    font-family: 'Sahar-Regular';
+                }
+                .pointer {
+                    border: 2px solid #aaaaaa;
+                    min-height: 150px;
+                    font-size: 36px;
+                    padding: 3px;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    background: white;
+                    border-radius: 25px;
+                    margin-top: 30px;
+                    .active {
+                        border-radius: 25px;
+                        padding: 7% 20px;
+                        line-height: 40px;
+                        width: 100%;
+                        font-family: 'iciel-Cadena';
+                    }
+                }
+                .code-wrap {
+                    padding: 0 0 0 10px;
+                    width: 100%;
+                    display: flex;
+                    font-size: 23px;
+                    font-family: 'Sahar-Regular';
+                    padding-bottom: 4px;
+                    .code {
+                        font-weight: 600;
+                        font-family: 'iciel-Cadena';
+                        font-size: 26px;
+                    }
+                    .code-text {
+                        padding: 10px 7px 0;
+                        height: 30px;
+                    }
+                }
+                .cond {
+                    label {
+                        font-weight: 600;
+                        font-family: 'iciel-Cadena';
+                        font-size: 23px;
+                    }
+                    ::ng-deep #condition p {
+                        margin-bottom: 0 !important;
+                    }
+                    .active {
+                        border: 1px solid;
+                        padding: 12px 0;
+                        word-break: break-word;
+                        font-family: 'icielpanton-light';
+                        p {
+                            margin-bottom: 0 !important;
+                        }
+                    }
+                }
+            }
+            .voucher-footer {
+                background-color: #000000;
+                padding: 10px;
+                .col-12 {
+                    padding: 0 0 10px;
+                    img {
+                        width: 85px;
+                    }
+                }
+                .company-name {
+                    font-weight: 600;
+                }
+                p {
+                    color: #ffffff;
+                    font-size: 12px;
+                    margin-bottom: 5px;
+                }
+                span {
+                    color: #ffffff;
+                    font-size: 10px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
+
+.btn.btn-primary {
+    background-color: #20a8d8 !important;
+    border-color: #20a8d8 !important;
+}

@@ -67,18 +67,28 @@ export class AdminUserDetailComponent implements OnInit {
         if (this.user_no) {
             this.api.all('admin/user/' + this.user.user_no + '/update').customPOST(this.user).subscribe(res => {
                 if (res.result) {
-                    this.toast.success('Update user successfully');
+                    if(res.result.error){
+                        this.toast.error('Have error. '+ res.result.message);
+                    }else{
+                        this.toast.success('Update user successfully');
+                    }
+                    
                     // this.router.navigate(['/admin/user-management']);
                 }
             });
         } else {
             this.api.all('admin/user/add').customPOST(this.user).subscribe(res => {
                 if (res.result) {
-                    this.toast.success('Add user successfully');
-                    this.user = res.result;
-                    this.user.deleted = this.user.delete_at === 'N' ? 0 : 1;
-                    this.user.active = this.user.drmncy_at === 'N' ? 1 : 0;
-                    this.user_no = this.user.user_no;
+                    if(res.result.error){
+                        this.toast.error('Have error. '+ res.result.message);
+                    }else{
+                        this.toast.success('Add user successfully');
+                        this.user = res.result;
+                        this.user.deleted = this.user.delete_at === 'N' ? 0 : 1;
+                        this.user.active = this.user.drmncy_at === 'N' ? 1 : 0;
+                        this.user_no = this.user.user_no;
+                    }
+                    
                 }
             });
         }
