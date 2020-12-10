@@ -50,8 +50,6 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
         this.onClose = new Subject();
 
         if (this.voucher.series_number_from < 10) {
-            this.code_header = this.voucher.series_header + '00';
-            this.code = this.code_header + this.voucher.series_number_from;
             // this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-00' + this.voucher.series_number_to + '.zip';
         }
         if (this.voucher.series_number_from >= 10) {
@@ -61,21 +59,33 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
         }
         
         if (this.voucher.series_number_from < 10 && this.voucher.series_number_to < 10) {
+            this.code_header = this.voucher.series_header + '00';
+            this.code = this.code_header + this.voucher.series_number_from;
             this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-00' + this.voucher.series_number_to + '.zip';
         }
-        if (this.voucher.series_number_from < 10 && this.voucher.series_number_to >= 10 ) {
+        if (this.voucher.series_number_from < 10 && this.voucher.series_number_to >= 10 && this.voucher.series_number_to < 100) {
+            this.code_header = this.voucher.series_header + '00';
+            this.code = this.code_header + this.voucher.series_number_from;
             this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-0' + this.voucher.series_number_to + '.zip';
         }
-        if (this.voucher.series_number_from >=10 && this.voucher.series_number_to >= 10) {
+        if (this.voucher.series_number_from >= 10 && this.voucher.series_number_from < 100 && this.voucher.series_number_to >= 10 && this.voucher.series_number_to < 100) {
+            this.code_header = this.voucher.series_header + '0';
+            this.code = this.code_header + this.voucher.series_number_from;
             this.zip_name = this.voucher.series_header + '0' + this.voucher.series_number_from + '-0' + this.voucher.series_number_to + '.zip';
         }
-        if (this.voucher.series_number_from >=10 && this.voucher.series_number_to >= 100) {
+        if (this.voucher.series_number_from >= 10 && this.voucher.series_number_from < 100 && this.voucher.series_number_to >= 100) {
+            this.code_header = this.voucher.series_header + '0';
+            this.code = this.code_header + this.voucher.series_number_from;
             this.zip_name = this.voucher.series_header + '0' + this.voucher.series_number_from + '-' + this.voucher.series_number_to + '.zip';
         }
         if (this.voucher.series_number_from < 10 && this.voucher.series_number_to >= 100) {
+            this.code_header = this.voucher.series_header + '00';
+            this.code = this.code_header + this.voucher.series_number_from;
             this.zip_name = this.voucher.series_header + '00' + this.voucher.series_number_from + '-' + this.voucher.series_number_to + '.zip';
         }
         if (this.voucher.series_number_from >= 100 && this.voucher.series_number_to >= 100) {
+            this.code_header = this.voucher.series_header;
+            this.code = this.code_header + this.voucher.series_number_from;
             this.zip_name = this.voucher.series_header + this.voucher.series_number_from + '-' + this.voucher.series_number_to + '.zip';
         }
         this.voucher.zip_name = this.zip_name
@@ -132,7 +142,7 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
             if (i.length === 2) {
                 this.code = this.voucher.series_header + '0'  + index;
             }
-            if (i.length >= 3) {
+            if (i.length === 3) {
                 this.code = this.voucher.series_header  + index;
             }
             await html2canvas(this.screen.nativeElement, {
@@ -156,14 +166,13 @@ export class AdminVoucherImagesDialogComponent implements OnInit {
         this.basePic.map((item, i ) => {
             i = parseInt(this.voucher.series_number_from) + i;
             var index = i.toString();
-            // console.log(index.length, index);
             if (index.length === 1) {
                 img.file(this.voucher.series_header + '00'  + index + ".png", item, { base64: true });
             }
             if (index.length === 2) {
                 img.file(this.voucher.series_header + '0'  + index + ".png", item, { base64: true });
             }
-            if (index.length >= 3) {
+            if (index.length === 3) {
                 img.file(this.voucher.series_header + index + ".png", item, { base64: true });
             }
         });
