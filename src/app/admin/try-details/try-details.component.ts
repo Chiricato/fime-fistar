@@ -125,8 +125,8 @@ export class AdminTryDetailsComponent implements OnInit {
         this.getFashion();
         this.getBeauty();
         this.getFood();
-        this.getLifeStyle();
-        this.getOther();
+        // this.getLifeStyle();
+        // this.getOther();
         this.try.goods_code_group = this.try.goods_code_group ? this.try.goods_code_group : "407";
     }
 
@@ -190,16 +190,16 @@ export class AdminTryDetailsComponent implements OnInit {
             this.food = res.result;
         });
     }
-    getOther() {
-        this.api.all('getOther').customGET('').subscribe(res => {
-            this.other = res.result;
-        });
-    }
-    getLifeStyle() {
-        this.api.all('getLifeStyle').customGET('').subscribe(res => {
-            this.life_style = res.result;
-        });
-    }
+    // getOther() {
+    //     this.api.all('getOther').customGET('').subscribe(res => {
+    //         this.other = res.result;
+    //     });
+    // }
+    // getLifeStyle() {
+    //     this.api.all('getLifeStyle').customGET('').subscribe(res => {
+    //         this.life_style = res.result;
+    //     });
+    // }
 
     getColors() {
         this.api.all('admin').customGET('text-colors').subscribe(res => {

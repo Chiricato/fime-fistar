@@ -106,8 +106,8 @@ export class AdminReviewEditComponent implements OnInit {
     this.getBrands();
     this.getFashion();
     this.getFood();
-    this.getOther();
-    this.getLifeStyle();
+    // this.getOther();
+    // this.getLifeStyle();
   }
   get form() {
     return this.reviewForm.controls;
@@ -145,16 +145,16 @@ export class AdminReviewEditComponent implements OnInit {
           }
       });
   }
-  getOther() {
-      this.api.all('getOther').customGET('').subscribe(res => {
-          this.other = res.result;
-      });
-  }
-  getLifeStyle() {
-      this.api.all('getLifeStyle').customGET('').subscribe(res => {
-          this.life_style = res.result;
-      });
-  }
+  // getOther() {
+  //     this.api.all('getOther').customGET('').subscribe(res => {
+  //         this.other = res.result;
+  //     });
+  // }
+  // getLifeStyle() {
+  //     this.api.all('getLifeStyle').customGET('').subscribe(res => {
+  //         this.life_style = res.result;
+  //     });
+  // }
 
   getBrands() {
       this.api.all('brands/getAll').customGET('').subscribe(res => {
