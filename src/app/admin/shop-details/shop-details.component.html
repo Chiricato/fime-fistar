@@ -206,7 +206,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-3">
                                 <label>Image file name</label>
@@ -218,7 +218,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-md-3">
@@ -338,7 +338,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-3">
                         <label>Cover image</label>
                     </div>
@@ -366,149 +366,15 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Image 1</label>
+                        <label>Images</label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <label>
-                                <input class="select-img" id="file-input2" type="file" (change)="fileChangeEvent($event, 2)"
-                                       accept=".png, .jpg, .jpeg, .gif">
-                
-                                <div class="icon" *ngIf="image1 && shopId">
-                                    <img [src]="env.rootHost + shop.img_url + '/' + image1" [width]="150" [height]="100">
-                                </div>
-                                <div class="icon" *ngIf="image1 && !shopId">
-                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image1" [width]="150" [height]="100">
-                                </div>
-                                <div  class="pointer">
-                                    <div class="icon">
-                                        <label  for="file-input2" class="select-file">
-                                            <i class="material-icons align-text-bottom select-icon">
-                                                cloud_upload
-                                            </i> <span class="select-text" >Select</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Image 2</label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <label>
-                                <input class="select-img" id="file-input3" type="file" (change)="fileChangeEvent($event, 3)"
-                                       accept=".png, .jpg, .jpeg, .gif">
-                
-                                <div class="icon" *ngIf="image2 && shopId">
-                                    <img [src]="env.rootHost + shop.img_url + '/' + image2" [width]="150" [height]="100">
-                                </div>
-                                <div class="icon" *ngIf="image2 && !shopId">
-                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image2" [width]="150" [height]="100">
-                                </div>
-                                <div  class="pointer">
-                                    <div class="icon">
-                                        <label  for="file-input3" class="select-file">
-                                            <i class="material-icons align-text-bottom select-icon">
-                                                cloud_upload
-                                            </i> <span class="select-text" >Select</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Image 3</label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <label>
-                                <input class="select-img" id="file-input4" type="file" (change)="fileChangeEvent($event, 4)"
-                                       accept=".png, .jpg, .jpeg, .gif">
-                
-                                <div class="icon" *ngIf="image3 && shopId">
-                                    <img [src]="env.rootHost + shop.img_url + '/' + image3" [width]="150" [height]="100">
-                                </div>
-                                <div class="icon" *ngIf="image3 && !shopId">
-                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image3" [width]="150" [height]="100">
-                                </div>
-                                <div  class="pointer">
-                                    <div class="icon">
-                                        <label  for="file-input4" class="select-file">
-                                            <i class="material-icons align-text-bottom select-icon">
-                                                cloud_upload
-                                            </i> <span class="select-text" >Select</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Image 4</label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <label>
-                                <input class="select-img" id="file-input5" type="file" (change)="fileChangeEvent($event, 5)"
-                                       accept=".png, .jpg, .jpeg, .gif">
-                
-                                <div class="icon" *ngIf="image4 && shopId">
-                                    <img [src]="env.rootHost + shop.img_url + '/' + image4" [width]="150" [height]="100">
-                                </div>
-                                <div class="icon" *ngIf="image4 && !shopId">
-                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image4" [width]="150" [height]="100">
-                                </div>
-                                <div  class="pointer">
-                                    <div class="icon">
-                                        <label  for="file-input5" class="select-file">
-                                            <i class="material-icons align-text-bottom select-icon">
-                                                cloud_upload
-                                            </i> <span class="select-text" >Select</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Image 5</label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <label>
-                                <input class="select-img" id="file-input6" type="file" (change)="fileChangeEvent($event, 6)"
-                                       accept=".png, .jpg, .jpeg, .gif">
-                
-                                <div class="icon" *ngIf="image5 && shopId">
-                                    <img [src]="env.rootHost + shop.img_url + '/' + image5" [width]="150" [height]="100">
-                                </div>
-                                <div class="icon" *ngIf="image5 && !shopId">
-                                    <img [src]="env.rootHost + '/data/images/shops' + '/' + image5" [width]="150" [height]="100">
-                                </div>
-                                <div  class="pointer">
-                                    <div class="icon">
-                                        <label  for="file-input6" class="select-file">
-                                            <i class="material-icons align-text-bottom select-icon">
-                                                cloud_upload
-                                            </i> <span class="select-text" >Select</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </label>
+                            <app-admin-multiple-images #images [images]="{ data: shop.files}"
+                                                       [resizeToWidth]="720" [needToCrop] = "false" [aspectRatio]="1 / 1"></app-admin-multiple-images>
                         </div>
                     </div>
                 </div>

@@ -274,22 +274,10 @@ export class AdminShopDetailsComponent implements OnInit {
         if (this.cover_image !== '') {
             this.shop.cover_image = this.cover_image;
         }
-        if (this.image1 !== '') {
-            this.shop.image1 = this.image1;
-        }
-        if (this.image2 !== '') {
-            this.shop.image2 = this.image2;
-        }
-        if (this.image3 !== '') {
-            this.shop.image3 = this.image3;
-        }
-        if (this.image4 !== '') {
-            this.shop.image4 = this.image4;
-        }
-        if (this.image5 !== '') {
-            this.shop.image5 = this.image5;
-        }
-        this.onSaveCallback();
+        this.images.onSave((rs) => {
+            this.shop.images = rs.images;
+            this.onSaveCallback();
+        });
     }
 
     onSaveCallback() {
@@ -335,21 +323,6 @@ export class AdminShopDetailsComponent implements OnInit {
         this.api.all('uploads-shop').customPOST({file: this.fileBase64}).subscribe(res => {
             if (this.type === 1) {
                 this.cover_image = res.result.name;
-            } 
-            else if(this.type === 2) {
-                this.image1 = res.result.name;
-            }
-            else if(this.type === 3) {
-                this.image2 = res.result.name;
-            }
-            else if(this.type === 4) {
-                this.image3 = res.result.name;
-            }
-            else if(this.type === 5) {
-                this.image4 = res.result.name;
-            }
-            else if(this.type === 6) {
-                this.image5 = res.result.name;
             }
         });
     }

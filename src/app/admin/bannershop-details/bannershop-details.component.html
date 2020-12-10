@@ -31,7 +31,21 @@
                                     <option value="4">Home 4</option>
                                     <option value="5">Product 1</option>
                                     <option value="6">Product 2</option>
+                                    <option value="7">Category</option>
+                                    <option value="8">Notice</option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="banner.type == 7">
+                        <div class="col-md-3">
+                            <label>Category ID</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter Category ID"
+                                       [(ngModel)]="banner.category_id"
+                                       formControlName="category_id" name="category_id"/>
                             </div>
                         </div>
                     </div>

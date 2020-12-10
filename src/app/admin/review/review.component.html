@@ -256,6 +256,10 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #userActions="matMenu">
+                    <a mat-menu-item [routerLink]="['/admin/reviews/edit', row.review_no]" class="datatable-action-button">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </a>
                     <a mat-menu-item [routerLink]="['/admin/comments/review', row.review_no]" class="datatable-action-button">
                         <mat-icon>mode_comment</mat-icon>
                         <span>Comments</span>

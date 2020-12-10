@@ -13,9 +13,14 @@
 .admin-voucher-dialog {
     // padding: 20px;
     .voucher-form {
+        background-color: #fffceb;
         .voucher-container {
             padding: 20px;
+            background-color: #fffceb;
             .voucher-content {
+                .vaild-until  {
+                    font-family: 'Sahar-Regular';
+                }
                 .pointer {
                     border: 2px solid #aaaaaa;
                     min-height: 150px;
@@ -40,18 +45,23 @@
                     width: 100%;
                     display: flex;
                     font-size: 23px;
+                    font-family: 'Sahar-Regular';
+                    padding-bottom: 4px;
                     .code {
                         font-weight: 600;
-                        padding-top: 3px;
+                        font-family: 'iciel-Cadena';
+                        font-size: 26px;
                     }
                     .code-text {
-                        padding: 3px 7px;
+                        padding: 10px 7px 0;
                         height: 30px;
                     }
                 }
                 .cond {
                     label {
                         font-weight: 600;
+                        font-family: 'iciel-Cadena';
+                        font-size: 23px;
                     }
                     ::ng-deep #condition p {
                         margin-bottom: 0 !important;
@@ -59,8 +69,8 @@
                     .active {
                         border: 1px solid;
                         padding: 12px 0;
-                        background: white;
                         word-break: break-word;
+                        font-family: 'icielpanton-light';
                         p {
                             margin-bottom: 0 !important;
                         }
