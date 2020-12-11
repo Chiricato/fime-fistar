@@ -250,18 +250,18 @@
                 </div>
                 <div class="row" *ngIf="voucher.type == '1'">
                     <div class="col-md-3">
-                        <label>Voucher Price</label>
+                        <label>Voucher Price <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
                             <input type="number" class="form-control" [(ngModel)]="voucher.voucher_price"
                                 formControlName="voucher_price" name="voucher_price" />
-                            <div *ngIf="form.controls.voucher_price.invalid && (form.controls.voucher_price.dirty || form.controls.voucher_price.touched)"
+                            <!-- <div *ngIf="form.controls.voucher_price.invalid && (form.controls.voucher_price.dirty || form.controls.voucher_price.touched)"
                                 class="text-danger">
                                 <div *ngIf="form.controls.voucher_price.errors.required">
                                     Price is required
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -277,14 +277,6 @@
                                         [(ngModel)]="voucher.start_date" [owlDateTimeTrigger]="start_date"
                                         class="form-control" [owlDateTime]="start_date">
                                     <owl-date-time #start_date></owl-date-time>
-                                    <!-- <mat-datetimepicker-toggle [for]="start_date"
-                                                           matSuffix></mat-datetimepicker-toggle>
-                                    <mat-datetimepicker #start_date type="datetime" openOnFocus="true"
-                                                    timeInterval="5"></mat-datetimepicker>
-                                    <input matInput class="form-control" formControlName="start_date"
-                                           [(ngModel)]="try.event_bgnde"
-                                           [matDatetimepicker]="start_date" required autocomplete="false"
-                                           [max]="try.start_date"> -->
                                 </label>
                             </div>
                             <div *ngIf="form.controls.start_date.invalid && (form.controls.start_date.dirty || form.controls.start_date.touched)"

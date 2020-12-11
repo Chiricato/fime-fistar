@@ -122,7 +122,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
             limit_user: new FormControl(this.voucher.limit_user, [Validators.required]),
             amount: new FormControl(this.voucher.amount, [Validators.required]),
             discount_type: new FormControl(this.voucher.discount_type, []),
-            voucher_price: new FormControl(this.voucher.voucher_price, [Validators.required]),
+            voucher_price: new FormControl(this.voucher.voucher_price, []),
             start_date: new FormControl(this.voucher.start_date, [Validators.required]),
             end_date: new FormControl(this.voucher.end_date, [Validators.required]),
             delivery_start: new FormControl(this.voucher.delivery_start, [Validators.required]),
