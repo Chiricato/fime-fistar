@@ -13,7 +13,7 @@
             <b>{{ 'fime Admin'  }}</b>
 
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/category']">
-                <mat-icon class="sidenav-icon" >category</mat-icon>
+                <mat-icon class="sidenav-icon">category</mat-icon>
                 <span>{{ 'CATEGORY' | translate }}</span>
             </a>
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/categories']">
@@ -112,9 +112,26 @@
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/event']">
                 <mat-icon class="sidenav-icon">opacity</mat-icon> <span>{{ 'EVENT' | translate }}</span>
             </a>
-            <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/voucher-images']">
+            <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/voucher-images']">
                 <mat-icon class="sidenav-icon">photo_library</mat-icon> <span>{{ 'VOUCHER IMAGES' | translate }}</span>
-            </a> -->
+            </a>
+
+            <!-- <div class="nested-menu">
+                <a mat-list-item (click)="addExpandClass('vouchers')" [routerLink]="['/admin/vouchers']"
+                    [ngClass]="{'active': router.url === '/admin/vouchers' || router.url === '/admin/try/event'}">
+                    <mat-icon class="sidenav-icon">redeem</mat-icon>
+                    <span>{{ 'VOUCHER' | translate }}</span>
+                </a>
+                <ul class="nested submenu" [class.expand]="showMenu === 'vouchers'">
+                    <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                        <a [routerLink]="['/admin/vouchers']"><span>{{ 'VOUCHER' | translate }}</span></a>
+                    </li>
+                    <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                        <a [routerLink]="['/admin/voucher-images']"><span>{{ 'VOUCHER IMAGES' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div> -->
             <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/question']">
                 <mat-icon class="sidenav-icon">help</mat-icon> <span>{{ 'QUESTION' | translate }}</span>
             </a>
@@ -152,8 +169,8 @@
                     <span>{{ 'Request' | translate }}</span>
                 </a>
                 <ul class="nested submenu" [class.expand]="showMenu === 'request'">
-                    <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: false}" 
-                    [ngClass]="{'active': router.url.indexOf('/admin/request/fistar/basic/') >= 0 || router.url.indexOf('/admin/request/fistar') >= 0    }">
+                    <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: false}"
+                        [ngClass]="{'active': router.url.indexOf('/admin/request/fistar/basic/') >= 0 || router.url.indexOf('/admin/request/fistar') >= 0    }">
                         <a [routerLinkActive]="'active'" [routerLink]="['/admin/request/fistar']"><span>{{ 'Fistar' |
                             translate }}</span></a>
                     </li>
