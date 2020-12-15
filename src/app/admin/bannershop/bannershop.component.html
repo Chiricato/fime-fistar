@@ -31,15 +31,16 @@
                         <mat-form-field class="full-width">
                             <mat-select [(ngModel)]="filter.type">
                                 <mat-option value="0">All</mat-option>
-                                <mat-option value="1">Home 1</mat-option>
-                                <mat-option value="2">Home 2</mat-option>
-                                <mat-option value="3">Home 3</mat-option>
-                                <mat-option value="4">Home 4</mat-option>
-                                <mat-option value="5">Product 1</mat-option>
-                                <mat-option value="6">Product 2</mat-option>
+                                <mat-option value="1">Top banners</mat-option>
+                                <mat-option value="2">Area banner (1st)</mat-option>
+                                <mat-option value="3">Area banner (2nd)</mat-option>
+                                <mat-option value="9">Brand slide</mat-option>
+                                <mat-option value="4">Bottom banners (shipment/service/refund)</mat-option>
+                                <mat-option value="5">Product</mat-option>
+                                <mat-option value="6">Event</mat-option>
                                 <mat-option value="7">Category</mat-option>
+                                <mat-option value="10">Promotion</mat-option>
                                 <mat-option value="8">Notice</mat-option>
-                                <mat-option value="9">Home slide slick</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -88,15 +89,16 @@
         </ngx-datatable-column>
         <ngx-datatable-column name="Type" prop="type">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <span *ngIf="row.type == 1">Home 1</span>
-                <span *ngIf="row.type == 2">Home 2</span>
-                <span *ngIf="row.type == 3">Home 3</span>
-                <span *ngIf="row.type == 4">Home 4</span>
-                <span *ngIf="row.type == 5">Product 1</span>
-                <span *ngIf="row.type == 6">Product 2</span>
+                <span *ngIf="row.type == 1">Top banners</span>
+                <span *ngIf="row.type == 2">Area banner (1st)</span>
+                <span *ngIf="row.type == 3">Area banner (2nd)</span>
+                <span *ngIf="row.type == 4">Bottom banners (shipment/service/refund)</span>
+                <span *ngIf="row.type == 5">Product</span>
+                <span *ngIf="row.type == 6">Event</span>
                 <span *ngIf="row.type == 7">Category</span>
                 <span *ngIf="row.type == 8">Notice</span>
-                <span *ngIf="row.type == 9">Home slide slick</span>
+                <span *ngIf="row.type == 9">Brand slide</span>
+                <span *ngIf="row.type == 10">Promotion</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Url" prop="url" [sortable]="false">
