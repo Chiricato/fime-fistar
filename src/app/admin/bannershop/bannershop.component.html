@@ -39,6 +39,7 @@
                                 <mat-option value="6">Product 2</mat-option>
                                 <mat-option value="7">Category</mat-option>
                                 <mat-option value="8">Notice</mat-option>
+                                <mat-option value="9">Home slide slick</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -95,6 +96,7 @@
                 <span *ngIf="row.type == 6">Product 2</span>
                 <span *ngIf="row.type == 7">Category</span>
                 <span *ngIf="row.type == 8">Notice</span>
+                <span *ngIf="row.type == 9">Home slide slick</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Url" prop="url" [sortable]="false">
@@ -102,6 +104,7 @@
                 <a class="link" href="{{row.target_url}}" *ngIf="row.target_url" target="_blank">{{row.target_url}}</a>
             </ng-template>
         </ngx-datatable-column>
+        <ngx-datatable-column name="Order" prop="order" [canAutoResize]="false" [width]="100"></ngx-datatable-column>
         <ngx-datatable-column name="Status" prop="is_disabled" [sortable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="!row.is_disabled">Enable</span>

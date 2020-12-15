@@ -39,7 +39,6 @@ export class AdminBannerShopDetailsComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        console.log("INIT",this.resource, this.banner);
         this.env = environment;
 
         this.activeRoute.params.forEach((params: Params) => {
@@ -55,6 +54,7 @@ export class AdminBannerShopDetailsComponent implements OnInit {
         this.form = new FormGroup({
             type: new FormControl(this.banner.type, []),
             target_url: new FormControl(this.banner.target_url, []),
+            order: new FormControl(this.banner.order, []),
             category_id: new FormControl(this.banner.category_id, []),
             target_type: new FormControl(this.banner.target_url, []),
         });

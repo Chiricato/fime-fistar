@@ -33,6 +33,7 @@
                                     <option value="6">Product 2</option>
                                     <option value="7">Category</option>
                                     <option value="8">Notice</option>
+                                    <option value="9">Home slide slick</option>
                                 </select>
                             </div>
                         </div>
@@ -86,6 +87,18 @@
                                 <app-admin-resource #resource
                                                     [resource]="{ url: banner.url, resource_type: 1 }"
                                                     [resizeToWidth]="1920" [aspectRatio]="19/6" [needToCrop]="false"></app-admin-resource>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Order</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter order"
+                                       [(ngModel)]="banner.order"
+                                       formControlName="order" name="order"/>
                             </div>
                         </div>
                     </div>
