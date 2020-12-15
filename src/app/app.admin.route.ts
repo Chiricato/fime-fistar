@@ -111,6 +111,8 @@ import { AdminQaSubCategoryComponent } from './admin/qa-sub-category/qa-sub-cate
 import { AdminQuestionComponent } from './admin/question/question.component';
 import { AdminVoucherImagesComponent } from './admin/voucher-images/voucher-images.component';
 import { AdminVoucherImagesCreateComponent } from './admin/voucher-images-create/voucher-images-create.component';
+import { AdminVoucherComponent } from './admin/voucher/voucher.component';
+import { AdminVoucherDetailsComponent } from './admin/voucher-details/voucher-details.component';
 const appRoutes: Routes = [
     // User route here
     {
@@ -306,9 +308,12 @@ const appRoutes: Routes = [
             { path: 'bannershop/edit/:id', component: AdminBannerShopDetailsComponent },
             { path: 'qa-sub-category', component: AdminQaSubCategoryComponent },
             { path: 'question', component: AdminQuestionComponent },
+            { path: 'vouchers', component: AdminVoucherComponent },
             { path: 'voucher-images', component: AdminVoucherImagesComponent },
             { path: 'voucher-images-create', component: AdminVoucherImagesCreateComponent },
             { path: 'voucher-images-edit/:id', component: AdminVoucherImagesCreateComponent },
+            { path: 'voucher/add', component: AdminVoucherDetailsComponent},
+            { path: 'voucher/edit/:id', component: AdminVoucherDetailsComponent},
         ]
     },
     // otherwise redirect to home

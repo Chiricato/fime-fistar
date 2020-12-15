@@ -1,0 +1,531 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="admin-heading" *ngIf="!voucherId">
+                Create Voucher
+            </div>
+            <div class="admin-heading" *ngIf="voucherId">
+                Edit Voucher
+            </div>
+            <div>
+                <button class="btn btn-default" (click)="goBack()"><i class="material-icons align-text-bottom">
+                        arrow_back
+                    </i> <span>Back</span></button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="form" novalidate>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Type</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="voucher.type" formControlName="type"  name="type">
+                                    <mat-radio-button [value]="1" (click)="changeType()">Paid Voucher</mat-radio-button>
+                                    <mat-radio-button [value]="2" (click)="changeType()">Try Free Voucher
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="voucher.type == '2'">
+                    <div class="col-md-3">
+                        <label>Try Products <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group" *ngIf="voucher.type == '2'">
+                            <ng-select [items]="tries" [(ngModel)]="voucher.try_id" bindValue="cntnts_no"
+                                bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.cntnts_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Voucher Name <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="voucher.name" formControlName="name"
+                                name="name" />
+                            <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.name.errors.required">
+                                    Name is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Description <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ck-editor [(ngModel)]="voucher.description" skin="moono-lisa" language="en"
+                                [fullPage]="true" formControlName="description" name="description"></ck-editor>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Hashtag</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="voucher.hashtag" formControlName="hashtag"
+                                name="hashtag"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Category</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="voucher.category" formControlName="category">
+                                    <mat-radio-button [value]="407" (click)="changeCategory()">Beauty</mat-radio-button>
+                                    <mat-radio-button [value]="412" (click)="changeCategory()">Fashion</mat-radio-button>
+                                    <mat-radio-button [value]="420" (click)="changeCategory()">Food</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Brand <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ng-select [items]="brands" [(ngModel)]="voucher.brand" bindValue="code" bindLabel="code_nm"
+                                formControlName="brand" name="brand" [virtualScroll]="true">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.code_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+
+                            <div *ngIf="form.controls.brand.invalid && (form.controls.brand.dirty || form.controls.brand.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.brand.errors.required">
+                                    Brand is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Catalogs <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ng-select [items]="beauty" [(ngModel)]="voucher.catalog" bindValue="code"
+                                bindLabel="code_nm" *ngIf="voucher.category == 407" formControlName="catalog"
+                                name="catalog" [virtualScroll]="true">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.code_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+
+                            <ng-select [items]="fashion" [(ngModel)]="voucher.catalog" bindValue="code"
+                                bindLabel="code_nm" [virtualScroll]="true" *ngIf="voucher.category == 412"
+                                formControlName="catalog" name="catalog">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.code_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+                            <ng-select [items]="food" [(ngModel)]="voucher.catalog" bindValue="code" bindLabel="code_nm"
+                                [virtualScroll]="true" *ngIf="voucher.category == 420" formControlName="catalog"
+                                name="catalog">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.code_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+
+                            <div *ngIf="form.controls.catalog.invalid && (form.controls.catalog.dirty || form.controls.catalog.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.catalog.errors.required">
+                                    Category is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>{{ "is_disabled" | translate }}</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ui-switch size="small" formControlName="status" [(ngModel)]="voucher.status"
+                                color="#FF65B1"></ui-switch>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Voucher Type</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="voucher.voucher_type"
+                                formControlName="voucher_type" name="voucher_type">
+                                <mat-radio-button class="radio-button" [value]="1" (click)="changeVoucherType()">
+                                    Products</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="2" (click)="changeVoucherType()">
+                                    Exchange</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="3" (click)="changeVoucherType()">
+                                    Discount</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="4" (click)="changeVoucherType()">
+                                    Services</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Value <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                *ngIf="voucher.voucher_type == 1 || voucher.voucher_type == 2 || voucher.voucher_type == 4"
+                                [(ngModel)]="voucher.value" formControlName="value" name="value" />
+                            <input type="number" class="form-control" *ngIf="voucher.voucher_type == 3"
+                                [(ngModel)]="voucher.value" formControlName="value" name="value" />
+                            <div *ngIf="form.controls.value.invalid && (form.controls.value.dirty || form.controls.value.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.value.errors.required">
+                                    Value is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Limit User <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="number" class="form-control" [(ngModel)]="voucher.limit_user" formControlName="limit_user"
+                                name="limit_user" />
+                            <div *ngIf="form.controls.limit_user.invalid && (form.controls.limit_user.dirty || form.controls.limit_user.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.limit_user.errors.required">
+                                    Limit User is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Amount <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="number" class="form-control" [(ngModel)]="voucher.amount"
+                                formControlName="amount" name="amount" />
+                            <div *ngIf="form.controls.amount.invalid && (form.controls.amount.dirty || form.controls.amount.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.amount.errors.required">
+                                    Amount is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="voucher.type == '1'">
+                    <div class="col-md-3">
+                        <label>Voucher Price <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="number" class="form-control" [(ngModel)]="voucher.voucher_price"
+                                formControlName="voucher_price" name="voucher_price" />
+                            <!-- <div *ngIf="form.controls.voucher_price.invalid && (form.controls.voucher_price.dirty || form.controls.voucher_price.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.voucher_price.errors.required">
+                                    Price is required
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Start Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <label class="example-input-wrapper">
+                                    <input placeholder="Date Time:" formControlName="start_date"
+                                        [(ngModel)]="voucher.start_date" [owlDateTimeTrigger]="start_date"
+                                        class="form-control" [owlDateTime]="start_date">
+                                    <owl-date-time #start_date></owl-date-time>
+                                </label>
+                            </div>
+                            <div *ngIf="form.controls.start_date.invalid && (form.controls.start_date.dirty || form.controls.start_date.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.start_date.errors.required">
+                                    Start Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>End Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <label class="example-input-wrapper">
+                                    <input placeholder="Date Time:" formControlName="end_date"
+                                        [(ngModel)]="voucher.end_date" [owlDateTimeTrigger]="end_date"
+                                        class="form-control" [owlDateTime]="end_date">
+                                    <owl-date-time #end_date></owl-date-time>
+                                    <!-- <mat-datetimepicker-toggle [for]="end_date"
+                                                           matSuffix></mat-datetimepicker-toggle>
+                                    <mat-datetimepicker #end_date type="datetime" openOnFocus="true"
+                                                    timeInterval="5"></mat-datetimepicker>
+                                    <input matInput class="form-control" formControlName="end_date"
+                                           [(ngModel)]="try.event_endde"
+                                           [matDatetimepicker]="end_date" required autocomplete="false"
+                                           [max]="try.end_date"> -->
+                                </label>
+                            </div>
+                            <div *ngIf="form.controls.end_date.invalid && (form.controls.end_date.dirty || form.controls.end_date.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.end_date.errors.required">
+                                    End Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Delivery Start Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="delivery_start" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #delivery_start type="datetime" openOnFocus="true" timeInterval="5">
+                                </mat-datepicker>
+                                <input matInput class="form-control" formControlName="delivery_start"
+                                    [(ngModel)]="voucher.delivery_start" [matDatepicker]="delivery_start" required
+                                    autocomplete="false" [max]="voucher.delivery_end">
+                            </div>
+                            <div *ngIf="form.controls.delivery_start.invalid && (form.controls.delivery_start.dirty || form.controls.delivery_start.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.delivery_start.errors.required">
+                                    Delivery Start Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Delivery End Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="delivery_end" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #delivery_end type="datetime" openOnFocus="true" timeInterval="5">
+                                </mat-datepicker>
+                                <input matInput class="form-control" formControlName="delivery_end"
+                                    [(ngModel)]="voucher.delivery_end" [matDatepicker]="delivery_end" required
+                                    autocomplete="false" [min]="voucher.delivery_start">
+                            </div>
+                            <div *ngIf="form.controls.delivery_end.invalid && (form.controls.delivery_end.dirty || form.controls.delivery_end.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.delivery_end.errors.required">
+                                    Delivery End Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Main image <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <app-admin-resource #resource
+                                [resource]="{ url: voucher.feature_image, resource_type: voucher.resource_type }"
+                                [resizeToWidth]="670" [aspectRatio]="67 / 47"></app-admin-resource>
+                            <div *ngIf="isSubmitted && invalidMainImage" class="text-danger">
+                                Main image is require
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Images <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <app-admin-multiple-images #images [images]="{ data: voucher.files}" [resizeToWidth]="720"
+                                [aspectRatio]="1 / 1"></app-admin-multiple-images>
+                            <div *ngIf="isSubmitted && invalidImages" class="text-danger">
+                                Choose at least one image
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Image Description</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <app-admin-multiple-images #resourceImgDesc [needToCrop]="false" [maxImage]="1"
+                                [images]="{ data: voucher.imgDesc }" [resizeToWidth]="720" [aspectRatio]="1 / 1">
+                            </app-admin-multiple-images>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between">
+                        <div class="admin-heading col-5">
+                            APPLY FOR
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Location</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-form-field class="example-chip-list col-12" *ngIf="isLoading">
+                                <mat-chip-list #chipList aria-label="Fruit selection">
+                                    <mat-chip *ngFor="let item of province" [selectable]="selectable"
+                                        [removable]="removable" (removed)="remove(item)">
+                                        {{item}}
+                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                    </mat-chip>
+                                    <input #fruitInput [formControl]="fruitCtrl" [matAutocomplete]="auto"
+                                        [matChipInputFor]="chipList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                        (matChipInputTokenEnd)="add($event)">
+                                </mat-chip-list>
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                    <mat-option *ngFor="let item of filteredProvinces | async" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Member Level</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="voucher.member_level"
+                                formControlName="member_level" name="member_level">
+                                <mat-radio-button class="radio-button" [value]="1">Member</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="2">Silver</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="3">Gold</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="4">Platinum</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Products</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-radio-group class="radio-group radio-group-type"
+                                [(ngModel)]="voucher.type_product_collection" formControlName="type_product_collection"
+                                name="type_product_collection">
+                                <mat-radio-button class="radio-button" [value]="1">All</mat-radio-button>
+                                <mat-radio-button class="radio-button" [value]="2">Product Collection</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-9" *ngIf="voucher.type_product_collection == 2">
+                        <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="voucher.product_collection"
+                                formControlName="product_collection" name="product_collection"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Minimum Discount</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="number" class="form-control" [(ngModel)]="voucher.minimum_discount"
+                                formControlName="minimum_discount" name="minimum_discount" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Maximum Discount</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="number" class="form-control" [(ngModel)]="voucher.maxnimum_discount"
+                                formControlName="maxnimum_discount" name="maxnimum_discount" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Others</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="voucher.other_condition"
+                                formControlName="other_condition" name="other_condition"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions d-flex justify-content-end col-md-8">
+            <button class="btn btn-default mr-1" (click)="goBack()">
+                <i class="material-icons align-text-bottom">
+                    cancel
+                </i> <span> {{ "cancel" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" [disabled]="!form.valid" (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>
