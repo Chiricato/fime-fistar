@@ -34,6 +34,7 @@
                                 <mat-option value="1">Top banners</mat-option>
                                 <mat-option value="2">Area banner (1st)</mat-option>
                                 <mat-option value="3">Area banner (2nd)</mat-option>
+                                <mat-option value="11">Area banner (3nd)</mat-option>
                                 <mat-option value="9">Brand slide</mat-option>
                                 <mat-option value="4">Bottom banners (shipment/service/refund)</mat-option>
                                 <mat-option value="5">Product</mat-option>
@@ -99,6 +100,7 @@
                 <span *ngIf="row.type == 8">Notice</span>
                 <span *ngIf="row.type == 9">Brand slide</span>
                 <span *ngIf="row.type == 10">Promotion</span>
+                <span *ngIf="row.type == 11">Area banner (3nd)</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Url" prop="url" [sortable]="false">
