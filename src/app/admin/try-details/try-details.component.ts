@@ -264,7 +264,6 @@ export class AdminTryDetailsComponent implements OnInit {
             
         });
     }
-    console.log(123,'check');
     onSaveCallback() {
         this.try.expsr_at = this.try.is_disabled ? 'N' : 'Y';
         this.try.event_bgnde_format = moment.utc(this.try.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
