@@ -137,6 +137,8 @@ export class AdminTryDetailsComponent implements OnInit {
                 if (res.result.files.length > 0) {
                     this.try.feature_image = res.result.files[0].stre_file_nm ? res.result.files[0].file_cours + '/' +
                         res.result.files[0].stre_file_nm : res.result.files[0].file_cours;
+                    this.try.stre_file_nm = res.result.files[0].stre_file_nm;
+                    this.try.file_cours = res.result.files[0].file_cours;
                 } else {
                     this.try.feature_image = null;
                 }
@@ -211,14 +213,18 @@ export class AdminTryDetailsComponent implements OnInit {
 
     onSave() {
         this.isSubmitted = true;
+
         if (!this.images.isValidData()) {
+            console.log(1);
             this.invalidImages = true;
             return;
         } else {
+
             this.invalidImages = false;
         }
 
         this.resourceImgDesc.onSave((res) => {
+            console.log(res,'res');
             if (typeof res !== 'undefined') {
                 if (res.images) {
                     this.try.img_desc = res.images[0];
@@ -226,25 +232,38 @@ export class AdminTryDetailsComponent implements OnInit {
                     this.try.img_desc = null;
                 }
             }
-
-            this.resource.onSave((response) => {
-                if (typeof response === 'undefined' || typeof response.url === 'undefined' || !response.url) {
-                    this.invalidMainImage = true;
-                    return;
-                }
-                this.try.resource_type = response.resource_type;
+            
+            console.log(this.resource,'this.resource');
+            if(this.resource.isChanged == false && this.try.resource_type == 3){
                 this.images.onSave((rs) => {
                     this.try.images = rs.images;
                     if (this.output_text_type === '1') {
                         this.try.goods_txt = null;
                     }
-                    this.try.images.splice(0, 0, {name: response.name, url: response.url});
+                    this.try.images.splice(0, 0, {name: this.try.stre_file_nm, url: this.try.file_cours});
                     this.onSaveCallback();
                 });
-            });
+            }else{
+                this.resource.onSave((response) => {
+                    console.log(response,'response');
+                    if (typeof response === 'undefined' || typeof response.url === 'undefined' || !response.url) {
+                        this.invalidMainImage = true;
+                        return;
+                    }
+                    this.try.resource_type = response.resource_type;
+                    this.images.onSave((rs) => {
+                        this.try.images = rs.images;
+                        if (this.output_text_type === '1') {
+                            this.try.goods_txt = null;
+                        }
+                        this.try.images.splice(0, 0, {name: response.name, url: response.url});
+                        this.onSaveCallback();
+                    });
+                });
+            }
+            
         });
     }
-
     onSaveCallback() {
         this.try.expsr_at = this.try.is_disabled ? 'N' : 'Y';
         this.try.event_bgnde_format = moment.utc(this.try.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
