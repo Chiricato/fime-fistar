@@ -88,7 +88,7 @@ export class AdminBrandComponent implements OnInit {
 
     onSearch() {
         if (this.filter.name !== null && this.filter.name !== '') {
-            const val = this.filter.name;
+            const val = this.filter.name.toLowerCase();
             // filter our data
             this.brands = this.crrbrands.filter(function (d) {
                 return d.code_nm.toLowerCase().indexOf(val) !== -1 || !val;
