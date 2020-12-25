@@ -33,6 +33,8 @@
                                     <mat-option value="412">Fashion</mat-option>
                                     <mat-option value="413">Tips</mat-option>
                                     <mat-option value="420">Food</mat-option>
+                                    <mat-option value="424">Life style</mat-option>
+                                    <mat-option value="425">Others</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -70,6 +72,8 @@
                 <span *ngIf="row.code_group == 412">Fashion</span>
                 <span *ngIf="row.code_group == 413">Tips</span>
                 <span *ngIf="row.code_group == 420">Food</span>
+                <span *ngIf="row.code_group == 424">Life style</span>
+                <span *ngIf="row.code_group == 425">Others</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column [width]="150" name="Action" [sortable]="false" [canAutoResize]="false" [resizeable]="false">
