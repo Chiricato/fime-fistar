@@ -380,4 +380,22 @@ export class AdminReviewComponent implements OnInit {
         });
     }
 
+    onDownload() {
+
+        const from = this.filter.from ? formatDate(this.filter.from, 'MM/dd/yyyy', 'en-US') : null;
+        const to = this.filter.to ? formatDate(this.filter.to, 'MM/dd/yyyy', 'en-US') : null;
+
+        this.api.all('review-export').customGET('', {
+            tryId: this.tryId,
+            page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
+            category_id: this.filter.category_id, category_type: this.filter.category_type, name: this.filter.name, reg_name: this.filter.reg_name,
+            is_disabled: this.filter.is_disabled, type: this.filter.type,
+            from: from, to: to
+        }).subscribe(res => {
+            if (res.result) {
+                window.open(this.env.rootHost + res.result.path, '_blank');
+            }
+        });
+    }
+
 }
