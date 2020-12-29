@@ -24,7 +24,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <div>
-                                <mat-radio-group [(ngModel)]="voucher.type" formControlName="type"  name="type">
+                                <mat-radio-group [(ngModel)]="voucher.type" formControlName="type" name="type">
                                     <mat-radio-button [value]="1" (click)="changeType()">Paid Voucher</mat-radio-button>
                                     <mat-radio-button [value]="2" (click)="changeType()">Try Free Voucher
                                     </mat-radio-button>
@@ -96,7 +96,8 @@
                             <div>
                                 <mat-radio-group [(ngModel)]="voucher.category" formControlName="category">
                                     <mat-radio-button [value]="407" (click)="changeCategory()">Beauty</mat-radio-button>
-                                    <mat-radio-button [value]="412" (click)="changeCategory()">Fashion</mat-radio-button>
+                                    <mat-radio-button [value]="412" (click)="changeCategory()">Fashion
+                                    </mat-radio-button>
                                     <mat-radio-button [value]="420" (click)="changeCategory()">Food</mat-radio-button>
                                 </mat-radio-group>
                             </div>
@@ -245,6 +246,19 @@
                                     Price is required
                                 </div>
                             </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="voucher.type == '1'">
+                    <div class="col-md-3">
+                        <label>Point type <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control" [(ngModel)]="voucher.type_point" formControlName="type_point">
+                                <option value="1">Basic point</option>
+                                <option value="2">Event point</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -491,8 +505,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="number" class="form-control" [(ngModel)]="voucher.limit_user" formControlName="limit_user"
-                                name="limit_user" />
+                            <input type="number" class="form-control" [(ngModel)]="voucher.limit_user"
+                                formControlName="limit_user" name="limit_user" />
                             <div *ngIf="form.controls.limit_user.invalid && (form.controls.limit_user.dirty || form.controls.limit_user.touched)"
                                 class="text-danger">
                                 <div *ngIf="form.controls.limit_user.errors.required">
