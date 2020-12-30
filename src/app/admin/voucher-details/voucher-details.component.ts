@@ -61,6 +61,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
     public isLoading = false;
     public is_disabled = false;
     public location_id = [];
+    public checkLocation = true;
 
 
     visible = true;
@@ -259,6 +260,10 @@ export class AdminVoucherDetailsComponent implements OnInit {
 
     onSaveCallback() {
         this.voucher.location_id = this.location_id;
+        if(this.voucher.location_id.length === 0) {
+            this.checkLocation = false;
+            return
+        }
         this.voucher.status = this.voucher.status ? 4 : 1;
         this.voucher.event_bgnde_format = moment.utc(this.voucher.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
         this.voucher.event_endde_format = moment.utc(this.voucher.event_endde).format('YYYY-MM-DD HH:mm:ss');

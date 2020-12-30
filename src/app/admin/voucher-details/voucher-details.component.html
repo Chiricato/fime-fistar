@@ -413,7 +413,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Location</label>
+                        <label>Location <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -435,6 +435,9 @@
                                     </mat-option>
                                 </mat-autocomplete>
                             </mat-form-field>
+                            <div *ngIf="isSubmitted && !checkLocation" class="text-danger">
+                                Choose at least one location
+                            </div>
                         </div>
                     </div>
                 </div>
