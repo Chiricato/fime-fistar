@@ -98,7 +98,7 @@ export class AdminReviewEditComponent implements OnInit {
       short_description: new FormControl(this.review.review_short, [Validators.required]),
       description: new FormControl(this.review.review_dc, [Validators.required]),
       reviews_code_group: new FormControl(this.review.reviews_code_group, [Validators.required]),
-      hash_tag: new FormControl(this.review.hash_tag, [Validators.required])
+      hash_tag: new FormControl(this.review.hash_tag, [])
     });
 
     this.getReview();
