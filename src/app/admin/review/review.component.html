@@ -37,6 +37,7 @@
                                 <mat-option value="407">Beauty</mat-option>
                                 <mat-option value="412">Fashion</mat-option>
                                 <mat-option value="420">Food</mat-option>
+                                <mat-option value="424">Life style</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -61,6 +62,11 @@
                                 </mat-optgroup>
                                 <mat-optgroup label="Food" *ngIf="filter.category_type == 0 || filter.category_type == 420">
                                     <mat-option *ngFor="let item of food" value="{{item.code}}">
+                                        {{item.code_nm}}
+                                    </mat-option>
+                                </mat-optgroup>
+                                <mat-optgroup label="Life Style" *ngIf="filter.category_type == 0 || filter.category_type == 424">
+                                    <mat-option *ngFor="let item of life_style" value="{{item.code}}">
                                         {{item.code_nm}}
                                     </mat-option>
                                 </mat-optgroup>
@@ -244,6 +250,7 @@
                 <span *ngIf="row.reviews_code_group == 407">Beauty</span>
                 <span *ngIf="row.reviews_code_group == 412">Fashion</span>
                 <span *ngIf="row.reviews_code_group == 420">Food</span>
+                <span *ngIf="row.reviews_code_group == 424">Life style</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Views" prop="view_cnt" [resizeable]="false" [width]="70"></ngx-datatable-column>

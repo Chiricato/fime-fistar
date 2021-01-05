@@ -85,6 +85,11 @@
                                         {{item.code_nm}}
                                     </mat-option>
                                 </mat-optgroup>
+                                <mat-optgroup label="Life-style">
+                                    <mat-option *ngFor="let item of life_style" value="{{item.code}}">
+                                        {{item.code_nm}}
+                                    </mat-option>
+                                </mat-optgroup>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -234,6 +239,7 @@
                 <span *ngIf="row.goods_code_group == 407">Beauty</span>
                 <span *ngIf="row.goods_code_group == 412">Fashion</span>
                 <span *ngIf="row.goods_code_group == 420">Food</span>
+                <span *ngIf="row.goods_code_group == 424">Life style</span>
             </ng-template>
         </ngx-datatable-column>
 <!--        <ngx-datatable-column name="Winners" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="80">-->

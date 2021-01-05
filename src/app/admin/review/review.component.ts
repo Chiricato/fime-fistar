@@ -43,6 +43,7 @@ export class AdminReviewComponent implements OnInit {
     public fashion: any;
     public beauty: any;
     public food: any;
+    public life_style: any;
     public logs: any;
     public pageIndexLog = 1;
     public pageSizeLog = 10;
@@ -159,6 +160,11 @@ export class AdminReviewComponent implements OnInit {
     getUsers() {
         this.api.all('admin/users/get-list').customGET('').subscribe(res => {
             this.users = res.result;
+        });
+    }
+    getLifeStyle() {
+        this.api.all('getLifeStyle').customGET('').subscribe(res => {
+            this.life_style = res.result;
         });
     }
 

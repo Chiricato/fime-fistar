@@ -41,6 +41,7 @@ export class AdminTryComponent implements OnInit {
     public category_type: any;
     public fashion = [];
     public food = [];
+    public life_style = [];
     constructor(
         private api: Restangular,
         private toast: ToastrService,
@@ -89,6 +90,11 @@ export class AdminTryComponent implements OnInit {
     getFood() {
         this.api.all('getFood').customGET('').subscribe(res => {
             this.food = res.result;
+        });
+    }
+    getLifeStyle() {
+        this.api.all('getLifeStyle').customGET('').subscribe(res => {
+            this.life_style = res.result;
         });
     }
 
