@@ -504,16 +504,16 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Limit User <span style="color: red">(*)</span></label>
+                        <label>Maximum amount for redeem <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
                             <input type="number" class="form-control" [(ngModel)]="voucher.limit_user"
-                                formControlName="limit_user" name="limit_user" />
+                                formControlName="limit_user" name="limit_user" min="1"/>
                             <div *ngIf="form.controls.limit_user.invalid && (form.controls.limit_user.dirty || form.controls.limit_user.touched)"
                                 class="text-danger">
                                 <div *ngIf="form.controls.limit_user.errors.required">
-                                    Limit User is required
+                                    Maximum mount for redeem is required
                                 </div>
                             </div>
                         </div>
