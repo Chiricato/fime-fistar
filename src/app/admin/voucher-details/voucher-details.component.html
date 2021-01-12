@@ -40,11 +40,13 @@
                     <div class="col-md-9">
                         <div class="form-group" *ngIf="voucher.type == '2'">
                             <ng-select [items]="tries" [(ngModel)]="voucher.try_id" bindValue="cntnts_no"
-                                bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true">
+                                bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true" *ngIf="!voucherId">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span>{{ item.cntnts_nm }}</span>
                                 </ng-template>
                             </ng-select>
+                            <input type="text" class="form-control" [(ngModel)]="voucher.cntnts_nm" formControlName="try_id"
+                                name="try_id" *ngIf="voucherId" disabled/>
                         </div>
                     </div>
                 </div>
@@ -370,7 +372,7 @@
                         <div class="form-group">
                             <app-admin-resource #resource
                                 [resource]="{ url: voucher.feature_image, resource_type: voucher.resource_type }"
-                                [resizeToWidth]="670" [aspectRatio]="67 / 47"></app-admin-resource>
+                                [resizeToWidth]="670" [aspectRatio]="63 / 47"></app-admin-resource>
                             <div *ngIf="isSubmitted && invalidMainImage" class="text-danger">
                                 Main image is require
                             </div>
