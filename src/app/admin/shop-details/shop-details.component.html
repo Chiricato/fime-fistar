@@ -17,6 +17,22 @@
     <form [formGroup]="form" novalidate>
         <div class="row">
             <div class="col-md-8">
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Brand</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <ng-select [items]="brands" bindValue="code" [(ngModel)]="shop.brand_code" bindLabel="code_nm"[virtualScroll]="true"
+                                formControlName="brand_code" name="brand_code" (change)="changeBrand($event)">
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <span>{{ item.code_nm }}</span>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <label>Name <span style="color: red">(*)</span></label>
@@ -449,16 +465,22 @@
                         <div class="row">
                             <ngx-datatable #myTable class="material col-md-12" [rows]="tries_mapping" [columnMode]="'force'" [headerHeight]="50"
                                         [footerHeight]="50"
-                                        [rowHeight]="'auto'" [count]="totalTryMapping" (page)='setPageTry($event)' [externalSorting]="true" (sort)="setPageTry($event)">
-                                
+                                        [count]="totalTryMapping" [offset]="pageIndexTry-1" [limit]="pageSize" [externalPaging]="true"
+                                        (page)='setPage($event)'
+                                        [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
+                                            
                                 <ngx-datatable-column name="ID" prop="cntnts_no" [width]="70" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
                                 <ngx-datatable-column name="Image" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
                                     <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
                                         <img class="img"
-                                             [src]="row.stre_file_nm ? env.rootHost + row.file_cours + '/' + row.stre_file_nm : env.rootHost + row.file_cours"
-                                             *ngIf="row.file_cours" target="_blank"/>
+                                              [src]="row.stre_file_nm ? env.rootHost + row.file_cours + '/' + row.stre_file_nm : env.rootHost + row.file_cours"
+                                               *ngIf="row.resource_type == 1 && row.file_cours" target="_blank"/>
                                         <img class="img" [src]="'/assets/images/noimage.jpg'"
-                                             alt="Try image" *ngIf="!row.file_cours">
+                                             alt="Try image" *ngIf="row.resource_type == 1 && !row.file_cours">
+                                        <a class="link" href="{{row.file_cours}}" *ngIf="row.resource_type == 2" target="_blank">Link</a>
+                                        <video *ngIf="row.resource_type == 3" width="160" height="120" controls muted>
+                                            <source [src]="env.rootHost + row.file_cours + '/' + row.stre_file_nm">
+                                        </video>
                                     </ng-template>
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Title" prop="sj" [width]="210" [canAutoResize]="false" [resizeable]="false">
