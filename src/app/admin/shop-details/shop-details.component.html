@@ -400,13 +400,13 @@
                     </div>
                     <div class="col-md-9">
                         <div class="row">
-                            <div class="col-md-12">
+                            <!-- <div class="col-md-12">
                                 <button class="btn btn-primary float-right" (click)="openFormTry()">
                                     <i class="material-icons align-text-bottom">
                                         add
                                     </i> <span>Add</span>
                                 </button>
-                            </div>
+                            </div> -->
                             <div class="col-md-12" id="myFormTry" class="modal">
                                 <div class="row modal-content">
                                     <div class="col-md-12">
@@ -467,7 +467,7 @@
                                         [footerHeight]="50"
                                         [count]="totalTryMapping" [offset]="pageIndexTry-1" [limit]="pageSize" [externalPaging]="true"
                                         (page)='setPage($event)'
-                                        [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
+                                        [externalSorting]="true" [rowHeight]="'auto'">
                                             
                                 <ngx-datatable-column name="ID" prop="cntnts_no" [width]="70" [canAutoResize]="false" [resizeable]="false"></ngx-datatable-column>
                                 <ngx-datatable-column name="Image" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
