@@ -297,7 +297,7 @@
                                 <label class="example-input-wrapper">
                                     <input placeholder="Date Time:" formControlName="end_date"
                                         [(ngModel)]="voucher.end_date" [owlDateTimeTrigger]="end_date"
-                                        class="form-control" [owlDateTime]="end_date">
+                                        class="form-control" [owlDateTime]="end_date" [min]="voucher.start_date">
                                     <owl-date-time #end_date></owl-date-time>
                                     <!-- <mat-datetimepicker-toggle [for]="end_date"
                                                            matSuffix></mat-datetimepicker-toggle>
