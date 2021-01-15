@@ -24,7 +24,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <div>
-                                <mat-radio-group [(ngModel)]="voucher.type" formControlName="type"  name="type">
+                                <mat-radio-group [(ngModel)]="voucher.type" formControlName="type" name="type">
                                     <mat-radio-button [value]="1" (click)="changeType()">Paid Voucher</mat-radio-button>
                                     <mat-radio-button [value]="2" (click)="changeType()">Try Free Voucher
                                     </mat-radio-button>
@@ -40,11 +40,13 @@
                     <div class="col-md-9">
                         <div class="form-group" *ngIf="voucher.type == '2'">
                             <ng-select [items]="tries" [(ngModel)]="voucher.try_id" bindValue="cntnts_no"
-                                bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true">
+                                bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true" *ngIf="!voucherId">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span>{{ item.cntnts_nm }}</span>
                                 </ng-template>
                             </ng-select>
+                            <input type="text" class="form-control" [(ngModel)]="voucher.cntnts_nm" formControlName="try_id"
+                                name="try_id" *ngIf="voucherId" disabled/>
                         </div>
                     </div>
                 </div>
@@ -96,7 +98,8 @@
                             <div>
                                 <mat-radio-group [(ngModel)]="voucher.category" formControlName="category">
                                     <mat-radio-button [value]="407" (click)="changeCategory()">Beauty</mat-radio-button>
-                                    <mat-radio-button [value]="412" (click)="changeCategory()">Fashion</mat-radio-button>
+                                    <mat-radio-button [value]="412" (click)="changeCategory()">Fashion
+                                    </mat-radio-button>
                                     <mat-radio-button [value]="420" (click)="changeCategory()">Food</mat-radio-button>
                                 </mat-radio-group>
                             </div>
@@ -248,6 +251,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" *ngIf="voucher.type == '1'">
+                    <div class="col-md-3">
+                        <label>Point type <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control" [(ngModel)]="voucher.type_point" formControlName="type_point">
+                                <option value="1">Basic point</option>
+                                <option value="2">Event point</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <label>Start Date <span style="color: red">(*)</span></label>
@@ -281,7 +297,7 @@
                                 <label class="example-input-wrapper">
                                     <input placeholder="Date Time:" formControlName="end_date"
                                         [(ngModel)]="voucher.end_date" [owlDateTimeTrigger]="end_date"
-                                        class="form-control" [owlDateTime]="end_date">
+                                        class="form-control" [owlDateTime]="end_date" [min]="voucher.start_date">
                                     <owl-date-time #end_date></owl-date-time>
                                     <!-- <mat-datetimepicker-toggle [for]="end_date"
                                                            matSuffix></mat-datetimepicker-toggle>
@@ -356,7 +372,7 @@
                         <div class="form-group">
                             <app-admin-resource #resource
                                 [resource]="{ url: voucher.feature_image, resource_type: voucher.resource_type }"
-                                [resizeToWidth]="670" [aspectRatio]="67 / 47"></app-admin-resource>
+                                [resizeToWidth]="670" [aspectRatio]="63 / 47"></app-admin-resource>
                             <div *ngIf="isSubmitted && invalidMainImage" class="text-danger">
                                 Main image is require
                             </div>
@@ -399,7 +415,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Location</label>
+                        <label>Location <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -421,6 +437,9 @@
                                     </mat-option>
                                 </mat-autocomplete>
                             </mat-form-field>
+                            <div *ngIf="isSubmitted && !checkLocation" class="text-danger">
+                                Choose at least one location
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -487,16 +506,16 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Limit User <span style="color: red">(*)</span></label>
+                        <label>Maximum amount for redeem <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="number" class="form-control" [(ngModel)]="voucher.limit_user" formControlName="limit_user"
-                                name="limit_user" />
+                            <input type="number" class="form-control" [(ngModel)]="voucher.limit_user"
+                                formControlName="limit_user" name="limit_user" min="1"/>
                             <div *ngIf="form.controls.limit_user.invalid && (form.controls.limit_user.dirty || form.controls.limit_user.touched)"
                                 class="text-danger">
                                 <div *ngIf="form.controls.limit_user.errors.required">
-                                    Limit User is required
+                                    Maximum mount for redeem is required
                                 </div>
                             </div>
                         </div>
