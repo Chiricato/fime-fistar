@@ -40,13 +40,14 @@
                     <div class="col-md-9">
                         <div class="form-group" *ngIf="voucher.type == '2'">
                             <ng-select [items]="tries" [(ngModel)]="voucher.try_id" bindValue="cntnts_no"
-                                bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true" *ngIf="!voucherId">
+                                bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true"
+                                *ngIf="!voucherId">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span>{{ item.cntnts_nm }}</span>
                                 </ng-template>
                             </ng-select>
-                            <input type="text" class="form-control" [(ngModel)]="voucher.cntnts_nm" formControlName="try_id"
-                                name="try_id" *ngIf="voucherId" disabled/>
+                            <input type="text" class="form-control" [(ngModel)]="voucher.cntnts_nm"
+                                formControlName="try_id" name="try_id" *ngIf="voucherId" disabled />
                         </div>
                     </div>
                 </div>
@@ -242,12 +243,9 @@
                         <div class="form-group">
                             <input type="number" class="form-control" [(ngModel)]="voucher.voucher_price"
                                 formControlName="voucher_price" name="voucher_price" />
-                            <!-- <div *ngIf="form.controls.voucher_price.invalid && (form.controls.voucher_price.dirty || form.controls.voucher_price.touched)"
-                                class="text-danger">
-                                <div *ngIf="form.controls.voucher_price.errors.required">
-                                    Price is required
-                                </div>
-                            </div> -->
+                            <div *ngIf="isSubmitted && !checkPrice" class="text-danger">
+                                Voucher price is required
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -511,7 +509,7 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <input type="number" class="form-control" [(ngModel)]="voucher.limit_user"
-                                formControlName="limit_user" name="limit_user" min="1"/>
+                                formControlName="limit_user" name="limit_user" min="1" />
                             <div *ngIf="form.controls.limit_user.invalid && (form.controls.limit_user.dirty || form.controls.limit_user.touched)"
                                 class="text-danger">
                                 <div *ngIf="form.controls.limit_user.errors.required">

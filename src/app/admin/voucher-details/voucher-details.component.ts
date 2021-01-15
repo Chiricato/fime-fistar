@@ -62,6 +62,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
     public is_disabled = false;
     public location_id = [];
     public checkLocation = true;
+    public checkPrice = true;
 
 
     visible = true;
@@ -260,6 +261,11 @@ export class AdminVoucherDetailsComponent implements OnInit {
 
     onSaveCallback() {
         this.voucher.location_id = this.location_id;
+        if(this.voucher.type === 1) {
+            if(!this.voucher.voucher_price) {
+                return this.checkPrice = false;
+            }
+        }
         if(this.voucher.location_id.length === 0) {
             this.checkLocation = false;
             return
