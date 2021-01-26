@@ -440,7 +440,6 @@ export class AdminShopDetailsComponent implements OnInit {
 
     changeCategory() {
       this.api.all('categories?category='+this.shop.category).customGET().subscribe(res => {
-        this.isLoading = false;
         if (res.result) {
           this.catalogs = res.result;
         }
