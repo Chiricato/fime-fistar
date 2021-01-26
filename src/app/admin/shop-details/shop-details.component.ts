@@ -154,6 +154,7 @@ export class AdminShopDetailsComponent implements OnInit {
         this.getTries();
         this.getStreet();
         this.getBrands();
+        this.changeCategory();
 
     }
 
