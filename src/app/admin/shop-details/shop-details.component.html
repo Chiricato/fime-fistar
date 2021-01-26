@@ -82,7 +82,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-3">
-                                <label>Field 1 <span style="color: red">(*)</span></label>
+                                <label>Field 1</label>
                             </div>
                             <div class="col-md-9">
 
@@ -106,7 +106,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-3">
-                                <label>Field 2 <span style="color: red">(*)</span></label>
+                                <label>Field 2</label>
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
@@ -122,6 +122,48 @@
                                             Field 2 is required
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Category <span style="color: red">(*)</span></label>
+                            </div>
+                            <div class="col-md-9">
+
+                                <div class="form-group">
+                                    <ng-select [(ngModel)]="shop.category" formControlName="category" name="category" (change)="changeCategory()">
+                                        <ng-option value="407">Beauty</ng-option>
+                                        <ng-option value="412">Fashion</ng-option>
+                                        <ng-option value="420">Food</ng-option>
+                                    </ng-select>
+                                    <div *ngIf="form.controls.category.invalid && (form.controls.category.dirty || form.controls.category.touched)"
+                                         class="text-danger">
+                                        <div *ngIf="form.controls.category.errors.required">
+                                            Category is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Catalog</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <ng-select [items]="catalogs" [(ngModel)]="shop.catalog" bindValue="code" bindLabel="code_nm"
+                                               formControlName="catalog" name="catalog" [virtualScroll]="true">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                                            <span>{{ item.code_nm }}</span>
+                                        </ng-template>
+                                    </ng-select>
                                 </div>
                             </div>
                         </div>

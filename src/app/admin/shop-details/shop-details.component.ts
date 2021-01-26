@@ -79,6 +79,7 @@ export class AdminShopDetailsComponent implements OnInit {
     public brands = [];
     public list_tries = [];
     public brand_id: any; 
+    public catalogs: any;
     constructor(
         private api: Restangular,
         private cookieService: CookieService,
@@ -117,8 +118,10 @@ export class AdminShopDetailsComponent implements OnInit {
             address: new FormControl(this.shop.address, [Validators.required]),
             phone: new FormControl(this.shop.phone, []),
             owner: new FormControl(this.shop.owner, []),
-            field_1: new FormControl(this.shop.field_1, [Validators.required]),
-            field_2: new FormControl(this.shop.field_2, [Validators.required]),
+            field_1: new FormControl(this.shop.field_1, []),
+            field_2: new FormControl(this.shop.field_2, []),
+            category: new FormControl(this.shop.category, [Validators.required]),
+            catalog: new FormControl(this.shop.catalog, []),
             street_id: new FormControl(this.shop.street_id, [Validators.required]),
             city_id: new FormControl(this.shop.city_id, [Validators.required]),
             district_id: new FormControl(this.shop.district_id, [Validators.required]),
@@ -151,6 +154,7 @@ export class AdminShopDetailsComponent implements OnInit {
         this.getTries();
         this.getStreet();
         this.getBrands();
+
     }
 
     getShop() {
@@ -432,6 +436,15 @@ export class AdminShopDetailsComponent implements OnInit {
         // this.list_tries = [];
         // this.tries_mapping = [];
         // this.list_id_tries_mapping = [];
+    }
+
+    changeCategory() {
+      this.api.all('categories?category='+this.shop.category).customGET().subscribe(res => {
+        this.isLoading = false;
+        if (res.result) {
+          this.catalogs = res.result;
+        }
+      });
     }
 
 }
