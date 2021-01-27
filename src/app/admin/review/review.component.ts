@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
 import { CookieService } from '../../../services/cookie.service';
 // import * as _ from 'lodash';
@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import { formatDate } from '@angular/common';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { AdminReviewDetailsComponent } from '../review-detail/review-details.component';
+import { SwalComponent } from '@toverux/ngx-sweetalert2';
 
 @Component({
     selector: 'app-admin-review',
@@ -17,7 +18,11 @@ import { AdminReviewDetailsComponent } from '../review-detail/review-details.com
         './review.component.scss'
     ]
 })
+
 export class AdminReviewComponent implements OnInit {
+    
+    @ViewChild('mergeDialogSwal') private mergeDialogSwal: SwalComponent;
+
     public pageIndex: any;
     public pageSize: any;
     public reviews = [];
@@ -48,6 +53,7 @@ export class AdminReviewComponent implements OnInit {
     public pageIndexLog = 1;
     public pageSizeLog = 10;
     public totallogs = 0;
+    public reasonDisable = '';
     public filter = {
         name: null,
         reg_name: null,
@@ -60,6 +66,7 @@ export class AdminReviewComponent implements OnInit {
     };
     public tryId: string;
     public pageLimitOptions = [];
+
     constructor(
         private api: Restangular,
         private toast: ToastrService,
@@ -69,7 +76,6 @@ export class AdminReviewComponent implements OnInit {
     ) { }
 
     getRowClass = (row) => {
-        console.log(row)
        return {
         'row-color1': row.review_report === true,
        };
@@ -167,12 +173,26 @@ export class AdminReviewComponent implements OnInit {
             this.life_style = res.result;
         });
     }
+    // mergeDialogValidator(): void {
+    //     if (this.mergeDialogSwal === undefined) { return; }
+    //     this.mergeDialogSwal.inputValidator = (value) => {
+    //       return new Promise((resolve) => {
+    //         if (value.length >= 1) {
+    //             this.reasonDisable = value;
+    //           resolve();
+    //         } else {
+    //           resolve('The description should be at least 1 characters!');
+    //         }
+    //       });
+    //     };
+    // }
 
     onToggle(rows, toggle) {
         const ids = _.map(rows, 'review_no');
 
-        this.api.all('reviews').customPUT({ ids: ids, toggle: toggle }, 'toggle').subscribe(res => {
+        this.api.all('reviews').customPUT({ ids: ids, toggle: toggle, reasonDisable:this.reasonDisable  }, 'toggle').subscribe(res => {
             if (res.result) {
+                this.reasonDisable = "";
                 for (const row of rows) {
                     row.expsr_at = toggle ? 'Y' : 'N';
                 }
@@ -346,7 +366,6 @@ export class AdminReviewComponent implements OnInit {
     }
 
     onChange($event){
-        console.log(this.auto_enable);
         this.api.all('review-enable-log').customPOST({
             status: this.auto_enable
         }).subscribe(res => {

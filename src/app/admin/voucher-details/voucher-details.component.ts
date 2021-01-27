@@ -61,6 +61,8 @@ export class AdminVoucherDetailsComponent implements OnInit {
     public isLoading = false;
     public is_disabled = false;
     public location_id = [];
+    public checkLocation = true;
+    public checkPrice = true;
 
 
     visible = true;
@@ -123,6 +125,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
             amount: new FormControl(this.voucher.amount, [Validators.required]),
             discount_type: new FormControl(this.voucher.discount_type, []),
             voucher_price: new FormControl(this.voucher.voucher_price, []),
+            type_point: new FormControl(this.voucher.type_point, []),
             start_date: new FormControl(this.voucher.start_date, [Validators.required]),
             end_date: new FormControl(this.voucher.end_date, [Validators.required]),
             delivery_start: new FormControl(this.voucher.delivery_start, [Validators.required]),
@@ -258,6 +261,15 @@ export class AdminVoucherDetailsComponent implements OnInit {
 
     onSaveCallback() {
         this.voucher.location_id = this.location_id;
+        if(this.voucher.type === 1) {
+            if(!this.voucher.voucher_price) {
+                return this.checkPrice = false;
+            }
+        }
+        if(this.voucher.location_id.length === 0) {
+            this.checkLocation = false;
+            return
+        }
         this.voucher.status = this.voucher.status ? 4 : 1;
         this.voucher.event_bgnde_format = moment.utc(this.voucher.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
         this.voucher.event_endde_format = moment.utc(this.voucher.event_endde).format('YYYY-MM-DD HH:mm:ss');
