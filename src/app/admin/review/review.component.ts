@@ -101,6 +101,7 @@ export class AdminReviewComponent implements OnInit {
         this.getFashion();
         this.getBeauty();
         this.getFood();
+        this.getLifeStyle();
         
     }
 

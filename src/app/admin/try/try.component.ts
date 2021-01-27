@@ -61,6 +61,7 @@ export class AdminTryComponent implements OnInit {
         this.getCategories();
         this.getFashion();
         this.getFood();
+        this.getLifeStyle();
         this.pageLimitOptions = [
             {value: 5},
             {value: 10},
