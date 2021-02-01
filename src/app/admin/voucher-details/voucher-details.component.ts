@@ -300,7 +300,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
     }
 
     goBack(): void {
-        this.router.navigate(['/admin/try']);
+        this.router.navigate(['/admin/vouchers']);
     }
 
     changeCategory() {

@@ -112,7 +112,6 @@
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/event']"  *ngIf="user.role_id == 6 || user.permission.event">
                 <mat-icon class="sidenav-icon">opacity</mat-icon> <span>{{ 'EVENT' | translate }}</span>
             </a>
-
             <div class="nested-menu"  *ngIf="user.role_id == 6 || user.permission.voucher">
                 <a mat-list-item (click)="addExpandClass('vouchers')" [routerLink]="['/admin/vouchers']"
                     [ngClass]="{'active': router.url === '/admin/vouchers' || router.url === '/admin/try/event'}">

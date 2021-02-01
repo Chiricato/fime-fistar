@@ -37,7 +37,6 @@
                             <mat-radio-button value="412" style="margin-left: 20px;">Fashion</mat-radio-button>
                             <mat-radio-button value="420" style="margin-left: 20px;">Food</mat-radio-button>
                             <mat-radio-button value="424" style="margin-left: 20px;">Life style</mat-radio-button>
-                            <mat-radio-button value="425" style="margin-left: 20px;">Others</mat-radio-button>
                         </mat-radio-group>
                     </div>
                 </div>
@@ -69,13 +68,6 @@
                         [(ngModel)]="review.goods_cl_code" formControlName="category_id">
                         <option value="">{{ 'choose_category' | translate }}</option>
                         <option value="{{ category.code }}" *ngFor="let category of life_style">{{ category.code_nm }}
-                        </option>
-                    </select>
-                    <select *ngIf="review.reviews_code_group == 425"
-                        [ngClass]="{'has-error': hasError(form, form.category_id)}" id="category" class="form-control"
-                        [(ngModel)]="review.goods_cl_code" formControlName="category_id">
-                        <option value="">{{ 'choose_category' | translate }}</option>
-                        <option value="{{ category.code }}" *ngFor="let category of other">{{ category.code_nm }}
                         </option>
                     </select>
                     <small *ngIf="form.category_id.errors && form.category_id.touched" id="categoryHelp"
