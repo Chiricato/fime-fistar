@@ -137,6 +137,72 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" *ngIf="user.role_id == 1">
+                        <div class="col-md-3">
+                            <label>Permission</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <mat-checkbox formControlName="category" name="category" class="px-3"
+                                              [(ngModel)]="user.permission.category" color="primary">Category
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="catalog" name="catalog" class="px-3"
+                                              [(ngModel)]="user.permission.catalog" color="primary">Catalog
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="tryfree" name="tryfree" class="px-3"
+                                              [(ngModel)]="user.permission.tryfree" color="primary">Tryfree
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="review" name="review" class="px-3"
+                                              [(ngModel)]="user.permission.review" color="primary">Review
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="banner_slide" name="banner_slide" class="px-3"
+                                              [(ngModel)]="user.permission.banner_slide" color="primary">Banner slide
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="banner_shop" name="banner_shop" class="px-3"
+                                              [(ngModel)]="user.permission.banner_shop" color="primary">Banner shop
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="tip" name="tip" class="px-3"
+                                              [(ngModel)]="user.permission.tip" color="primary">Tip
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="prdocut_brand" name="prdocut_brand" class="px-3"
+                                              [(ngModel)]="user.permission.prdocut_brand" color="primary">Prdocut brand
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="notifi" name="notifi" class="px-3"
+                                              [(ngModel)]="user.permission.notifi" color="primary">Notifi
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="faq" name="faq" class="px-3"
+                                              [(ngModel)]="user.permission.faq" color="primary">Faq
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="blog" name="blog" class="px-3"
+                                              [(ngModel)]="user.permission.blog" color="primary">Blog
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="point" name="point" class="px-3"
+                                              [(ngModel)]="user.permission.point" color="primary">Point
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="event" name="event" class="px-3"
+                                              [(ngModel)]="user.permission.event" color="primary">Event
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="voucher" name="voucher" class="px-3"
+                                              [(ngModel)]="user.permission.voucher" color="primary">Voucher
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="user" name="user" class="px-3"
+                                              [(ngModel)]="user.permission.user" color="primary">User
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="hot_fime" name="hot_fime" class="px-3"
+                                              [(ngModel)]="user.permission.hot_fime" color="primary">Hot fime
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="hashtag" name="hashtag" class="px-3"
+                                              [(ngModel)]="user.permission.hashtag" color="primary">Hashtag
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="setting" name="setting" class="px-3"
+                                              [(ngModel)]="user.permission.setting" color="primary">Setting
+                                </mat-checkbox>
+                                <mat-checkbox formControlName="fistar" name="fistar" class="px-3"
+                                              [(ngModel)]="user.permission.fistar" color="primary">Fistar
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <label>{{ "admin.users.address" | translate }}</label>

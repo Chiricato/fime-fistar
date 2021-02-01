@@ -154,7 +154,7 @@ export class AdminShopDetailsComponent implements OnInit {
         this.getTries();
         this.getStreet();
         this.getBrands();
-        this.changeCategory();
+        
 
     }
 
@@ -172,6 +172,7 @@ export class AdminShopDetailsComponent implements OnInit {
                 this.city_name =this.shop.city_name;
                 this.state_name = this.shop.state_name;
                 this.ward_name = this.shop.ward_name;
+
                 if(this.shop.city_id){
                     this.api.all('state/'+this.shop.city_id).customGET('').subscribe(res => {
                         this.states = res.result;
@@ -187,9 +188,12 @@ export class AdminShopDetailsComponent implements OnInit {
                 }else{
                     this.wards = [];
                 }
+
+                this.changeCategory();
                 
             });
         this.getTryMapping();
+
 
     }
 
