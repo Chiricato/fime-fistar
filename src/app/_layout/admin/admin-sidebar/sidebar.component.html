@@ -62,6 +62,22 @@
                     </li>
                 </ul>
             </div>
+            <div class="nested-menu"  *ngIf="user.role_id == 6 || user.permission.voucher">
+                <a mat-list-item (click)="addExpandClass('vouchers')" [routerLink]="['/admin/vouchers']"
+                    [ngClass]="{'active': router.url === '/admin/vouchers' || router.url === '/admin/try/event'}">
+                    <mat-icon class="sidenav-icon">redeem</mat-icon>
+                    <span>{{ 'VOUCHER' | translate }}</span>
+                </a>
+                <ul class="nested submenu" [class.expand]="showMenu === 'vouchers'">
+                    <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                        <a [routerLink]="['/admin/vouchers']"><span>{{ 'VOUCHER' | translate }}</span></a>
+                    </li>
+                    <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                        <a [routerLink]="['/admin/voucher-images']"><span>{{ 'VOUCHER IMAGES' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/banners']"  *ngIf="user.role_id == 6 || user.permission.banner_slide">
                 <mat-icon class="sidenav-icon">photo</mat-icon>
                 <span>{{ 'BANNER SLIDER' | translate }}</span>
@@ -112,22 +128,6 @@
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/event']"  *ngIf="user.role_id == 6 || user.permission.event">
                 <mat-icon class="sidenav-icon">opacity</mat-icon> <span>{{ 'EVENT' | translate }}</span>
             </a>
-            <div class="nested-menu"  *ngIf="user.role_id == 6 || user.permission.voucher">
-                <a mat-list-item (click)="addExpandClass('vouchers')" [routerLink]="['/admin/vouchers']"
-                    [ngClass]="{'active': router.url === '/admin/vouchers' || router.url === '/admin/try/event'}">
-                    <mat-icon class="sidenav-icon">redeem</mat-icon>
-                    <span>{{ 'VOUCHER' | translate }}</span>
-                </a>
-                <ul class="nested submenu" [class.expand]="showMenu === 'vouchers'">
-                    <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
-                        <a [routerLink]="['/admin/vouchers']"><span>{{ 'VOUCHER' | translate }}</span></a>
-                    </li>
-                    <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
-                        <a [routerLink]="['/admin/voucher-images']"><span>{{ 'VOUCHER IMAGES' | translate }}</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
             <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/question']">
                 <mat-icon class="sidenav-icon">help</mat-icon> <span>{{ 'QUESTION' | translate }}</span>
             </a>
