@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col">
-            <label class="btn btn-primary float-right ml-2">
+            <label class="btn btn-primary float-right ml-2" style="display: none;">
                 Import Shop
                 <input style="display: none;" class="select-img" type="file"
                     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ng2FileSelect [uploader]="uploader" (change)="onSelectFile($event)">
@@ -97,6 +97,7 @@
                 <span *ngIf="row.category == 407">Beauty</span>
                 <span *ngIf="row.category == 412">Fashion</span>
                 <span *ngIf="row.category == 420">Food</span>
+                <span *ngIf="row.category == 424">Life style</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Catalog" prop="catalog_name" [resizeable]="false"></ngx-datatable-column>
