@@ -63,6 +63,8 @@ export class AdminVoucherDetailsComponent implements OnInit {
     public location_id = [];
     public checkLocation = true;
     public checkPrice = true;
+    public isShowBtnTry = false;
+    public tryfree_id: any;
 
 
     visible = true;
@@ -351,6 +353,12 @@ export class AdminVoucherDetailsComponent implements OnInit {
         console.log(value);
         // const filterValue = value.toLowerCase();
         return this.provinces.filter(item => item.name.toLowerCase().indexOf() === 0);
+    }
+
+    changeTry(item) {
+        this.tryfree_id = item;
+        console.log(item);
+        this.isShowBtnTry = true;
     }
 
 }
