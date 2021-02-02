@@ -76,6 +76,10 @@ export class AdminShopDetailsComponent implements OnInit {
     public sort = 'desc';
     public pageLimitOptions = [];
     list_id_tries_mapping = [];
+    public brands = [];
+    public list_tries = [];
+    public brand_id: any; 
+    public catalogs: any;
     constructor(
         private api: Restangular,
         private cookieService: CookieService,
@@ -114,8 +118,10 @@ export class AdminShopDetailsComponent implements OnInit {
             address: new FormControl(this.shop.address, [Validators.required]),
             phone: new FormControl(this.shop.phone, []),
             owner: new FormControl(this.shop.owner, []),
-            field_1: new FormControl(this.shop.field_1, [Validators.required]),
-            field_2: new FormControl(this.shop.field_2, [Validators.required]),
+            field_1: new FormControl(this.shop.field_1, []),
+            field_2: new FormControl(this.shop.field_2, []),
+            category: new FormControl(this.shop.category, [Validators.required]),
+            catalog: new FormControl(this.shop.catalog, []),
             street_id: new FormControl(this.shop.street_id, [Validators.required]),
             city_id: new FormControl(this.shop.city_id, [Validators.required]),
             district_id: new FormControl(this.shop.district_id, [Validators.required]),
@@ -129,6 +135,7 @@ export class AdminShopDetailsComponent implements OnInit {
             sns_type: new FormControl(this.shop.sns_type, []),
             sns_url: new FormControl(this.shop.sns_url, []),
             hashtag: new FormControl(this.shop.hashtag, []),
+            brand_code: new FormControl(this.shop.brand_code, []),
             contact_history: new FormControl(this.shop.contact_history, [])
         });
 
@@ -146,6 +153,9 @@ export class AdminShopDetailsComponent implements OnInit {
         this.getFields();
         this.getTries();
         this.getStreet();
+        this.getBrands();
+        
+
     }
 
     getShop() {
@@ -162,6 +172,7 @@ export class AdminShopDetailsComponent implements OnInit {
                 this.city_name =this.shop.city_name;
                 this.state_name = this.shop.state_name;
                 this.ward_name = this.shop.ward_name;
+
                 if(this.shop.city_id){
                     this.api.all('state/'+this.shop.city_id).customGET('').subscribe(res => {
                         this.states = res.result;
@@ -177,16 +188,20 @@ export class AdminShopDetailsComponent implements OnInit {
                 }else{
                     this.wards = [];
                 }
+
+                this.changeCategory();
                 
             });
         this.getTryMapping();
 
+
     }
 
     getTryMapping() {
-        this.api.one('GetTryShopMapping', this.shopId).get()
+        this.api.one('GetTryShopMapping', this.shopId).get('',{page: this.pageIndexTry, pageSize: this.pageSize, column: this.column, sort: this.sort})
             .subscribe(res => {
-                    this.list_tries_mapping = res.result;
+                    this.list_tries_mapping = res.result.data;
+                    this.totalTryMapping = res.result.total;
                     this.tries_mapping = this.list_tries_mapping;
                     console.log(this.tries_mapping,'this.tries_mapping');
                     console.log(this.list_id_tries_mapping,'this.list_id_tries_mapping');
@@ -201,7 +216,7 @@ export class AdminShopDetailsComponent implements OnInit {
                 this.tries_mapping.push(this.tries_list);
                 this.try_id_mapping.push(this.tries_list.cntnts_no);
                 this.list_id_tries_mapping.push(this.tries_list.cntnts_no);
-                this.totalTryMapping = this.tries_mapping.length;
+                // this.totalTryMapping = this.tries_mapping.length;
             }
         });
     }
@@ -340,7 +355,7 @@ export class AdminShopDetailsComponent implements OnInit {
 
     getTries() {
         this.api.all('try-list').customGET('', {
-            page: this.pageIndexTry, pageSize: this.pageSize, column: this.column, sort: this.sort,
+            page: this.pageIndexTry, pageSize: this.pageSize, column: this.column, sort: this.sort
         }).subscribe(res => {
             this.try = res.result.data;
             this.totalTry = res.result.total;
@@ -378,6 +393,62 @@ export class AdminShopDetailsComponent implements OnInit {
         console.log(this.tries_mapping,'this.tries_mapping');
         console.log(this.list_id_tries_mapping,'this.list_id_tries_mapping');
         
+    }
+    getBrands() {
+        this.api.all('brands/getAll').customGET('').subscribe(res => {
+            if (res.result) {
+                this.brands = res.result;
+            }
+        });
+    }
+    
+    setPage(pageInfo) {
+        console.log(pageInfo);
+        this.pageIndexTry = pageInfo.offset + 1;
+        this.api.all('try-list-shop').customGET('', { page: this.pageIndexTry, pageSize: this.pageSize, column: this.column, sort: this.sort,
+            brand_code: this.brand_id}).subscribe(res => {
+            if (res.result) {
+                this.tries_mapping = res.result.data;
+                this.totalTryMapping = res.result.total;
+                console.log(this.tries_mapping);
+                console.log(this.totalTryMapping);
+            }
+        });
+    }
+    changeBrand(brand: any) {
+        this.brand_id = brand.code
+        this.api.all('try-list-shop').customGET('', { page: this.pageIndexTry, pageSize: this.pageSize, column: this.column, sort: this.sort,
+            brand_code: this.brand_id}).subscribe(res => {
+            if (res.result) {
+                this.tries_mapping = res.result.data;
+                this.totalTryMapping = res.result.total;
+                console.log(this.tries_mapping);
+                console.log(this.totalTryMapping);
+            }
+        });
+        // console.log(this.list_id_tries_mapping,'this.list_id_tries_mapping');
+        // for(var i=0;i<this.try.length;i++){
+        //     if(this.try[i].brnd_code == brand.code) {
+        //         this.list_tries.push(this.try[i])
+        //     }
+        // }
+        // for(var i=0;i<this.list_tries.length;i++){
+        //     const id2 = this.list_tries[i].cntnts_no;
+        //     if(this.list_id_tries_mapping.indexOf(id2) == -1){
+        //         this.addTries(this.list_tries[i]);
+        //     }
+        // }
+        // this.list_tries = [];
+        // this.tries_mapping = [];
+        // this.list_id_tries_mapping = [];
+    }
+
+    changeCategory() {
+      this.api.all('categories?category='+this.shop.category).customGET().subscribe(res => {
+        if (res.result) {
+          this.catalogs = res.result;
+        }
+      });
     }
 
 }
