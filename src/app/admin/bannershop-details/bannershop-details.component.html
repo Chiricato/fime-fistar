@@ -53,6 +53,19 @@
                         </div>
                     </div>
 
+                    <div class="row" *ngIf="banner.type == 7">
+                        <div class="col-md-3">
+                            <label>Category Parent ID</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter Category Parent ID"
+                                       [(ngModel)]="banner.parent_id"
+                                       formControlName="parent_id" name="parent_id"/>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-3">
                             <label>{{ "url" | translate }}</label>

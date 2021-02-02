@@ -100,16 +100,16 @@ export class AdminVoucherImagesComponent implements OnInit {
     }
 
     onReset() {
-        // this.filter = {
-        //     name: null,
-        //     category: 'null',
-        //     catalog: 'null',
-        //     from: null,
-        //     to: null,
-        //     reg_name: null,
-        //     status: null
-        // };
-        // this.getQuestions();
+        this.filter = {
+            partner_name: null,
+            category: 'null',
+            catalog: 'null',
+            from: null,
+            to: null,
+            reg_name: null,
+            status: null
+        };
+        this.getVoucher();
     }
 
     setPage(pageInfo) {

@@ -57,6 +57,7 @@ export class AdminBannerShopDetailsComponent implements OnInit {
             order: new FormControl(this.banner.order, []),
             category_id: new FormControl(this.banner.category_id, []),
             target_type: new FormControl(this.banner.target_url, []),
+            parent_id: new FormControl(this.banner.parent_id, []),
         });
 
         if (this.bannerId) {
