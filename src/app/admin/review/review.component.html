@@ -102,7 +102,7 @@
                                 <mat-option value="null">All</mat-option>
                                 <mat-option value="1">Popular</mat-option>
                                 <mat-option value="0">Normal</mat-option>
-                                <!-- <mat-option value="2">Report</mat-option> -->
+                                <mat-option value="2">Report</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -242,14 +242,14 @@
         <ngx-datatable-column name="Status" prop="expsr_at" [width]="110" [canAutoResize]="false" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.expsr_at == 'Y'">Enable</span>
-                <!-- <span *ngIf="row.expsr_at == 'N'">
+                <span *ngIf="row.expsr_at == 'N'">
                     <span *ngIf="row.reason_disable" popover="{{row.reason_disable}}" placement="left">
                         Disabled
                     </span>
                     <span *ngIf="!row.reason_disable" >Disabled</span>
                     
-                </span> -->
-                <span *ngIf="row.expsr_at == 'N'">Disabled</span>
+                </span>
+                <!-- <span *ngIf="row.expsr_at == 'N'">Disabled</span> -->
                 <span *ngIf="row.expsr_at == 'P'">Pendding</span>
             </ng-template>
         </ngx-datatable-column>
@@ -302,7 +302,7 @@
                         <span>Popular</span>
                     </button>
 
-                    <button mat-menu-item [swal]="disableSwal"
+                    <button mat-menu-item [swal]="mergeDialogSwal"
                             *ngIf="row.expsr_at !== 'N'" (confirm)="onToggle([row], false)" class="datatable-action-button">
                         <mat-icon>visibility_off</mat-icon>
                         <span>Disable</span>
@@ -350,8 +350,8 @@
       [focusCancel]="true"></swal>
 <swal #enableSwal text="Are you sure to approve this review?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>
-<!-- <swal #mergeDialogSwal text="Are you sure to disapprove this review?" [inputValidator]="mergeDialogValidator()" input="textarea" type="question" [showCancelButton]="true"
-      [focusCancel]="true"></swal> -->
+<swal #mergeDialogSwal text="Are you sure to disapprove this review?" [inputValidator]="mergeDialogValidator()" input="textarea" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
 <swal #disableSwal text="Are you sure to disapprove this review?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>
 <swal #popularSwal text="Are you sure to popular this review?" type="question" [showCancelButton]="true"

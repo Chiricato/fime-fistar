@@ -174,19 +174,19 @@ export class AdminReviewComponent implements OnInit {
             this.life_style = res.result;
         });
     }
-    // mergeDialogValidator(): void {
-    //     if (this.mergeDialogSwal === undefined) { return; }
-    //     this.mergeDialogSwal.inputValidator = (value) => {
-    //       return new Promise((resolve) => {
-    //         if (value.length >= 1) {
-    //             this.reasonDisable = value;
-    //           resolve();
-    //         } else {
-    //           resolve('The description should be at least 1 characters!');
-    //         }
-    //       });
-    //     };
-    // }
+    mergeDialogValidator(): void {
+         if (this.mergeDialogSwal === undefined) { return; }
+         this.mergeDialogSwal.inputValidator = (value) => {
+           return new Promise((resolve) => {
+             if (value.length >= 1) {
+                 this.reasonDisable = value;
+               resolve();
+             } else {
+               resolve('The description should be at least 1 characters!');
+             }
+           });
+         };
+    }
 
     onToggle(rows, toggle) {
         const ids = _.map(rows, 'review_no');
