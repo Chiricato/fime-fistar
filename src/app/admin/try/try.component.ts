@@ -15,6 +15,8 @@ import {ToastrService} from 'ngx-toastr';
     ]
 })
 export class AdminTryComponent implements OnInit {
+
+
     public tries: any;
     public env: any;
     public total: any;
@@ -51,6 +53,7 @@ export class AdminTryComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.env = environment;
         this.pageIndex = 1;
         this.pageSize = 10;
@@ -69,6 +72,7 @@ export class AdminTryComponent implements OnInit {
             {value: 25},
             {value: 50}
         ];
+        
 
     }
 
@@ -111,7 +115,6 @@ export class AdminTryComponent implements OnInit {
                 from: from, to: to
             }).subscribe(res => {
             this.tries = res.result.data;
-            console.log(this.tries[0].goods_cl_code);
             for (let i = 0; i < this.tries.length; i++) {
                 this.tries[i].event_bgnde = moment.utc(this.tries[i].event_bgnde);
                 this.tries[i].event_endde = moment.utc(this.tries[i].event_endde);
