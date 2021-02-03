@@ -41,13 +41,14 @@
                         <div class="form-group" *ngIf="voucher.type == '2'">
                             <ng-select [items]="tries" [(ngModel)]="voucher.try_id" bindValue="cntnts_no"
                                 bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true"
-                                *ngIf="!voucherId">
+                                *ngIf="!voucherId" >
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
-                                    <span>{{ item.cntnts_nm }}</span>
+                                    <span (click)="changeTry(item.cntnts_no)">{{ item.cntnts_nm }}</span>
                                 </ng-template>
                             </ng-select>
                             <input type="text" class="form-control" [(ngModel)]="voucher.cntnts_nm"
                                 formControlName="try_id" name="try_id" *ngIf="voucherId" disabled />
+                            <a *ngIf="isShowBtnTry" target="_blank" routerLink="/admin/try/edit/{{tryfree_id}}" class="btn-try-detail">Details</a>
                         </div>
                     </div>
                 </div>
