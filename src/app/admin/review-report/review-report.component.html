@@ -40,7 +40,7 @@
                         </tr>
                         <tr>
                             <td>Author</td>
-                            <td class="x_salary">{{review.author_disable_name}}({{review.author_disable}})</td>
+                            <td class="x_salary"><span *ngIf="review.author_disabl">{{review.author_disable_name}}({{review.author_disable}})</span></td>
                         </tr>
                         <tr>
                             <td>Time</td>
