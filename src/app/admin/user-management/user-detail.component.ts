@@ -53,7 +53,7 @@ export class AdminUserDetailComponent implements OnInit {
             banner_slide: new FormControl(this.user.permission.banner_slide, []),
             banner_shop: new FormControl(this.user.permission.banner_shop, []),
             tip: new FormControl(this.user.permission.tip, []),
-            prdocut_brand: new FormControl(this.user.permission.prdocut_brand, []),
+            product_brand: new FormControl(this.user.permission.product_brand, []),
             notifi: new FormControl(this.user.permission.notifi, []),
             faq: new FormControl(this.user.permission.faq, []),
             blog: new FormControl(this.user.permission.blog, []),
