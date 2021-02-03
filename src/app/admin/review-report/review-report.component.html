@@ -16,16 +16,42 @@
             <div class="col-3">
             </div>
             <div class="col-8 d-flex justify-content-end" style="height: 36px;">
-                <button class="btn btn-default mr-1" [swal]="disableSwal" (confirm)="onToggle(false)"><i
+                <button class="btn btn-default mr-1" [swal]="mergeDialogSwal" (confirm)="onToggle(false)" *ngIf="review.expsr_at == 'Y'"><i
                         class="material-icons align-text-bottom">
                         visibility_off
                     </i> <span> Disable</span></button>
-                <button class="btn btn-primary" [swal]="enableSwal" (confirm)="onToggle(true)"><i class="material-icons align-text-bottom">
+                <button class="btn btn-primary" [swal]="enableSwal" (confirm)="onToggle(true)" *ngIf="review.expsr_at == 'N'"><i class="material-icons align-text-bottom">
                         visibility
-                    </i> <span> View</span></button>
+                    </i> <span> Enable</span></button>
             </div>
         </div>
     </mat-card>
+    <div class="row" *ngIf="review.expsr_at == 'N'" style="padding-top: 30px;">
+        <div class="col-12 d-flex justify-content-between">
+            <p >Disable Summary</p>
+        </div>
+        <div class="col-12 d-flex justify-content-between">
+            <div style="float: left;width: 100%">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Reason</td>
+                            <td class="x_salary">{{review.reason_disable}}</td>
+                        </tr>
+                        <tr>
+                            <td>Author</td>
+                            <td class="x_salary">{{review.author_disable_name}}({{review.author_disable}})</td>
+                        </tr>
+                        <tr>
+                            <td>Time</td>
+                            <td class="x_salary">{{review.date_disable}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
     <div class="multi-action" *ngIf="selected.length > 0">
         <div class="col-12 d-flex justify-content-end">
             <!-- <button class="btn btn-primary mr-1" [swal]="disableSwal" *ngIf="showDeactivate" (confirm)="onToggleMulti(true)">
@@ -88,3 +114,5 @@
     [focusCancel]="true"></swal>
 <swal #disableSwal text="Are you sure to disapprove this review?" type="question" [showCancelButton]="true"
     [focusCancel]="true"></swal>
+<swal #mergeDialogSwal text="Are you sure to disapprove this review?" [inputValidator]="mergeDialogValidator()" input="textarea" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
