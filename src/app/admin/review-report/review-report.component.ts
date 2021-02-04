@@ -58,6 +58,7 @@ export class AdminReviewReportComponent implements OnInit {
     public pageLimitOptions = [];
     public review : any;
     public reasonDisable = '';
+    public review_history : any;
     constructor(
         private api: Restangular,
         private toast: ToastrService,
@@ -68,6 +69,7 @@ export class AdminReviewReportComponent implements OnInit {
     ngOnInit() {
         this.env = environment;
         this.review = {};
+        this.review_history = [];
         this.review_id = this.route.snapshot.paramMap.get('id');
         this.pageIndex = 1;
         this.pageSize = 10;
@@ -107,6 +109,11 @@ export class AdminReviewReportComponent implements OnInit {
              .subscribe(res => {
                  this.review = res.result;
              });
+        this.api.all('review_history').customGET('', {
+            review_no: this.review_id
+        }).subscribe(res => {
+            this.review_history = res.result;
+        });
     }
 
     changePageLimit(limit: any): void {

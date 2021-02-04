@@ -28,23 +28,23 @@
     </mat-card>
     <div class="row" *ngIf="review.expsr_at == 'N'" style="padding-top: 30px;">
         <div class="col-12 d-flex justify-content-between">
-            <p >Disable Summary</p>
+            <p >History Disable Summary</p>
         </div>
         <div class="col-12 d-flex justify-content-between">
             <div style="float: left;width: 100%">
                 <table class="table table-bordered table-striped">
-                    <tbody>
+                    <thead>
                         <tr>
                             <td>Reason</td>
-                            <td class="x_salary">{{review.reason_disable}}</td>
-                        </tr>
-                        <tr>
                             <td>Author</td>
-                            <td class="x_salary"><span *ngIf="review.author_disabl">{{review.author_disable_name}}({{review.author_disable}})</span></td>
-                        </tr>
-                        <tr>
                             <td>Time</td>
-                            <td class="x_salary">{{review.date_disable}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of review_history">
+                            <td>{{item.reason}}</td>
+                            <td>{{item.reg_name}}({{item.user_no}})</td>
+                            <td>{{item.created_at}}</td>
                         </tr>
                     </tbody>
                 </table>
