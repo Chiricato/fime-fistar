@@ -299,7 +299,7 @@ const appRoutes: Routes = [
             { path: 'event/edit/:id', component: AdminPointEventAddComponent},
             { path: 'event/add', component: AdminPointEventAddComponent},
             { path: 'event/detail/:id', component: AdminPointEventDetailsComponent},
-            { path: 'fields', component: AdminFieldComponent },
+            { path: 'streets', component: AdminFieldComponent },
             { path: 'shops', component: AdminShopComponent },
             { path: 'shop/detail/:id', component: AdminShopDetailsComponent },
             { path: 'shop/add', component: AdminShopDetailsComponent},

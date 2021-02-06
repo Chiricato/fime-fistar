@@ -20,6 +20,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import * as moment from 'moment';
 import {AdminMultipleImagesComponent} from '../multiple-images/multiple-images.component';
 import {FileUploader} from 'ng2-file-upload';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 const URL = environment.host;
 @Component({
@@ -80,6 +81,8 @@ export class AdminShopDetailsComponent implements OnInit {
     public list_tries = [];
     public brand_id: any; 
     public catalogs: any;
+    show_map = false;
+    content_map: SafeResourceUrl;
     constructor(
         private api: Restangular,
         private cookieService: CookieService,
@@ -87,6 +90,7 @@ export class AdminShopDetailsComponent implements OnInit {
         public activeRoute: ActivatedRoute,
         private toast: ToastrService,
         private translate: TranslateService,
+        private sanitizer: DomSanitizer,
         @Inject(PLATFORM_ID) private platformId: Object
     ) {
     }
@@ -170,7 +174,7 @@ export class AdminShopDetailsComponent implements OnInit {
                 this.city_name =this.shop.city_name;
                 this.state_name = this.shop.state_name;
                 this.ward_name = this.shop.ward_name;
-
+                this.street_name = this.shop.street_name;
                 if(this.shop.city_id){
                     this.api.all('state/'+this.shop.city_id).customGET('').subscribe(res => {
                         this.states = res.result;
@@ -447,6 +451,12 @@ export class AdminShopDetailsComponent implements OnInit {
           this.catalogs = res.result;
         }
       });
+    }
+
+    viewMap(){
+        this.show_map = !this.show_map;
+        this.content_map = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.google.com/maps/embed/v1/place?key=AIzaSyDZVu_aG4XcvyifjRAYJu21fyOT4HWAZH8&q="+this.shop.address+", "+this.street_name+", "+this.ward_name+", "+this.state_name+", "+this.city_name);
+        console.log('content_map',this.content_map);
     }
 
 }

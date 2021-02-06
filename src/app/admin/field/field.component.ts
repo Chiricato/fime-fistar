@@ -52,7 +52,7 @@ export class AdminFieldComponent implements OnInit {
             .subscribe(res => {
                 if (res.result) {
                     this.getFields();
-                    this.toast.success('The field has been deleted');
+                    this.toast.success('The street has been deleted');
                 }
             });
     }
