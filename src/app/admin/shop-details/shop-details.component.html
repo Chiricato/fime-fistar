@@ -304,7 +304,7 @@
                                     Address is required
                                 </div>
                             </div>
-                            <a href="javascript:void(0);" (click)="viewMap($event)" style="position: absolute;right: -100px;top: 0px;"><span *ngIf="!show_map">View Map</span><span *ngIf="show_map">Hide Map</span></a>
+                            <button class="btn btn-default" (click)="viewMap()" style="position: absolute;right: -100px;top: 0px;"><span *ngIf="!show_map">View Map</span><span *ngIf="show_map">Hide Map</span></button>
                         </div>
                     </div>
                 </div>
