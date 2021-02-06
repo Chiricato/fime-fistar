@@ -64,7 +64,8 @@ export class AdminUserDetailComponent implements OnInit {
             hot_fime: new FormControl(this.user.permission.hot_fime, []),
             hashtag: new FormControl(this.user.permission.hashtag, []),
             setting: new FormControl(this.user.permission.setting, []),
-            fistar: new FormControl(this.user.permission.fistar, [])
+            fistar: new FormControl(this.user.permission.fistar, []),
+            street: new FormControl(this.user.permission.street, [])
         });
         if (this.user_no) {
             this.getUser();

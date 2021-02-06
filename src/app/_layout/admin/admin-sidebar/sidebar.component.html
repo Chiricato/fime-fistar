@@ -160,6 +160,10 @@
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/hashtags']"  *ngIf="user.role_id == 6 || user.permission.hashtag">
                 <mat-icon class="sidenav-icon">#</mat-icon> <span>{{ 'HASHTAGS' | translate }}</span>
             </a>
+            <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/streets']" *ngIf=" user.permission.street">
+                <mat-icon class="sidenav-icon">photo_library</mat-icon>
+                <span>Street</span>
+            </a>
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/settings']"  *ngIf="user.role_id == 6 || user.permission.setting">
                 <mat-icon class="sidenav-icon">settings</mat-icon>
                 <span>{{ 'SETTINGS' | translate }}</span>
@@ -286,6 +290,10 @@
             <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/shops']">
                 <mat-icon class="sidenav-icon">photo_library</mat-icon>
                 <span>Local Shop</span>
+            </a>
+            <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/admin/streets']">
+                <mat-icon class="sidenav-icon">photo_library</mat-icon>
+                <span>Street</span>
             </a>
         </div>
         <a mat-list-item (click)="onLoggedout()">
