@@ -133,7 +133,7 @@ export class AdminTipDetailsComponent implements OnInit {
             source_site_url: new FormControl(this.tip.source_site_url, []),
             cont1_head: new FormControl(this.tip.cont1_head, []),
             cont1_body: new FormControl(this.tip.cont1_body, [Validators.required]),
-            code_brand: new FormControl(this.tip.code_brand, [Validators.required]),
+            code_brand: new FormControl(this.tip.code_brands, [Validators.required]),
             cont2_head: new FormControl(this.tip.cont2_head, []),
             caption_text2: new FormControl(this.tip.caption_text2, []),
             source_site_name2: new FormControl(this.tip.source_site_name2, []),
@@ -174,6 +174,7 @@ export class AdminTipDetailsComponent implements OnInit {
                     this.photo_content2 = this.tip.cont2_photo;
                     this.list_id_reviews_mapping = this.tip.tipsReviews;
                     this.list_id_tries_mapping = this.tip.tipsTries;
+                    console.log(this.tip.code_brands,'code_brands');
             });
     }
     getReviewMapping() {
@@ -191,8 +192,9 @@ export class AdminTipDetailsComponent implements OnInit {
             });
     }
     getBrands() {
-        this.api.all('brands').customGET('').subscribe(res => {
+        this.api.all('brands?type=tip').customGET().subscribe(res => {
             this.brands = _.sortBy(res.result, 'code_nm');
+            console.log(this.brands,'this.brands');
         });
     }
     getTipCategory() {

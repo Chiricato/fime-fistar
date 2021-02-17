@@ -179,7 +179,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <ng-select [items]="brands" [(ngModel)]="tip.code_brand" bindValue="code" bindLabel="code_nm"
+                            <ng-select [items]="brands" [multiple]="true" [(ngModel)]="tip.code_brands" bindLabel="code_nm"
                                        formControlName="code_brand" name="code_brand" [virtualScroll]="true">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span>{{ item.code_nm }}</span>

@@ -151,10 +151,10 @@
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>
-                    <!-- <a mat-menu-item [routerLink]="['/admin/comments/tip', row.ti_id]" class="datatable-action-button">
+                    <a mat-menu-item [routerLink]="['/admin/comments/tip', row.ti_id]" class="datatable-action-button">
                         <mat-icon>mode_comment</mat-icon>
                         <span>Comments</span>
-                    </a> -->
+                    </a>
                     <button mat-menu-item [swal]="disableSwal"
                             *ngIf="row.display_yn !== 'N'" (confirm)="onToggle([row], false)" class="datatable-action-button">
                         <mat-icon>visibility_off</mat-icon>
