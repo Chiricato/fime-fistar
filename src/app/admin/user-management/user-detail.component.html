@@ -218,6 +218,66 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Facebook Url</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="user.facebook_url"
+                                       formControlName="facebook_url" name="facebook_url"/>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <a *ngIf="user.facebook_url" href="{{user.facebook_url}}" target="_blank">View</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Youtube Url</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="user.youtube_url"
+                                       formControlName="youtube_url" name="youtube_url"/>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <a *ngIf="user.youtube_url" href="{{user.youtube_url}}" target="_blank">View</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Instagram Url</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="user.instagram_url"
+                                       formControlName="instagram_url" name="instagram_url"/>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <a *ngIf="user.instagram_url" href="{{user.instagram_url}}" target="_blank">View</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Tiktok Url</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       [(ngModel)]="user.tiktok_url"
+                                       formControlName="tiktok_url" name="tiktok_url"/>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <a *ngIf="user.tiktok_url" href="{{user.tiktok_url}}" target="_blank">View</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

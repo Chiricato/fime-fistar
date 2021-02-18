@@ -6,6 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import * as _ from 'lodash';
 import {AdminFieldDialogComponent} from '../field-dialog/field-dialog.component';
+import {formatDate} from '@angular/common';
 
 @Component({
     selector: 'app-admin-field',
@@ -20,8 +21,20 @@ export class AdminFieldComponent implements OnInit {
     public modalRef: BsModalRef;
     public offset = 0;
     public filter = {
-        name: null
+        name: null,
+        enable: false,
+        disable: false,
+        pending: false,
+        from: null,
+        to: null
     };
+    public column = 'name';
+    public sort = 'asc';
+    public pageIndex = 1;
+    public pageSize = 10;
+    public selected = [];
+    public pageLimitOptions = [];
+    public total: any;
 
     constructor(
         private api: Restangular,
@@ -32,7 +45,32 @@ export class AdminFieldComponent implements OnInit {
 
     ngOnInit() {
         this.env = environment;
-        this.getFields();
+        this.pageLimitOptions = [
+            {value: 5},
+            {value: 10},
+            {value: 20},
+            {value: 25},
+            {value: 50}
+        ];
+        this.getStreet();
+    }
+
+    getStreet() {
+        const from = this.filter.from ? formatDate(this.filter.from, 'MM/dd/yyyy', 'en-US') : null;
+        const to = this.filter.to ? formatDate(this.filter.to, 'MM/dd/yyyy', 'en-US') : null;
+
+        this.api.all('field').customGET('',
+            {
+                page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
+                name: this.filter.name,
+                disable: this.filter.disable,
+                enable: this.filter.enable,
+                pending: this.filter.pending,
+                from: from, to: to,
+            }).subscribe(res => {
+            this.fields = res.result.data;
+            this.total = res.result.total;
+        });
     }
 
     getFields() {
@@ -86,25 +124,55 @@ export class AdminFieldComponent implements OnInit {
     }
 
     onSearch() {
-        if (this.filter.name !== null && this.filter.name !== '') {
-            const val = this.filter.name;
-            // filter our data
-            this.fields = this.crrfields.filter(function (d) {
-                return d.code_nm.toLowerCase().indexOf(val) !== -1 || !val;
-            });
+        this.pageIndex = 1;
+        this.getStreet();
+    }
 
-            this.offset = 0;
-        } else {
-            this.fields = this.crrfields;
-            this.offset = 0;
-        }
+    setPage(pageInfo) {
+        this.pageIndex = pageInfo.offset + 1;
+        this.getStreet();
+    }
+
+    onSort(event) {
+        this.column = event.sorts[0].prop;
+        this.sort = event.sorts[0].dir;
+        this.pageIndex = 1;
+        this.getStreet();
+        return false;
     }
 
     onReset() {
         this.filter = {
-            name: null
+            name: null,
+            enable: false,
+            disable: false,
+            pending: false,
+            from: null,
+            to: null
         };
-        this.fields = this.crrfields;
-        this.offset = 0;
+        this.column = 'id';
+        this.sort = 'desc';
+        this.getStreet();
+    }
+    changePageLimit(limit: any): void {
+        this.pageSize = limit;
+        this.getStreet();
+    }
+
+    onToggle(rows, status) {
+        const ids = _.map(rows, 'id');
+
+        this.api.all('change-status-field').customPUT({ids: ids, status: status}).subscribe(res => {
+            if (res.result) {
+                for (const row of rows) {
+                    row.status = status;
+                }
+                if (status == 2) {
+                    this.toast.success('The street has been disabled');
+                } else {
+                    this.toast.success('The street has been enabled');
+                }
+            }
+        });
     }
 }

@@ -14,17 +14,53 @@
 
     <mat-card class="search-control">
         <div class="row">
-            <div class="col-12 d-flex justify-content-between">
+            <div class="col-4">
                 <div class="form-group">
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Street name " [(ngModel)]="filter.name">
-                    </mat-form-field>
+                    <label>Street Name</label>
+                    <div class="ml-3">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Street name " [(ngModel)]="filter.name">
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Status</label>
+                    <div>
+                        <mat-checkbox [(ngModel)]="filter.enable" value="1">Enable</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.disable" value="1">Disable</mat-checkbox>
+                        <mat-checkbox [(ngModel)]="filter.pending" value="1">Pending</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Period</label>
+                    <div>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="from" placeholder="From" [(ngModel)]="filter.from"
+                                   [max]="filter.to">
+                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                            <mat-datepicker #from></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="to" placeholder="To" [(ngModel)]="filter.to"
+                                   [min]="filter.from">
+                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                            <mat-datepicker #to></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div >
                     <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
                         search
                     </i> <span>Search</span></button>
-                    <button class="btn btn-default" (click)="onReset()"><i class="material-icons align-text-bottom">
+                    <button class="btn btn-default mr-1" (click)="onReset()"><i class="material-icons align-text-bottom">
                         replay
                     </i> <span>Reset</span></button>
                 </div>
@@ -32,9 +68,27 @@
         </div>
     </mat-card>
 
-    <ngx-datatable #myTable class="material" [rows]="fields" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-                   [rowHeight]="'auto'" [count]="fields.length" [limit]="10" [offset]="offset">
+    <ngx-datatable #myTable class="material" [count]="total" [rows]="fields" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                   [rowHeight]="'auto'" [count]="fields.length" [offset]="pageIndex-1" [limit]="pageSize" [externalPaging]="true"
+                   (page)='setPage($event)' [externalSorting]="true" (sort)="onSort($event)">
         <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+        <ngx-datatable-column name="User No" prop="user_no" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.user_no}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Status" [sortable]="false" prop="status" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.status == 0">Pending</span>
+                <span *ngIf="row.status == 1">Enable</span>
+                <span *ngIf="row.status == 2">Disable</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Last Updated" prop="updated_at" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.updated_at | date : 'yyyy/MM/dd HH:mm' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column [width]="150" name="Action" [sortable]="false" class="action-column" headerClass="action" [canAutoResize]="false" [resizeable]="false">
             <ngx-datatable-column name="Action" [sortable]="false" [maxWidth]="100" [headerClass]="'text-center'" [cellClass]="'text-center'">>
                 <ng-template let-row="row" ngx-datatable-cell-template>
@@ -45,6 +99,16 @@
                         <button mat-menu-item (click)="editField(row)" class="datatable-action-button">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
+                        </button>
+                        <button mat-menu-item [swal]="disableSwal"
+                                *ngIf="row.status == 1" (confirm)="onToggle([row], 2)" class="datatable-action-button">
+                            <mat-icon>visibility_off</mat-icon>
+                            <span>Disable</span>
+                        </button>
+                        <button mat-menu-item [swal]="enableSwal"
+                                *ngIf="row.status == 2 || row.status == 0" (confirm)="onToggle([row], 1)" class="datatable-action-button">
+                            <mat-icon>visibility</mat-icon>
+                            <span>Enable</span>
                         </button>
                         <button mat-menu-item [swal]="deleteSwal" (confirm)="onDelete(row)" class="datatable-action-button">
                             <mat-icon>delete</mat-icon>
@@ -59,3 +123,7 @@
 </div>
 
 <swal #deleteSwal text="Are you sure to delete field?" type="question" [showCancelButton]="true" [focusCancel]="true"></swal>
+<swal #enableSwal text="Are you sure to enable street?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>
+<swal #disableSwal text="Are you sure to disable street?" type="question" [showCancelButton]="true"
+      [focusCancel]="true"></swal>

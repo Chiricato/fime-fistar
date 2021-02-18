@@ -1,8 +1,8 @@
 <div class="admin-try-dialog">
     <div class="row">
         <div class="col-12">
-            <div class="admin-heading" *ngIf="!field.id">Add field</div>
-            <div class="admin-heading" *ngIf="field.id">Edit field</div>
+            <div class="admin-heading" *ngIf="!field.id">Add street</div>
+            <div class="admin-heading" *ngIf="field.id">Edit street</div>
         </div>
     </div>
     <form [formGroup]="form" novalidate class="review-form">
@@ -19,6 +19,22 @@
                         " class="text-danger">
                         <div *ngIf="form.controls.name.errors.required">
                             Please enter field name
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row" *ngIf="field.id">
+                        <div class="col-md-12">
+                            <label>Update Log:</label>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <ul>
+                                    <li *ngFor="let item of field.log; let i = index;">
+                                        {{item.content}}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

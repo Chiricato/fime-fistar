@@ -65,7 +65,11 @@ export class AdminUserDetailComponent implements OnInit {
             hashtag: new FormControl(this.user.permission.hashtag, []),
             setting: new FormControl(this.user.permission.setting, []),
             fistar: new FormControl(this.user.permission.fistar, []),
-            street: new FormControl(this.user.permission.street, [])
+            street: new FormControl(this.user.permission.street, []),
+            facebook_url: new FormControl(this.user.facebook_url, []),
+            youtube_url: new FormControl(this.user.youtube_url, []),
+            instagram_url: new FormControl(this.user.instagram_url, []),
+            tiktok_url: new FormControl(this.user.tiktok_url, [])
         });
         if (this.user_no) {
             this.getUser();
