@@ -10,11 +10,11 @@
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
-                    <label>User No or Street Id</label>
+                    <label>User No or Street Name</label>
                     <div>
                         <mat-radio-group [(ngModel)]="filter.type">
                             <mat-radio-button checked value="user_no" style="margin-right: 10px">User No</mat-radio-button>
-                            <mat-radio-button value="street_id">Street Id</mat-radio-button>
+                            <mat-radio-button value="street_id">Street Name</mat-radio-button>
                         </mat-radio-group>
                         <mat-form-field class="full-width">
                             <input matInput placeholder="" [(ngModel)]="filter.key">
