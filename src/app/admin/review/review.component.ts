@@ -155,7 +155,7 @@ export class AdminReviewComponent implements OnInit {
         });
     }
     getBeauty() {
-        this.api.all('getBeauty').customGET('').subscribe(res => {
+        this.api.all('getBeauty?admin=1').customGET('').subscribe(res => {
             this.beauty = res.result;
         });
     }

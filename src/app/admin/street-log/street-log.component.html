@@ -1,0 +1,99 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col">
+            <div class="admin-heading">
+                Street Log
+            </div>
+        </div>
+    </div>
+    <mat-card class="search-control">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>User No or Street Id</label>
+                    <div>
+                        <mat-radio-group [(ngModel)]="filter.type">
+                            <mat-radio-button checked value="user_no" style="margin-right: 10px">User No</mat-radio-button>
+                            <mat-radio-button value="street_id">Street Id</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.key">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Period</label>
+                    <div>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="from" placeholder="From" [(ngModel)]="filter.from"
+                                   [max]="filter.to">
+                            <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                            <mat-datepicker #from></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="to" placeholder="To" [(ngModel)]="filter.to"
+                                   [min]="filter.from">
+                            <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                            <mat-datepicker #to></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div >
+                    <button class="btn btn-primary mr-1" (click)="onSearch()"><i class="material-icons align-text-bottom">
+                        search
+                    </i> <span>Search</span></button>
+                    <button class="btn btn-default mr-1" (click)="onReset()"><i class="material-icons align-text-bottom">
+                        replay
+                    </i> <span>Reset</span></button>
+                </div>
+            </div>
+            
+        </div>
+    </mat-card>
+
+    <ngx-datatable #myTable class="material" [rows]="points" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50"
+                   [count]="total" [offset]="pageIndex-1" [limit]="pageSize" [externalPaging]="true"
+                   (page)='setPage($event)'
+                   [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
+                   [selected]="selected"
+                   [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
+        <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" ></ngx-datatable-column>
+        <ngx-datatable-column name="User No" prop="user_no" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.user_no}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Street ID" prop="street_id" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.street_id}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Content" [sortable]="false" [resizeable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.content}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Updated at" prop="updated_at" [resizeable]="false" [width]="80" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.updated_at | date : 'yyyy/MM/dd HH:mm' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+    <select (change)="changePageLimit($event.target.value)" class="page-limit">
+        <option
+          *ngFor="let option of pageLimitOptions"
+          [value]="option.value"
+          [selected]="option.value == pageSize"
+        >
+          {{option.value}} per page
+        </option>
+      </select>
+  
+</div> 

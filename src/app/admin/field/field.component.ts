@@ -28,7 +28,7 @@ export class AdminFieldComponent implements OnInit {
         from: null,
         to: null
     };
-    public column = 'name';
+    public column = 'status';
     public sort = 'asc';
     public pageIndex = 1;
     public pageSize = 10;
