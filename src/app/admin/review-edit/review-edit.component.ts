@@ -120,7 +120,7 @@ export class AdminReviewEditComponent implements OnInit {
   }
 
   getCategories() {
-    this.api.all('categories').customGET().subscribe(res => {
+    this.api.all('getBeauty?admin=1').customGET().subscribe(res => {
       this.isLoading = false;
       if (res.result) {
         this.categories = res.result;
