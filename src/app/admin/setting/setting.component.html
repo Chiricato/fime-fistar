@@ -11,6 +11,18 @@
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-3">
+                        <label>CDN URL</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter cdn url"
+                                   [(ngModel)]="cdn.value"
+                                   formControlName="cdn" name="cdn"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
                         <label>{{company.display_name}}</label>
                     </div>
                     <div class="col-md-9">

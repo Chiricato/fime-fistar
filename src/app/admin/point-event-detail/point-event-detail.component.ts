@@ -47,6 +47,7 @@ export class AdminPointEventDetailsComponent implements OnInit {
     public number_rand = 0;
     public remain_winner = 0;
     public uploader: FileUploader;
+    loading = false;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -198,12 +199,14 @@ export class AdminPointEventDetailsComponent implements OnInit {
     }
 
     onSelectFile(event) {
+        this.loading = true;
         const files = event.target.files;
         if (this.uploader.queue && this.uploader.queue.length) {
             this.uploader.uploadAll();
             this.uploader.onCompleteAll = () => {
                 this.getEventApply();
                 this.toast.success('Upload winner success');
+                this.loading = false;
 
             };
         }
