@@ -80,6 +80,7 @@ export class AdminShopDetailsComponent implements OnInit {
     public list_tries = [];
     public brand_id: any; 
     public catalogs: any;
+    disable = true;
     constructor(
         private api: Restangular,
         private cookieService: CookieService,
@@ -118,8 +119,8 @@ export class AdminShopDetailsComponent implements OnInit {
             address: new FormControl(this.shop.address, [Validators.required]),
             phone: new FormControl(this.shop.phone, []),
             owner: new FormControl(this.shop.owner, []),
-            field_1: new FormControl(this.shop.field_1, []),
-            field_2: new FormControl(this.shop.field_2, []),
+            field_1: new FormControl({value:this.shop.field_1,disabled: true}),
+            field_2: new FormControl({value:this.shop.field_2,disabled: true}),
             category: new FormControl(this.shop.category, [Validators.required]),
             catalog: new FormControl(this.shop.catalog, []),
             street_id: new FormControl(this.shop.street_id, [Validators.required]),

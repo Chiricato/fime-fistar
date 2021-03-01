@@ -87,18 +87,12 @@
                             <div class="col-md-9">
 
                                 <div class="form-group">
-                                    <ng-select [items]="fields" [(ngModel)]="shop.field_1" bindValue="id" bindLabel="name"
+                                    <ng-select [disabled]="true" [items]="fields" [(ngModel)]="shop.field_1" bindValue="id" bindLabel="name"
                                                formControlName="field_1" name="field_1" [virtualScroll]="true">
                                         <ng-template ng-option-tmp let-item="item" let-index="index">
                                             <span>{{ item.name }}</span>
                                         </ng-template>
                                     </ng-select>
-                                    <div *ngIf="form.controls.field_1.invalid && (form.controls.field_1.dirty || form.controls.field_1.touched)"
-                                         class="text-danger">
-                                        <div *ngIf="form.controls.field_1.errors.required">
-                                            Field 1 is required
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -110,18 +104,12 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <ng-select [items]="fields" [(ngModel)]="shop.field_2" bindValue="id" bindLabel="name"
+                                    <ng-select [disabled]="true" [items]="fields" [(ngModel)]="shop.field_2" bindValue="id" bindLabel="name"
                                                formControlName="field_2" name="field_2" [virtualScroll]="true">
                                         <ng-template ng-option-tmp let-item="item" let-index="index">
                                             <span>{{ item.name }}</span>
                                         </ng-template>
                                     </ng-select>
-                                    <div *ngIf="form.controls.field_2.invalid && (form.controls.field_2.dirty || form.controls.field_2.touched)"
-                                         class="text-danger">
-                                        <div *ngIf="form.controls.field_2.errors.required">
-                                            Field 2 is required
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
