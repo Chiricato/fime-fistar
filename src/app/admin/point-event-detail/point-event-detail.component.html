@@ -195,8 +195,14 @@
         <button class="btn btn-primary" (click)="onChange()"><span>Change</span></button>
     </div>
 </div>
+
 <div class="row" *ngIf="events.payment_method == 2 && events.status == 4">
     <button class="btn btn-primary" (click)="onChange()"><span>Add Point All Member</span></button>
+</div>
+<div class="loading-page" id="divLoadingPage"  style="display: block" *ngIf="loading">
+    <div class="loading-page-child">
+        <img src="../../assets/images/loading_admin.gif">
+    </div>
 </div>
 <swal #enableSwal text="Are you sure to enable events?" type="question" [showCancelButton]="true"
       [focusCancel]="true"></swal>

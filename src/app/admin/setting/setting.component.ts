@@ -19,6 +19,7 @@ export class AdminSettingComponent implements OnInit {
     public address: any;
     public try_info: any;
     public company: any;
+    public cdn: any;
     public email: any;
     public tel: any;
     public custom_color: any;
@@ -46,6 +47,10 @@ export class AdminSettingComponent implements OnInit {
         this.address = {};
         this.try_info = {};
         this.company = {};
+        this.cdn = {
+            key: 'cdn',
+            value: ''
+        };
         this.email = {};
         this.tel = {};
         this.business_licence = {};
@@ -61,7 +66,8 @@ export class AdminSettingComponent implements OnInit {
             review_layout_option: new FormControl(this.review_layout_option.value, []),
             custom_color: new FormControl(this.custom_color, []),
             points: this.formBuilder.array([]),
-            text_colors: this.formBuilder.array([])
+            text_colors: this.formBuilder.array([]),
+            cdn: new FormControl(this.cdn.value, []),
         });
         this.getSettings();
         this.getPoints();
@@ -116,7 +122,8 @@ export class AdminSettingComponent implements OnInit {
                 email: this.email,
                 business_licence: this.business_licence,
                 review_layout_option: this.review_layout_option,
-                try_info: this.try_info
+                try_info: this.try_info,
+                cdn: this.cdn,
             }
         }).subscribe(res => {
             if (res.result) {
@@ -132,6 +139,9 @@ export class AdminSettingComponent implements OnInit {
                 switch (data[item].key) {
                     case 'address':
                         this.address = data[item];
+                        break;
+                    case 'cdn':
+                        this.cdn = data[item];
                         break;
                     case 'try_info':
                         this.try_info = data[item];
