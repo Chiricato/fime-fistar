@@ -181,6 +181,22 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="voucher.sale_status" formControlName="sale_status">
+                                    <mat-radio-button [value]="1" (click)="changeStatus()">On Air</mat-radio-button>
+                                    <mat-radio-button [value]="2" (click)="changeStatus()">Not For Sale
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
                         <label>Voucher Type</label>
                     </div>
                     <div class="col-md-9">
@@ -265,7 +281,53 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Start Date <span style="color: red">(*)</span></label>
+                        <label>Sale Start Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="delivery_start" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #delivery_start type="datetime" openOnFocus="true" timeInterval="5">
+                                </mat-datepicker>
+                                <input matInput class="form-control" formControlName="delivery_start"
+                                    [(ngModel)]="voucher.delivery_start" [matDatepicker]="delivery_start" required
+                                    autocomplete="false" [max]="voucher.delivery_end">
+                            </div>
+                            <div *ngIf="form.controls.delivery_start.invalid && (form.controls.delivery_start.dirty || form.controls.delivery_start.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.delivery_start.errors.required">
+                                    Delivery Start Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Sale End Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="delivery_end" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #delivery_end type="datetime" openOnFocus="true" timeInterval="5">
+                                </mat-datepicker>
+                                <input matInput class="form-control" formControlName="delivery_end"
+                                    [(ngModel)]="voucher.delivery_end" [matDatepicker]="delivery_end" required
+                                    autocomplete="false" [min]="voucher.delivery_start">
+                            </div>
+                            <div *ngIf="form.controls.delivery_end.invalid && (form.controls.delivery_end.dirty || form.controls.delivery_end.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.delivery_end.errors.required">
+                                    Delivery End Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Use Start Date <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -288,7 +350,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>End Date <span style="color: red">(*)</span></label>
+                        <label>Use End Date <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -319,52 +381,6 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Delivery Start Date <span style="color: red">(*)</span></label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <div class="calendar-control">
-                                <mat-datepicker-toggle [for]="delivery_start" matSuffix></mat-datepicker-toggle>
-                                <mat-datepicker #delivery_start type="datetime" openOnFocus="true" timeInterval="5">
-                                </mat-datepicker>
-                                <input matInput class="form-control" formControlName="delivery_start"
-                                    [(ngModel)]="voucher.delivery_start" [matDatepicker]="delivery_start" required
-                                    autocomplete="false" [max]="voucher.delivery_end">
-                            </div>
-                            <div *ngIf="form.controls.delivery_start.invalid && (form.controls.delivery_start.dirty || form.controls.delivery_start.touched)"
-                                class="text-danger">
-                                <div *ngIf="form.controls.delivery_start.errors.required">
-                                    Delivery Start Date is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Delivery End Date <span style="color: red">(*)</span></label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <div class="calendar-control">
-                                <mat-datepicker-toggle [for]="delivery_end" matSuffix></mat-datepicker-toggle>
-                                <mat-datepicker #delivery_end type="datetime" openOnFocus="true" timeInterval="5">
-                                </mat-datepicker>
-                                <input matInput class="form-control" formControlName="delivery_end"
-                                    [(ngModel)]="voucher.delivery_end" [matDatepicker]="delivery_end" required
-                                    autocomplete="false" [min]="voucher.delivery_start">
-                            </div>
-                            <div *ngIf="form.controls.delivery_end.invalid && (form.controls.delivery_end.dirty || form.controls.delivery_end.touched)"
-                                class="text-danger">
-                                <div *ngIf="form.controls.delivery_end.errors.required">
-                                    Delivery End Date is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
                         <label>Main image <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
@@ -386,9 +402,9 @@
                         <div class="form-group">
                             <app-admin-multiple-images #images [images]="{ data: voucher.files}" [resizeToWidth]="720"
                                 [aspectRatio]="1 / 1"></app-admin-multiple-images>
-                            <div *ngIf="isSubmitted && invalidImages" class="text-danger">
+                            <!-- <div *ngIf="isSubmitted && invalidImages" class="text-danger">
                                 Choose at least one image
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -439,22 +455,6 @@
                             <div *ngIf="isSubmitted && !checkLocation" class="text-danger">
                                 Choose at least one location
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Member Level</label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="voucher.member_level"
-                                formControlName="member_level" name="member_level">
-                                <mat-radio-button class="radio-button" [value]="1">Member</mat-radio-button>
-                                <mat-radio-button class="radio-button" [value]="2">Silver</mat-radio-button>
-                                <mat-radio-button class="radio-button" [value]="3">Gold</mat-radio-button>
-                                <mat-radio-button class="radio-button" [value]="4">Platinum</mat-radio-button>
-                            </mat-radio-group>
                         </div>
                     </div>
                 </div>
