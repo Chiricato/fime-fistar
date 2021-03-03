@@ -89,7 +89,7 @@ export class AdminFieldComponent implements OnInit {
             .customDELETE('')
             .subscribe(res => {
                 if (res.result) {
-                    this.getFields();
+                    this.getStreet();
                     this.toast.success('The street has been deleted');
                 }
             });
@@ -105,7 +105,7 @@ export class AdminFieldComponent implements OnInit {
         );
 
         this.modalRef.content.onClose.subscribe(result => {
-            this.getFields();
+            this.getStreet();
         });
     }
 
@@ -119,7 +119,7 @@ export class AdminFieldComponent implements OnInit {
         );
 
         this.modalRef.content.onClose.subscribe(result => {
-            this.getFields();
+            this.getStreet();
         });
     }
 
