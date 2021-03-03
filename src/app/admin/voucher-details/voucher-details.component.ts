@@ -103,7 +103,6 @@ export class AdminVoucherDetailsComponent implements OnInit {
             event_knd_code: 398002,
             description: '',
             resource_type: 1,
-            member_level: 1,
             voucher_type: 1,
             discount_type: 1,
              type: 1,
@@ -133,9 +132,9 @@ export class AdminVoucherDetailsComponent implements OnInit {
             delivery_start: new FormControl(this.voucher.delivery_start, [Validators.required]),
             delivery_end: new FormControl(this.voucher.delivery_end, [Validators.required]),
             type_product_collection: new FormControl(this.voucher.type_product_collection, [Validators.required]),
-            member_level: new FormControl(this.voucher.member_level, []),
             product_collection: new FormControl(this.voucher.product_collection, []),
             status: new FormControl(this.voucher.status, []),
+            sale_status: new FormControl(this.voucher.sale_status, []),
             minimum_discount: new FormControl(this.voucher.minimum_discount, []),
             maxnimum_discount: new FormControl(this.voucher.maxnimum_discount, []),
             other_condition: new FormControl(this.voucher.other_condition, []),
@@ -159,7 +158,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
         this.api.one('voucher', this.voucherId).get()
             .subscribe(res => {
                 this.voucher = res.result;
-                console.log(this.voucher.status);
+                console.log(this.voucher);
                 if (res.result.files.length > 0) {
                     this.voucher.feature_image = res.result.files[0].stre_file_nm ? res.result.files[0].file_cours + '/' +
                         res.result.files[0].stre_file_nm : res.result.files[0].file_cours;
@@ -169,8 +168,8 @@ export class AdminVoucherDetailsComponent implements OnInit {
 
                 this.voucher.files.splice(0, 1);
 
-                this.voucher.event_bgnde = moment.utc(this.voucher.start_date).toDate();
-                this.voucher.event_endde = moment.utc(this.voucher.end_date).toDate();
+                this.voucher.start_date = moment.utc(this.voucher.start_date).toDate();
+                this.voucher.end_date = moment.utc(this.voucher.end_date).toDate();
                 this.voucher.dlvy_bgnde = moment.utc(this.voucher.delivery_start).toDate();
                 this.voucher.dlvy_endde = moment.utc(this.voucher.delivery_end).toDate();
                 this.voucher.status = this.voucher.status !== 1;
@@ -190,7 +189,6 @@ export class AdminVoucherDetailsComponent implements OnInit {
     getCategories() {
         this.api.all('categories').customGET('').subscribe(res => {
             this.categories = res.result;
-            console.log(this.categories);
         });
     }
     getFashion() {
@@ -211,7 +209,6 @@ export class AdminVoucherDetailsComponent implements OnInit {
     getTry() {
         this.api.all('voucher-tries').customGET('').subscribe(res => {
             this.tries = res.result;
-            console.log(this.tries);
         });
     }
     getCity() {
@@ -228,12 +225,12 @@ export class AdminVoucherDetailsComponent implements OnInit {
 
     onSave() {
         this.isSubmitted = true;
-        if (!this.images.isValidData()) {
-            this.invalidImages = true;
-            return;
-        } else {
-            this.invalidImages = false;
-        }
+        // if (!this.images.isValidData()) {
+            // this.invalidImages = true;
+        //     return;
+        // } else {
+        //     this.invalidImages = false;
+        // }
 
         this.resourceImgDesc.onSave((res) => {
             if (typeof res !== 'undefined') {
@@ -254,7 +251,9 @@ export class AdminVoucherDetailsComponent implements OnInit {
                     this.voucher.images = rs.images;
                     if (this.voucher.type === 1) {
                     }
-                    this.voucher.images.splice(0, 0, { name: response.name, url: response.url });
+                    if (this.voucher.images) {
+                        this.voucher.images.splice(0, 0, { name: response.name, url: response.url });
+                    }
                     this.onSaveCallback();
                 });
             });
@@ -273,8 +272,8 @@ export class AdminVoucherDetailsComponent implements OnInit {
             return
         }
         this.voucher.status = this.voucher.status ? 4 : 1;
-        this.voucher.event_bgnde_format = moment.utc(this.voucher.event_bgnde).format('YYYY-MM-DD HH:mm:ss');
-        this.voucher.event_endde_format = moment.utc(this.voucher.event_endde).format('YYYY-MM-DD HH:mm:ss');
+        this.voucher.event_bgnde_format = moment.utc(this.voucher.start_date).format('YYYY-MM-DD HH:mm:ss');
+        this.voucher.event_endde_format = moment.utc(this.voucher.end_date).format('YYYY-MM-DD HH:mm:ss');
         this.voucher.dlvy_bgnde_format = moment(this.voucher.dlvy_bgnde).format('YYYY-MM-DD');
         this.voucher.dlvy_endde_format = moment(this.voucher.dlvy_endde).format('YYYY-MM-DD');
 
@@ -307,6 +306,9 @@ export class AdminVoucherDetailsComponent implements OnInit {
 
     changeCategory() {
         this.voucher.catalog = '';
+    }
+    changeStatus() {
+        this.voucher.sale_status = '';
     }
     changeVoucherType() {
         this.voucher.value = '';
@@ -342,22 +344,22 @@ export class AdminVoucherDetailsComponent implements OnInit {
 
     selected(event: MatAutocompleteSelectedEvent): void {
         this.location_id.push(event.option.value);
-        console.log(this.location_id);
+        // console.log(this.location_id);
         this.province.push(event.option.viewValue);
         this.fruitInput.nativeElement.value = '';
         this.fruitCtrl.setValue(null);
     }
 
     private _filter(value: string): string[] {
-        console.log(this.filteredProvinces);
-        console.log(value);
+        // console.log(this.filteredProvinces);
+        // console.log(value);
         // const filterValue = value.toLowerCase();
         return this.provinces.filter(item => item.name.toLowerCase().indexOf() === 0);
     }
 
     changeTry(item) {
         this.tryfree_id = item;
-        console.log(item);
+        // console.log(item);
         this.isShowBtnTry = true;
     }
 
