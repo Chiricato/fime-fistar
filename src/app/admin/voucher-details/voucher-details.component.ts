@@ -180,9 +180,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
                 this.voucher.end_date = moment.utc(this.voucher.end_date).toDate();
                 this.voucher.dlvy_bgnde = moment.utc(this.voucher.delivery_start).toDate();
                 this.voucher.dlvy_endde = moment.utc(this.voucher.delivery_end).toDate();
-                console.log(this.voucher.status, 1);
                 this.voucher.status = this.voucher.status !== 1;
-                console.log(this.voucher.status,);
                 for (let index = 0; index < this.voucher.location.length; index++) {
                     this.province.push(this.voucher.location[index].name)
                     this.location_id.push(this.voucher.location[index].province_id);
