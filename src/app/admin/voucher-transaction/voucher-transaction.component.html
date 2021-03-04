@@ -1,0 +1,136 @@
+<div class="component-admin-try">
+    <div class="row">
+        <div class="col">
+            <div class="admin-heading">
+                Voucher Transaction
+            </div>
+        </div>
+    </div>
+    <mat-card class="search-control">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Transaction ID</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.transaction_id">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Voucher ID</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.voucher_id">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label>User ID</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="" [(ngModel)]="filter.user_no">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Redeem Date</label>
+                    <div>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="redeem_date" placeholder="Redeem date" [(ngModel)]="filter.redeem_date">
+                            <mat-datepicker-toggle matSuffix [for]="redeem_date"></mat-datepicker-toggle>
+                            <mat-datepicker #redeem_date></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="pull-right">
+                    <button class="btn btn-primary mr-1" (click)="onSearch()"><i
+                            class="material-icons align-text-bottom">
+                            search
+                        </i> <span>Search</span></button>
+                    <button class="btn btn-default mr-1" (click)="onReset()"><i
+                            class="material-icons align-text-bottom">
+                            replay
+                        </i> <span>Reset</span></button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <ngx-datatable #myTable class="material" [rows]="vouchers" [columnMode]="'force'" [headerHeight]="50"
+                   [footerHeight]="50"
+                   [count]="total" [offset]="pageIndex-1" [limit]="pageSize" [externalPaging]="true"
+                   (page)='setPage($event)'
+                    [selectAllRowsOnPage]="false" 
+                   [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
+        <ngx-datatable-column name="Transaction ID" prop="id" [canAutoResize]="false" [resizeable]="false" [width]="150" [headerClass]="'text-center'" [cellClass]="'text-center'"></ngx-datatable-column>
+        <ngx-datatable-column name="Cover" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
+            <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
+                <img class="img"
+                     [src]="row.file.stre_file_nm ? env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm : env.rootHost + row.file.file_cours"
+                     *ngIf="row.file.file_cours" target="_blank"/>
+                <img class="img" [src]="'/assets/images/noimage.jpg'"
+                     alt="Review image" *ngIf="row.resource_type == 1 && !row.file.file_cours">
+                <a class="link" href="{{row.file.file_cours}}" *ngIf="row.resource_type == 2" target="_blank">Link</a>
+                <video *ngIf="row.resource_type == 3" width="160" height="120" controls muted>
+                    <source [src]="env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm">
+                </video>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Voucher ID" prop="voucher_id" [canAutoResize]="false" [resizeable]="false" [width]="100" [headerClass]="'text-center'" [cellClass]="'text-center'"></ngx-datatable-column>
+        <ngx-datatable-column name="Voucher Name" prop="name" [canAutoResize]="true" [resizeable]="false" [width]="150" [headerClass]="'text-center'" ></ngx-datatable-column>
+        <ngx-datatable-column name="Redeem Date" [resizeable]="false" [canAutoResize]="true" [width]="150"  prop="created_at" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.created_at | date : 'yyyy/MM/dd HH:mm' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Used Date" [resizeable]="false" [width]="150" [canAutoResize]="true" prop="use_date" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{ row.use_date | date : 'yyyy/MM/dd HH:mm' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="User ID" prop="user_no" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="true" [resizeable]="false" [width]="150">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.user_no}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Value" [resizeable]="false" [width]="100"  prop="value" [headerClass]="'text-center'" [cellClass]="'text-center'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span> {{row.value}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Point" prop="voucher_price" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.voucher_price}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Used Code" prop="used_code" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="true" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.used_code}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Status" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="100">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>Success</span>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+    <select (change)="changePageLimit($event.target.value)" class="page-limit">
+        <option
+          *ngFor="let option of pageLimitOptions"
+          [value]="option.value"
+          [selected]="option.value == pageSize"
+        >
+          {{option.value}} per page
+        </option>
+      </select>
+</div>
