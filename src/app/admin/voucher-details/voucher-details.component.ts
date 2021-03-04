@@ -167,7 +167,6 @@ export class AdminVoucherDetailsComponent implements OnInit {
         this.api.one('voucher', this.voucherId).get()
             .subscribe(res => {
                 this.voucher = res.result;
-                console.log(this.voucher);
                 if (res.result.files.length > 0) {
                     this.voucher.feature_image = res.result.files[0].stre_file_nm ? res.result.files[0].file_cours + '/' +
                         res.result.files[0].stre_file_nm : res.result.files[0].file_cours;
@@ -181,7 +180,9 @@ export class AdminVoucherDetailsComponent implements OnInit {
                 this.voucher.end_date = moment.utc(this.voucher.end_date).toDate();
                 this.voucher.dlvy_bgnde = moment.utc(this.voucher.delivery_start).toDate();
                 this.voucher.dlvy_endde = moment.utc(this.voucher.delivery_end).toDate();
-                this.voucher.status = this.voucher.status !== '4';
+                console.log(this.voucher.status, 1);
+                this.voucher.status = this.voucher.status !== 1;
+                console.log(this.voucher.status,);
                 for (let index = 0; index < this.voucher.location.length; index++) {
                     this.province.push(this.voucher.location[index].name)
                     this.location_id.push(this.voucher.location[index].province_id);
