@@ -84,7 +84,14 @@
                    [selectionType]="'checkbox'" [selectAllRowsOnPage]="false"
                    [selected]="selected"
                    [externalSorting]="true" (sort)="onSort($event)" [rowHeight]="'auto'">
-        <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" ></ngx-datatable-column>
+        <ngx-datatable-column name="No" prop="id" [sortable]="false" [canAutoResize]="false" [resizeable]="false" [width]="100"></ngx-datatable-column>
+        <ngx-datatable-column name="Cover" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
+            <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
+                <img class="img"
+                     [src]="row.files[0].thumb_file_nm ? env.rootHost + row.files[0].file_cours + '/' + row.files[0].thumb_file_nm : env.rootHost + row.files[0].file_cours + '/' + row.files[0].stre_file_nm"
+                     *ngIf="row.files[0]"/>
+            </ng-template>
+        </ngx-datatable-column>
         <ngx-datatable-column name="Shop Name" prop="name" [resizeable]="false">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 {{row.name}}
