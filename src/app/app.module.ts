@@ -272,6 +272,7 @@ import { AdminVoucherImagesCreateComponent } from './admin/voucher-images-create
 import { AdminVoucherImagesDialogComponent } from './admin/voucher-images-create/voucher-images-dialog/voucher-images-dialog.component';
 import { AdminVoucherComponent } from './admin/voucher/voucher.component';
 import { AdminVoucherDetailsComponent } from './admin/voucher-details/voucher-details.component';
+import { AdminVoucherTransactionComponent } from './admin/voucher-transaction/voucher-transaction.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -404,6 +405,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AdminVoucherComponent,
         AdminVoucherDetailsComponent,
         AdminStreetLogComponent,
+        AdminVoucherTransactionComponent,
 
         //soft0ne dev
         AdminBannerFistarComponent,

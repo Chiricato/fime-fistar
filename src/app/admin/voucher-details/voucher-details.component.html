@@ -41,14 +41,15 @@
                         <div class="form-group" *ngIf="voucher.type == '2'">
                             <ng-select [items]="tries" [(ngModel)]="voucher.try_id" bindValue="cntnts_no"
                                 bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true"
-                                *ngIf="!voucherId" >
+                                *ngIf="!voucherId">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span (click)="changeTry(item.cntnts_no)">{{ item.cntnts_nm }}</span>
                                 </ng-template>
                             </ng-select>
                             <input type="text" class="form-control" [(ngModel)]="voucher.cntnts_nm"
                                 formControlName="try_id" name="try_id" *ngIf="voucherId" disabled />
-                            <a *ngIf="isShowBtnTry" target="_blank" routerLink="/admin/try/edit/{{tryfree_id}}" class="btn-try-detail">Details</a>
+                            <a *ngIf="isShowBtnTry" target="_blank" routerLink="/admin/try/edit/{{tryfree_id}}"
+                                class="btn-try-detail">Details</a>
                         </div>
                     </div>
                 </div>
@@ -130,6 +131,21 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div class="row">
+                    <div class="col-md-3">
+                        <label>Store <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group store-group" *ngFor="let item of store_info; let i = index">
+                            <input type="text" class="form-control store-name"
+                            [(ngModel)]="voucher.store_name1" formControlName="store_name{{i + 1}}" name="store_name{{i + 1}}" placeholder="Store Name"/>
+
+                            <input type="text" class="form-control store-address"
+                            [(ngModel)]="voucher.store_address1" formControlName="store_address{{i + 1}}" name="store_address{{i + 1}}" placeholder="Store Address"/>
+                        </div>
+                        <button (click)="addStore()">add</button>
+                    </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-3">
                         <label>Catalogs <span style="color: red">(*)</span></label>
@@ -186,9 +202,9 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <div>
-                                <mat-radio-group [(ngModel)]="voucher.sale_status" formControlName="sale_status">
-                                    <mat-radio-button [value]="1" (click)="changeStatus()">On Air</mat-radio-button>
-                                    <mat-radio-button [value]="2" (click)="changeStatus()">Not For Sale
+                                <mat-radio-group [(ngModel)]="voucher.sale_status" formControlName="sale_status" name="sale_status">
+                                    <mat-radio-button [value]="1">On Air</mat-radio-button>
+                                    <mat-radio-button [value]="2">Not For Sale
                                     </mat-radio-button>
                                 </mat-radio-group>
                             </div>
@@ -221,11 +237,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="text" class="form-control"
-                                *ngIf="voucher.voucher_type == 1 || voucher.voucher_type == 2 || voucher.voucher_type == 4"
-                                [(ngModel)]="voucher.value" formControlName="value" name="value" />
-                            <input type="number" class="form-control" *ngIf="voucher.voucher_type == 3"
-                                [(ngModel)]="voucher.value" formControlName="value" name="value" />
+                            <input type="text" class="form-control" [(ngModel)]="voucher.value" formControlName="value"
+                                name="value" />
                             <div *ngIf="form.controls.value.invalid && (form.controls.value.dirty || form.controls.value.touched)"
                                 class="text-danger">
                                 <div *ngIf="form.controls.value.errors.required">
@@ -539,7 +552,13 @@
                     cancel
                 </i> <span> {{ "cancel" | translate }}</span>
             </button>
-            <button class="btn btn-primary mr-1" [disabled]="!form.valid" (click)="onSave()">
+            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold === 0" [disabled]="!form.valid"
+                (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold >= 1" (click)="disableEdit()">
                 <i class="material-icons align-text-bottom">
                     save
                 </i> <span> {{ "save" | translate }}</span>
