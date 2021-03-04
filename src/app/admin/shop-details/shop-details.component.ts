@@ -141,7 +141,13 @@ export class AdminShopDetailsComponent implements OnInit {
             sns_url: new FormControl(this.shop.sns_url, []),
             hashtag: new FormControl(this.shop.hashtag, []),
             brand_code: new FormControl(this.shop.brand_code, []),
-            contact_history: new FormControl(this.shop.contact_history, [])
+            contact_history: new FormControl(this.shop.contact_history, []),
+            instagram: new FormControl(this.shop.instagram, []),
+            google: new FormControl(this.shop.google, []),
+            zalo: new FormControl(this.shop.zalo, []),
+            youtube: new FormControl(this.shop.youtube, []),
+            tiktok: new FormControl(this.shop.tiktok, []),
+            foody: new FormControl(this.shop.foody, [])
         });
 
         this.uploader.onAfterAddingFile = (file) => {
