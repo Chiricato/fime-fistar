@@ -116,9 +116,9 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <ng-select [items]="brands" [(ngModel)]="voucher.brand" bindValue="code" bindLabel="code_nm"
-                                formControlName="brand" name="brand" [virtualScroll]="true">
+                                formControlName="brand" name="brand" [virtualScroll]="true"(change)="changeBrand()">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
-                                    <span>{{ item.code_nm }}</span>
+                                    <span >{{ item.code_nm }}</span>
                                 </ng-template>
                             </ng-select>
 
@@ -131,21 +131,24 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-md-3">
                         <label>Store <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
-                        <div class="form-group store-group" *ngFor="let item of store_info; let i = index">
-                            <input type="text" class="form-control store-name"
-                            [(ngModel)]="voucher.store_name1" formControlName="store_name{{i + 1}}" name="store_name{{i + 1}}" placeholder="Store Name"/>
-
-                            <input type="text" class="form-control store-address"
-                            [(ngModel)]="voucher.store_address1" formControlName="store_address{{i + 1}}" name="store_address{{i + 1}}" placeholder="Store Address"/>
+                        <div class="form-group store-group" formArrayName="store_info" *ngFor="let item of form.controls.store_info.controls; let i = index">
+                            <ng-container  [formGroupName]="i">
+                              <input type="text" placeholder="Store Name" formControlName="store_name" class="form-control store-name">
+                              <input type="text" placeholder="Store Address" formControlName="store_address" class="form-control store-address">
+                              <img src="/assets/icons/cancel.png" alt="Delete" (click)="removeStore(i)">
+                            </ng-container>
                         </div>
-                        <button (click)="addStore()">add</button>
+                        <div class="add-store">
+                            <img class="btn-add-store" src="/assets/icons/add_circle.png" (click)="addStore()" alt="Add store">
+                            <span>Add new store address</span>
+                        </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <label>Catalogs <span style="color: red">(*)</span></label>
@@ -279,7 +282,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="voucher.type == '1'">
+                <!-- <div class="row" *ngIf="voucher.type == '1'">
                     <div class="col-md-3">
                         <label>Point type <span style="color: red">(*)</span></label>
                     </div>
@@ -291,7 +294,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-3">
                         <label>Sale Start Date <span style="color: red">(*)</span></label>
