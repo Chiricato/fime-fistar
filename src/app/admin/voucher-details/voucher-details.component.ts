@@ -354,23 +354,22 @@ export class AdminVoucherDetailsComponent implements OnInit {
     }
 
     selected(event: MatAutocompleteSelectedEvent): void {
-        this.location_id.push(event.option.value);
-        // console.log(this.location_id);
+        if(event.option.value.id) {
+            this.location_id.push(event.option.value.id);
+        } else this.location_id.push(event.option.value);
         this.province.push(event.option.viewValue);
         this.fruitInput.nativeElement.value = '';
         this.fruitCtrl.setValue(null);
-    }
-
-    private _filter(value: string): string[] {
-        // console.log(this.filteredProvinces);
-        // console.log(value);
-        // const filterValue = value.toLowerCase();
-        return this.provinces.filter(item => item.name.toLowerCase().indexOf() === 0);
-    }
+      }
+    
+      private _filter(value: any): any[] {
+        if(value.name) {
+            return this.provinces.filter(item => item.name.toLowerCase().includes(value.name.toLowerCase()));
+        } else return this.provinces.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
+      }
 
     changeTry(item) {
         this.tryfree_id = item;
-        // console.log(item);
         this.isShowBtnTry = true;
     }
 

@@ -452,8 +452,8 @@
                         <div class="form-group">
                             <mat-form-field class="example-chip-list col-12" *ngIf="isLoading">
                                 <mat-chip-list #chipList aria-label="Fruit selection">
-                                    <mat-chip *ngFor="let item of province" [selectable]="selectable"
-                                        [removable]="removable" (removed)="remove(item)">
+                                    <mat-chip *ngFor="let item of province;let i =index;" [selectable]="selectable"
+                                        [removable]="removable" (removed)="remove(item, i)">
                                         {{item}}
                                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                     </mat-chip>
@@ -463,7 +463,7 @@
                                         (matChipInputTokenEnd)="add($event)">
                                 </mat-chip-list>
                                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                                    <mat-option *ngFor="let item of filteredProvinces | async" [value]="item.id">
+                                    <mat-option *ngFor="let item of filteredProvinces | async" [value]="item">
                                         {{item.name}}
                                     </mat-option>
                                 </mat-autocomplete>
