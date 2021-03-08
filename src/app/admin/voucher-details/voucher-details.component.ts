@@ -388,10 +388,14 @@ export class AdminVoucherDetailsComponent implements OnInit {
         this.toast.error('Sorry! This voucher has been redeem. You can not edit the content anymore.');
         return
     }
-    changeBrand() {
+    changeBrand(brand: any) {
+        // console.log(brand.code);
+        // console.log(this.brands);
+        // const found = this.brands.find(element => this.brands = brand.code);
+        // console.log
         for (let index = 0; index < this.form.controls.store_info.controls.length; index++) {
             this.form.controls.store_info.controls[index].setValue({
-                store_name: '111111111',
+                store_name: '1111111',
                 store_address: '22222222',
             });
         }

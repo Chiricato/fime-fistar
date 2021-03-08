@@ -116,9 +116,9 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <ng-select [items]="brands" [(ngModel)]="voucher.brand" bindValue="code" bindLabel="code_nm"
-                                formControlName="brand" name="brand" [virtualScroll]="true"(change)="changeBrand()">
-                                <ng-template ng-option-tmp let-item="item" let-index="index">
-                                    <span >{{ item.code_nm }}</span>
+                                formControlName="brand" name="brand" [virtualScroll]="true" (change)="changeBrand($event)">
+                                <ng-template ng-option-tmp let-item="item" let-index="index" >
+                                    <span>{{ item.code_nm }}</span>
                                 </ng-template>
                             </ng-select>
 
@@ -555,13 +555,19 @@
                     cancel
                 </i> <span> {{ "cancel" | translate }}</span>
             </button>
-            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold === 0" [disabled]="!form.valid"
+            <button class="btn btn-primary mr-1" *ngIf="!voucherId" [disabled]="!form.valid"
                 (click)="onSave()">
                 <i class="material-icons align-text-bottom">
                     save
                 </i> <span> {{ "save" | translate }}</span>
             </button>
-            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold >= 1" (click)="disableEdit()">
+            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold === 0 && voucherId" [disabled]="!form.valid"
+                (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold >= 1 && voucherId" (click)="disableEdit()">
                 <i class="material-icons align-text-bottom">
                     save
                 </i> <span> {{ "save" | translate }}</span>
