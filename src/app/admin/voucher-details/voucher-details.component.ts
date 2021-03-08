@@ -139,7 +139,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
             minimum_discount: new FormControl(this.voucher.minimum_discount, []),
             maxnimum_discount: new FormControl(this.voucher.maxnimum_discount, []),
             other_condition: new FormControl(this.voucher.other_condition, []),
-            store_info: new FormArray([], [Validators.required]),
+            store_info: new FormArray([]),
         });
         this.creds = this.form.controls.store_info as FormArray;
         this.creds.push(this.fb.group({
@@ -189,7 +189,7 @@ export class AdminVoucherDetailsComponent implements OnInit {
                         store_name: this.voucher.store_info[index].store_name,
                         store_address: this.voucher.store_info[index].store_address,
                     }));
-                    
+
                 }
             });
     }
@@ -389,16 +389,16 @@ export class AdminVoucherDetailsComponent implements OnInit {
         return
     }
     changeBrand(brand: any) {
-        // console.log(brand.code);
-        // console.log(this.brands);
-        // const found = this.brands.find(element => this.brands = brand.code);
-        // console.log
-        for (let index = 0; index < this.form.controls.store_info.controls.length; index++) {
-            this.form.controls.store_info.controls[index].setValue({
-                store_name: '1111111',
-                store_address: '22222222',
-            });
+        const found = this.brands.find(x => x.code === brand.code);
+        const control = <FormArray>this.form.controls['store_info'];
+        for (let i = control.length - 1; i >= 0; i--) {
+            control.removeAt(i)
         }
-        console.log(this.form.controls.store_info.controls);
+        for (let index = 0; index < found.store_info.length; index++) {
+            this.creds.push(this.fb.group({
+                store_name: found.store_info[index] ? found.store_info[index].store_name : '',
+                store_address: found.store_info[index] ? found.store_info[index].store_address : '',
+            }));
+        }
     }
 }
