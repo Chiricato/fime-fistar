@@ -3,22 +3,24 @@ import {
     OnInit,
     Inject,
     PLATFORM_ID,
-    ViewChild
+    ViewChild,
+    Input
 } from '@angular/core';
 
-import {Restangular} from 'ngx-restangular';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {TranslateService} from '@ngx-translate/core';
+import { Restangular } from 'ngx-restangular';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 
-import {CookieService} from '../../../services/cookie.service';
-import {environment} from '../../../environments/environment';
-import {AdminResourceComponent} from '../resource/resource.component';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { CookieService } from '../../../services/cookie.service';
+import { environment } from '../../../environments/environment';
+import { AdminResourceComponent } from '../resource/resource.component';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import * as moment from 'moment';
-import {AdminMultipleImagesComponent} from '../multiple-images/multiple-images.component';
+import { AdminMultipleImagesComponent } from '../multiple-images/multiple-images.component';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
     selector: 'app-admin-try',
@@ -38,9 +40,9 @@ export class AdminTryDetailsComponent implements OnInit {
     public try: any;
     public brands = [];
     public tryEventTypes = [
-        {value: 'review', viewValue: 'Review'},
-        {value: 'like', viewValue: 'Like'},
-        {value: 'comment', viewValue: 'Comment'}
+        { value: 'review', viewValue: 'Review' },
+        { value: 'like', viewValue: 'Like' },
+        { value: 'comment', viewValue: 'Comment' }
     ];
     public timeColorCodes: any;
     public tryEventTypeSelected = 'review';
@@ -54,6 +56,12 @@ export class AdminTryDetailsComponent implements OnInit {
     public food: any;
     public other: any;
     public life_style: any;
+    @Input()
+    public needToCrop = true;
+    public fileBase64: any;
+    public isChanged = false;
+    public imageChangedEvent: any;
+    public invalidImagesThumbnail = false;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -82,7 +90,6 @@ export class AdminTryDetailsComponent implements OnInit {
             resource_type: 1,
             level_apply: 1
         };
-
         this.form = new FormGroup({
             name: new FormControl(this.try.cntnts_nm, [Validators.required]),
             time_color_code: new FormControl(this.try.time_color_code, []),
@@ -173,7 +180,6 @@ export class AdminTryDetailsComponent implements OnInit {
     getCategories() {
         this.api.all('categories').customGET('').subscribe(res => {
             this.categories = res.result;
-            console.log(this.categories);
         });
     }
     getFashion() {
@@ -218,7 +224,6 @@ export class AdminTryDetailsComponent implements OnInit {
         }
 
         this.resourceImgDesc.onSave((res) => {
-            console.log(res,'res');
             if (typeof res !== 'undefined') {
                 if (res.images) {
                     this.try.img_desc = res.images[0];
@@ -227,19 +232,22 @@ export class AdminTryDetailsComponent implements OnInit {
                 }
             }
             
-            console.log(this.resource,'this.resource');
-            if(this.resource.isChanged == false && this.try.resource_type == 3){
+            if (this.resource.isChanged == false && this.try.resource_type == 3) {
                 this.images.onSave((rs) => {
                     this.try.images = rs.images;
                     if (this.output_text_type === '1') {
                         this.try.goods_txt = null;
                     }
-                    this.try.images.splice(0, 0, {name: this.try.stre_file_nm, url: this.try.file_cours});
-                    this.onSaveCallback();
+                    this.try.images.splice(0, 0, { name: this.try.stre_file_nm, url: this.try.file_cours });
+                    this.onSaveThumbnail((res) => {
+                        this.try.thumb_file_video = res.url + '/' + res.name;
+                        this.onSaveCallback();
+                    });
                 });
-            }else{
+            } else {
+                console
                 this.resource.onSave((response) => {
-                    console.log(response,'response');
+                    console.log(response, 'response');
                     if (typeof response === 'undefined' || typeof response.url === 'undefined' || !response.url) {
                         this.invalidMainImage = true;
                         return;
@@ -250,12 +258,18 @@ export class AdminTryDetailsComponent implements OnInit {
                         if (this.output_text_type === '1') {
                             this.try.goods_txt = null;
                         }
-                        this.try.images.splice(0, 0, {name: response.name, url: response.url});
-                        this.onSaveCallback();
+                        this.try.images.splice(0, 0, { name: response.name, url: response.url });
+                        this.onSaveThumbnail((res) => {
+                            console.log(res);
+                            if (typeof res !== 'undefined') {
+                                this.try.thumb_file_video = res.url + '/' + res.name;
+                            }
+                            this.onSaveCallback();
+                        });
                     });
                 });
             }
-            
+
         });
     }
     onSaveCallback() {
@@ -264,7 +278,6 @@ export class AdminTryDetailsComponent implements OnInit {
         this.try.event_endde_format = moment.utc(this.try.event_endde).format('YYYY-MM-DD HH:mm:ss');
         this.try.dlvy_bgnde_format = moment(this.try.dlvy_bgnde).format('YYYY-MM-DD');
         this.try.dlvy_endde_format = moment(this.try.dlvy_endde).format('YYYY-MM-DD');
-
         if (this.tryId) {
             this.api
                 .one('tries', this.tryId)
@@ -294,6 +307,58 @@ export class AdminTryDetailsComponent implements OnInit {
 
     changeCategory() {
         this.try.goods_cl_code = '';
+    }
+
+    fileChangeEvent(event: any): void {
+        this.isChanged = true;
+        const files = event.target.files;
+        const file = files[0];
+        if (files && file) {
+            const reader = new FileReader();
+            if (file.type === 'image/gif') {
+                this.needToCrop = false;
+                reader.onload = this.handleReaderLoaded.bind(this);
+                reader.readAsBinaryString(file);
+            } else {
+                if (this.needToCrop) {
+                    this.imageChangedEvent = event;
+                } else {
+                    reader.onload = this.handleImageNotCrop.bind(this);
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+    }
+    handleImageNotCrop(img) {
+        this.fileBase64 = img.target.result;
+    }
+
+    handleReaderLoaded(readerEvt) {
+        const binaryString = readerEvt.target.result;
+        this.fileBase64 = 'data:image/gif;base64,' + btoa(binaryString);
+    }
+    imageCropped(event: ImageCroppedEvent) {
+        this.fileBase64 = event.base64;
+    }
+
+    onSaveThumbnail(callback) {
+        if(this.fileBase64) {
+            this.api.all('uploads').customPOST({ thumbnail: this.fileBase64 }).subscribe(res => {
+                const url = res.result.url;
+                const name = res.result.name;
+                callback({ url: url, name: name });
+            });
+        } else {
+            if (typeof this.try.thumb_file_video !== 'undefined') {
+                const path = this.try.thumb_file_video.split('/');
+                const name = path[path.length - 1];
+                path.pop();
+                const url = path.join('/');
+                callback({url: url, name: name});
+            } else {
+                callback();
+            }
+        }
     }
 
 }

@@ -186,9 +186,11 @@
                 <img class="img" [src]="'/assets/images/noimage.jpg'"
                      alt="Review image" *ngIf="row.resource_type == 1 && !row.file.file_cours">
                 <a class="link" href="{{row.file.file_cours}}" *ngIf="row.resource_type == 2" target="_blank">Link</a>
-                <video *ngIf="row.resource_type == 3" width="160" height="120" controls muted>
+                <video *ngIf="row.resource_type == 3 && !row.thumb_file_video" width="160" height="120" controls muted>
                     <source [src]="env.rootHost + row.file.file_cours + '/' + row.file.stre_file_nm">
                 </video>
+                <img class="img" [src]="env.rootHost + row.thumb_file_video"
+                     alt="Review image" *ngIf="row.resource_type == 3 && row.thumb_file_video">
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Name" prop="cntnts_nm" [resizeable]="false" [width]="150"></ngx-datatable-column>
