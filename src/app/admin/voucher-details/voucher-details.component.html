@@ -41,14 +41,15 @@
                         <div class="form-group" *ngIf="voucher.type == '2'">
                             <ng-select [items]="tries" [(ngModel)]="voucher.try_id" bindValue="cntnts_no"
                                 bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true"
-                                *ngIf="!voucherId" >
+                                *ngIf="!voucherId">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span (click)="changeTry(item.cntnts_no)">{{ item.cntnts_nm }}</span>
                                 </ng-template>
                             </ng-select>
                             <input type="text" class="form-control" [(ngModel)]="voucher.cntnts_nm"
                                 formControlName="try_id" name="try_id" *ngIf="voucherId" disabled />
-                            <a *ngIf="isShowBtnTry" target="_blank" routerLink="/admin/try/edit/{{tryfree_id}}" class="btn-try-detail">Details</a>
+                            <a *ngIf="isShowBtnTry" target="_blank" routerLink="/admin/try/edit/{{tryfree_id}}"
+                                class="btn-try-detail">Details</a>
                         </div>
                     </div>
                 </div>
@@ -130,6 +131,21 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div class="row">
+                    <div class="col-md-3">
+                        <label>Store <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group store-group" *ngFor="let item of store_info; let i = index">
+                            <input type="text" class="form-control store-name"
+                            [(ngModel)]="voucher.store_name1" formControlName="store_name{{i + 1}}" name="store_name{{i + 1}}" placeholder="Store Name"/>
+
+                            <input type="text" class="form-control store-address"
+                            [(ngModel)]="voucher.store_address1" formControlName="store_address{{i + 1}}" name="store_address{{i + 1}}" placeholder="Store Address"/>
+                        </div>
+                        <button (click)="addStore()">add</button>
+                    </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-3">
                         <label>Catalogs <span style="color: red">(*)</span></label>
@@ -181,6 +197,22 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div>
+                                <mat-radio-group [(ngModel)]="voucher.sale_status" formControlName="sale_status" name="sale_status">
+                                    <mat-radio-button [value]="1">On Air</mat-radio-button>
+                                    <mat-radio-button [value]="2">Not For Sale
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
                         <label>Voucher Type</label>
                     </div>
                     <div class="col-md-9">
@@ -205,11 +237,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="text" class="form-control"
-                                *ngIf="voucher.voucher_type == 1 || voucher.voucher_type == 2 || voucher.voucher_type == 4"
-                                [(ngModel)]="voucher.value" formControlName="value" name="value" />
-                            <input type="number" class="form-control" *ngIf="voucher.voucher_type == 3"
-                                [(ngModel)]="voucher.value" formControlName="value" name="value" />
+                            <input type="text" class="form-control" [(ngModel)]="voucher.value" formControlName="value"
+                                name="value" />
                             <div *ngIf="form.controls.value.invalid && (form.controls.value.dirty || form.controls.value.touched)"
                                 class="text-danger">
                                 <div *ngIf="form.controls.value.errors.required">
@@ -265,7 +294,53 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Start Date <span style="color: red">(*)</span></label>
+                        <label>Sale Start Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="delivery_start" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #delivery_start type="datetime" openOnFocus="true" timeInterval="5">
+                                </mat-datepicker>
+                                <input matInput class="form-control" formControlName="delivery_start"
+                                    [(ngModel)]="voucher.delivery_start" [matDatepicker]="delivery_start" required
+                                    autocomplete="false" [max]="voucher.delivery_end">
+                            </div>
+                            <div *ngIf="form.controls.delivery_start.invalid && (form.controls.delivery_start.dirty || form.controls.delivery_start.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.delivery_start.errors.required">
+                                    Delivery Start Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Sale End Date <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="calendar-control">
+                                <mat-datepicker-toggle [for]="delivery_end" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #delivery_end type="datetime" openOnFocus="true" timeInterval="5">
+                                </mat-datepicker>
+                                <input matInput class="form-control" formControlName="delivery_end"
+                                    [(ngModel)]="voucher.delivery_end" [matDatepicker]="delivery_end" required
+                                    autocomplete="false" [min]="voucher.delivery_start">
+                            </div>
+                            <div *ngIf="form.controls.delivery_end.invalid && (form.controls.delivery_end.dirty || form.controls.delivery_end.touched)"
+                                class="text-danger">
+                                <div *ngIf="form.controls.delivery_end.errors.required">
+                                    Delivery End Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Use Start Date <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -288,7 +363,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>End Date <span style="color: red">(*)</span></label>
+                        <label>Use End Date <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
@@ -319,52 +394,6 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Delivery Start Date <span style="color: red">(*)</span></label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <div class="calendar-control">
-                                <mat-datepicker-toggle [for]="delivery_start" matSuffix></mat-datepicker-toggle>
-                                <mat-datepicker #delivery_start type="datetime" openOnFocus="true" timeInterval="5">
-                                </mat-datepicker>
-                                <input matInput class="form-control" formControlName="delivery_start"
-                                    [(ngModel)]="voucher.delivery_start" [matDatepicker]="delivery_start" required
-                                    autocomplete="false" [max]="voucher.delivery_end">
-                            </div>
-                            <div *ngIf="form.controls.delivery_start.invalid && (form.controls.delivery_start.dirty || form.controls.delivery_start.touched)"
-                                class="text-danger">
-                                <div *ngIf="form.controls.delivery_start.errors.required">
-                                    Delivery Start Date is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Delivery End Date <span style="color: red">(*)</span></label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <div class="calendar-control">
-                                <mat-datepicker-toggle [for]="delivery_end" matSuffix></mat-datepicker-toggle>
-                                <mat-datepicker #delivery_end type="datetime" openOnFocus="true" timeInterval="5">
-                                </mat-datepicker>
-                                <input matInput class="form-control" formControlName="delivery_end"
-                                    [(ngModel)]="voucher.delivery_end" [matDatepicker]="delivery_end" required
-                                    autocomplete="false" [min]="voucher.delivery_start">
-                            </div>
-                            <div *ngIf="form.controls.delivery_end.invalid && (form.controls.delivery_end.dirty || form.controls.delivery_end.touched)"
-                                class="text-danger">
-                                <div *ngIf="form.controls.delivery_end.errors.required">
-                                    Delivery End Date is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
                         <label>Main image <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-9">
@@ -386,9 +415,9 @@
                         <div class="form-group">
                             <app-admin-multiple-images #images [images]="{ data: voucher.files}" [resizeToWidth]="720"
                                 [aspectRatio]="1 / 1"></app-admin-multiple-images>
-                            <div *ngIf="isSubmitted && invalidImages" class="text-danger">
+                            <!-- <div *ngIf="isSubmitted && invalidImages" class="text-danger">
                                 Choose at least one image
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -439,22 +468,6 @@
                             <div *ngIf="isSubmitted && !checkLocation" class="text-danger">
                                 Choose at least one location
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Member Level</label>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <mat-radio-group class="radio-group radio-group-type" [(ngModel)]="voucher.member_level"
-                                formControlName="member_level" name="member_level">
-                                <mat-radio-button class="radio-button" [value]="1">Member</mat-radio-button>
-                                <mat-radio-button class="radio-button" [value]="2">Silver</mat-radio-button>
-                                <mat-radio-button class="radio-button" [value]="3">Gold</mat-radio-button>
-                                <mat-radio-button class="radio-button" [value]="4">Platinum</mat-radio-button>
-                            </mat-radio-group>
                         </div>
                     </div>
                 </div>
@@ -539,7 +552,13 @@
                     cancel
                 </i> <span> {{ "cancel" | translate }}</span>
             </button>
-            <button class="btn btn-primary mr-1" [disabled]="!form.valid" (click)="onSave()">
+            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold === 0" [disabled]="!form.valid"
+                (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold >= 1" (click)="disableEdit()">
                 <i class="material-icons align-text-bottom">
                     save
                 </i> <span> {{ "save" | translate }}</span>

@@ -186,7 +186,7 @@
                               [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true" [cellClass]="'text-center d-flex justify-content-center'"
                               [headerClass]="'text-center d-flex justify-content-center'">
         </ngx-datatable-column>
-        <ngx-datatable-column name="ID" prop="id" [canAutoResize]="false" [resizeable]="false" [width]="70" ></ngx-datatable-column>
+        <ngx-datatable-column name="ID" prop="id" [canAutoResize]="false" [resizeable]="false" [width]="60" ></ngx-datatable-column>
         <ngx-datatable-column name="Cover" [canAutoResize]="false" [sortable]="false" [headerClass]="'text-center'" [cellClass]="'text-center'" >
             <ng-template let-row="row" ngx-datatable-cell-template class="d-flex justify-content-center">
                 <img class="img"
@@ -201,7 +201,7 @@
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Name" prop="name" [resizeable]="false" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="Type" prop="type" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="90">
+        <ngx-datatable-column name="Type" prop="type" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="80">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.type == 1">Paid</span>
                 <span *ngIf="row.type == 2">Try Free</span>
@@ -212,7 +212,13 @@
                 <span>{{row.category_name }}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Period" [resizeable]="false" [width]="180"  prop="event_bgnde">
+        <ngx-datatable-column name="Sale Period" [resizeable]="false" [width]="180"  prop="delivery_start">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>Start: {{ row.delivery_start | date : 'yyyy/MM/dd HH:mm' }}</span>
+                <span>End: {{ row.delivery_end | date : 'yyyy/MM/dd HH:mm' }}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Use Period" [resizeable]="false" [width]="180"  prop="event_bgnde">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>Start: {{ row.start_date | date : 'yyyy/MM/dd HH:mm' }}</span>
                 <span>End: {{ row.end_date | date : 'yyyy/MM/dd HH:mm' }}</span>
@@ -223,9 +229,14 @@
                 <span>{{row.count_down_type}}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Amount" [resizeable]="false" [width]="80"  prop="event_bgnde">
+        <ngx-datatable-column name="Amount" [resizeable]="false" [width]="70"  prop="event_bgnde">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span> {{row.amount}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Sold" prop="total_sold" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="70">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.total_sold}}</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Used" prop="total_used" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="70">
@@ -233,25 +244,25 @@
                 <span>{{row.total_used}}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Voucher Type" [resizeable]="false" [width]="100"  prop="voucher_type">
+        <!-- <ngx-datatable-column name="Voucher Type" [resizeable]="false" [width]="100"  prop="voucher_type">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.voucher_type == 1">Product</span>
                 <span *ngIf="row.voucher_type == 2">Exchange</span>
                 <span *ngIf="row.voucher_type == 3">Discount</span>
                 <span *ngIf="row.voucher_type == 4">Service</span>
             </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Value" prop="value" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="70">
+        </ngx-datatable-column> -->
+        <ngx-datatable-column name="Value" prop="value" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="80">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>{{row.value}}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Brand" prop="brand" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="70">
+        <ngx-datatable-column name="Brand" prop="brand" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="90">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>{{row.brand.code_nm}}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Deploy" prop="status" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="90">
+        <ngx-datatable-column name="Deploy" prop="status" [headerClass]="'text-center'" [cellClass]="'text-center'" [canAutoResize]="false" [resizeable]="false" [width]="80">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span *ngIf="row.status == 1 || row.status == 3 || row.status == 2">Enable</span>
                 <span *ngIf="row.status == 4">Disable</span>

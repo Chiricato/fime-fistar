@@ -114,6 +114,7 @@ import { AdminVoucherImagesComponent } from './admin/voucher-images/voucher-imag
 import { AdminVoucherImagesCreateComponent } from './admin/voucher-images-create/voucher-images-create.component';
 import { AdminVoucherComponent } from './admin/voucher/voucher.component';
 import { AdminVoucherDetailsComponent } from './admin/voucher-details/voucher-details.component';
+import { AdminVoucherTransactionComponent } from './admin/voucher-transaction/voucher-transaction.component';
 const appRoutes: Routes = [
     // User route here
     {
@@ -315,6 +316,7 @@ const appRoutes: Routes = [
             { path: 'voucher-images-edit/:id', component: AdminVoucherImagesCreateComponent },
             { path: 'voucher/add', component: AdminVoucherDetailsComponent},
             { path: 'voucher/edit/:id', component: AdminVoucherDetailsComponent},
+            { path: 'vouchers-transaction', component: AdminVoucherTransactionComponent},
             { path: 'street-log', component: AdminStreetLogComponent},
         ]
     },
