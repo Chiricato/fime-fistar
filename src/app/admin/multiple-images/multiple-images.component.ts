@@ -81,6 +81,9 @@ export class AdminMultipleImagesComponent implements OnInit, OnChanges {
         const files = event.target.files;
         const min = Math.min(maxImages, files.length);
         for (let i = 0; i < min; i++) {
+            if(files[i].size > 10485760){
+                break;
+            }
             if (this.imagesBase64.length > maxImages - 1) {
                 break;
             }
