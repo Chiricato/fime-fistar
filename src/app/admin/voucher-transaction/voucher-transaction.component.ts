@@ -22,7 +22,10 @@ export class AdminVoucherTransactionComponent implements OnInit {
         transaction_id: null,
         voucher_id: null,
         user_no: null,
-        redeem_date: null,
+        redeem_date_from: null,
+        redeem_date_to: null,
+        used_date_from: null,
+        used_date_to: null,
     };
     public column = 'id';
     public sort = 'desc';
@@ -57,12 +60,16 @@ export class AdminVoucherTransactionComponent implements OnInit {
 
 
     getVouchers() {
-        const redeem = this.filter.redeem_date ? formatDate(this.filter.redeem_date, 'MM/dd/yyyy', 'en-US') : null;
+        const redeem_date_from = this.filter.redeem_date_from ? formatDate(this.filter.redeem_date_from, 'MM/dd/yyyy', 'en-US') : null;
+        const redeem_date_to = this.filter.redeem_date_to ? formatDate(this.filter.redeem_date_to, 'MM/dd/yyyy', 'en-US') : null;
+        const used_date_from = this.filter.used_date_from ? formatDate(this.filter.used_date_from, 'MM/dd/yyyy', 'en-US') : null;
+        const used_date_to = this.filter.used_date_to ? formatDate(this.filter.used_date_to, 'MM/dd/yyyy', 'en-US') : null;
         this.api.all('voucher-transaction').customGET('',
             {
                 page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
                 transaction_id: this.filter.transaction_id, voucher_id: this.filter.voucher_id,
-                user_no: this.filter.user_no, redeem_date: redeem
+                user_no: this.filter.user_no, redeem_date_from: redeem_date_from, redeem_date_to: redeem_date_to,
+                used_date_from: used_date_from, used_date_to: used_date_to
             }).subscribe(res => {
             this.vouchers = res.result.data;
             console.log(this.vouchers);
@@ -97,7 +104,10 @@ export class AdminVoucherTransactionComponent implements OnInit {
             transaction_id: null,
             voucher_id: null,
             user_no: null ,
-            redeem_date: null,
+            redeem_date_from: null,
+            redeem_date_to: null,
+            used_date_from: null,
+            used_date_to: null,
         };
 
         this.getVouchers();

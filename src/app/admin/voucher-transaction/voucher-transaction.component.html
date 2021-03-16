@@ -44,14 +44,40 @@
                     <label>Redeem Date</label>
                     <div>
                         <mat-form-field class="half-width">
-                            <input matInput [matDatepicker]="redeem_date" placeholder="Redeem date" [(ngModel)]="filter.redeem_date">
-                            <mat-datepicker-toggle matSuffix [for]="redeem_date"></mat-datepicker-toggle>
-                            <mat-datepicker #redeem_date></mat-datepicker>
+                            <input matInput [matDatepicker]="redeem_date_from" placeholder="From" [(ngModel)]="filter.redeem_date_from">
+                            <mat-datepicker-toggle matSuffix [for]="redeem_date_from"></mat-datepicker-toggle>
+                            <mat-datepicker #redeem_date_from></mat-datepicker>
+                        </mat-form-field>
+                        
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="redeem_date_to" placeholder="To" [(ngModel)]="filter.redeem_date_to"
+                                [min]="filter.redeem_date_to">
+                            <mat-datepicker-toggle matSuffix [for]="redeem_date_to"></mat-datepicker-toggle>
+                            <mat-datepicker #redeem_date_to></mat-datepicker>
                         </mat-form-field>
                     </div>
                 </div>
             </div>
-            <div class="col-8">
+            <div class="col-4">
+                <div class="form-group">
+                    <label>Used Date</label>
+                    <div>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="used_date_from" placeholder="From" [(ngModel)]="filter.used_date_from"
+                                [max]="filter.used_date_from">
+                            <mat-datepicker-toggle matSuffix [for]="used_date_from"></mat-datepicker-toggle>
+                            <mat-datepicker #used_date_from></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="half-width">
+                            <input matInput [matDatepicker]="used_date_to" placeholder="To" [(ngModel)]="filter.used_date_to"
+                                [min]="filter.used_date_to">
+                            <mat-datepicker-toggle matSuffix [for]="used_date_to"></mat-datepicker-toggle>
+                            <mat-datepicker #used_date_to></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
                 <div class="pull-right">
                     <button class="btn btn-primary mr-1" (click)="onSearch()"><i
                             class="material-icons align-text-bottom">

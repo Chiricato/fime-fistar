@@ -26,7 +26,8 @@ export class AdminVoucherComponent implements OnInit {
         catalog: 'null',
         from: null,
         to: null,
-        voucher_type: 'null'
+        voucher_type: 'null',
+        status_voucher: 'null'
     };
     public column = 'id';
     public sort = 'desc';
@@ -102,7 +103,7 @@ export class AdminVoucherComponent implements OnInit {
                 page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
                 catalog: this.filter.catalog, brand: this.filter.brand,
                 name: this.filter.name, status: this.filter.status, type: this.filter.type, voucher_type: this.filter.voucher_type,
-                from: from, to: to,
+                from: from, to: to, status_voucher: this.filter.status_voucher
             }).subscribe(res => {
             this.vouchers = res.result.data;
             for (let i = 0; i < this.vouchers.length; i++) {
@@ -167,7 +168,8 @@ export class AdminVoucherComponent implements OnInit {
             catalog: 'null',
             from: null,
             to: null,
-            voucher_type: null
+            voucher_type: null,
+            status_voucher: null
         };
 
         this.getVouchers();

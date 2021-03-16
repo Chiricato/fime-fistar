@@ -30,11 +30,11 @@
                     <label>Status</label>
                     <div>
                         <mat-form-field class="full-width">
-                            <mat-select [(ngModel)]="filter.status">
+                            <mat-select [(ngModel)]="filter.status_voucher">
                                 <mat-option value="1">On Air</mat-option>
-                                <mat-option value="2">Active</mat-option>
-                                <mat-option value="3">Expired</mat-option>
-                                <mat-option value="4">Disable</mat-option>
+                                <mat-option value="2">Not For Sale</mat-option>
+                                <mat-option value="3">Active</mat-option>
+                                <mat-option value="4">Expired</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -134,7 +134,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-2">
+                <div class="form-group">
+                    <label>Deploy</label>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select [(ngModel)]="filter.status">
+                                <mat-option value="1">Enable</mat-option>
+                                <mat-option value="2">Disable</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
                 <div class="pull-right">
                     <button class="btn btn-primary mr-1" (click)="onSearch()"><i
                             class="material-icons align-text-bottom">
