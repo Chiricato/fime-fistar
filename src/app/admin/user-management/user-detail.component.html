@@ -73,7 +73,10 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Enter email"
                                        [(ngModel)]="user.email"
-                                       formControlName="email" name="email">       
+                                       formControlName="email" name="email">
+                                <div *ngIf="form.controls.email.errors && submitted" class="email-valid">
+                                    <small class="form-text text-muted" *ngIf="form.controls.email.errors.required">Vui lòng nhập email</small>
+                                </div>       
                             </div>
                         </div>
                     </div>
@@ -86,6 +89,9 @@
                                 <input type="text" class="form-control" placeholder="Enter phone number"
                                        [(ngModel)]="user.cellphone"
                                        formControlName="cellphone" name="cellphone">
+                                <div *ngIf="form.controls.cellphone.errors && submitted" class="email-valid">
+                                    <small class="form-text text-muted" *ngIf="form.controls.cellphone.errors.required">Vui lòng nhập số điện thoại</small>
+                                </div> 
                             </div>
                         </div>
                     </div>
@@ -98,6 +104,9 @@
                                 <input type="text" class="form-control" placeholder="Enter password"
                                        [(ngModel)]="user.password"
                                        formControlName="password" name="password">
+                                <div *ngIf="form.controls.cellphone.errors && password" class="email-valid">
+                                    <small class="form-text text-muted" *ngIf="form.controls.password.errors.required">Vui lòng nhập mật khẩu</small>
+                                </div> 
                             </div>
                         </div>
                     </div>
@@ -208,6 +217,75 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
+                            <label>Tên đường</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <ng-select [items]="streets" [(ngModel)]="user.street_id" bindValue="id" bindLabel="name"
+                                           formControlName="street_id" name="street_id" [virtualScroll]="true" (change)="changeStreet($event)">
+                                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                                        <span>{{ item.name }}</span>
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Thành phố/Tỉnh</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <ng-select [items]="cities" [(ngModel)]="user.city_id" bindValue="id" bindLabel="name"
+                                           formControlName="city_id" name="city_id" [virtualScroll]="true" (change)="changeCity($event)">
+                                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                                        <span>{{ item.name }}</span>
+                                    </ng-template>
+                                </ng-select>
+                                <div *ngIf="form.controls.city_id.errors && submitted" class="email-valid">
+                                    <small class="form-text text-muted" *ngIf="form.controls.city_id.errors.required">Vui lòng chọn thành phố</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Quận/huyện</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <ng-select [items]="states" [(ngModel)]="user.district_id" bindValue="id" bindLabel="name"
+                                           formControlName="district_id" name="district_id" [virtualScroll]="true" (change)="changeDistrict($event)">
+                                    <ng-template ng-option-tmp let-item="item" let-index="index" >
+                                        <span>{{ item.name }}</span>
+                                    </ng-template>
+                                </ng-select>
+                                <div *ngIf="form.controls.district_id.errors && submitted" class="email-valid">
+                                    <small class="form-text text-muted" *ngIf="form.controls.district_id.errors.required">Vui lòng chọn quận/huyện</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Phường/Xã</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <ng-select [items]="wards" [(ngModel)]="user.ward_id" bindValue="id" bindLabel="name"
+                                           formControlName="ward_id" name="ward_id" [virtualScroll]="true" (change)="changeWard($event)">
+                                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                                        <span>{{ item.name }}</span>
+                                    </ng-template>
+                                </ng-select>
+                                <div *ngIf="form.controls.ward_id.errors && submitted" class="email-valid">
+                                    <small class="form-text text-muted" *ngIf="form.controls.ward_id.errors.required">Vui lòng chọn phường/xã</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
                             <label>{{ "admin.users.address" | translate }}</label>
                         </div>
                         <div class="col-md-9">
@@ -215,6 +293,9 @@
                                 <textarea type="text" class="form-control" placeholder="Enter address"
                                           [(ngModel)]="user.home_addr1"
                                           formControlName="home_addr1" name="home_addr1"></textarea>
+                                <div *ngIf="form.controls.home_addr1.errors && submitted" class="email-valid">
+                                    <small class="form-text text-muted" *ngIf="form.controls.home_addr1.errors.required">Vui lòng nhập địa chỉ cụ thể</small>
+                                </div>
                             </div>
                         </div>
                     </div>
