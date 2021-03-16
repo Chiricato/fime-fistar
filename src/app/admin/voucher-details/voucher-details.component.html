@@ -41,14 +41,15 @@
                         <div class="form-group" *ngIf="voucher.type == '2'">
                             <ng-select [items]="tries" [(ngModel)]="voucher.try_id" bindValue="cntnts_no"
                                 bindLabel="cntnts_nm" formControlName="try_id" name="try_id" [virtualScroll]="true"
-                                *ngIf="!voucherId" >
+                                *ngIf="!voucherId">
                                 <ng-template ng-option-tmp let-item="item" let-index="index">
                                     <span (click)="changeTry(item.cntnts_no)">{{ item.cntnts_nm }}</span>
                                 </ng-template>
                             </ng-select>
                             <input type="text" class="form-control" [(ngModel)]="voucher.cntnts_nm"
                                 formControlName="try_id" name="try_id" *ngIf="voucherId" disabled />
-                            <a *ngIf="isShowBtnTry" target="_blank" routerLink="/admin/try/edit/{{tryfree_id}}" class="btn-try-detail">Details</a>
+                            <a *ngIf="isShowBtnTry" target="_blank" routerLink="/admin/try/edit/{{tryfree_id}}"
+                                class="btn-try-detail">Details</a>
                         </div>
                     </div>
                 </div>
@@ -115,8 +116,8 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <ng-select [items]="brands" [(ngModel)]="voucher.brand" bindValue="code" bindLabel="code_nm"
-                                formControlName="brand" name="brand" [virtualScroll]="true">
-                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                formControlName="brand" name="brand" [virtualScroll]="true" (change)="changeBrand($event)">
+                                <ng-template ng-option-tmp let-item="item" let-index="index" >
                                     <span>{{ item.code_nm }}</span>
                                 </ng-template>
                             </ng-select>
@@ -127,6 +128,24 @@
                                     Brand is required
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Store <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group store-group" formArrayName="store_info" *ngFor="let item of form.controls.store_info.controls; let i = index">
+                            <ng-container  [formGroupName]="i">
+                              <input type="text" placeholder="Store Name" formControlName="store_name" class="form-control store-name">
+                              <input type="text" placeholder="Store Address" formControlName="store_address" class="form-control store-address">
+                              <img src="/assets/icons/cancel.png" alt="Delete" (click)="removeStore(i)">
+                            </ng-container>
+                        </div>
+                        <div class="add-store">
+                            <img class="btn-add-store" src="/assets/icons/add_circle.png" (click)="addStore()" alt="Add store">
+                            <span>Add new store address</span>
                         </div>
                     </div>
                 </div>
@@ -186,9 +205,9 @@
                     <div class="col-md-9">
                         <div class="form-group">
                             <div>
-                                <mat-radio-group [(ngModel)]="voucher.sale_status" formControlName="sale_status">
-                                    <mat-radio-button [value]="1" (click)="changeStatus()">On Air</mat-radio-button>
-                                    <mat-radio-button [value]="2" (click)="changeStatus()">Not For Sale
+                                <mat-radio-group [(ngModel)]="voucher.sale_status" formControlName="sale_status" name="sale_status">
+                                    <mat-radio-button [value]="1">On Air</mat-radio-button>
+                                    <mat-radio-button [value]="2">Not For Sale
                                     </mat-radio-button>
                                 </mat-radio-group>
                             </div>
@@ -221,11 +240,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="form-group">
-                            <input type="text" class="form-control"
-                                *ngIf="voucher.voucher_type == 1 || voucher.voucher_type == 2 || voucher.voucher_type == 4"
-                                [(ngModel)]="voucher.value" formControlName="value" name="value" />
-                            <input type="number" class="form-control" *ngIf="voucher.voucher_type == 3"
-                                [(ngModel)]="voucher.value" formControlName="value" name="value" />
+                            <input type="text" class="form-control" [(ngModel)]="voucher.value" formControlName="value"
+                                name="value" />
                             <div *ngIf="form.controls.value.invalid && (form.controls.value.dirty || form.controls.value.touched)"
                                 class="text-danger">
                                 <div *ngIf="form.controls.value.errors.required">
@@ -266,7 +282,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="voucher.type == '1'">
+                <!-- <div class="row" *ngIf="voucher.type == '1'">
                     <div class="col-md-3">
                         <label>Point type <span style="color: red">(*)</span></label>
                     </div>
@@ -278,7 +294,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-3">
                         <label>Sale Start Date <span style="color: red">(*)</span></label>
@@ -436,8 +452,8 @@
                         <div class="form-group">
                             <mat-form-field class="example-chip-list col-12" *ngIf="isLoading">
                                 <mat-chip-list #chipList aria-label="Fruit selection">
-                                    <mat-chip *ngFor="let item of province" [selectable]="selectable"
-                                        [removable]="removable" (removed)="remove(item)">
+                                    <mat-chip *ngFor="let item of province;let i =index;" [selectable]="selectable"
+                                        [removable]="removable" (removed)="remove(item, i)">
                                         {{item}}
                                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                     </mat-chip>
@@ -447,7 +463,7 @@
                                         (matChipInputTokenEnd)="add($event)">
                                 </mat-chip-list>
                                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                                    <mat-option *ngFor="let item of filteredProvinces | async" [value]="item.id">
+                                    <mat-option *ngFor="let item of filteredProvinces | async" [value]="item">
                                         {{item.name}}
                                     </mat-option>
                                 </mat-autocomplete>
@@ -539,7 +555,19 @@
                     cancel
                 </i> <span> {{ "cancel" | translate }}</span>
             </button>
-            <button class="btn btn-primary mr-1" [disabled]="!form.valid" (click)="onSave()">
+            <button class="btn btn-primary mr-1" *ngIf="!voucherId" [disabled]="!form.valid"
+                (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold === 0 && voucherId" [disabled]="!form.valid"
+                (click)="onSave()">
+                <i class="material-icons align-text-bottom">
+                    save
+                </i> <span> {{ "save" | translate }}</span>
+            </button>
+            <button class="btn btn-primary mr-1" *ngIf="voucher.total_sold >= 1 && voucherId" (click)="disableEdit()">
                 <i class="material-icons align-text-bottom">
                     save
                 </i> <span> {{ "save" | translate }}</span>

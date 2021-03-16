@@ -464,6 +464,51 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" *ngIf="resource.resource.resource_type == 3">
+                    <div class="col-md-3">
+                        <label>Thumbnail Video</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <mat-card class="img-box">
+                                <mat-card-subtitle>
+                                    <div >
+                                        <span>Support .png, .jpg, .jpeg, .gif</span>
+                                        <label class="btn btn-outline-primary float-right">
+                                            <span>Select Thumbnail</span>
+                                            <input class="select-img" type="file" (change)="fileChangeEvent($event)"
+                                                   accept=".png, .jpg, .jpeg, .gif" >
+                                        </label>
+                                    </div>
+                                </mat-card-subtitle>
+                                <mat-card-content>
+                                    <div class="form-group">
+                                        <div>
+                                            <div *ngIf="required_upload_file_url" class="text-danger">
+                                                {{ "upload_file_url" | translate }}
+                                            </div>
+                                            <div class="image-crop-container">
+                                                <image-cropper *ngIf="needToCrop" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                                                               [aspectRatio]="67 / 47"
+                                                               [resizeToWidth]="670" format="png"
+                                                               (imageCropped)="imageCropped($event)"></image-cropper>
+                        
+                                                <img *ngIf="fileBase64 && !needToCrop" [src]="fileBase64" style="width: 100%; height: auto" />
+                                            </div>
+                                        </div>
+                                        <div class="banner_img">
+                                            <img [src]="env.rootHost + try.thumb_file_video" *ngIf="try.thumb_file_video"/>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                            <!-- <div *ngIf="isSubmitted && invalidImagesThumbnail"
+                                 class="text-danger">
+                                Choose at least one image thumbnail
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <label>Images <span style="color: red">(*)</span></label>
