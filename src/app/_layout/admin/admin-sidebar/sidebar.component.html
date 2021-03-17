@@ -42,12 +42,12 @@
                 </ul>
             </div>
             <div class="nested-menu"  *ngIf="user.role_id == 6 || user.permission.review">
-                <a mat-list-item (click)="addExpandClass('review')" [routerLink]="['/admin/reviews']"
+                <a mat-list-item (click)="addExpandClass('reviews')" [routerLink]="['/admin/reviews']"
                     [ngClass]="{'active': router.url === '/admin/reviews' || router.url === '/admin/ads' || router.url === '/admin/reviews/fimer'}">
                     <mat-icon class="sidenav-icon">rate_review</mat-icon>
                     <span>{{ 'FIMER REVIEWS' | translate }}</span>
                 </a>
-                <ul class="nested submenu" [class.expand]="showMenu === 'review'">
+                <ul class="nested submenu" [class.expand]="showMenu === 'reviews'">
                     <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
                         <a [routerLinkActive]="'active'" [routerLink]="['/admin/ads']"><span>{{ 'Ads' |
                             translate }}</span></a>
@@ -73,10 +73,10 @@
                         <a [routerLink]="['/admin/vouchers']"><span>{{ 'VOUCHER' | translate }}</span></a>
                     </li>
                     <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
-                        <a [routerLink]="['/admin/vouchers-transaction']"><span>{{ 'VOUCHER TRANSACTION' | translate }}</span></a>
+                        <a [routerLink]="['/admin/vouchers/vouchers-transaction']"><span>{{ 'VOUCHER TRANSACTION' | translate }}</span></a>
                     </li>
                     <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
-                        <a [routerLink]="['/admin/voucher-images']"><span>{{ 'VOUCHER IMAGES' | translate }}</span>
+                        <a [routerLink]="['/admin/vouchers/voucher-images']"><span>{{ 'VOUCHER IMAGES' | translate }}</span>
                         </a>
                     </li>
                 </ul>

@@ -24,11 +24,15 @@ export class AdminSidebarComponent implements OnInit {
     ngOnInit() {
         this.showMenu = '';
         
+        const arr_param = this.router.routerState.snapshot.url.split('/');
+        this.showMenu = arr_param[2];
+        console.log(this.showMenu);
         this.pushRightClass = 'push-right';
         // console.log(this.router.url.indexOf('/admin/request/partner'), "ROUTER")
     }
 
     addExpandClass(element: any) {
+        console.log(element);
         if (element === this.showMenu) {
             this.showMenu = '0';
         } else {

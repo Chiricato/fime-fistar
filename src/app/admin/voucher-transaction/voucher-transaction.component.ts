@@ -19,8 +19,8 @@ export class AdminVoucherTransactionComponent implements OnInit {
     public env: any;
     public total: any;
     public filter = {
-        transaction_id: null,
-        voucher_id: null,
+        used_code: null,
+        voucher_name: null,
         user_no: null,
         redeem_date_from: null,
         redeem_date_to: null,
@@ -67,7 +67,7 @@ export class AdminVoucherTransactionComponent implements OnInit {
         this.api.all('voucher-transaction').customGET('',
             {
                 page: this.pageIndex, pageSize: this.pageSize, column: this.column, sort: this.sort,
-                transaction_id: this.filter.transaction_id, voucher_id: this.filter.voucher_id,
+                used_code: this.filter.used_code, voucher_name: this.filter.voucher_name,
                 user_no: this.filter.user_no, redeem_date_from: redeem_date_from, redeem_date_to: redeem_date_to,
                 used_date_from: used_date_from, used_date_to: used_date_to
             }).subscribe(res => {
@@ -101,8 +101,8 @@ export class AdminVoucherTransactionComponent implements OnInit {
 
     onReset() {
         this.filter = {
-            transaction_id: null,
-            voucher_id: null,
+            used_code: null,
+            voucher_name: null,
             user_no: null ,
             redeem_date_from: null,
             redeem_date_to: null,
